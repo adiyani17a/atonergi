@@ -1,0 +1,563 @@
+<!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="{{url('/home')}}">
+          <img src="{{asset('assets/atonergi.png')}}" alt="logo" style="margin-left: auto;">
+          <!-- <h1 style="margin:auto; ">Kinaya</h1> -->
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}">
+          <img src="{{asset('assets/atonergi-mini.png')}}" alt="logo"/>
+          <!-- <h1 style="margin:auto; ">A</h1> -->
+        </a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+        <div class="search-field ml-4 d-none d-md-block">
+          <form class="d-flex align-items-stretch h-100" action="#">
+            <div class="input-group">
+              <input id="filterInput" type="text" class="form-control bg-transparent border-0" onchange="myFunction()" onfocus="myFunction()" onkeyup="myFunction()" placeholder="Search Menu">
+              <div class="input-group-btn">
+                <button id="btn-reset" type="button" class="btn bg-transparent px-0 d-none" onclick="btnReset()" style="cursor: pointer;"><i class="fa fa-times"></i></button>
+                <!-- <button type="button" class="btn bg-transparent dropdown-toggle px-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="mdi mdi-earth"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="#">Today</a>
+                  <a class="dropdown-item" href="#">This week</a>
+                  <a class="dropdown-item" href="#">This month</a>
+                  <div role="separator" class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Month and older</a>
+                </div> -->
+              </div>
+              <div class="input-group-addon bg-transparent border-0 search-button">
+                <button type="button" class="btn btn-sm bg-transparent px-0">
+                  <i class="mdi mdi-magnify"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item d-none d-lg-block full-screen-link">
+            <a class="nav-link">
+              <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <i class="mdi mdi-email-outline"></i>
+              <span class="count"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+              <h6 class="p-3 mb-0">Messages</h6>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="{{asset('assets/images/faces/face4.jpg')}}" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
+                  <p class="text-gray mb-0">
+                    1 Minutes ago
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="{{asset('assets/images/faces/face2.jpg')}}" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
+                  <p class="text-gray mb-0">
+                    15 Minutes ago
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                    <img src="{{asset('assets/images/faces/face3.jpg')}}" alt="image" class="profile-pic">
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
+                  <p class="text-gray mb-0">
+                    18 Minutes ago
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <h6 class="p-3 mb-0 text-center">4 new messages</h6>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="mdi mdi-bell-outline"></i>
+              <span class="count"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              <h6 class="p-3 mb-0">Notifications</h6>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="mdi mdi-calendar"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                  <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
+                  <p class="text-gray ellipsis mb-0">
+                    Just a reminder that you have an event today
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="mdi mdi-settings"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                  <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
+                  <p class="text-gray ellipsis mb-0">
+                    Update dashboard
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="mdi mdi-link-variant"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                  <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
+                  <p class="text-gray ellipsis mb-0">
+                    New admin wow!
+                  </p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <h6 class="p-3 mb-0 text-center">See all notifications</h6>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <img src="{{asset('assets/images/faces/face1.jpg')}}" alt="image">
+              <span class="d-none d-lg-inline">{{Auth::user()->name}}</span>
+            </a>
+            <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="#">
+                <i class="mdi mdi-cached mr-2 text-success"></i>
+                Activity Log
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                Signout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-logout d-none d-lg-block">
+            <a class="nav-link" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+              <i class="mdi mdi-power"></i>
+            </a>
+          </li>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              {{ csrf_field() }}
+          </form>
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-format-line-spacing"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+        <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <div class="row row-offcanvas row-offcanvas-right">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav" id="ayaysir">
+            <li class="nav-item {{Request::is('home') ? 'active' : ''}}">
+              <a class="nav-link" href="{{url('/home')}}">
+                <span class="menu-title">Dashboard</span>
+                <span class="menu-sub-title">( 2 new updates )</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item {{Request::is('master') ? 'active' : '' || Request::is('master/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Master</span>
+                <span class="d-none">
+                 
+                  Master Data Customer
+                  Master Data Vendor
+                  Master Data Pegawai
+                  Master Data Akun Keuangan
+                  Master Data Transaksi Keuangan
+                  Master Data Barang
+                  Master Data Bundle Item
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('master') ? 'show' : '' || Request::is('master/*') ? 'show' : '' }}" id="master">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/vendor/vendor') ? 'active' : '' || Request::is('master/vendor/*') ? 'active' : '' }}" href="{{url('master/vendor/vendor')}}">Master Data Vendor</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/customer/cust') ? 'active' : '' || Request::is('master/customer/*') ? 'active' : '' }}" href="{{url('master/customer/cust')}}">Master Data Customer</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/pegawai/pegawai') ? 'active' : '' || Request::is('master/pegawai/*') ? 'active' : '' }}" href="{{url('master/pegawai/pegawai')}}">Master Data Pegawai</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/akun/a_keuangan') ? 'active' : '' || Request::is('master/akun/*') ? 'active' : '' }}" href="{{url('master/akun/a_keuangan')}}">Master Data Akun Keuangan</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/transaksi/t_keuangan') ? 'active' : '' || Request::is('master/transaksi/*') ? 'active' : '' }}" href="{{url('master/transaksi/t_keuangan')}}">Master Data Transaksi<br> Keuangan</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/barang/barang') ? 'active' : '' || Request::is('master/barang/*') ? 'active' : '' }}" href="{{url('master/barang/barang')}}">Master Data Barang</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/bundle/bundle') ? 'active' : '' || Request::is('master/bundle/*') ? 'active' : '' }}" href="{{url('master/bundle/bundle')}}">Master Data Bundle Item</a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item {{Request::is('quotation') ? 'active' : '' || Request::is('quotation/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#m_pembelian" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Quotation</span>
+                <span class="d-none">
+                  Tim Marketing
+                  Nilai Penawaran
+                  Klasifikasi Penawaran
+                  Penawaran : PDF
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-format-quote-close menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('quotation') ? 'show' : '' || Request::is('quotation/*') ? 'show' : '' }}" id="m_pembelian">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('quotation/q_quotation/q_quotation') ? 'active' : '' || Request::is('quotation/q_quotation/*') ? 'active' : '' }}" href="{{url('quotation/q_quotation/q_quotation')}}">Quotation</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('quotation/marketing/marketing') ? 'active' : '' || Request::is('quotation/marketing/*') ? 'active' : '' }}" href="{{url('quotation/marketing/marketing')}}">Tim Marketing<span class="d-none">Quotation</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('quotation/n_penawaran/n_penawaran') ? 'active' : '' || Request::is('quotation/n_penawaran/*') ? 'active' : '' }}" href="{{url('quotation/n_penawaran/n_penawaran')}}">Nilai Penawaran<span class="d-none">Quotation</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('quotation/k_penawaran/k_penawaran') ? 'active' : '' || Request::is('quotation/k_penawaran/*') ? 'active' : '' }}" href="{{url('quotation/k_penawaran/k_penawaran')}}">Klasifikasi Penawaran<span class="d-none">Quotation</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('quotation/pdf_penawaran/pdf_penawaran') ? 'active' : '' || Request::is('quotation/pdf_penawaran/*') ? 'active' : '' }}" href="{{url('quotation/pdf_penawaran/pdf_penawaran')}}">Penawaran : PDF<span class="d-none">Quotation</span></a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item {{Request::is('order') ? 'active' : '' || Request::is('order/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#m_stock" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Order</span>
+                <span class="d-none">
+                  Proforma Invoice
+                  Pembayaran Deposit
+                  Sales Order
+                  Check Stock
+                  Work Order
+                  Sales Invoice
+                  Checklist Form
+                  Payment Order
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-cart menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('order') ? 'show' : '' || Request::is('order/*') ? 'show' : '' }}" id="m_stock">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/proforma/proforma') ? 'active' : '' || Request::is('order/proforma/*') ? 'active' : '' }}" href="{{url('order/proforma/proforma')}}">Proforma Invoice<span class="d-none">Order</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/pembayarandeposit/pembayarandeposit') ? 'active' : '' || Request::is('order/pembayarandeposit/*') ? 'active' : '' }}" href="{{url('order/pembayarandeposit/pembayarandeposit')}}">Pembayaran Deposit<span class="d-none">Order</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/salesorder/s_order') ? 'active' : '' || Request::is('order/salesorder/*') ? 'active' : '' }}" href="{{url('order/salesorder/s_order')}}"> Sales Order<span class="d-none">Order</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/cekbarang/cekbarang') ? 'active' : '' || Request::is('order/cekbarang/*') ? 'active' : '' }}" href="{{url('order/cekbarang/cekbarang')}}">Check Stock<span class="d-none">Order</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/workorder/w_order') ? 'active' : '' || Request::is('order/workorder/*') ? 'active' : '' }}" href="{{url('order/workorder/w_order')}}">Work Order<span class="d-none">Order</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/s_invoice/s_invoice') ? 'active' : '' || Request::is('order/s_invoice/*') ? 'active' : '' }}" href="{{url('order/s_invoice/s_invoice')}}">Sales Invoice<span class="d-none">Order</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/checklistform/checklistform') ? 'active' : '' || Request::is('order/checklistform/*') ? 'active' : '' }}" href="{{url('order/checklistform/checklistform')}}">Checklist Form<span class="d-none">Order</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/pelunasanorder/pelunasanorder') ? 'active' : '' || Request::is('order/pelunasanorder/*') ? 'active' : '' }}" href="{{url('order/pelunasanorder/pelunasanorder')}}">Payment Order<span class="d-none">Order</span></a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item {{Request::is('purchase') ? 'active' : '' || Request::is('purchase/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#m_penjualan" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Purchase</span>
+                <span class="d-none">
+                  
+                  Rencana Pembelian
+                  Belanja Langsung
+                  Purchase Order
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-credit-card menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('purchase') ? 'show' : '' || Request::is('purchase/*') ? 'show' : '' }}" id="m_penjualan">
+                <ul class="nav flex-column sub-menu">
+                  
+                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/rencanapembelian/rencanapembelian') ? 'active' : '' || Request::is('purchase/rencanapembelian/*') ? 'active' : '' }}" href="{{url('purchase/rencanapembelian/rencanapembelian')}}">Rencana Pembelian<span class="d-none">Purchase</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/belanjalangsung/belanjalangsung') ? 'active' : '' || Request::is('purchase/belanjalangsung/*') ? 'active' : '' }}" href="{{url('purchase/belanjalangsung/belanjalangsung')}}">Belanja Langsung<span class="d-none">Purchase</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/purchaseorder/purchaseorder') ? 'active' : '' || Request::is('purchase/purchaseorder/*') ? 'active' : '' }}" href="{{url('purchase/purchaseorder/purchaseorder')}}">Purchase Order<span class="d-none">Purchase</span></a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item {{
+            Request::is('projectmp') ? 'active' : '' 
+            || Request::is('projectmp/*') ? 'active' : '' 
+            || Request::is('projectms') ? 'active' : '' 
+            || Request::is('projectms/*') ? 'active' : '' 
+            || Request::is('project') ? 'active' : '' 
+            || Request::is('project/*') ? 'active' : '' 
+          }}">
+              <a class="nav-link" data-toggle="collapse" href="#pompa" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Project Manajemen <br>Pompa / SHS</span>
+                <span class="d-none">
+                  Pengadaan Barang
+                  Pengepakan Barang
+                  Pengiriman Barang
+                  Pemasangan
+                  Schedule Uji Coba
+                  Sales Common
+                  Technician Fee
+                  Dokumentasi
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-engine menu-icon"></i>
+              </a>
+              <div class="collapse {{
+              Request::is('projectmp') ? 'show' : '' 
+              || Request::is('projectmp/*') ? 'show' : ''
+              || Request::is('projectms') ? 'show' : '' 
+              || Request::is('projectms/*') ? 'show' : ''  
+              ||Request::is('project') ? 'show' : '' 
+              || Request::is('project/*') ? 'show' : '' 
+            }}" id="pompa">
+                <ul class="nav flex-column sub-menu">
+
+                  <li class="nav-item"> <a class="nav-link {{
+                    Request::is('projectmp/pmp_pengadaanbarang/pmp_pengadaanbarang') ? 'active' : '' 
+                    || Request::is('projectmp/pmp_pengadaanbarang/*') ? 'active' : '' 
+                    || Request::is('projectms/shs_pengadaanbarang/shs_pengadaanbarang') ? 'active' : '' 
+                    || Request::is('projectms/shs_pengadaanbarang/*') ? 'active' : ''
+                    || Request::is('project/pilih_pengadaanbarang/pilih_pengadaanbarang') ? 'active' : '' 
+                    || Request::is('project/pilih_pengadaanbarang/*') ? 'active' : ''
+                  }}" href="{{url('project/pilih_pengadaanbarang/pilih_pengadaanbarang')}}">Pengadaan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{
+                    Request::is('projectmp/pmp_pengepakanbarang/pmp_pengepakanbarang') ? 'active' : '' 
+                    || Request::is('projectmp/pmp_pengepakanbarang//*') ? 'active' : '' 
+                    || Request::is('projectms/shs_pengepakanbarang/shs_pengepakanbarang') ? 'active' : '' 
+                    || Request::is('projectms/shs_pengepakanbarang//*') ? 'active' : ''
+                    || Request::is('project/pilih_pengepakanbarang/pilih_pengepakanbarang') ? 'active' : '' 
+                    || Request::is('project/pilih_pengepakanbarang/*') ? 'active' : ''
+                  }}" href="{{url('project/pilih_pengepakanbarang/pilih_pengepakanbarang')}}">Pengepakan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{Request::is('projectmp/pmp_pengirimanbarang/pmp_pengirimanbarang') ? 'active' : '' 
+                    || Request::is('projectmp/pmp_pengirimanbarang/*') ? 'active' : '' 
+                    || Request::is('projectms/shs_pengirimanbarang/shs_pengirimanbarang') ? 'active' : '' 
+                    || Request::is('projectms/shs_pengirimanbarang/*') ? 'active' : '' 
+
+                    || Request::is('project/pilih_pengirimanbarang/pilih_pengirimanbarang') ? 'active' : '' 
+                    || Request::is('project/pilih_pengirimanbarang/*') ? 'active' : '' 
+                  }}" href="{{url('project/pilih_pengirimanbarang/pilih_pengirimanbarang')}}">Pengiriman Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{
+                    Request::is('projectmp/pmp_pemasangan/pmp_pemasangan') ? 'active' : '' 
+                    || Request::is('projectmp/pmp_pemasangan/*') ? 'active' : '' 
+                    || Request::is('projectms/shs_pemasangan/shs_pemasangan') ? 'active' : '' 
+                    || Request::is('projectms/shs_pemasangan/*') ? 'active' : '' 
+                    || Request::is('project/pilih_pemasangan/pilih_pemasangan') ? 'active' : '' 
+                    || Request::is('project/pilih_pemasangan/*') ? 'active' : '' 
+                  }}" href="{{url('project/pilih_pemasangan/pilih_pemasangan')}}">Pemasangan<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{
+                    Request::is('projectmp/pmp_jadwalujicoba/pmp_jadwalujicoba') ? 'active' : ''
+                   || Request::is('projectmp/pmp_jadwalujicoba/*') ? 'active' : '' 
+                   || Request::is('projectms/shs_jadwalujicoba/shs_jadwalujicoba') ? 'active' : '' 
+                   || Request::is('projectms/shs_jadwalujicoba/*') ? 'active' : ''
+                   || Request::is('project/pilih_jadwalujicoba/pilih_jadwalujicoba') ? 'active' : '' 
+                   || Request::is('project/pilih_jadwalujicoba/*') ? 'active' : ''
+                 }}" href="{{url('project/pilih_jadwalujicoba/pilih_jadwalujicoba')}}">Schedule Uji Coba<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{
+                    Request::is('projectmp/pmp_salescommon/pmp_salescommon') ? 'active' : '' 
+                    || Request::is('projectmp/pmp_salescommon/*') ? 'active' : '' 
+                    || Request::is('projectms/shs_salescommon/shs_salescommon') ? 'active' : '' 
+                    || Request::is('projectms/shs_salescommon/*') ? 'active' : '' 
+                    || Request::is('project/pilih_salescommon/pilih_salescommon') ? 'active' : '' 
+                    || Request::is('project/pilih_salescommon/*') ? 'active' : '' 
+                  }}" href="{{url('project/pilih_salescommon/pilih_salescommon')}}">Sales Common<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{
+                    Request::is('projectmp/pmp_technicianfee/pmp_technicianfee') ? 'active' : '' 
+                    || Request::is('projectmp/pmp_technicianfee/*') ? 'active' : '' 
+                    || Request::is('projectms/shs_technicianfee/shs_technicianfee') ? 'active' : '' 
+                    || Request::is('projectms/shs_technicianfee/*') ? 'active' : '' 
+                    || Request::is('project/pilih_technicianfee/pilih_technicianfee') ? 'active' : '' 
+                    || Request::is('project/pilih_technicianfee/*') ? 'active' : '' 
+                  }}" href="{{url('project/pilih_technicianfee/pilih_technicianfee')}}">Technician Fee<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{
+                    Request::is('projectmp/pmp_dokumentasi/pmp_dokumentasi') ? 'active' : '' 
+                    || Request::is('projectmp/pmp_dokumentasi/*') ? 'active' : '' 
+                    || Request::is('projectms/shs_dokumentasi/shs_dokumentasi') ? 'active' : '' 
+                    || Request::is('projectms/shs_dokumentasi/*') ? 'active' : '' 
+                    || Request::is('project/pilih_dokumentasi/pilih_dokumentasi') ? 'active' : '' 
+                    || Request::is('project/pilih_dokumentasi/*') ? 'active' : '' 
+                  }}" href="{{url('project/pilih_dokumentasi/pilih_dokumentasi')}}">Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+
+                </ul>
+
+                </div>
+            </li>
+            
+            <li class="nav-item {{Request::is('aftersales') ? 'active' : '' || Request::is('aftersales/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#aftersales" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">After Sales Service</span>
+                <span class="d-none">
+                  Tanda Terima Service
+                  Kebutuhan Biaya
+                  Repair Order
+                  Rencana Tindakan
+                  Repair Report
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-currency-usd menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('aftersales') ? 'show' : '' || Request::is('aftersales/*') ? 'show' : '' }}" id="aftersales">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/tandaterima/tandaterima') ? 'active' : '' || Request::is('aftersales/tandaterima/*') ? 'active' : '' }}" href="{{url('aftersales/tandaterima/tandaterima')}}">Tanda Terima Service<span class="d-none">After Sales Service</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/kebutuhanbiaya/kebutuhanbiaya') ? 'active' : '' || Request::is('aftersales/kebutuhanbiaya/*') ? 'active' : '' }}" href="{{url('aftersales/kebutuhanbiaya/kebutuhanbiaya')}}">Kebutuhan Biaya<span class="d-none">After Sales Service</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/repairorder/repairorder') ? 'active' : '' || Request::is('aftersales/repairorder/*') ? 'active' : '' }}" href="{{url('aftersales/repairorder/repairorder')}}">Repair Order<span class="d-none">After Sales Service</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/rencanatindakan/rencanatindakan') ? 'active' : '' || Request::is('aftersales/rencanatindakan/*') ? 'active' : '' }}" href="{{url('aftersales/rencanatindakan/rencanatindakan')}}">Rencana Tindakan<span class="d-none">After Sales Service</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/repairreport/repairreport') ? 'active' : '' || Request::is('aftersales/repairreport/*') ? 'active' : '' }}" href="{{url('aftersales/repairreport/repairreport')}}">Repair Report<span class="d-none">After Sales Service</span></a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item {{Request::is('inventory') ? 'active' : '' || Request::is('inventory/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#inven" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Inventory</span>
+                <span class="d-none">
+                  Barang Masuk
+                  Barang Keluar
+                  Stock Opname
+                  Maintenance
+                  
+                  Surat Pinjam Barang
+                  Barcode Support
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-arrow-up-bold-box-outline menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('inventory') ? 'show' : '' || Request::is('inventory/*') ? 'show' : '' }}" id="inven">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangmasuk/barangmasuk') ? 'active' : '' || Request::is('inventory/barangmasuk/*') ? 'active' : '' }}" href="{{url('inventory/barangmasuk/barangmasuk')}}">Barang Masuk<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangkeluar/barangkeluar') ? 'active' : '' || Request::is('inventory/barangkeluar/*') ? 'active' : '' }}" href="{{url('inventory/barangkeluar/barangkeluar')}}">Barang Keluar<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/opname/opname') ? 'active' : '' || Request::is('inventory/opname/*') ? 'active' : '' }}" href="{{url('inventory/opname/opname')}}">Stock Opname<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/maintenance/maintenance') ? 'active' : '' || Request::is('inventory/maintenance/*') ? 'active' : '' }}" href="{{url('inventory/maintenance/maintenance')}}">Maintenance<span class="d-none">Inventory</span></a></li>
+                  
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/suratpinjambarang/suratpinjambarang') ? 'active' : '' || Request::is('inventory/suratpinjambarang/*') ? 'active' : '' }}" href="{{url('inventory/suratpinjambarang/suratpinjambarang')}}">Surat Pinjam Barang<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barcode/barcode') ? 'active' : '' || Request::is('inventory/barcode/*') ? 'active' : '' }}" href="{{url('inventory/barcode/barcode')}}">Barcode Support<span class="d-none">Inventory</span></a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item {{Request::is('hrd') ? 'active' : '' || Request::is('hrd/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#hrd" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">HRD</span>
+                <span class="d-none">
+                  Rekruitment
+                  Payroll
+                  Freelance
+                  Kesejahteraan
+                  KPI
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('hrd') ? 'show' : '' || Request::is('hrd/*') ? 'show' : '' }}" id="hrd">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('hrd/rekruitment/rekruitment') ? 'active' : '' || Request::is('hrd/rekruitment/*') ? 'active' : '' }}" href="{{url('hrd/rekruitment/rekruitment')}}">Rekruitment<span class="d-none">HRD</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('hrd/payroll/payroll') ? 'active' : '' || Request::is('hrd/payroll/*') ? 'active' : '' }}" href="{{url('hrd/payroll/payroll')}}">Payroll<span class="d-none">HRD</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('hrd/freelance/freelance') ? 'active' : '' || Request::is('hrd/freelance/*') ? 'active' : '' }}" href="{{url('hrd/freelance/freelance')}}">Freelance<span class="d-none">HRD</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('hrd/kesejahteraan/kesejahteraan') ? 'active' : '' || Request::is('hrd/kesejahteraan/*') ? 'active' : '' }}" href="{{url('hrd/kesejahteraan/kesejahteraan')}}">Kesejahteraan<span class="d-none">HRD</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('hrd/kpi/kpi') ? 'active' : '' || Request::is('hrd/kpi/*') ? 'active' : '' }}" href="{{url('hrd/kpi/kpi')}}">KPI<span class="d-none">HRD</span></a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item {{Request::is('finance') ? 'active' : '' || Request::is('finance/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#finance" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Finance</span>
+                <span class="d-none">
+                  Cost Manajemen
+                  Bookkeeping
+                  Reporting
+                  Evaluating
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-chart-areaspline menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('finance') ? 'show' : '' || Request::is('finance/*') ? 'show' : '' }}" id="finance">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('finance/costmanajemen/costmanajemen') ? 'active' : '' || Request::is('finance/costmanajemen/*') ? 'active' : '' }}" href="{{url('finance/costmanajemen/costmanajemen')}}">Cost Manajemen<span class="d-none">Finance</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('finance/bookkeeping/bookkeeping') ? 'active' : '' || Request::is('finance/bookkeeping/*') ? 'active' : '' }}" href="{{url('finance/bookkeeping/bookkeeping')}}">Bookkeeping<span class="d-none">Finance</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('finance/reporting/reporting') ? 'active' : '' || Request::is('finance/reporting/*') ? 'active' : '' }}" href="{{url('finance/reporting/reporting')}}">Reporting<span class="d-none">Finance</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('finance/evaluating/evaluating') ? 'active' : '' || Request::is('finance/evaluating/*') ? 'active' : '' }}" href="{{url('finance/evaluating/evaluating')}}">Evaluating<span class="d-none">Finance</span></a></li>
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item {{Request::is('manajemenaset') ? 'active' : '' || Request::is('manajemenaset/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#aset" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Manajemen Aset</span>
+                <span class="d-none">
+                  Irventarisasi
+                  History
+                  Penyusutan
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-chart-line menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('manajemenaset') ? 'show' : '' || Request::is('manajemenaset/*') ? 'show' : '' }}" id="aset">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('manajemenaset/irventarisasi/irventarisasi') ? 'active' : '' || Request::is('manajemenaset/irventarisasi/*') ? 'active' : '' }}" href="{{url('manajemenaset/irventarisasi/irventarisasi')}}">Irventarisasi<span class="d-none">Manajemen Aset</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('manajemenaset/history/history') ? 'active' : '' || Request::is('manajemenaset/history/*') ? 'active' : '' }}" href="{{url('manajemenaset/history/history')}}">History<span class="d-none">Manajemen Aset</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('manajemenaset/penyusutan/penyusutan') ? 'active' : '' || Request::is('manajemenaset/penyusutan/*') ? 'active' : '' }}" href="{{url('manajemenaset/penyusutan/penyusutan')}}">Penyusutan<span class="d-none">Manajemen Aset</span></a></li>
+                </ul>
+                </div>
+            </li>
+          </ul>
+          
+        </nav>
+
+
+<script>
+  
+  function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("filterInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("ayaysir");
+    li = ul.getElementsByTagName("li");
+    button = document.getElementById('btn-reset');
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+    
+
+    if (input.value != 0 ) {
+      button.classList.remove('d-none');
+    } else {
+      button.classList.add('d-none');
+    }
+    
+}
+  function btnReset() {
+    input = document.getElementById("filterInput");
+    input.value=null;
+    input.focus();
+  }
+
+
+</script>
