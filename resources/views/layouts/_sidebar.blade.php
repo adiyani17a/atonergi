@@ -156,22 +156,18 @@
                 Activity Log
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+              <a class="dropdown-item" href="{{ url('logout') }}">
                 <i class="mdi mdi-logout mr-2 text-primary"></i>
                 Signout
               </a>
             </div>
           </li>
           <li class="nav-item nav-logout d-none d-lg-block">
-            <a class="nav-link" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+            <a class="nav-link" href="{{ url('logout') }}">
               <i class="mdi mdi-power"></i>
             </a>
           </li>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          <form id="logout-form" action="{{ url('logout') }}" method="post" style="display: none;">
               {{ csrf_field() }}
           </form>
           <li class="nav-item nav-settings d-none d-lg-block">
@@ -198,11 +194,34 @@
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
+            <li class="nav-item {{Request::is('setting') ? 'active' : '' || Request::is('setting/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#setting" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Setting</span>
+                <span class="d-none">
+                  Setting Jabatan
+                  Setting Account 
+                  Setting Hak Akses
+                  Setting Daftar Menu
+                </span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-settings menu-icon"></i>
+              </a>
+              <div class="collapse {{Request::is('setting') ? 'show' : '' || Request::is('setting/*') ? 'show' : '' }}" id="setting">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link {{Request::is('setting/jabatan') ? 'active' : '' || Request::is('setting/jabatan/*') ? 'active' : '' }}" href="{{url('setting/jabatan')}}">Setting Jabatan</a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{Request::is('setting/akun') ? 'active' : '' || Request::is('setting/akun/*') ? 'active' : '' }}" href="{{url('setting/akun')}}">Setting Account </a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{Request::is('setting/hak_akses') ? 'active' : '' || Request::is('setting/hak_akses/*') ? 'active' : '' }}" href="{{url('setting/hak_akses')}}">Setting Hak Akses</a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{Request::is('setting/daftar_menu') ? 'active' : '' || Request::is('setting/daftar_menu/*') ? 'active' : '' }}" href="{{url('setting/daftar_menu')}}">Setting Daftar Menu</a></li>
+                </ul>
+                </div>
+            </li>
             <li class="nav-item {{Request::is('master') ? 'active' : '' || Request::is('master/*') ? 'active' : '' }}">
               <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Master</span>
                 <span class="d-none">
-                 
                   Master Data Customer
                   Master Data Vendor
                   Master Data Pegawai

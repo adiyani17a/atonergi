@@ -4,6 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests;
+
+use App\mMember;
+
+use App\Authentication;
+
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +31,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // return Auth::user()->m_id;
+        // return 'asd';
         return view('home');
     }
 }

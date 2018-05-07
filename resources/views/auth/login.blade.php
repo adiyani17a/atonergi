@@ -37,7 +37,7 @@
   <div class="limiter">
     <div class="container-login100" style="background-image: url('assets/login-v3/images/bg-01.jpg');">
       <div class="wrap-login100">
-        <form class="login100-form validate-form" method="GET" action="{{ url('login') }}">
+        <form class="login100-form validate-form" autocomplete="off" method="GET" action="{{ url('login') }}">
           {{ csrf_field() }}
          <!--  <span class="login100-form-logo">
             <i class="zmdi zmdi-landscape"></i>
@@ -51,29 +51,26 @@
           </span>
 
           <div class="wrap-input100 validate-input" data-validate = "Enter Username">
-            <input required="" class="input100" type="text" name="username" id="username" placeholder="Username" autofocus="">
+            <input required="" class="input100" autocomplete="off" value="" type="text" name="username" id="username" placeholder="Username" autofocus="">
             <span class="focus-input100" data-placeholder="&#xf207;"></span>
             @if (session('username'))
               <div class="red"  style="color: red"><b>Username Tidak Ada</b></div>
             @endif
-            @if(isset($cari_pass))
-            <div class="red"  style="color: red"><b>Username Tidak Ada</b></div>
-            @endif
           </div>
           <div class="wrap-input100 validate-input" data-validate="Enter password">
-            <input required="" class="input100" type="password" name="password" id="password" placeholder="Password">
+            <input required="" class="input100" autocomplete="off" value="" type="password" name="password" id="password" placeholder="Password">
             <span class="focus-input100" data-placeholder="&#xf191;"></span>
-            @if(isset($cari_pass))
+            @if (session('password'))
             <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
             @endif
           </div>
-
+{{-- 
           <div class="contact100-form-checkbox">
             <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
             <label class="label-checkbox100" for="ckb1">
               Remember me
             </label>
-          </div>
+          </div> --}}
 
           <div class="container-login100-form-btn">
             <button type="submit" class="login100-form-btn">
@@ -113,3 +110,9 @@
 
 </body>
 </html>
+<script type="text/javascript">
+window.onload = function(e){ 
+  $('#username').val(null);
+  $('#password').val(null);
+}
+</script>

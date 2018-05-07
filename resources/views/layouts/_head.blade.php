@@ -27,6 +27,10 @@
   <!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/data-table.min.css')}}"> -->
 
   <!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/datepicker/css/bootstrap-datepicker3.min.css')}}"> -->
+  {{-- TOASTR --}}
+  <link rel="stylesheet" href="{{asset('node_modules/izitoast/dist/css/iziToast.min.css')}}">
+  <link rel="stylesheet" href="{{asset('node_modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css')}}" />
+
   <style type="text/css">
   
   td > div.form-check.form-check-flat > label.form-check-label {
@@ -40,6 +44,23 @@
     -webkit-transition: 0.3s;
     background-color: rgba(0,0,0,0.2);
     border-radius: 3px;
+}
+.huruf_besar{
+  text-transform: uppercase;
+}
+.disabled{
+  pointer-events: none;
+  opacity: 0.7;
+}
+.center{
+  text-align: center;
+}
+
+.right{
+  text-align: right;
+}
+.left{
+  text-align: left;
 }
 </style>
 </head>

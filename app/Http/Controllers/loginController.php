@@ -14,7 +14,8 @@ use Session;
 use DB;
 
 class loginController extends Controller
-{
+{   
+
     public function __construct(){
         $this->middleware('guest');
     }
@@ -35,6 +36,7 @@ class loginController extends Controller
     }
 
     public function authenticate(Request $req) {
+
         $rules = array(
             'username' => 'required|min:3', // make sure the email is an actual email
             'password' => 'required|min:2' // password can only be alphanumeric and has to be greater than 3 characters
@@ -46,42 +48,38 @@ class loginController extends Controller
                             ->withErrors($validator) // send back all errors to the login form
                             ->withInput($req->except('password')); // send back the input (not the password) so that we can repopulate the form
         } else {
-            $username = $req->username;
-            $password = $req->password;
+            $username  = $req->username;
+            $password  = $req->password;
            	$pass_benar=sha1(md5('passwordAllah').$password);
-            $cari_user = DB::table('d_mem')
-            			   ->where('m_username',$username)
-            			   ->first();
+            
+            $user = mMember::whereRaw("m_username = '$username'")->first();
 
             $user_valid = [];
+            // dd($req->all());
 
-           	if ($cari_user != null) {
-           		array_push($user_valid,1);
+           	if ($user != null) {
+           		$user_pass = mMember::where('m_username',$username)
+	            			          ->where('m_password',$pass_benar)
+	            			          ->first();
 
-           		$cari_pass = DB::table('d_mem')
-	            			   ->where('m_username',$username)
-	            			   ->where('m_password',$pass_benar)
-	            			   ->first();
-
-            	if ($cari_pass != null) {
-           			array_push($user_valid,1);
-           			DB::table('d_mem')->where('m_username',$username)->update([
-                     'updated_at'=>Carbon::now(),
-                 	]); 
-                    Auth::login($user);
+            	if ($user_pass != null) {
+           			mMember::where('m_username',$username)->update([
+                     'm_updated_at'=>Carbon::now(),
+                 	  ]); 
+                Auth::login($user);
+                return Redirect('/home');
             	}else{
-           			array_push($user_valid,0);
-           			return Redirect('/')->with($user_valid);
+                Session::flash('password','Password Yang Anda Masukan Salah!');
+                return back()->with('password','username');
             	}
            	}else{
-           		array_push($user_valid,0);
-           		array_push($user_valid,0);
-           		// return $user_valid;
            		Session::flash('username','Username Tidak Ada');
-           		return back()->with($user_valid,'password','username');
+           		return back()->with('password','username');
            	}
             
 
         }
     }
+
+    
 }

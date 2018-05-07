@@ -25,7 +25,28 @@ Route::group(['middleware' => 'guest'], function () {
     // Route::post('login', 'loginController@authenticate')->name('login');
 });
 
+
+Route::group(['middleware' => 'auth'], function () {
+
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('logout',function(){
+	Session::flush();
+    Auth::logout();
+    Session::forget('key');
+    return Redirect('/');
+});
+// SETTING
+    // jabatan
+        Route::get('/setting/jabatan', 'SettingController@jabatan');
+        Route::get('/setting/datatable_jabatan', 'SettingController@datatable_jabatan')->name('datatable_jabatan');
+        Route::get('/setting/simpan_jabatan', 'SettingController@simpan_jabatan');
+        Route::get('/setting/hapus_jabatan', 'SettingController@hapus_jabatan');
+
+Route::get('/setting/akun', 'SettingController@akun');
+Route::get('/setting/daftar_menu', 'SettingController@daftar_menu');
+Route::get('/setting/hak_akses', 'SettingController@hak_akses');
 
 // Master
 Route::get('/master/suplier/suplier', 'MasterController@suplier');
@@ -133,4 +154,4 @@ Route::get('inventory/barcode/barcode', 'InventoryController@barcode');
 Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance');
 Route::get('inventory/opname/opname', 'InventoryController@opname');
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');
-
+});

@@ -33,8 +33,18 @@
   <!-- End custom js for this page-->
 
   <script src="{{asset('assets/js/data-table.js')}}"></script>
-  
+  {{-- toastr --}}
+  <script rel="stylesheet" src="{{asset('node_modules/izitoast/dist/js/iziToast.min.js')}}"></script>
+
   <script type="text/javascript">
+  iziToast.settings({
+    timeout: 3000,
+    icon: 'material-icons',
+    transitionIn: 'flipInX',
+    transitionOut: 'flipOutX',
+    closeOnClick: true,
+    position:'topRight'
+  });
   $(document).ready(function(){
     $("input[type='number']").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
@@ -84,5 +94,8 @@
         });
   });
   var t ;
+  var baseUrl = '{{ url('/') }}';
+  // var regex_huruf = replace(/[A-Za-z$. ,-]/g, "");
+  // var regex_angka = replace(/[^0-9\-]+/g,"");
 
 </script>
