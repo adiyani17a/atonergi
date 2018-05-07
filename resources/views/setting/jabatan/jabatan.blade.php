@@ -19,7 +19,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Setting Jabatan</h4>
                   <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                  	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah-jabatan"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                  	<button type="button" class="btn btn-info btn_modal" data-toggle="modal" data-target="#tambah-jabatan"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                   </div>
                   <div class="table-responsive">
       				        <table id="table_data" class="table table-striped table-hover" cellspacing="0">
@@ -83,6 +83,10 @@
     });
   })
 
+  $('.btn_modal').click(function(){
+    $('.nama').focus();
+  })
+
   $('.simpan').click(function(){
     $.ajax({
         url:baseUrl +'/setting/simpan_jabatan',
@@ -137,6 +141,8 @@
 
 
   }
+
+
   function hapus(a) {
     var par   = $(a).parents('tr');
     var id    = $(par).find('.d_id').text();
