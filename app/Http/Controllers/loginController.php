@@ -4,17 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use Illuminate\Http\Request;
 use App\mMember;
 use App\d_comp_coa;
 use App\d_comp_trans;
 use App\cabang;
-
 use Validator;
 use Carbon\Carbon;
 use Session;
-
 use DB;
+
 class loginController extends Controller
 {
     public function __construct(){
@@ -73,12 +71,14 @@ class loginController extends Controller
                     Auth::login($user);
             	}else{
            			array_push($user_valid,0);
-           			return Redirect('/')->with($cari_pass);
+           			return Redirect('/')->with($user_valid);
             	}
            	}else{
            		array_push($user_valid,0);
            		array_push($user_valid,0);
-           		return Redirect('/')->with($cari_pass);
+           		// return $user_valid;
+           		Session::flash('username','Username Tidak Ada');
+           		return back()->with($user_valid,'password','username');
            	}
             
 

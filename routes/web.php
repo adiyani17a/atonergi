@@ -22,7 +22,7 @@ Route::group(['middleware' => 'guest'], function () {
     })->name('index');
 
     Route::get('login', 'loginController@authenticate')->name('login');
-    Route::post('login', 'loginController@authenticate')->name('login');
+    // Route::post('login', 'loginController@authenticate')->name('login');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

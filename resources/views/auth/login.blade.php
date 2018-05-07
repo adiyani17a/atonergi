@@ -53,6 +53,9 @@
           <div class="wrap-input100 validate-input" data-validate = "Enter Username">
             <input required="" class="input100" type="text" name="username" id="username" placeholder="Username" autofocus="">
             <span class="focus-input100" data-placeholder="&#xf207;"></span>
+            @if (session('username'))
+              <div class="red"  style="color: red"><b>Username Tidak Ada</b></div>
+            @endif
             @if(isset($cari_pass))
             <div class="red"  style="color: red"><b>Username Tidak Ada</b></div>
             @endif
