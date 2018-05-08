@@ -43,10 +43,13 @@ Route::get('logout',function(){
         Route::get('/setting/datatable_jabatan', 'SettingController@datatable_jabatan')->name('datatable_jabatan');
         Route::get('/setting/simpan_jabatan', 'SettingController@simpan_jabatan');
         Route::get('/setting/hapus_jabatan', 'SettingController@hapus_jabatan');
-
-Route::get('/setting/akun', 'SettingController@akun');
-Route::get('/setting/daftar_menu', 'SettingController@daftar_menu');
-Route::get('/setting/hak_akses', 'SettingController@hak_akses');
+    // akun
+        Route::get('/setting/akun', 'SettingController@akun');
+        Route::get('/setting/datatable_akun', 'SettingController@datatable_akun')->name('datatable_akun');
+    //daftar_menu
+        Route::get('/setting/daftar_menu', 'SettingController@daftar_menu');
+    //hak akses
+        Route::get('/setting/hak_akses', 'SettingController@hak_akses');
 
 // Master
 Route::get('/master/suplier/suplier', 'MasterController@suplier');

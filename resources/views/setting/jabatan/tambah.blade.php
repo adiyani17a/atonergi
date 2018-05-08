@@ -4,16 +4,16 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Setting Jabatan</h4>
+        <h4 class="modal-title">Form Setting Level Account</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="row">
             <table class="table tabel_modal"">
               <tr>
-                <td>Nama Jabatan</td>
+                <td>Nama Level</td>
                 <td>
-                  <input type="text" name="nama"  placeholder="jabatan" class="nama huruf_besar form-control form-control-sm">
+                  <input type="text" name="nama"  placeholder="level" class="nama huruf_besar form-control form-control-sm">
                   <input type="hidden" name="id" class="id">
                 </td>
               </tr>
