@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use carbon\carbon;
 use Session;
+use App\mMember;
 
 class SettingController extends Controller
 {
@@ -102,8 +103,27 @@ class SettingController extends Controller
    // AKUN
    public function akun()
    {
+      $level = DB::table('d_jabatan')
+                 ->where('j_nama','!=','SUPERUSER')
+                 ->get();
+      // for ($i=0; $i < 500; $i++) { 
       
-      return view('setting.akun.akun');
+      //    $id = DB::table('d_mem')
+      //         ->max('m_id');
+      //    if ($id != null) {
+      //       $id+=1;
+      //    }else{
+      //       $id = 1;
+      //    }
+      //    $simpan = mMember::create([
+      //                   'm_id'=>$id,
+      //                   'm_username'=>strtoupper('name'),
+      //                   'm_name'=>strtoupper('password'),
+      //                   'm_password'=>strtoupper('password'),
+      //                   'm_jabatan'=>strtoupper('KEUANGAN'),
+      //                ]);
+      // }
+      return view('setting.akun.akun',compact('level'));
    }
 
    public function datatable_akun()
@@ -133,7 +153,7 @@ class SettingController extends Controller
    }
    public function simpan_akun(request $req)
    {
-      // dd($req->all());
+      dd($req);
       return DB::transaction(function() use ($req) {  
          if ($req->id == null) {
             $valid = DB::table('d_mem')

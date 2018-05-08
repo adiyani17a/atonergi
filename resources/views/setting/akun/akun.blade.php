@@ -28,9 +28,9 @@
                               <th>No</th>
                               <th>Username</th>
                               <th>Nama</th>
-                              <th>Jabatan</th>
+                              <th>Level</th>
+                              <th>Photo</th>
                               <th>Last Login</th>
-                              <th>Last Logout</th>
                               <th>Aksi</th>
                             </tr>
                           </thead>
@@ -55,33 +55,28 @@
           ajax: {
               url:'{{ route('datatable_akun') }}',
           },
-          // columnDefs: [
+          columnDefs: [
 
-                //   {
-                //      targets: 0 ,
-                //      className: 'center d_id'
-                //   },
-                //   {
-                //      targets: 1 ,
-                //      className: 'd_nama'
-                //   },
-                //   {
-                //      targets: 2 ,
-                //      className: 'd_keterangan'
-                //   },
-                //   {
-                //      targets: 3 ,
-                //      className: 'center'
-                //   },
+                  {
+                     targets: 0 ,
+                     className: 'center d_id'
+                  },
+                  {
+                     targets: 6 ,
+                     className: 'center'
+                  },
                   
                   
-                // ],
-          // columns: [
-          //   {data: 'j_id', name: 'j_id'},
-          //   {data: 'j_nama', name: 'j_nama'},
-          //   {data: 'j_keterangan', name: 'j_keterangan'},
-          //   {data: 'aksi', name: 'aksi'}
-          // ]
+                ],
+          columns: [
+            {data: 'm_id', name: 'm_id'},
+            {data: 'm_username', name: 'm_username'},
+            {data: 'm_name', name: 'm_name'},
+            {data: 'm_jabatan', name: 'm_jabatan'},
+            {data: 'm_image', name: 'm_image'},
+            {data: 'm_last_login', name: 'm_last_login'},
+            {data: 'aksi', name: 'aksi'}
+          ]
 
     });
   })
@@ -92,6 +87,11 @@
 
 $('#chooseFile').bind('change', function () {
   var filename = $("#chooseFile").val();
+  var fsize = $('#chooseFile')[0].files[0].size;
+  if(fsize>1048576) //do something if file size more than 1 mb (1048576)
+  {
+      return false;
+  }
   if (/^\s*$/.test(filename)) {
     $(".file-upload").removeClass('active');
     $("#noFile").text("No file chosen..."); 
@@ -102,28 +102,43 @@ $('#chooseFile').bind('change', function () {
   }
 });
 
-function previewFile() {
-  var preview = document.querySelector('img');
-  var file    = document.querySelector('input[type=file]').files[0];
-  var reader  = new FileReader();
-
-  reader.onload = function () {
-    preview.src = reader.result;
+var loadFile = function(event) {
+  var fsize = $('#chooseFile')[0].files[0].size;
+  if(fsize>1048576) //do something if file size more than 1 mb (1048576)
+  {
+      iziToast.warning({
+        icon: 'fa fa-times',
+        message: 'File Is To Big!',
+      });
+      return false;
   }
+  var reader = new FileReader();
+  reader.onload = function(){
+    var output = document.getElementById('output');
+    output.src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+};
 
-  if (file) {
-    reader.readAsDataURL(file);
-  } else {
-    preview.src = "";
-  }
-}
 
-  $('.simpan').click(function(){
+
+
+$('.simpan').click(function(){
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $.ajax({
-        url:baseUrl +'/setting/simpan_jabatan',
-        type:'get',
+        url:baseUrl +'/setting/simpan_akun',
+        type:'post',
         data:$('.tabel_modal :input').serialize(),
         dataType:'json',
+        contentType: false,
+        cache: false,
+        processData: false,
+        mimeType: "multipart/form-data",
         success:function(data){
             if (data.status == 0) {
               iziToast.warning({
@@ -150,7 +165,7 @@ function previewFile() {
             $('.tabel_modal input').val('');
         },
         error:function(){
-          iziToast.danger({
+          iziToast.warning({
             icon: 'fa fa-times',
             message: 'Terjadi Kesalahan!',
           });
@@ -202,7 +217,7 @@ function previewFile() {
           }
         },
         error:function(){
-          iziToast.danger({
+          iziToast.warning({
             icon: 'fa fa-times',
             message: 'Terjadi Kesalahan!',
           });

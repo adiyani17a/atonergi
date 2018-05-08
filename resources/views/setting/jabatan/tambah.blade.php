@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-            <table class="table tabel_modal"">
+            <table class="table tabel_modal">
               <tr>
                 <td>Nama Level</td>
                 <td>

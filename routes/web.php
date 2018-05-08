@@ -46,6 +46,7 @@ Route::get('logout',function(){
     // akun
         Route::get('/setting/akun', 'SettingController@akun');
         Route::get('/setting/datatable_akun', 'SettingController@datatable_akun')->name('datatable_akun');
+        Route::post('/setting/simpan_akun', 'SettingController@simpan_akun');
     //daftar_menu
         Route::get('/setting/daftar_menu', 'SettingController@daftar_menu');
     //hak akses

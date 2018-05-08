@@ -119,7 +119,7 @@
             $('.tabel_modal input').val('');
         },
         error:function(){
-          iziToast.danger({
+          iziToast.warning({
             icon: 'fa fa-times',
             message: 'Terjadi Kesalahan!',
           });
@@ -171,7 +171,7 @@
           }
         },
         error:function(){
-          iziToast.danger({
+          iziToast.warning({
             icon: 'fa fa-times',
             message: 'Terjadi Kesalahan!',
           });
