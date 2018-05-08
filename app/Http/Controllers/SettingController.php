@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\File;
 use Auth;
 use DB;
 use carbon\carbon;
 use Session;
 use App\mMember;
-
+use Illuminate\Support\Facades\Crypt;
 class SettingController extends Controller
 {
    // JABATAN
@@ -104,25 +106,8 @@ class SettingController extends Controller
    public function akun()
    {
       $level = DB::table('d_jabatan')
-                 ->where('j_nama','!=','SUPERUSER')
                  ->get();
-      // for ($i=0; $i < 500; $i++) { 
       
-      //    $id = DB::table('d_mem')
-      //         ->max('m_id');
-      //    if ($id != null) {
-      //       $id+=1;
-      //    }else{
-      //       $id = 1;
-      //    }
-      //    $simpan = mMember::create([
-      //                   'm_id'=>$id,
-      //                   'm_username'=>strtoupper('name'),
-      //                   'm_name'=>strtoupper('password'),
-      //                   'm_password'=>strtoupper('password'),
-      //                   'm_jabatan'=>strtoupper('KEUANGAN'),
-      //                ]);
-      // }
       return view('setting.akun.akun',compact('level'));
    }
 
@@ -133,9 +118,7 @@ class SettingController extends Controller
                   ->get();
         
         
-        // return $data;
         $data = collect($data);
-        // return $data;
         return Datatables::of($data)
                         ->addColumn('aksi', function ($data) {
                           return  '<div class="btn-group">'.
@@ -148,63 +131,136 @@ class SettingController extends Controller
                         ->addColumn('none', function ($data) {
                             return '-';
                         })
-                        ->rawColumns(['aksi', 'confirmed'])
+                        ->addColumn('image', function ($data) {
+                            $thumb = route('thumbnail').'/'.$data->m_image;
+                            return '<img style="width:50px;height:50px;" class="img-fluid img-thumbnail" src="'.$thumb.'">';
+                        })
+                        ->rawColumns(['aksi', 'image'])
                         ->make(true);
    }
    public function simpan_akun(request $req)
    {
-      dd($req);
+      // return $user;
       return DB::transaction(function() use ($req) {  
-         if ($req->id == null) {
+        // dd($req->all());
+        if ($req->id == null) {
             $valid = DB::table('d_mem')
-                       ->where('j_nama',$req->nama)
+                       ->where('m_username',$req->username)
                        ->first();
+
             if ($valid == null) {
+
                $id = DB::table('d_mem')
-                    ->max('j_id');
+                    ->max('m_id');
                if ($id != null) {
                   $id+=1;
                }else{
                   $id = 1;
                }
-               $simpan = DB::table('d_mem')
+
+              $level = DB::table('d_jabatan')
+                         ->where('j_id',$req->level)
+                         ->first();
+
+              $password = sha1(md5('passwordAllah').$req->password);
+
+              $simpan = DB::table('d_mem')
                            ->insert([
-                                    'j_id'=>$id,
-                                    'j_nama'=>strtoupper($req->nama),
-                                    'j_keterangan'=>strtoupper($req->keterangan),
+                                    'm_id'      => $id,
+                                    'm_username'=> $req->username,
+                                    'm_password'=> $password,
+                                    'm_name'    => $req->nama,
+                                    'm_jabatan' => $level->j_nama,
                                     ]);
 
-               return response()->json(['status' => 1]);
+               $status = 1;
             }else{
-               return response()->json(['status' => 0]);
+               $status = 0;
             }
             
-         }else{
-            $update = DB::table('d_mem')
-                        ->where('j_id',$req->id)
-                        ->update(['j_nama'=>$req->nama,
-                                 'j_keterangan'=>$req->keterangan,
-                                 ]);
-            return response()->json(['status' => 2]);
-         }
+        }else{
+            $id = $req->id;
+            $password = sha1(md5('passwordAllah').$req->password);
+
+            $level = DB::table('d_jabatan')
+                         ->where('j_id',$req->level)
+                         ->first();
+                         
+            $simpan = DB::table('d_mem')
+                           ->where('m_id',$id)
+                           ->update([
+                                    'm_username'=> $req->username,
+                                    'm_password'=> $password,
+                                    'm_name'    => $req->nama,
+                                    'm_jabatan' => $level->j_nama,
+                                    ]);
+            $status = 2;
+        }
+
+        $file = $req->file('files');
+        if ($file != null) {
+          mMember::where('m_id',$id)->first();
+
+          $file_name = 'user_'. $id .'_' . '.' . $file->getClientOriginalExtension();
+
+          if (!is_dir(storage_path('uploads/user/thumbnail/'))) {
+            mkdir(storage_path('uploads/user/thumbnail/'), 0777, true);
+          }
+
+          if (!is_dir(storage_path('uploads/user/original/'))) {
+            mkdir(storage_path('uploads/user/original/'), 0777, true);
+          }
+          
+
+          $thumbnail_path = storage_path('uploads/user/thumbnail/');
+          $original_path = storage_path('uploads/user/original/');
+          // return $original_path;
+          Image::make($file)
+                  ->resize(261,null,function ($constraint) {
+                    $constraint->aspectRatio();
+                     })
+                  ->save($original_path . $file_name)
+                  ->resize(90, 90)
+                  ->save($thumbnail_path . $file_name);
+
+          $user = mMember::where('m_id',$id)->update(['m_image' => $file_name]);
+        }
+        
+
+        return response()->json(['status' => $status]);
+
       });
    }
 
    public function hapus_akun(request $req)
    {
-      $hapus = DB::table('d_jabatan')
-                 ->where('j_id',$req->id)
+      $hapus = DB::table('d_mem')
+                 ->where('m_id',$req->id)
                  ->first();
-      if ($hapus->j_nama == 'SUPERUSER') {
+      if ($hapus->m_jabatan == 'SUPERUSER') {
          return response()->json(['status' => 2]);
       }else{
-         $hapus = DB::table('d_jabatan')
-                 ->where('j_id',$req->id)
+         $hapus = DB::table('d_mem')
+                 ->where('m_id',$req->id)
                  ->delete();
          return response()->json(['status' => 1]);
       }
 
       
+   }
+   public function edit_akun(request $req)
+   {
+      $data = mMember::where('m_id',$req->id)
+                    ->first();
+      $jabatan = DB::table('d_jabatan')
+                   ->get();
+      for ($i=0; $i < count($jabatan); $i++) { 
+        if ($jabatan[$i]->j_nama == $data->m_jabatan) {
+          $data->kode_jabatan = $jabatan[$i]->j_id;
+        }
+      }
+      return response()->json(['data' => $data]);
+
    }
    // END
    public function daftar_menu()

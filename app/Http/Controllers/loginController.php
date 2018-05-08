@@ -64,7 +64,7 @@ class loginController extends Controller
 
             	if ($user_pass != null) {
            			mMember::where('m_username',$username)->update([
-                     'm_updated_at'=>Carbon::now(),
+                     'm_last_login'=>Carbon::now(),
                  	  ]); 
                 Auth::login($user);
                 return Redirect('/home');

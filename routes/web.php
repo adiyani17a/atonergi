@@ -47,6 +47,9 @@ Route::get('logout',function(){
         Route::get('/setting/akun', 'SettingController@akun');
         Route::get('/setting/datatable_akun', 'SettingController@datatable_akun')->name('datatable_akun');
         Route::post('/setting/simpan_akun', 'SettingController@simpan_akun');
+        Route::get('/setting/hapus_akun', 'SettingController@hapus_akun');
+        Route::get('/setting/edit_akun', 'SettingController@edit_akun');
+        Route::get('storage/uploads/user/thumbnail')->name('thumbnail');
     //daftar_menu
         Route::get('/setting/daftar_menu', 'SettingController@daftar_menu');
     //hak akses
