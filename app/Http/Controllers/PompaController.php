@@ -38,4 +38,8 @@ class PompaController extends Controller
     {
     	return view('projectmp/pmp_technicianfee/pmp_technicianfee');
     }
+    public function pmp_prosespengadaanbarang()
+    {
+        return view('projectmp/pmp_pengadaanbarang/pmp_prosespengadaanbarang');
+    }
 }

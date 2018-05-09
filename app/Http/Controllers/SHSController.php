@@ -38,4 +38,8 @@ class SHSController extends Controller
     {
     	return view('projectms/shs_technicianfee/shs_technicianfee');
     }
+    public function shs_prosespengadaanbarang()
+    {
+        return view('projectms/shs_pengadaanbarang/shs_prosespengadaanbarang');
+    }
 }

@@ -1,7 +1,9 @@
 @extends('main')
 @section('content')
 
-@include('projectms.shs_pengadaanbarang.tambah_pengadaan')
+
+@include('projectms.shs_pengadaanbarang.detail_shs_pengadaanbarang')
+
 
 <!-- partial -->
 <div class="content-wrapper">
@@ -19,69 +21,51 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Pengadaan Barang SHS</h4>
-                  <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                  	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-                  </div>
-                  <div class="table-responsive">
-	                  <table class="table data-table table-hover" cellspacing="0">
+	            	<div class="table-responsive">
+	                  <table class="table data-table table-hover" cellspacing="0" id="chieftain_mk5">
 	                  	<thead class="bg-gradient-info">
 	                  		<tr>
 	                  			<th>No</th>
-	                  			<th>Company</th>
-	                  			<th>Vendor Name</th>
-	                  			<th>Address</th>
-	                  			<th>Phone Number</th>
-	                  			<th>Fax</th>
-	                  			<th>Information</th>
-	                  			<th>Limit</th>
+	                  			<th>Date</th>
+	                  			<th>W.O.#</th>
+	                  			<th>Customer</th>
+	                  			<th>Item</th>
+	                  			<th>Status</th>
 	                  			<th>Action</th>
 	                  		</tr>
 	                  	</thead>
 	                  	<tbody>
 	                  		<tr>
 	                  			<td>1</td>
-	                  			<td>PT. Alpha</td>
+	                  			<td></td>
+	                  			<td>B001</td>
 	                  			<td>Alpha</td>
-	                  			<td>Jl. Alpha</td>
-	                  			<td>085123123123</td>
-	                  			<td></td>
-	                  			<td></td>
-	                  			<td>1.500.000</td>
+	                  			<td><button class="btn btn-sm btn-info" type="button" data-toggle="modal" data-target="#detail_item">2</button></td>
 	                  			<td>
-	                  				<button class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
-	                  				<button class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></button>
+	                  				<span class="badge badge-pill badge-success">Check</span>
 	                  			</td>
-
+	                  			<td>
+	                  				<div class="btn-group">
+	                  					<a class="btn btn-info btn-sm" href="{{url('projectms/shs_pengadaanbarang/shs_prosespengadaanbarang')}}" title="Process"><i class="fa fa-sign-in"></i></a>
+	                  					<button class="btn btn-danger btn-sm" type="button" title="Delete"><i class="fa fa-trash-o"></i></button>
+	                  				</div>
+	                  			</td>
 	                  		</tr>
 	                  		<tr>
 	                  			<td>2</td>
-	                  			<td>PT. Bravo</td>
+	                  			<td></td>
+	                  			<td>B002</td>
 	                  			<td>Bravo</td>
-	                  			<td>Jl. Bravo</td>
-	                  			<td>085123123123</td>
-	                  			<td></td>
-	                  			<td></td>
-	                  			<td>1.500.000</td>
+	                  			<td><button class="btn btn-sm btn-info" type="button" data-toggle="modal" data-target="#detail_item">2</button></td>
 	                  			<td>
-	                  				<button class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
-	                  				<button class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></button>
+	                  				<span class="badge badge-pill badge-warning">Uncheck</span>
 	                  			</td>
-
-	                  		</tr>
-	                  		<tr>
-	                  			<td>3</td>
-	                  			<td>PT. Charlie</td>
-	                  			<td>Charlie</td>
-	                  			<td>Jl. Charlie</td>
-	                  			<td>085331219757</td>
-	                  			<td></td>
-	                  			<td></td>
-	                  			<td>1.500.000</td>
 	                  			<td>
-	                  				<button class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
-	                  				<button class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></button>
+	                  				<div class="btn-group">
+	                  					<a class="btn btn-info btn-sm" href="{{url('projectms/shs_pengadaanbarang/pmp_prosespengadaanbarang')}}" title="Process"><i class="fa fa-sign-in"></i></a>
+	                  					<button class="btn btn-danger btn-sm" type="button" title="Delete"><i class="fa fa-trash-o"></i></button>
+	                  				</div>
 	                  			</td>
-
 	                  		</tr>
 	                  	</tbody>
 	                  </table>

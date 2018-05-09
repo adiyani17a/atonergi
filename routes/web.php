@@ -118,6 +118,7 @@ Route::get('/projectmp/pmp_pengepakanbarang/pmp_pengepakanbarang', 'PompaControl
 Route::get('/projectmp/pmp_pengirimanbarang/pmp_pengirimanbarang', 'PompaController@pmp_pengirimanbarang');
 Route::get('/projectmp/pmp_salescommon/pmp_salescommon', 'PompaController@pmp_salescommon');
 Route::get('/projectmp/pmp_technicianfee/pmp_technicianfee', 'PompaController@pmp_technicianfee');
+Route::get('/projectmp/pmp_pengadaanbarang/pmp_prosespengadaanbarang', 'PompaController@pmp_prosespengadaanbarang');
 
 // SHS
 Route::get('/projectms/shs_dokumentasi/shs_dokumentasi', 'SHSController@shs_dokumentasi');
@@ -128,6 +129,7 @@ Route::get('/projectms/shs_pengepakanbarang/shs_pengepakanbarang', 'SHSControlle
 Route::get('/projectms/shs_pengirimanbarang/shs_pengirimanbarang', 'SHSController@shs_pengirimanbarang');
 Route::get('/projectms/shs_salescommon/shs_salescommon', 'SHSController@shs_salescommon');
 Route::get('/projectms/shs_technicianfee/shs_technicianfee', 'SHSController@shs_technicianfee');
+Route::get('/projectms/shs_pengadaanbarang/shs_prosespengadaanbarang', 'SHSController@shs_prosespengadaanbarang');
 
 // Manajemen Aset
 Route::get('/manajemenaset/history/history', 'AsetController@history');

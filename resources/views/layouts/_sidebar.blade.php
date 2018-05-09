@@ -329,13 +329,11 @@
                 <span class="menu-title">Project Manajemen <br>Pompa / SHS</span>
                 <span class="d-none">
                   Pengadaan Barang
-                  Pengepakan Barang
                   Pengiriman Barang
                   Pemasangan
-                  Schedule Uji Coba
+                  Schedule Uji Coba dan Dokumetasi
                   Sales Common
                   Technician Fee
-                  Dokumentasi
                 </span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-engine menu-icon"></i>
@@ -359,14 +357,14 @@
                     || Request::is('project/pilih_pengadaanbarang/*') ? 'active' : ''
                   }}" href="{{url('project/pilih_pengadaanbarang/pilih_pengadaanbarang')}}">Pengadaan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{
+                  <!-- <li class="nav-item"> <a class="nav-link {{
                     Request::is('projectmp/pmp_pengepakanbarang/pmp_pengepakanbarang') ? 'active' : '' 
                     || Request::is('projectmp/pmp_pengepakanbarang//*') ? 'active' : '' 
                     || Request::is('projectms/shs_pengepakanbarang/shs_pengepakanbarang') ? 'active' : '' 
                     || Request::is('projectms/shs_pengepakanbarang//*') ? 'active' : ''
                     || Request::is('project/pilih_pengepakanbarang/pilih_pengepakanbarang') ? 'active' : '' 
                     || Request::is('project/pilih_pengepakanbarang/*') ? 'active' : ''
-                  }}" href="{{url('project/pilih_pengepakanbarang/pilih_pengepakanbarang')}}">Pengepakan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  }}" href="{{url('project/pilih_pengepakanbarang/pilih_pengepakanbarang')}}">Pengepakan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li> -->
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('projectmp/pmp_pengirimanbarang/pmp_pengirimanbarang') ? 'active' : '' 
                     || Request::is('projectmp/pmp_pengirimanbarang/*') ? 'active' : '' 
@@ -393,7 +391,7 @@
                    || Request::is('projectms/shs_jadwalujicoba/*') ? 'active' : ''
                    || Request::is('project/pilih_jadwalujicoba/pilih_jadwalujicoba') ? 'active' : '' 
                    || Request::is('project/pilih_jadwalujicoba/*') ? 'active' : ''
-                 }}" href="{{url('project/pilih_jadwalujicoba/pilih_jadwalujicoba')}}">Schedule Uji Coba<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                 }}" href="{{url('project/pilih_jadwalujicoba/pilih_jadwalujicoba')}}">Schedule Uji Coba dan <br>Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS Schedule Uji Coba dan Dokumentasi</span></a></li>
 
                   <li class="nav-item"> <a class="nav-link {{
                     Request::is('projectmp/pmp_salescommon/pmp_salescommon') ? 'active' : '' 
@@ -413,14 +411,14 @@
                     || Request::is('project/pilih_technicianfee/*') ? 'active' : '' 
                   }}" href="{{url('project/pilih_technicianfee/pilih_technicianfee')}}">Technician Fee<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{
+                  <!-- <li class="nav-item"> <a class="nav-link {{
                     Request::is('projectmp/pmp_dokumentasi/pmp_dokumentasi') ? 'active' : '' 
                     || Request::is('projectmp/pmp_dokumentasi/*') ? 'active' : '' 
                     || Request::is('projectms/shs_dokumentasi/shs_dokumentasi') ? 'active' : '' 
                     || Request::is('projectms/shs_dokumentasi/*') ? 'active' : '' 
                     || Request::is('project/pilih_dokumentasi/pilih_dokumentasi') ? 'active' : '' 
                     || Request::is('project/pilih_dokumentasi/*') ? 'active' : '' 
-                  }}" href="{{url('project/pilih_dokumentasi/pilih_dokumentasi')}}">Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  }}" href="{{url('project/pilih_dokumentasi/pilih_dokumentasi')}}">Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS</span></a></li> -->
 
                 </ul>
 
