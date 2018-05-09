@@ -21,6 +21,24 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Pengadaan Barang SHS</h4>
+                  <div class="row">
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+							    <button type="button" class="close" data-dismiss="alert">&times;</button>
+							    <strong>Notice!</strong> <br>
+							    <label class="badge badge-pill badge-primary">1</label>
+							    Check
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
+							    <button type="button" class="close" data-dismiss="alert">&times;</button>
+							    <strong>Notice!</strong> <br>
+							    <label class="badge badge-pill badge-warning">1</label>
+							    Uncheck
+							</div>
+						</div>
+					</div>
 	            	<div class="table-responsive">
 	                  <table class="table data-table table-hover" cellspacing="0" id="chieftain_mk5">
 	                  	<thead class="bg-gradient-info">
