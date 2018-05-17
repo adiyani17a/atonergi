@@ -7,17 +7,16 @@
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb bg-info">
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-				<li class="breadcrumb-item">Project Manajemen SHS</li>
-				<li class="breadcrumb-item"><a href="{{url('project/pilih_pengadaanbarang/pilih_pengadaanbarang')}}">Pengadaan Barang</a></li>
-				<li class="breadcrumb-item"><a href="{{url('projectmp/pmp_pengadaanbarang/pmp_pengadaanbarang')}}">Process Pengadaan Barang</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Process Pengadaan Barang SHS</li>
+				<li class="breadcrumb-item">Project Manajemen Pompa | SHS</li>
+				<li class="breadcrumb-item"><a href="{{url('project/pilih_pengirimanbarang/pilih_pengirimanbarang')}}">Pengiriman Barang</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Process Pengiriman Barang SHS</li>
 			</ol>
 		</nav>
 	</div>
 	<div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Process Pengadaan Barang SHS</h4>
+                  <h4 class="card-title">Process Pengiriman Barang SHS</h4>
                   
                 	<div class="row">
                 		<div class="col-md-6 col-sm-12 col-xs-12">
@@ -54,6 +53,7 @@
 		                				<input type="text" readonly="" class="form-control form-control-sm" value="Project Manajemen SHS">
 		                			</div>
 		                		</div>
+		                		
 		                	</div>
 	                	</div>
 	                	<div class="col-md-6 col-sm-12 col-xs-12">
@@ -84,6 +84,41 @@
 		                		</div>
 		                	</div>
 	                	</div>
+	                	
+			              	<div class="col-md-6 col-sm-12 col-xs-12">
+			              		<div class="row">
+					              	<div class="col-md-6 col-sm-6 col-xs-12">
+				            			<label>Delivery Date</label>
+				            		</div>
+				            		<div class="col-md-6 col-sm-6 col-xs-12">
+				            			<div class="form-group">
+				            				<div class="input-group">
+						                        <input class="form-control datepicker" readonly="" type="text" style="cursor: pointer;">
+						                        <span class="input-group-addon bg-info text-white">
+						                            <i class="fa fa-calendar"></i>
+						                        </span>
+					                        </div>
+				            			</div>
+				            		</div>
+				            		<div class="col-md-6 col-sm-6 col-xs-12">
+				            			<label>Weight</label>
+				            		</div>
+				            		<div class="col-md-6 col-sm-6 col-xs-12">
+				            			<div class="form-group">
+				            				<input type="text" class="form-control form-control-sm">
+				            			</div>
+				            		</div>
+				            		<div class="col-md-6 col-sm-6 col-xs-12">
+				            			<label>Shipping Charges</label>
+				            		</div>
+				            		<div class="col-md-6 col-sm-6 col-xs-12">
+				            			<div class="form-group">
+				            				<input type="text" class="form-control form-control-sm">
+				            			</div>
+				            		</div>
+				            	</div>
+				            </div>
+	              		
                 	</div>
 					
                   <div class="table-responsive">
@@ -94,7 +129,6 @@
 	                  			<th>Item Name</th>
 	                  			<th>Qty</th>
 	                  			<th>Unit</th>
-	                  			<th>Checklist</th>
 	                  		</tr>
 	                  	</thead>
 	                  	<tbody>
@@ -111,13 +145,6 @@
 	                  			<td>
 	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Meter">
 	                  			</td>
-	                  			<td>
-	                  				<div class="form-check form-check-flat">
-			                            <label class="form-check-label">
-			                              		<input class="form-check-input" type="checkbox">
-			                          	</label>
-			                        </div>
-	                  			</td>
 	                  		</tr>
 	                  		<tr>
 	                  			<td>
@@ -132,21 +159,15 @@
 	                  			<td>
 	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Pcs">
 	                  			</td>
-	                  			<td>
-	                  				<div class="form-check form-check-flat">
-			                            <label class="form-check-label">
-			                              		<input class="form-check-input" type="checkbox">
-			                          	</label>
-			                        </div>
-	                  			</td>
 	                  		</tr>
 	                  	</tbody>
 	                  </table>
 	              </div>
+
 	              <div class="row">
 	              	<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-top: 15px;">
 	              		<button class="btn btn-sm btn-info" type="button">Process</button>
-	              		<a href="{{url('projectmp/pmp_pengadaanbarang/pmp_pengadaanbarang')}}" class="btn btn-secondary btn-sm">Back</a>
+	              		<a href="{{url('projectms/shs_pengirimanbarang/shs_pengirimanbarang')}}" class="btn btn-secondary btn-sm">Back</a>
 	              	</div>
 	              </div>
                 </div>

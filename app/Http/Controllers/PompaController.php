@@ -42,4 +42,8 @@ class PompaController extends Controller
     {
         return view('projectmp/pmp_pengadaanbarang/pmp_prosespengadaanbarang');
     }
+    public function pmp_prosespengirimanbarang()
+    {
+        return view('projectmp/pmp_pengirimanbarang/pmp_prosespengirimanbarang');
+    }
 }

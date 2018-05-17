@@ -100,16 +100,37 @@
 	                  	<tbody>
 	                  		<tr>
 	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="">
+	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="BRG/001">
 	                  			</td>
 	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="">
+	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Cable">
 	                  			</td>
 	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="">
+	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="300">
 	                  			</td>
 	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="">
+	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Meter">
+	                  			</td>
+	                  			<td>
+	                  				<div class="form-check form-check-flat">
+			                            <label class="form-check-label">
+			                              		<input class="form-check-input" type="checkbox">
+			                          	</label>
+			                        </div>
+	                  			</td>
+	                  		</tr>
+	                  		<tr>
+	                  			<td>
+	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="BRG/002">
+	                  			</td>
+	                  			<td>
+	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Pompa Air">
+	                  			</td>
+	                  			<td>
+	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="1">
+	                  			</td>
+	                  			<td>
+	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Pcs">
 	                  			</td>
 	                  			<td>
 	                  				<div class="form-check form-check-flat">

@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="{{asset('assets/node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/bower_components/switchery/switchery.css')}}">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="{{asset('assets/node_modules/font-awesome/css/font-awesome.min.css')}}" />
@@ -31,6 +32,7 @@
   {{-- TOASTR --}}
   <link rel="stylesheet" href="{{asset('node_modules/izitoast/dist/css/iziToast.min.css')}}">
   <link rel="stylesheet" href="{{asset('node_modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css')}}" />
+
 
 <style type="text/css">
 

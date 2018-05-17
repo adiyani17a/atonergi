@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('projectmp.pmp_pengirimanbarang.tambah_pengiriman')
+@include('projectmp/pmp_pengirimanbarang/pmp_editpengirimanbarang')
 
 <!-- partial -->
 <div class="content-wrapper">
@@ -19,69 +19,61 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Pengiriman Barang Pompa</h4>
-                  <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                  	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-                  </div>
+
                   <div class="table-responsive">
 	                  <table class="table data-table table-hover" cellspacing="0">
 	                  	<thead class="bg-gradient-info">
 	                  		<tr>
 	                  			<th>No</th>
-	                  			<th>Company</th>
-	                  			<th>Vendor Name</th>
+	                  			<th>Delivery Date</th>
+	                  			<th>Customer</th>
 	                  			<th>Address</th>
-	                  			<th>Phone Number</th>
-	                  			<th>Fax</th>
-	                  			<th>Information</th>
-	                  			<th>Limit</th>
+	                  			<th>Status</th>
+	                  			<th title="Tanggal Terima">Date of Receipt</th>
 	                  			<th>Action</th>
 	                  		</tr>
 	                  	</thead>
 	                  	<tbody>
 	                  		<tr>
 	                  			<td>1</td>
-	                  			<td>PT. Alpha</td>
+	                  			<td>13-05-2018</td>
 	                  			<td>Alpha</td>
 	                  			<td>Jl. Alpha</td>
-	                  			<td>085123123123</td>
-	                  			<td></td>
-	                  			<td></td>
-	                  			<td>1.500.000</td>
+	                  			<td><span class="badge badge-pill badge-success">Delivered</span></td>
+	                  			<td>16-05-2018</td>
 	                  			<td>
-	                  				<button class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
-	                  				<button class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></button>
+	                  				<div class="btn-group">
+	                  					<button class="btn btn-danger btn-sm" disabled="" type="button" title="Delete"><i class="fa fa-trash-o"></i></button>
+	                  				</div>
 	                  			</td>
-
 	                  		</tr>
 	                  		<tr>
 	                  			<td>2</td>
-	                  			<td>PT. Bravo</td>
+	                  			<td>16-05-2018</td>
 	                  			<td>Bravo</td>
 	                  			<td>Jl. Bravo</td>
-	                  			<td>085123123123</td>
-	                  			<td></td>
-	                  			<td></td>
-	                  			<td>1.500.000</td>
+	                  			<td><span class="badge badge-pill badge-primary">Process Delivery</span></td>
+	                  			<td>-</td>
 	                  			<td>
-	                  				<button class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
-	                  				<button class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></button>
+	                  				<div class="btn-group">
+	                  					<button data-target="#edit" data-toggle="modal" data class="btn btn-warning btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
+	                  					<button class="btn btn-danger btn-sm" type="button" title="Delete"><i class="fa fa-trash-o"></i></button>
+	                  				</div>
 	                  			</td>
-
 	                  		</tr>
 	                  		<tr>
 	                  			<td>3</td>
-	                  			<td>PT. Charlie</td>
+	                  			<td>-</td>
 	                  			<td>Charlie</td>
 	                  			<td>Jl. Charlie</td>
-	                  			<td>085331219757</td>
-	                  			<td></td>
-	                  			<td></td>
-	                  			<td>1.500.000</td>
+	                  			<td><span class="badge badge-pill badge-warning">Process</span></td>
+	                  			<td>-</td>
 	                  			<td>
-	                  				<button class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></button>
-	                  				<button class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></button>
+	                  				<div class="btn-group">
+	                  					<a href="{{url('projectmp/pmp_pengirimanbarang/pmp_prosespengirimanbarang')}}" class="btn btn-info btn-sm" title="Process"><i class="fa fa-sign-in"></i></a>
+	                  					<button class="btn btn-danger btn-sm" type="button" title="Delete"><i class="fa fa-trash-o"></i></button>
+	                  				</div>
 	                  			</td>
-
 	                  		</tr>
 	                  	</tbody>
 	                  </table>

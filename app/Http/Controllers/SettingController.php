@@ -22,7 +22,7 @@ class SettingController extends Controller
 
    public function datatable_jabatan()
    {
-      $data = DB::table('d_jabatan')
+        $data = DB::table('d_jabatan')
                   ->orderBy('j_id','ASC')
                   ->get();
         

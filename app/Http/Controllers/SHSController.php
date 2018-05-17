@@ -42,4 +42,8 @@ class SHSController extends Controller
     {
         return view('projectms/shs_pengadaanbarang/shs_prosespengadaanbarang');
     }
+    public function shs_prosespengirimanbarang()
+    {
+        return view('projectms/shs_pengirimanbarang/shs_prosespengirimanbarang');
+    }
 }

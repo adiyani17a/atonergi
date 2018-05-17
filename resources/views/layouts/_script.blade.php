@@ -14,6 +14,7 @@
   <script src="{{asset('assets/bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js')}}"></script>
   <script src="{{asset('assets/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
   <script src="{{asset('assets/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
+  <script src="{{asset('assets/bower_components/switchery/dist/switchery.min.js')}}"></script>
   <!-- End plugin js for  page-->
   <!-- injectjs -->
 
