@@ -134,7 +134,7 @@ $('.simpan').click(function(){
             icon: 'fa fa-times',
             message: 'Terjadi Kesalahan!',
           });
-         } 
+        } 
     });
   });
 
