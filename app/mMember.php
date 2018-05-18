@@ -68,19 +68,19 @@ class mMember extends Model implements AuthenticatableContract, CanResetPassword
   
     
     
-    // public function punyaAkses($fitur,$aksi){
-    //   // select * from  join  on = where ubah =true
+    public function akses($fitur,$aksi){
+      // select * from  join  on = where ubah =true
 
-    //      $cek = DB::table('d_mem')
-    //             ->join('hak_akses', 'level', '=', 'm_level')
-    //             ->where('menu', '=', $fitur)
-    //             ->where($aksi, '=', true) 
-    //             ->where('m_id', '=', Auth::user()->m_id)             
-    //             ->get();        
+         $cek = DB::table('d_mem')
+                ->join('d_hak_akses', 'm_jabatan', '=', 'ha_level')
+                ->where('ha_menu', '=', $fitur)
+                ->where($aksi, '=', 1) 
+                ->where('m_id', '=', Auth::user()->m_id)             
+                ->get();        
         
-    //     if(count($cek) != 0)
-    //         return true;
-    //     else
-    //         return false;
-    // }
+        if(count($cek) != 0)
+            return true;
+        else
+            return false;
+    }
 }
