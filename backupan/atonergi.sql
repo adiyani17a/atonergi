@@ -16,6 +16,14 @@
 CREATE DATABASE IF NOT EXISTS `atonergi` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `atonergi`;
 
+-- Dumping structure for table atonergi.d_daftar_menu
+CREATE TABLE IF NOT EXISTS `d_daftar_menu` (
+  `dm_id` int(11) DEFAULT NULL,
+  `dm_nama` varchar(50) DEFAULT NULL,
+  `dm_group` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
 -- Dumping structure for table atonergi.d_grup_menu
 CREATE TABLE IF NOT EXISTS `d_grup_menu` (
   `gm_id` int(11) NOT NULL,

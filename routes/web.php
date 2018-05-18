@@ -52,6 +52,9 @@ Route::get('logout',function(){
         Route::get('storage/uploads/user/thumbnail')->name('thumbnail');
     //daftar_menu
         Route::get('/setting/daftar_menu', 'SettingController@daftar_menu');
+        Route::get('/setting/datatable_daftar_menu', 'SettingController@datatable_daftar_menu')->name('datatable_daftar_menu');
+        Route::get('/setting/simpan_daftar_menu', 'SettingController@simpan_daftar_menu');
+        Route::get('/setting/hapus_daftar_menu', 'SettingController@hapus_daftar_menu');
     //hak akses
         Route::get('/setting/hak_akses', 'SettingController@hak_akses');
 

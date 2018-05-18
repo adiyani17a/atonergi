@@ -263,13 +263,92 @@ class SettingController extends Controller
 
    }
    // END
+   // DAFTAR MENU
    public function daftar_menu()
    {
-      return view('setting.daftar_menu.daftar_menu');
+      $grup_menu = DB::table('d_grup_menu')
+                     ->get();
+      return view('setting.daftar_menu.daftar_menu',compact('grup_menu'));
    }
 
+   public function datatable_daftar_menu()
+   {
+      $data = DB::table('d_daftar_menu')
+                  ->join('d_grup_menu','gm_id','=','dm_group')
+                  ->orderBy('dm_id','ASC')
+                  ->get();
+        
+        
+      // return $data;
+      $data = collect($data);
+      // return $data;
+      return Datatables::of($data)
+                      ->addColumn('aksi', function ($data) {
+                        return  '<div class="btn-group">'.
+                                 '<button type="button" onclick="edit(this)" class="btn btn-info btn-lg" title="edit">'.
+                                 '<label class="fa fa-pencil-alt"></label></button>'.
+                                 '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-lg" title="hapus">'.
+                                 '<label class="fa fa-trash"></label></button>'.
+                                '</div>';
+                      })
+                      ->addColumn('none', function ($data) {
+                          return '-';
+                      })
+                      ->rawColumns(['aksi', 'confirmed'])
+                      ->make(true);
+   }
+
+   public function simpan_daftar_menu(request $req)
+   {
+      return DB::transaction(function() use ($req) {  
+         if ($req->id == null) {
+            $valid = DB::table('d_daftar_menu')
+                       ->where('dm_nama',$req->nama)
+                       ->where('dm_group',$req->grup_menu)
+                       ->first();
+            if ($valid == null) {
+               $id = DB::table('d_daftar_menu')
+                    ->max('dm_id');
+               if ($id != null) {
+                  $id+=1;
+               }else{
+                  $id = 1;
+               }
+               $simpan = DB::table('d_daftar_menu')
+                           ->insert([
+                                    'dm_id'=>$id,
+                                    'dm_nama'=>strtoupper($req->nama),
+                                    'dm_group'=>strtoupper($req->grup_menu),
+                                    ]);
+
+               return response()->json(['status' => 1]);
+            }else{
+               return response()->json(['status' => 0]);
+            }
+            
+         }else{
+            $update = DB::table('d_daftar_menu')
+                        ->where('dm_id',$req->id)
+                        ->update(['dm_nama'=>$req->nama,
+                                 'dm_group'=>$req->grup_menu,
+                                 ]);
+            return response()->json(['status' => 2]);
+        }
+      });
+   }
+   public function hapus_daftar_menu(request $req)
+   {
+      
+      $hapus = DB::table('d_daftar_menu')
+               ->where('dm_id',$req->id)
+               ->delete();
+
+      return response()->json(['status' => 1]);
+   }
+   // END
    public function hak_akses()
    {
+
       return view('setting.hak_akses.hak_akses');
    }
 }
