@@ -21,6 +21,7 @@
               <div class="card">
                 <div class="card-body">
                   <div class="col-md-12 col-xs-12 col-xs-12">
+                    
                       <div class="panel-default">
                         <a data-toggle="collapse" href="#collapse1">
                         <div class="panel-heading bg-gradient-primary panel-bg panel-top" style="border: 1px solid #e5e5e5;color:white;padding-left: 15px;">
