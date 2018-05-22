@@ -68,17 +68,83 @@ class SettingController extends Controller
                                     'j_keterangan'=>strtoupper($req->keterangan),
                                     ]);
 
+              $daftar_menu = DB::table('d_daftar_menu')
+                             ->orderBy('dm_id','ASC')
+                             ->get();
+
+              for ($i=0; $i < count($daftar_menu); $i++) { 
+                
+                $hak_akses = DB::table('d_hak_akses')
+                               ->insert([
+                                  'ha_id'   => $daftar_menu[$i]->dm_id,
+                                  'ha_dt'   => $i+1,
+                                  'ha_level'=> strtoupper($req->nama),
+                                  'ha_menu' => $daftar_menu[$i]->dm_nama,
+                                  'aktif'   => 1,
+                                  'tambah'  => 1,
+                                  'ubah'    => 1,
+                                  'hapus'   => 1,
+                                  'print'   => 1,
+                               ]);
+              }
+
                return response()->json(['status' => 1]);
+
+
             }else{
                return response()->json(['status' => 0]);
             }
+
+
             
          }else{
             $update = DB::table('d_jabatan')
                         ->where('j_id',$req->id)
-                        ->update(['j_nama'=>$req->nama,
-                                 'j_keterangan'=>$req->keterangan,
+                        ->update(['j_nama'=>strtoupper($req->nama),
+                                 'j_keterangan'=>strtoupper($req->keterangan),
                                  ]);
+
+            $daftar_menu = DB::table('d_daftar_menu')
+                             ->orderBy('dm_id','ASC')
+                             ->get();
+
+            for ($i=0; $i < count($daftar_menu); $i++) { 
+
+              $hak_akses1 = DB::table('d_hak_akses')
+                             ->where('ha_id',$daftar_menu[$i]->dm_id)
+                             ->where('ha_level',strtoupper($req->nama))
+                             ->first();
+
+              if ($hak_akses1 == null) {
+                $aktif = 0;
+                $tambah = 0;
+                $ubah = 0;
+                $hapus = 0;
+                $print = 0;
+              }else{
+                $aktif  = $hak_akses1->aktif;
+                $tambah = $hak_akses1->tambah;
+                $ubah   = $hak_akses1->ubah;
+                $hapus  = $hak_akses1->hapus;
+                $print  = $hak_akses1->print;
+              }
+              // dd($hak_akses1);
+              $hak_akses = DB::table('d_hak_akses')
+                             ->where('ha_id',$daftar_menu[$i]->dm_id)
+                             ->where('ha_level',strtoupper($req->nama))
+                             ->update([
+                                'ha_id'   => $daftar_menu[$i]->dm_id,
+                                'ha_dt'   => $i+1,
+                                'ha_level'=> strtoupper($req->nama),
+                                'ha_menu' => $daftar_menu[$i]->dm_nama,
+                                'aktif'   => $aktif,
+                                'tambah'  => $tambah,
+                                'ubah'    => $ubah,
+                                'hapus'   => $hapus,
+                                'print'   => $print,
+                             ]);
+            }
+
             return response()->json(['status' => 2]);
          }
       });
@@ -348,6 +414,9 @@ class SettingController extends Controller
    // END
    public function hak_akses()
    {
+
+      $data = DB::table('d_hak_akses')
+                ->get();
 
       return view('setting.hak_akses.hak_akses');
    }

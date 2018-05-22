@@ -26,7 +26,7 @@
                         <a data-toggle="collapse" href="#collapse1">
                         <div class="panel-heading bg-gradient-primary panel-bg panel-top" style="border: 1px solid #e5e5e5;color:white;padding-left: 15px;">
                           <h4 class="panel-title">
-                            Harta
+                            Setting
                           </h4>
                         </div>
                         </a>
@@ -36,24 +36,20 @@
                             <table class="table table-hover table-bordered" width="100%" cellspacing="0">
                               <thead class="bg-gradient-info">
                                 <tr>
-                                  <th width="15%">Kode Akun</th>
-                                  <th width="20%">Nama Akun</th>
-                                  <th>Pembukaan Akun</th>
-                                  <th width="15%">Aksi</th>
+                                  <th>Nama Menu</th>
+                                  <th>Aksi</th>
+                                  <th>Tambah</th>
+                                  <th>Ubah</th>
+                                  <th>Hapus</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td style="padding-left: 20px;">1010000</td>
-                                  <td>Harta Lancar</td>
-                                  <td align="right">0,00</td>
-                                  <td align="center">
-                                    <div class=""> 
-                               <a href="#" class="btn btn-info btn-xs" title="Tambah Sub Akun"><i class="fa fa-plus"></i></a>   
-                               <a href="#" class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-pencil"></i></a>
-                               <a href="#" class="btn btn-danger btn-xs" title="Hapus"><i class="fa fa-trash"></i></a>
-                              </div>  
-                                  </td>
+                                  <td></td>
+                                  <td><input type="checkbox" name="tambah" class="tambah"></td>
+                                  <td><input type="checkbox" name="tambah" class="tambah"></td>
+                                  <td><input type="checkbox" name="tambah" class="tambah"></td>
+                                  <td><input type="checkbox" name="tambah" class="tambah"></td>
                                 </tr>
                               </tbody>
                             </table>

@@ -19,9 +19,8 @@ CREATE TABLE IF NOT EXISTS `d_daftar_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_daftar_menu: ~55 rows (approximately)
-DELETE FROM `d_daftar_menu`;
 /*!40000 ALTER TABLE `d_daftar_menu` DISABLE KEYS */;
-INSERT INTO `d_daftar_menu` (`dm_id`, `dm_nama`, `dm_group`) VALUES
+REPLACE INTO `d_daftar_menu` (`dm_id`, `dm_nama`, `dm_group`) VALUES
 	(1, 'SETTING LEVEL ACCOUNT', 1),
 	(2, 'SETTING ACCOUNT', 1),
 	(3, 'SETTING HAK AKSES', 1),
@@ -87,9 +86,8 @@ CREATE TABLE IF NOT EXISTS `d_grup_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_grup_menu: ~11 rows (approximately)
-DELETE FROM `d_grup_menu`;
 /*!40000 ALTER TABLE `d_grup_menu` DISABLE KEYS */;
-INSERT INTO `d_grup_menu` (`gm_id`, `gm_nama`) VALUES
+REPLACE INTO `d_grup_menu` (`gm_id`, `gm_nama`) VALUES
 	(1, 'Setting'),
 	(2, 'Master'),
 	(3, 'Quotation'),
@@ -114,14 +112,122 @@ CREATE TABLE IF NOT EXISTS `d_hak_akses` (
   `ubah` bit(1) DEFAULT NULL,
   `hapus` bit(1) DEFAULT NULL,
   `print` bit(1) DEFAULT NULL,
-  PRIMARY KEY (`ha_id`,`ha_dt`)
+  PRIMARY KEY (`ha_id`,`ha_dt`,`ha_level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table atonergi.d_hak_akses: ~0 rows (approximately)
-DELETE FROM `d_hak_akses`;
+-- Dumping data for table atonergi.d_hak_akses: ~110 rows (approximately)
 /*!40000 ALTER TABLE `d_hak_akses` DISABLE KEYS */;
-INSERT INTO `d_hak_akses` (`ha_id`, `ha_dt`, `ha_level`, `ha_menu`, `aktif`, `tambah`, `ubah`, `hapus`, `print`) VALUES
-	(0, 0, '', NULL, b'1', NULL, NULL, NULL, NULL);
+REPLACE INTO `d_hak_akses` (`ha_id`, `ha_dt`, `ha_level`, `ha_menu`, `aktif`, `tambah`, `ubah`, `hapus`, `print`) VALUES
+	(1, 1, 'ADMIN KEUANGAN', 'SETTING LEVEL ACCOUNT', b'1', b'1', b'1', b'1', b'1'),
+	(1, 1, 'SUPERUSER', 'SETTING LEVEL ACCOUNT', b'1', b'1', b'1', b'1', b'1'),
+	(2, 2, 'ADMIN KEUANGAN', 'SETTING ACCOUNT', b'1', b'1', b'1', b'1', b'1'),
+	(2, 2, 'SUPERUSER', 'SETTING ACCOUNT', b'1', b'1', b'1', b'1', b'1'),
+	(3, 3, 'ADMIN KEUANGAN', 'SETTING HAK AKSES', b'1', b'1', b'1', b'1', b'1'),
+	(3, 3, 'SUPERUSER', 'SETTING HAK AKSES', b'1', b'1', b'1', b'1', b'1'),
+	(4, 4, 'ADMIN KEUANGAN', 'SETTING DAFTAR MENU', b'1', b'1', b'1', b'1', b'1'),
+	(4, 4, 'SUPERUSER', 'SETTING DAFTAR MENU', b'1', b'1', b'1', b'1', b'1'),
+	(5, 5, 'ADMIN KEUANGAN', 'MASTER DATA VENDOR', b'1', b'1', b'1', b'1', b'1'),
+	(5, 5, 'SUPERUSER', 'MASTER DATA VENDOR', b'1', b'1', b'1', b'1', b'1'),
+	(6, 6, 'ADMIN KEUANGAN', 'MASTER DATA CUSTOMER', b'1', b'1', b'1', b'1', b'1'),
+	(6, 6, 'SUPERUSER', 'MASTER DATA CUSTOMER', b'1', b'1', b'1', b'1', b'1'),
+	(7, 7, 'ADMIN KEUANGAN', 'MASTER DATA PEGAWAI', b'1', b'1', b'1', b'1', b'1'),
+	(7, 7, 'SUPERUSER', 'MASTER DATA PEGAWAI', b'1', b'1', b'1', b'1', b'1'),
+	(8, 8, 'ADMIN KEUANGAN', 'MASTER DATA AKUN KEUANGAN', b'1', b'1', b'1', b'1', b'1'),
+	(8, 8, 'SUPERUSER', 'MASTER DATA AKUN KEUANGAN', b'1', b'1', b'1', b'1', b'1'),
+	(9, 9, 'ADMIN KEUANGAN', 'MASTER DATA TRANSAKSI KEUANGAN', b'1', b'1', b'1', b'1', b'1'),
+	(9, 9, 'SUPERUSER', 'MASTER DATA TRANSAKSI KEUANGAN', b'1', b'1', b'1', b'1', b'1'),
+	(10, 10, 'ADMIN KEUANGAN', 'MASTER DATA BUNDLE ITEM', b'1', b'1', b'1', b'1', b'1'),
+	(10, 10, 'SUPERUSER', 'MASTER DATA BUNDLE ITEM', b'1', b'1', b'1', b'1', b'1'),
+	(11, 11, 'ADMIN KEUANGAN', 'QUOTATION', b'1', b'1', b'1', b'1', b'1'),
+	(11, 11, 'SUPERUSER', 'QUOTATION', b'1', b'1', b'1', b'1', b'1'),
+	(12, 12, 'ADMIN KEUANGAN', 'TIM MARKETING', b'1', b'1', b'1', b'1', b'1'),
+	(12, 12, 'SUPERUSER', 'TIM MARKETING', b'1', b'1', b'1', b'1', b'1'),
+	(13, 13, 'ADMIN KEUANGAN', 'NILAI PENAWARAN', b'1', b'1', b'1', b'1', b'1'),
+	(13, 13, 'SUPERUSER', 'NILAI PENAWARAN', b'1', b'1', b'1', b'1', b'1'),
+	(14, 14, 'ADMIN KEUANGAN', 'KLASIFIKASI PENAWARAN', b'1', b'1', b'1', b'1', b'1'),
+	(14, 14, 'SUPERUSER', 'KLASIFIKASI PENAWARAN', b'1', b'1', b'1', b'1', b'1'),
+	(15, 15, 'ADMIN KEUANGAN', 'PENAWARAN PDF', b'1', b'1', b'1', b'1', b'1'),
+	(15, 15, 'SUPERUSER', 'PENAWARAN PDF', b'1', b'1', b'1', b'1', b'1'),
+	(16, 16, 'ADMIN KEUANGAN', 'PROFORMA INVOICE', b'1', b'1', b'1', b'1', b'1'),
+	(16, 16, 'SUPERUSER', 'PROFORMA INVOICE', b'1', b'1', b'1', b'1', b'1'),
+	(17, 17, 'ADMIN KEUANGAN', 'PEMBAYARAN DEPOSIT', b'1', b'1', b'1', b'1', b'1'),
+	(17, 17, 'SUPERUSER', 'PEMBAYARAN DEPOSIT', b'1', b'1', b'1', b'1', b'1'),
+	(18, 18, 'ADMIN KEUANGAN', 'SALES ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(18, 18, 'SUPERUSER', 'SALES ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(19, 19, 'ADMIN KEUANGAN', 'CHECK STOCK', b'1', b'1', b'1', b'1', b'1'),
+	(19, 19, 'SUPERUSER', 'CHECK STOCK', b'1', b'1', b'1', b'1', b'1'),
+	(20, 20, 'ADMIN KEUANGAN', 'WORK ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(20, 20, 'SUPERUSER', 'WORK ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(21, 21, 'ADMIN KEUANGAN', 'SALES INVOICE', b'1', b'1', b'1', b'1', b'1'),
+	(21, 21, 'SUPERUSER', 'SALES INVOICE', b'1', b'1', b'1', b'1', b'1'),
+	(22, 22, 'ADMIN KEUANGAN', 'CHECKLIST FORM', b'1', b'1', b'1', b'1', b'1'),
+	(22, 22, 'SUPERUSER', 'CHECKLIST FORM', b'1', b'1', b'1', b'1', b'1'),
+	(23, 23, 'ADMIN KEUANGAN', 'PAYMENT ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(23, 23, 'SUPERUSER', 'PAYMENT ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(24, 24, 'ADMIN KEUANGAN', 'RENCANA PEMBELIAN', b'1', b'1', b'1', b'1', b'1'),
+	(24, 24, 'SUPERUSER', 'RENCANA PEMBELIAN', b'1', b'1', b'1', b'1', b'1'),
+	(25, 25, 'ADMIN KEUANGAN', 'BELANJA LANGSUNG', b'1', b'1', b'1', b'1', b'1'),
+	(25, 25, 'SUPERUSER', 'BELANJA LANGSUNG', b'1', b'1', b'1', b'1', b'1'),
+	(26, 26, 'ADMIN KEUANGAN', 'PURCHASE ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(26, 26, 'SUPERUSER', 'PURCHASE ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(27, 27, 'ADMIN KEUANGAN', 'PENGADAAN BARANG', b'1', b'1', b'1', b'1', b'1'),
+	(27, 27, 'SUPERUSER', 'PENGADAAN BARANG', b'1', b'1', b'1', b'1', b'1'),
+	(28, 28, 'ADMIN KEUANGAN', 'PENGIRIMAN BARANG', b'1', b'1', b'1', b'1', b'1'),
+	(28, 28, 'SUPERUSER', 'PENGIRIMAN BARANG', b'1', b'1', b'1', b'1', b'1'),
+	(29, 29, 'ADMIN KEUANGAN', 'PEMASANGAN', b'1', b'1', b'1', b'1', b'1'),
+	(29, 29, 'SUPERUSER', 'PEMASANGAN', b'1', b'1', b'1', b'1', b'1'),
+	(30, 30, 'ADMIN KEUANGAN', 'SCHEDULE UJI COBA', b'1', b'1', b'1', b'1', b'1'),
+	(30, 30, 'SUPERUSER', 'SCHEDULE UJI COBA', b'1', b'1', b'1', b'1', b'1'),
+	(31, 31, 'ADMIN KEUANGAN', 'SALES COMMON', b'1', b'1', b'1', b'1', b'1'),
+	(31, 31, 'SUPERUSER', 'SALES COMMON', b'1', b'1', b'1', b'1', b'1'),
+	(32, 32, 'ADMIN KEUANGAN', 'TECHNICIAN FEE', b'1', b'1', b'1', b'1', b'1'),
+	(32, 32, 'SUPERUSER', 'TECHNICIAN FEE', b'1', b'1', b'1', b'1', b'1'),
+	(33, 33, 'ADMIN KEUANGAN', 'TANDA TERIMA SERVICE', b'1', b'1', b'1', b'1', b'1'),
+	(33, 33, 'SUPERUSER', 'TANDA TERIMA SERVICE', b'1', b'1', b'1', b'1', b'1'),
+	(34, 34, 'ADMIN KEUANGAN', 'KEBUTUHAN BIAYA', b'1', b'1', b'1', b'1', b'1'),
+	(34, 34, 'SUPERUSER', 'KEBUTUHAN BIAYA', b'1', b'1', b'1', b'1', b'1'),
+	(35, 35, 'ADMIN KEUANGAN', 'REPAIR ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(35, 35, 'SUPERUSER', 'REPAIR ORDER', b'1', b'1', b'1', b'1', b'1'),
+	(36, 36, 'ADMIN KEUANGAN', 'RENCANA TINDAKAN', b'1', b'1', b'1', b'1', b'1'),
+	(36, 36, 'SUPERUSER', 'RENCANA TINDAKAN', b'1', b'1', b'1', b'1', b'1'),
+	(37, 37, 'ADMIN KEUANGAN', 'REPAIR REPORT', b'1', b'1', b'1', b'1', b'1'),
+	(37, 37, 'SUPERUSER', 'REPAIR REPORT', b'1', b'1', b'1', b'1', b'1'),
+	(38, 38, 'ADMIN KEUANGAN', 'BARANG MASUK', b'1', b'1', b'1', b'1', b'1'),
+	(38, 38, 'SUPERUSER', 'BARANG MASUK', b'1', b'1', b'1', b'1', b'1'),
+	(39, 39, 'ADMIN KEUANGAN', 'BARANG KELUAR', b'1', b'1', b'1', b'1', b'1'),
+	(39, 39, 'SUPERUSER', 'BARANG KELUAR', b'1', b'1', b'1', b'1', b'1'),
+	(40, 40, 'ADMIN KEUANGAN', 'STOCK OPNAME', b'1', b'1', b'1', b'1', b'1'),
+	(40, 40, 'SUPERUSER', 'STOCK OPNAME', b'1', b'1', b'1', b'1', b'1'),
+	(41, 41, 'ADMIN KEUANGAN', 'MAINTENANCE', b'1', b'1', b'1', b'1', b'1'),
+	(41, 41, 'SUPERUSER', 'MAINTENANCE', b'1', b'1', b'1', b'1', b'1'),
+	(42, 42, 'ADMIN KEUANGAN', 'SURAT PINJAM BARANG', b'1', b'1', b'1', b'1', b'1'),
+	(42, 42, 'SUPERUSER', 'SURAT PINJAM BARANG', b'1', b'1', b'1', b'1', b'1'),
+	(43, 43, 'ADMIN KEUANGAN', 'BARCODE SUPPORT', b'1', b'1', b'1', b'1', b'1'),
+	(43, 43, 'SUPERUSER', 'BARCODE SUPPORT', b'1', b'1', b'1', b'1', b'1'),
+	(44, 44, 'ADMIN KEUANGAN', 'REKRUITMENT', b'1', b'1', b'1', b'1', b'1'),
+	(44, 44, 'SUPERUSER', 'REKRUITMENT', b'1', b'1', b'1', b'1', b'1'),
+	(45, 45, 'ADMIN KEUANGAN', 'PAYROLL', b'1', b'1', b'1', b'1', b'1'),
+	(45, 45, 'SUPERUSER', 'PAYROLL', b'1', b'1', b'1', b'1', b'1'),
+	(46, 46, 'ADMIN KEUANGAN', 'FREELANCE', b'1', b'1', b'1', b'1', b'1'),
+	(46, 46, 'SUPERUSER', 'FREELANCE', b'1', b'1', b'1', b'1', b'1'),
+	(47, 47, 'ADMIN KEUANGAN', 'KESEJAHTERAAN', b'1', b'1', b'1', b'1', b'1'),
+	(47, 47, 'SUPERUSER', 'KESEJAHTERAAN', b'1', b'1', b'1', b'1', b'1'),
+	(48, 48, 'ADMIN KEUANGAN', 'KPI', b'1', b'1', b'1', b'1', b'1'),
+	(48, 48, 'SUPERUSER', 'KPI', b'1', b'1', b'1', b'1', b'1'),
+	(49, 49, 'ADMIN KEUANGAN', 'COST MANAJEMEN', b'1', b'1', b'1', b'1', b'1'),
+	(49, 49, 'SUPERUSER', 'COST MANAJEMEN', b'1', b'1', b'1', b'1', b'1'),
+	(50, 50, 'ADMIN KEUANGAN', 'BOOK KEEPING', b'1', b'1', b'1', b'1', b'1'),
+	(50, 50, 'SUPERUSER', 'BOOK KEEPING', b'1', b'1', b'1', b'1', b'1'),
+	(51, 51, 'ADMIN KEUANGAN', 'REPORTING', b'1', b'1', b'1', b'1', b'1'),
+	(51, 51, 'SUPERUSER', 'REPORTING', b'1', b'1', b'1', b'1', b'1'),
+	(52, 52, 'ADMIN KEUANGAN', 'EVALUATING', b'1', b'1', b'1', b'1', b'1'),
+	(52, 52, 'SUPERUSER', 'EVALUATING', b'1', b'1', b'1', b'1', b'1'),
+	(53, 53, 'ADMIN KEUANGAN', 'IRVENTARISASI', b'1', b'1', b'1', b'1', b'1'),
+	(53, 53, 'SUPERUSER', 'IRVENTARISASI', b'1', b'1', b'1', b'1', b'1'),
+	(54, 54, 'ADMIN KEUANGAN', 'HISTORY', b'1', b'1', b'1', b'1', b'1'),
+	(54, 54, 'SUPERUSER', 'HISTORY', b'1', b'1', b'1', b'1', b'1'),
+	(55, 55, 'ADMIN KEUANGAN', 'PENYUSUTAN', b'1', b'1', b'1', b'1', b'1'),
+	(55, 55, 'SUPERUSER', 'PENYUSUTAN', b'1', b'1', b'1', b'1', b'1');
 /*!40000 ALTER TABLE `d_hak_akses` ENABLE KEYS */;
 
 -- Dumping structure for table atonergi.d_jabatan
@@ -137,11 +243,10 @@ CREATE TABLE IF NOT EXISTS `d_jabatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_jabatan: ~2 rows (approximately)
-DELETE FROM `d_jabatan`;
 /*!40000 ALTER TABLE `d_jabatan` DISABLE KEYS */;
-INSERT INTO `d_jabatan` (`j_id`, `j_nama`, `j_keterangan`, `j_created_at`, `j_updated_at`, `j_created_by`, `j_updated_by`) VALUES
+REPLACE INTO `d_jabatan` (`j_id`, `j_nama`, `j_keterangan`, `j_created_at`, `j_updated_at`, `j_created_by`, `j_updated_by`) VALUES
 	(1, 'SUPERUSER', 'ADMIN', NULL, NULL, NULL, NULL),
-	(2, 'ADMIN KEUANGAN', 'KHUSUS KEUANGAN', NULL, NULL, NULL, NULL);
+	(2, 'ADMIN KEUANGAN', 'ADMIN', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `d_jabatan` ENABLE KEYS */;
 
 -- Dumping structure for table atonergi.d_marketing
@@ -157,7 +262,6 @@ CREATE TABLE IF NOT EXISTS `d_marketing` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_marketing: ~0 rows (approximately)
-DELETE FROM `d_marketing`;
 /*!40000 ALTER TABLE `d_marketing` DISABLE KEYS */;
 /*!40000 ALTER TABLE `d_marketing` ENABLE KEYS */;
 
@@ -177,10 +281,9 @@ CREATE TABLE IF NOT EXISTS `d_mem` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_mem: ~3 rows (approximately)
-DELETE FROM `d_mem`;
 /*!40000 ALTER TABLE `d_mem` DISABLE KEYS */;
-INSERT INTO `d_mem` (`m_id`, `m_username`, `m_password`, `m_name`, `m_jabatan`, `m_image`, `m_created_at`, `m_updated_at`, `m_last_login`, `m_last_logout`) VALUES
-	(1, 'admin', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'admin', 'SUPERUSER', 'user_1_.jpg', '2018-05-08 23:22:46', '2018-05-18 05:26:40', '2018-05-18 05:26:40', NULL),
+REPLACE INTO `d_mem` (`m_id`, `m_username`, `m_password`, `m_name`, `m_jabatan`, `m_image`, `m_created_at`, `m_updated_at`, `m_last_login`, `m_last_logout`) VALUES
+	(1, 'admin', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'admin', 'SUPERUSER', 'user_1_.jpg', '2018-05-08 23:22:46', '2018-05-22 03:47:34', '2018-05-22 03:47:34', NULL),
 	(2, 'shitta', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'shitta', 'ADMIN KEUANGAN', 'user_2_.jpg', '2018-05-09 00:04:24', '2018-05-09 00:04:24', NULL, NULL),
 	(3, 'admin1', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'her', 'SUPERUSER', 'user_3_.jpg', '2018-05-18 05:27:37', '2018-05-18 13:35:33', '2018-05-18 13:35:06', NULL);
 /*!40000 ALTER TABLE `d_mem` ENABLE KEYS */;
@@ -192,7 +295,6 @@ CREATE TABLE IF NOT EXISTS `d_quotation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_quotation: ~0 rows (approximately)
-DELETE FROM `d_quotation`;
 /*!40000 ALTER TABLE `d_quotation` DISABLE KEYS */;
 /*!40000 ALTER TABLE `d_quotation` ENABLE KEYS */;
 
@@ -202,7 +304,6 @@ CREATE TABLE IF NOT EXISTS `d_quotation_value` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_quotation_value: ~0 rows (approximately)
-DELETE FROM `d_quotation_value`;
 /*!40000 ALTER TABLE `d_quotation_value` DISABLE KEYS */;
 /*!40000 ALTER TABLE `d_quotation_value` ENABLE KEYS */;
 
@@ -227,7 +328,6 @@ CREATE TABLE IF NOT EXISTS `m_customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_customer: ~0 rows (approximately)
-DELETE FROM `m_customer`;
 /*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
 
@@ -248,7 +348,6 @@ CREATE TABLE IF NOT EXISTS `m_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_item: ~0 rows (approximately)
-DELETE FROM `m_item`;
 /*!40000 ALTER TABLE `m_item` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_item` ENABLE KEYS */;
 
@@ -263,7 +362,6 @@ CREATE TABLE IF NOT EXISTS `m_item_bundling` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_item_bundling: ~0 rows (approximately)
-DELETE FROM `m_item_bundling`;
 /*!40000 ALTER TABLE `m_item_bundling` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_item_bundling` ENABLE KEYS */;
 
@@ -276,7 +374,6 @@ CREATE TABLE IF NOT EXISTS `m_price` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_price: ~0 rows (approximately)
-DELETE FROM `m_price`;
 /*!40000 ALTER TABLE `m_price` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_price` ENABLE KEYS */;
 
@@ -300,7 +397,6 @@ CREATE TABLE IF NOT EXISTS `m_vendor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_vendor: ~0 rows (approximately)
-DELETE FROM `m_vendor`;
 /*!40000 ALTER TABLE `m_vendor` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_vendor` ENABLE KEYS */;
 
