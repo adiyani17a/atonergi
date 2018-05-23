@@ -47,9 +47,9 @@
 						    	<td><span class="badge badge-pill badge-warning">Not yet paid off</span></td>
 						    	<td>
                     			<div class="btn-group" role="group">
-						    		<a href="{{url('quotation/q_quotation/edit_quotation')}}" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil"></i></a>
+						    		<a href="{{url('quotation/q_quotation/edit_quotation')}}" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>
 						    		<a href="{{url('quotation/q_quotation/print_quotation')}}" class="btn btn-info btn-sm" target="_blank" title="Print"><i class="fa fa-print"></i></a>
-						    		<a href="#" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash-o"></i></a>
+						    		<a href="#" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></a>
 						    	</div>
 						    	</td>
 						    </tr>

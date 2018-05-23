@@ -24,34 +24,19 @@
 		                  	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
 		                </div>
                   <div class="table-responsive">
-                          <table class="table table-hover table-bordered data-table" cellspacing="0">
+                          <table id="t55" class="table table-hover table-bordered" cellspacing="0">
                             <thead class="bg-gradient-info">
                                 <tr>
                                   <th class="wd-15p" width="5%">Item Code</th>
                                   <th class="wd-15p">Item Name</th>
+                                  <th>Item Price</th>
                                   <th class="wd-15p" width="5%">Unit</th>
                                   <th class="wd-15p">Description Item</th>
+                                  <th>Image</th>
                                   <th width="15%">Action</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                @foreach($barang as $item)
-
-                                <tr>
-                                  <td>{{$item['i_code']}}</td>
-                                  <td>{{$item['i_name']}}</td>
-                                  <td>{{$item['i_unit']}}</td>
-                                  <td>{{$item['i_description']}}</td>
-                                  <td>
-                                    <div class="btn-group">    
-                                      <a href="#" class="btn btn-info btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>
-
-                                      <a href="baranghapus/{{$item['i_id']}}" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></a>
-                                    </div>  
-                                  </td>
-                                </tr>
-                                @endforeach
-                                
                               </tbody>
                           
                           </table> 
@@ -62,6 +47,78 @@
 </div>
 <!-- content-wrapper ends -->
 @endsection
-@section('extra_script')
 
+
+@section('extra_script')
+<script>
+
+$(document).ready(function(){
+
+    $('#t55').DataTable({
+            processing: true,
+            // responsive:true,
+            serverSide: true,
+            ajax: {
+                url:'{{ route("datatable_barang") }}',
+            },
+            columnDefs: [
+
+                  {
+                     targets: 0 ,
+                     className: 'center d_id'
+                  },
+                  {
+                     targets: 1,
+                     className: 'd_nama'
+                  },
+                  {
+                     targets: 2,
+                     className: 'center d_grup'
+                  },
+                  {
+                     targets: 4,
+                     className: 'center'
+                  }
+                ],
+            "columns": [
+            { "data": "i_code" },
+            { "data": "i_name" },
+            { "data": "i_price"},
+            { "data": "i_unit" },
+            { "data": "i_description" },
+            { "data": "gambar"},
+            { "data": "aksi" },
+            
+            ]
+      });
+  });
+
+function hapus(a) {
+    var par   = $(a).parents('tr');
+    var id    = $(par).find('.d_id').text();
+    $.ajax({
+        url: baseUrl +'/master/barang/baranghapus',
+        type:'get',
+        data: {id},
+        dataType:'json',
+        success:function(data){        
+          var table = $('#t55').DataTable();
+          table.ajax.reload();
+          console.log(data);
+          iziToast.success({
+            icon: 'fa fa-check',
+            message: 'Data Berhasil Dihapus!',
+          });
+          
+        },
+        error:function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+        }
+    });
+  }
+
+</script>
 @endsection

@@ -15,16 +15,7 @@
             <div class="row col-md-12 col-sm-12 col-xs-12">
 
                                   
-              <div class="col-md-3 col-sm-4 col-xs-12">
-               
-                    <label class="tebal">Item Code</label>
-               
-              </div>
-              <div class="col-md-3 col-sm-8 col-xs-12">
-                <div class="form-group">
-                    <input readonly="" type="text"  class="form-control form-control-sm">                                  
-                </div>
-              </div>
+              
 
               
 
@@ -118,6 +109,9 @@
                     <input type="text" class="form-control form-control-sm" name="min_stock">                               
                 </div>
               </div>
+              <div class="col-md-6 col-sm-0 col-xs-0">
+                <!-- empty -->
+              </div>
       
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
@@ -140,11 +134,3 @@
 
   </div>
 </div>
-
-@section('extra_script')
-<script type="text/javascript">
-
-  
-  
-</script>
-@endsection
