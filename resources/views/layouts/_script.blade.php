@@ -47,7 +47,7 @@
     position:'topRight'
   });
   $(document).ready(function(){
-    $("input[type='number']").keydown(function (e) {
+    $("input[type='number'] .number").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
              // Allow: Ctrl/cmd+A
@@ -68,7 +68,8 @@
     });
 
     var datepicker = $('.datepicker').datepicker({
-      format:"dd-mm-yyyy"
+      format:"dd-mm-yyyy",
+      autoclose:true
     });
 
     $('select').select2({ 

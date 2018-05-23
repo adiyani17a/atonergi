@@ -65,19 +65,23 @@ $(document).ready(function(){
 
                   {
                      targets: 0 ,
-                     className: 'center d_id'
+                     className: 'center i_id'
                   },
                   {
                      targets: 1,
-                     className: 'd_nama'
+                     className: 'i_nama'
                   },
                   {
                      targets: 2,
-                     className: 'center d_grup'
+                     className: 'center i_grup'
                   },
                   {
                      targets: 4,
                      className: 'center'
+                  },
+                  {
+                    targets: 5,
+                    className: 'center'
                   }
                 ],
             "columns": [
@@ -95,7 +99,7 @@ $(document).ready(function(){
 
 function hapus(a) {
     var par   = $(a).parents('tr');
-    var id    = $(par).find('.d_id').text();
+    var id    = $(par).find('.i_id').text();
     $.ajax({
         url: baseUrl +'/master/barang/baranghapus',
         type:'get',
