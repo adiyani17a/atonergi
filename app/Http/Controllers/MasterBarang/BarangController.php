@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Barang;
 use DB;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class BarangController extends Controller
 {
@@ -20,8 +22,25 @@ class BarangController extends Controller
  		$index = $m1+=1;
                            
 
-
-        $id_auto = 'BRG/'.$index;
+        if($index<=9)
+        {
+            $id_auto = 'BRG/000'.$index;
+        }
+        else if($index<=99)
+        {
+            $id_auto = 'BRG/00'.$index;
+        }
+        else if($index<=999)
+        {
+            $id_auto = 'BRG/0'.$index;
+        }
+        else if($index<=9999)
+        {
+            $id_auto = 'BRG/'.$index;
+        }
+        else {
+            console.log('code Item sudah mencapai 9999');
+        }
 
         $barang= new Barang();
     	if($request->hasfile('img')) 
@@ -29,7 +48,7 @@ class BarangController extends Controller
 		  $file = $request->file('img');
 		  $extension = $file->getClientOriginalExtension(); // getting image extension
 		  $filename =time().'.'.$extension;
-		  $file->move('assets/barang/', $filename);
+		  $file->move('assets/barang', $filename);
 		}else{
 			$filename = '';
 		}
@@ -44,7 +63,7 @@ class BarangController extends Controller
         if($filename==''){
         	$barang->i_image='';
         }else{
-        $barang->i_image='assets/barang/'.$filename;
+        $barang->i_image=$filename;
     	}
         $barang->i_id=$m1;
         $barang->save();
@@ -53,6 +72,21 @@ class BarangController extends Controller
     }
     public function baranghapus(Request $request)
     {
+        $gambar = DB::Table('m_item')->select('i_image')->where('i_code','=',$request->id)->get();
+
+        
+            // dd(base_path('assets\barang\\'.$gambar[0]->i_image));
+        if($gambar[0]->i_image != '')
+        {
+            if(file_exists(base_path('assets/barang\\'.$gambar[0]->i_image)))
+            {
+                $storage = unlink(base_path('assets\barang\\'.$gambar[0]->i_image));
+            }
+
+        }
+
+
+
         $barang = DB::Table('m_item')->where('i_code','=',$request->id)->delete();
         return response()->json(['data'=>1]);
         // return redirect('master/barang/barang')->with('success','Data has been  deleted');
@@ -78,10 +112,9 @@ class BarangController extends Controller
                         })
 						->addColumn('gambar', function ($barang) { 
 							if($barang->i_image!=''){
-								$url=asset("$barang->i_image"); 
+								$url=asset("assets/barang/$barang->i_image"); 
 								return '<img src="'.$url.'" border="0" width="60" class="img-rounded" align="center" />'; 
 							}else{
-								$url=null;
 								return '<i class="fa fa-minus-square"></i>';
 							}
 
@@ -90,7 +123,7 @@ class BarangController extends Controller
                           return '-';
                       	})
 
-                      ->rawColumns(['aksi','gambar', 'confirmed'])
+                      ->rawColumns(['aksi','gambar'])
                         ->make(true);
     }
  }

@@ -40,7 +40,7 @@
 
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                  <input type="file" name="img" class="file-upload-default">
+                  <input type="file" name="img" class="file-upload-default" multiple accept='image/*'>
                   <div class="input-group col-xs-12">
                     <input type="text" class="form-control file-upload-info" readonly="" placeholder="Upload Image">
                     <span class="input-group-btn">
