@@ -45,7 +45,7 @@
                               <tbody>
                                 <tr>
                                   <td></td>
-                                  <td>
+                                  <td align="center">
                                       <label class="label">
                                         <input  class="label__checkbox aksi" name="aksi" type="checkbox" />
                                         <span class="label__text">
@@ -55,7 +55,7 @@
                                         </span>
                                       </label>
                                   </td>
-                                  <td>
+                                  <td align="center">
                                       <label class="label">
                                         <input  class="label__checkbox tambah" name="tambah" type="checkbox" />
                                         <span class="label__text">
@@ -65,7 +65,7 @@
                                         </span>
                                       </label>
                                   </td>
-                                  <td>
+                                  <td align="center">
                                       <label class="label">
                                         <input  class="label__checkbox ubah" name="ubah" type="checkbox" />
                                         <span class="label__text">
@@ -75,7 +75,7 @@
                                         </span>
                                       </label>
                                   </td>
-                                  <td>
+                                  <td align="center">
                                       <label class="label">
                                         <input  class="label__checkbox print" name="print" type="checkbox" />
                                         <span class="label__text">
@@ -85,7 +85,7 @@
                                         </span>
                                       </label>
                                   </td>
-                                  <td>
+                                  <td align="center">
                                       <label class="label">
                                         <input  class="label__checkbox tambah" name="tambah" type="checkbox" />
                                         <span class="label__text">

@@ -17,7 +17,7 @@ class SettingController extends Controller
    // JABATAN
    public function jabatan()
    {
-   	return view('setting.jabatan.jabatan');
+    return view('setting.jabatan.jabatan');
    }
 
    public function datatable_jabatan()

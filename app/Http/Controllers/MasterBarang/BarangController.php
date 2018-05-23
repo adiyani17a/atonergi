@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Barang;
 use DB;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class BarangController extends Controller
 {
@@ -17,10 +19,28 @@ class BarangController extends Controller
 
     	$m1 = DB::table('m_item')->max('i_id');
     	
- 		$index = $m1+1;
+ 		$index = $m1+=1;
                            
 
-                            $id_auto = 'BRG/'.$index;
+        if($index<=9)
+        {
+            $id_auto = 'BRG/000'.$index;
+        }
+        else if($index<=99)
+        {
+            $id_auto = 'BRG/00'.$index;
+        }
+        else if($index<=999)
+        {
+            $id_auto = 'BRG/0'.$index;
+        }
+        else if($index<=9999)
+        {
+            $id_auto = 'BRG/'.$index;
+        }
+        else {
+            console.log('code Item sudah mencapai 9999');
+        }
 
         $barang= new Barang();
     	if($request->hasfile('img')) 
@@ -28,7 +48,9 @@ class BarangController extends Controller
 		  $file = $request->file('img');
 		  $extension = $file->getClientOriginalExtension(); // getting image extension
 		  $filename =time().'.'.$extension;
-		  $file->move('assets/barang/', $filename);
+		  $file->move('assets/barang', $filename);
+		}else{
+			$filename = '';
 		}
         $barang->i_name=$request->get('item_name');
         $barang->i_type=$request->get('type_barang');
@@ -38,17 +60,36 @@ class BarangController extends Controller
         $barang->i_weight=$request->get('weight');
         $barang->i_description=$request->get('description');
         $barang->i_code=$id_auto;
-        $barang->i_image='assets/barang/'.$filename;
+        if($filename==''){
+        	$barang->i_image='';
+        }else{
+        $barang->i_image=$filename;
+    	}
         $barang->i_id=$m1;
         $barang->save();
         
-        return redirect('barang')->with('success','Data has been  added');
+        return redirect('master/barang/barang')->with('success','Data has been  added');
     }
-    public function baranghapus($id)
+    public function baranghapus(Request $request)
     {
-        $barang = Barang::find($id);
-        $barang->delete();
-        return redirect('barang')->with('success','Data has been  deleted');
+        $gambar = DB::Table('m_item')->select('i_image')->where('i_code','=',$request->id)->get();
+
+        
+            // dd(base_path('assets\barang\\'.$gambar[0]->i_image));
+        if($gambar[0]->i_image != '')
+        {
+            if(file_exists(base_path('assets/barang\\'.$gambar[0]->i_image)))
+            {
+                $storage = unlink(base_path('assets\barang\\'.$gambar[0]->i_image));
+            }
+
+        }
+
+
+
+        $barang = DB::Table('m_item')->where('i_code','=',$request->id)->delete();
+        return response()->json(['data'=>1]);
+        // return redirect('master/barang/barang')->with('success','Data has been  deleted');
     }
     public function datatable_barang()
    {
@@ -59,6 +100,7 @@ class BarangController extends Controller
         // return $data;
         $barang = collect($barang);
         // return $barang;
+        
         return Datatables::of($barang)
                         ->addColumn('aksi', function ($barang) {
                           return  '<div class="btn-group">'.
@@ -68,10 +110,20 @@ class BarangController extends Controller
                                    '<label class="fa fa-trash"></label></button>'.
                                   '</div>';
                         })
+						->addColumn('gambar', function ($barang) { 
+							if($barang->i_image!=''){
+								$url=asset("assets/barang/$barang->i_image"); 
+								return '<img src="'.$url.'" border="0" width="60" class="img-rounded" align="center" />'; 
+							}else{
+								return '<i class="fa fa-minus-square"></i>';
+							}
+
+						})
                         ->addColumn('none', function ($barang) {
                           return '-';
-                      })
-                      ->rawColumns(['aksi', 'confirmed'])
+                      	})
+
+                      ->rawColumns(['aksi','gambar'])
                         ->make(true);
-   }
-}
+    }
+ }

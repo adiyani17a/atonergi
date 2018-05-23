@@ -15,16 +15,7 @@
             <div class="row col-md-12 col-sm-12 col-xs-12">
 
                                   
-              <div class="col-md-3 col-sm-4 col-xs-12">
-               
-                    <label class="tebal">Item Code</label>
-               
-              </div>
-              <div class="col-md-3 col-sm-8 col-xs-12">
-                <div class="form-group">
-                    <input readonly="" type="text"  class="form-control form-control-sm">                                  
-                </div>
-              </div>
+              
 
               
 
@@ -49,7 +40,7 @@
 
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                  <input type="file" name="img" class="file-upload-default">
+                  <input type="file" name="img" class="file-upload-default" multiple accept='image/*'>
                   <div class="input-group col-xs-12">
                     <input type="text" class="form-control file-upload-info" readonly="" placeholder="Upload Image">
                     <span class="input-group-btn">
@@ -117,6 +108,9 @@
                 <div class="form-group">
                     <input type="text" class="form-control form-control-sm" name="min_stock">                               
                 </div>
+              </div>
+              <div class="col-md-6 col-sm-0 col-xs-0">
+                <!-- empty -->
               </div>
       
               <div class="col-md-3 col-sm-4 col-xs-12">
