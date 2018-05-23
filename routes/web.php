@@ -65,7 +65,6 @@ Route::get('/master/pegawai/pegawai', 'MasterController@pegawai');
 Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
-Route::get('/master/vendor/vendor', 'MasterController@vendor');
 Route::get('/master/bundle/bundle', 'MasterController@bundle');
 
 
@@ -172,8 +171,23 @@ Route::get('inventory/opname/opname', 'InventoryController@opname');
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');
 });
 
+            //---------------------- MASTER --------------------------\\
+
+
+//master vendor 
+Route::get('/master/vendor/vendor', 'master_vendorController@vendor');
+Route::get('/master/simpanvendor/simpan_vendor', 'master_vendorController@simpan_vendor');
+Route::get('/master/hapusvendor/hapus_vendor', 'master_vendorController@hapus_vendor');
+Route::get('/master/updatevendor/update_vendor', 'master_vendorController@update_vendor');
+Route::get('/master/dataeditvendor/dataedit_vendor', 'master_vendorController@dataedit_vendor');
+Route::get('/master/datatalble_vendor/datatalble_vendor', 'master_vendorController@datatalble_vendor')->name('datatalble_vendor');
+
+
 
 // Master Barang
 Route::post('master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
 Route::get('master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
 Route::get('master/barang/baranghapus/{$id}', 'MasterBarang\BarangController@baranghapus');
+
+
+                        //----------- END OF --------------\\
