@@ -1,8 +1,7 @@
 @extends('main')
 @section('content')
 
-
-
+<link rel="stylesheet" href="{{asset('node_modules/checkbox/css/style.css')}}">
 
 <!-- partial -->
 <div class="content-wrapper">
@@ -21,7 +20,6 @@
               <div class="card">
                 <div class="card-body">
                   <div class="col-md-12 col-xs-12 col-xs-12">
-                    
                       <div class="panel-default">
                         <a data-toggle="collapse" href="#collapse1">
                         <div class="panel-heading bg-gradient-primary panel-bg panel-top" style="border: 1px solid #e5e5e5;color:white;padding-left: 15px;">
@@ -40,16 +38,63 @@
                                   <th>Aksi</th>
                                   <th>Tambah</th>
                                   <th>Ubah</th>
+                                  <th>Print</th>
                                   <th>Hapus</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
                                   <td></td>
-                                  <td><input type="checkbox" name="tambah" class="tambah"></td>
-                                  <td><input type="checkbox" name="tambah" class="tambah"></td>
-                                  <td><input type="checkbox" name="tambah" class="tambah"></td>
-                                  <td><input type="checkbox" name="tambah" class="tambah"></td>
+                                  <td>
+                                      <label class="label">
+                                        <input  class="label__checkbox aksi" name="aksi" type="checkbox" />
+                                        <span class="label__text">
+                                          <span class="label__check">
+                                            <i class="fa fa-check icon"></i>
+                                          </span>
+                                        </span>
+                                      </label>
+                                  </td>
+                                  <td>
+                                      <label class="label">
+                                        <input  class="label__checkbox tambah" name="tambah" type="checkbox" />
+                                        <span class="label__text">
+                                          <span class="label__check">
+                                            <i class="fa fa-check icon"></i>
+                                          </span>
+                                        </span>
+                                      </label>
+                                  </td>
+                                  <td>
+                                      <label class="label">
+                                        <input  class="label__checkbox ubah" name="ubah" type="checkbox" />
+                                        <span class="label__text">
+                                          <span class="label__check">
+                                            <i class="fa fa-check icon"></i>
+                                          </span>
+                                        </span>
+                                      </label>
+                                  </td>
+                                  <td>
+                                      <label class="label">
+                                        <input  class="label__checkbox print" name="print" type="checkbox" />
+                                        <span class="label__text">
+                                          <span class="label__check">
+                                            <i class="fa fa-check icon"></i>
+                                          </span>
+                                        </span>
+                                      </label>
+                                  </td>
+                                  <td>
+                                      <label class="label">
+                                        <input  class="label__checkbox tambah" name="tambah" type="checkbox" />
+                                        <span class="label__text">
+                                          <span class="label__check">
+                                            <i class="fa fa-check icon"></i>
+                                          </span>
+                                        </span>
+                                      </label>
+                                  </td>
                                 </tr>
                               </tbody>
                             </table>
