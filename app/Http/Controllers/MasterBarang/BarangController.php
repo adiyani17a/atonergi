@@ -17,18 +17,21 @@ class BarangController extends Controller
 
     	$m1 = DB::table('m_item')->max('i_id');
     	
- 		$index = $m1+1;
+ 		$index = $m1+=1;
                            
 
-                            $id_auto = 'BRG/'.$index;
+
+        $id_auto = 'BRG/'.$index;
 
         $barang= new Barang();
     	if($request->hasfile('img')) 
 		{ 
 		  $file = $request->file('img');
 		  $extension = $file->getClientOriginalExtension(); // getting image extension
-		  $filename =time().'.'.$extension;
+		  $filename =$id_auto.'.'.$extension;
 		  $file->move('assets/barang/', $filename);
+		}else{
+			$filename = '';
 		}
         $barang->i_name=$request->get('item_name');
         $barang->i_type=$request->get('type_barang');
@@ -38,17 +41,20 @@ class BarangController extends Controller
         $barang->i_weight=$request->get('weight');
         $barang->i_description=$request->get('description');
         $barang->i_code=$id_auto;
+        if($filename==''){
+        	$barang->i_image='';
+        }else{
         $barang->i_image='assets/barang/'.$filename;
+    	}
         $barang->i_id=$m1;
         $barang->save();
         
-        return redirect('barang')->with('success','Data has been  added');
+        return redirect('master/barang/barang')->with('success','Data has been  added');
     }
-    public function baranghapus($id)
+    public function baranghapus(Request $request)
     {
-        $barang = Barang::find($id);
-        $barang->delete();
-        return redirect('barang')->with('success','Data has been  deleted');
+        $barang = DB::Table('m_item')->where('i_code','=',$request->id)->delete();
+        return redirect('master/barang/barang')->with('success','Data has been  deleted');
     }
     public function datatable_barang()
    {
@@ -59,6 +65,7 @@ class BarangController extends Controller
         // return $data;
         $barang = collect($barang);
         // return $barang;
+        
         return Datatables::of($barang)
                         ->addColumn('aksi', function ($barang) {
                           return  '<div class="btn-group">'.
@@ -70,8 +77,11 @@ class BarangController extends Controller
                         })
                         ->addColumn('none', function ($barang) {
                           return '-';
-                      })
+                      	})
+                        ->addColumn('gambar', function ($barang) { 
+				        
+				        return '<img src='asset("$barang->i_image")' border="0" width="40" class="img-rounded" align="center" />'; 
+						})
                       ->rawColumns(['aksi', 'confirmed'])
                         ->make(true);
-   }
-}
+  

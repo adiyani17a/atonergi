@@ -63,8 +63,11 @@
                 <div class="form-group">
                   <select class="form-control form-control-sm" id="type_qo" onchange="kepala_suku()">
                     <option>--Select Type--</option>
-                    <option value="so">Sales Order</option>
-                    <option value="wo">Work Order</option>
+                    <option>SWP</option>
+                    <option>WP</option>
+                    <option>Accesories</option>
+                    <option>Off Grid</option>
+                    <option>On Grid</option>
                   </select>
                 </div>
               </div>
@@ -127,7 +130,12 @@
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input type="text" class="form-control-sm form-control" name="">
+                  <select class="form-control form-control-sm">
+                    <option>--Select Shipping Method--</option>
+                    <option>Sea</option>
+                    <option>Land Freight</option>
+                    <option>Air Freight</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
@@ -268,11 +276,11 @@
             '<input type="text" id="item_kode[]" class="form-control input-sm min-width" readonly value="'+ q_kodeitem.val() +'">',
             '<input type="text" id="item_name[]" class="form-control input-sm min-width" value="'+ q_item.val() +'">',
             '<input type="number" id="jumlah[]" class="form-control input-sm min-width" value="'+ q_qty.val() +'">',
-            '<input type="text" id="[]" class="form-control input-sm min-width">',
-            '<input type="text" id="[]" class="form-control input-sm min-width">',
+            '<input type="text" id="unit[]" class="form-control input-sm min-width">',
+            '<input type="text" id="description[]" class="form-control input-sm min-width">',
             '<input type="text" id="unit_price[]" class="form-control input-sm min-width">',
-            '<input type="text" id="[]" class="form-control input-sm min-width">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
+            '<input type="text" id="line_total[]" class="form-control input-sm min-width">',
+            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
   
         x++;

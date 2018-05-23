@@ -44,6 +44,9 @@ class MasterController extends Controller
     {
         return view('master/bundle/bundle');
     }
-    
+    public function status()
+    {
+        return view('master/status/status');
+    }
        
 }

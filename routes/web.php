@@ -67,6 +67,7 @@ Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
 Route::get('/master/vendor/vendor', 'MasterController@vendor');
 Route::get('/master/bundle/bundle', 'MasterController@bundle');
+Route::get('/master/status/status', 'MasterController@status');
 
 
 // Quotation
@@ -176,4 +177,4 @@ Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController
 // Master Barang
 Route::post('master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
 Route::get('master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
-Route::get('master/barang/baranghapus/{$id}', 'MasterBarang\BarangController@baranghapus');
+Route::get('master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');

@@ -27,8 +27,10 @@
                           <table id="t55" class="table table-hover table-bordered" cellspacing="0">
                             <thead class="bg-gradient-info">
                                 <tr>
+                                  <th>Image</th>
                                   <th class="wd-15p" width="5%">Item Code</th>
                                   <th class="wd-15p">Item Name</th>
+                                  <th>Item Price</th>
                                   <th class="wd-15p" width="5%">Unit</th>
                                   <th class="wd-15p">Description Item</th>
                                   <th width="15%">Action</th>
@@ -79,8 +81,10 @@ $(document).ready(function(){
                   }
                 ],
             "columns": [
+            { "data": "gambar"},
             { "data": "i_code" },
             { "data": "i_name" },
+            { "data": "i_price"},
             { "data": "i_unit" },
             { "data": "i_description" },
             { "data": "aksi" },
@@ -93,14 +97,17 @@ function hapus(a) {
     var par   = $(a).parents('tr');
     var id    = $(par).find('.d_id').text();
     $.ajax({
-        url:baseUrl +'/master/barang/baranghapus',
+        url: baseUrl +'/master/barang/baranghapus',
         type:'get',
-        data:{id},
+        data: {id},
         dataType:'json',
         success:function(data){        
           var table = $('#t55').DataTable();
           table.ajax.reload();
-          
+          iziToast.success({
+            icon: 'fa fa-check',
+            message: 'Data Berhasil Dihapus!',
+          });
           
         },
         error:function(){
