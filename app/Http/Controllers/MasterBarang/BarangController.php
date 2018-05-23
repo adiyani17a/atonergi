@@ -28,7 +28,7 @@ class BarangController extends Controller
 		{ 
 		  $file = $request->file('img');
 		  $extension = $file->getClientOriginalExtension(); // getting image extension
-		  $filename =$id_auto.'.'.$extension;
+		  $filename =time().'.'.$extension;
 		  $file->move('assets/barang/', $filename);
 		}else{
 			$filename = '';
@@ -54,7 +54,8 @@ class BarangController extends Controller
     public function baranghapus(Request $request)
     {
         $barang = DB::Table('m_item')->where('i_code','=',$request->id)->delete();
-        return redirect('master/barang/barang')->with('success','Data has been  deleted');
+        return response()->json(['data'=>1]);
+        // return redirect('master/barang/barang')->with('success','Data has been  deleted');
     }
     public function datatable_barang()
    {
@@ -75,13 +76,21 @@ class BarangController extends Controller
                                    '<label class="fa fa-trash"></label></button>'.
                                   '</div>';
                         })
+						->addColumn('gambar', function ($barang) { 
+							if($barang->i_image!=''){
+								$url=asset("$barang->i_image"); 
+								return '<img src="'.$url.'" border="0" width="60" class="img-rounded" align="center" />'; 
+							}else{
+								$url=null;
+								return '<i class="fa fa-minus-square"></i>';
+							}
+
+						})
                         ->addColumn('none', function ($barang) {
                           return '-';
                       	})
-                        ->addColumn('gambar', function ($barang) { 
-				        
-				        return '<img src='asset("$barang->i_image")' border="0" width="40" class="img-rounded" align="center" />'; 
-						})
-                      ->rawColumns(['aksi', 'confirmed'])
+
+                      ->rawColumns(['aksi','gambar', 'confirmed'])
                         ->make(true);
-  
+    }
+ }

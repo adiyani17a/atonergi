@@ -34,7 +34,30 @@
                           </thead>
                          
                           <tbody>
-
+                            <tr>
+                              <td>1</td>
+                              <td>status/1</td>
+                              <td>Won</td>
+                              <td><span class="badge badge-pill badge-success">Success</span></td>
+                              <td>
+                                <div class="btn-group">
+                                  <button type="button" class="btn btn-info btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></button>
+                                  <button type="button" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>2</td>
+                              <td>status/2</td>
+                              <td>Lost to Competitor</td>
+                              <td><span class="badge badge-pill badge-danger">Danger</span></td>
+                              <td>
+                                <div class="btn-group">
+                                  <button type="button" class="btn btn-info btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></button>
+                                  <button type="button" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></button>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
 
                           
