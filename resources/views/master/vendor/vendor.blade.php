@@ -201,7 +201,7 @@
             progressBarColor: 'rgb(0, 255, 184)',
             buttons: [
               [
-                '<button>Ok</button>',
+                '<button style="background-color:red;">Delete</button>',
                 function (instance, toast) {
 
                   $.ajax({
@@ -227,7 +227,7 @@
                 }
               ],
               [
-                '<button>Close</button>',
+                '<button style="background-color:#44d7c9;">Cancel</button>',
                 function (instance, toast) {
                   instance.hide({
                     transitionOut: 'fadeOutUp'
