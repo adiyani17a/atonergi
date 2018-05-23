@@ -18,9 +18,10 @@ CREATE TABLE IF NOT EXISTS `d_daftar_menu` (
   `dm_group` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table atonergi.d_daftar_menu: ~55 rows (approximately)
+-- Dumping data for table atonergi.d_daftar_menu: ~76 rows (approximately)
+DELETE FROM `d_daftar_menu`;
 /*!40000 ALTER TABLE `d_daftar_menu` DISABLE KEYS */;
-REPLACE INTO `d_daftar_menu` (`dm_id`, `dm_nama`, `dm_group`) VALUES
+INSERT INTO `d_daftar_menu` (`dm_id`, `dm_nama`, `dm_group`) VALUES
 	(1, 'SETTING LEVEL ACCOUNT', 1),
 	(2, 'SETTING ACCOUNT', 1),
 	(3, 'SETTING HAK AKSES', 1),
@@ -30,7 +31,6 @@ REPLACE INTO `d_daftar_menu` (`dm_id`, `dm_nama`, `dm_group`) VALUES
 	(7, 'MASTER DATA PEGAWAI', 2),
 	(8, 'MASTER DATA AKUN KEUANGAN', 2),
 	(9, 'MASTER DATA TRANSAKSI KEUANGAN', 2),
-	(10, 'MASTER DATA BUNDLE ITEM', 2),
 	(11, 'QUOTATION', 3),
 	(12, 'TIM MARKETING', 3),
 	(13, 'NILAI PENAWARAN', 3),
@@ -75,7 +75,8 @@ REPLACE INTO `d_daftar_menu` (`dm_id`, `dm_nama`, `dm_group`) VALUES
 	(52, 'EVALUATING', 10),
 	(53, 'IRVENTARISASI', 11),
 	(54, 'HISTORY', 11),
-	(55, 'PENYUSUTAN', 11);
+	(55, 'PENYUSUTAN', 11),
+	(10, 'MASTER DATA BUNDLE ITEM', 2);
 /*!40000 ALTER TABLE `d_daftar_menu` ENABLE KEYS */;
 
 -- Dumping structure for table atonergi.d_grup_menu
@@ -86,8 +87,9 @@ CREATE TABLE IF NOT EXISTS `d_grup_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_grup_menu: ~11 rows (approximately)
+DELETE FROM `d_grup_menu`;
 /*!40000 ALTER TABLE `d_grup_menu` DISABLE KEYS */;
-REPLACE INTO `d_grup_menu` (`gm_id`, `gm_nama`) VALUES
+INSERT INTO `d_grup_menu` (`gm_id`, `gm_nama`) VALUES
 	(1, 'Setting'),
 	(2, 'Master'),
 	(3, 'Quotation'),
@@ -107,17 +109,18 @@ CREATE TABLE IF NOT EXISTS `d_hak_akses` (
   `ha_dt` int(11) NOT NULL,
   `ha_level` varchar(50) NOT NULL,
   `ha_menu` varchar(50) DEFAULT NULL,
-  `aktif` bit(1) DEFAULT NULL,
-  `tambah` bit(1) DEFAULT NULL,
-  `ubah` bit(1) DEFAULT NULL,
-  `hapus` bit(1) DEFAULT NULL,
-  `print` bit(1) DEFAULT NULL,
+  `aktif` bit(1) NOT NULL DEFAULT b'0',
+  `tambah` bit(1) NOT NULL DEFAULT b'0',
+  `ubah` bit(1) NOT NULL DEFAULT b'0',
+  `hapus` bit(1) NOT NULL DEFAULT b'0',
+  `print` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`ha_id`,`ha_dt`,`ha_level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table atonergi.d_hak_akses: ~110 rows (approximately)
+-- Dumping data for table atonergi.d_hak_akses: ~112 rows (approximately)
+DELETE FROM `d_hak_akses`;
 /*!40000 ALTER TABLE `d_hak_akses` DISABLE KEYS */;
-REPLACE INTO `d_hak_akses` (`ha_id`, `ha_dt`, `ha_level`, `ha_menu`, `aktif`, `tambah`, `ubah`, `hapus`, `print`) VALUES
+INSERT INTO `d_hak_akses` (`ha_id`, `ha_dt`, `ha_level`, `ha_menu`, `aktif`, `tambah`, `ubah`, `hapus`, `print`) VALUES
 	(1, 1, 'ADMIN KEUANGAN', 'SETTING LEVEL ACCOUNT', b'1', b'1', b'1', b'1', b'1'),
 	(1, 1, 'SUPERUSER', 'SETTING LEVEL ACCOUNT', b'1', b'1', b'1', b'1', b'1'),
 	(2, 2, 'ADMIN KEUANGAN', 'SETTING ACCOUNT', b'1', b'1', b'1', b'1', b'1'),
@@ -243,8 +246,9 @@ CREATE TABLE IF NOT EXISTS `d_jabatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_jabatan: ~2 rows (approximately)
+DELETE FROM `d_jabatan`;
 /*!40000 ALTER TABLE `d_jabatan` DISABLE KEYS */;
-REPLACE INTO `d_jabatan` (`j_id`, `j_nama`, `j_keterangan`, `j_created_at`, `j_updated_at`, `j_created_by`, `j_updated_by`) VALUES
+INSERT INTO `d_jabatan` (`j_id`, `j_nama`, `j_keterangan`, `j_created_at`, `j_updated_at`, `j_created_by`, `j_updated_by`) VALUES
 	(1, 'SUPERUSER', 'ADMIN', NULL, NULL, NULL, NULL),
 	(2, 'ADMIN KEUANGAN', 'ADMIN', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `d_jabatan` ENABLE KEYS */;
@@ -262,6 +266,7 @@ CREATE TABLE IF NOT EXISTS `d_marketing` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_marketing: ~0 rows (approximately)
+DELETE FROM `d_marketing`;
 /*!40000 ALTER TABLE `d_marketing` DISABLE KEYS */;
 /*!40000 ALTER TABLE `d_marketing` ENABLE KEYS */;
 
@@ -281,8 +286,9 @@ CREATE TABLE IF NOT EXISTS `d_mem` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_mem: ~3 rows (approximately)
+DELETE FROM `d_mem`;
 /*!40000 ALTER TABLE `d_mem` DISABLE KEYS */;
-REPLACE INTO `d_mem` (`m_id`, `m_username`, `m_password`, `m_name`, `m_jabatan`, `m_image`, `m_created_at`, `m_updated_at`, `m_last_login`, `m_last_logout`) VALUES
+INSERT INTO `d_mem` (`m_id`, `m_username`, `m_password`, `m_name`, `m_jabatan`, `m_image`, `m_created_at`, `m_updated_at`, `m_last_login`, `m_last_logout`) VALUES
 	(1, 'admin', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'admin', 'SUPERUSER', 'user_1_.jpg', '2018-05-08 23:22:46', '2018-05-22 03:47:34', '2018-05-22 03:47:34', NULL),
 	(2, 'shitta', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'shitta', 'ADMIN KEUANGAN', 'user_2_.jpg', '2018-05-09 00:04:24', '2018-05-09 00:04:24', NULL, NULL),
 	(3, 'admin1', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'her', 'SUPERUSER', 'user_3_.jpg', '2018-05-18 05:27:37', '2018-05-18 13:35:33', '2018-05-18 13:35:06', NULL);
@@ -295,6 +301,7 @@ CREATE TABLE IF NOT EXISTS `d_quotation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_quotation: ~0 rows (approximately)
+DELETE FROM `d_quotation`;
 /*!40000 ALTER TABLE `d_quotation` DISABLE KEYS */;
 /*!40000 ALTER TABLE `d_quotation` ENABLE KEYS */;
 
@@ -304,6 +311,7 @@ CREATE TABLE IF NOT EXISTS `d_quotation_value` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.d_quotation_value: ~0 rows (approximately)
+DELETE FROM `d_quotation_value`;
 /*!40000 ALTER TABLE `d_quotation_value` DISABLE KEYS */;
 /*!40000 ALTER TABLE `d_quotation_value` ENABLE KEYS */;
 
@@ -328,6 +336,7 @@ CREATE TABLE IF NOT EXISTS `m_customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_customer: ~0 rows (approximately)
+DELETE FROM `m_customer`;
 /*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
 
@@ -348,6 +357,7 @@ CREATE TABLE IF NOT EXISTS `m_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_item: ~0 rows (approximately)
+DELETE FROM `m_item`;
 /*!40000 ALTER TABLE `m_item` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_item` ENABLE KEYS */;
 
@@ -362,6 +372,7 @@ CREATE TABLE IF NOT EXISTS `m_item_bundling` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_item_bundling: ~0 rows (approximately)
+DELETE FROM `m_item_bundling`;
 /*!40000 ALTER TABLE `m_item_bundling` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_item_bundling` ENABLE KEYS */;
 
@@ -374,6 +385,7 @@ CREATE TABLE IF NOT EXISTS `m_price` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_price: ~0 rows (approximately)
+DELETE FROM `m_price`;
 /*!40000 ALTER TABLE `m_price` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_price` ENABLE KEYS */;
 
@@ -397,6 +409,7 @@ CREATE TABLE IF NOT EXISTS `m_vendor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table atonergi.m_vendor: ~0 rows (approximately)
+DELETE FROM `m_vendor`;
 /*!40000 ALTER TABLE `m_vendor` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_vendor` ENABLE KEYS */;
 

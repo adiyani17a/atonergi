@@ -57,6 +57,7 @@ Route::get('logout',function(){
         Route::get('/setting/hapus_daftar_menu', 'SettingController@hapus_daftar_menu');
     //hak akses
         Route::get('/setting/hak_akses', 'SettingController@hak_akses');
+        Route::get('/setting/hak_akses/table_data', 'SettingController@table_data');
 
 // Master
 Route::get('/master/suplier/suplier', 'MasterController@suplier');
