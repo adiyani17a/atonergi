@@ -140,11 +140,3 @@
 
   </div>
 </div>
-
-@section('extra_script')
-<script type="text/javascript">
-
-  
-  
-</script>
-@endsection

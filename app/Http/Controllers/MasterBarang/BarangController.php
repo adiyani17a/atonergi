@@ -19,6 +19,7 @@ class BarangController extends Controller
     	
  		$index = $m1+1;
                            
+
                             $id_auto = 'BRG/'.$index;
 
         $barang= new Barang();
@@ -49,4 +50,28 @@ class BarangController extends Controller
         $barang->delete();
         return redirect('barang')->with('success','Data has been  deleted');
     }
+    public function datatable_barang()
+   {
+        
+        $barang= DB::table('m_item')->get();
+        
+        
+        // return $data;
+        $barang = collect($barang);
+        // return $barang;
+        return Datatables::of($barang)
+                        ->addColumn('aksi', function ($barang) {
+                          return  '<div class="btn-group">'.
+                                   '<button type="button" onclick="edit(this)" class="btn btn-info btn-lg" title="edit">'.
+                                   '<label class="fa fa-pencil-alt"></label></button>'.
+                                   '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-lg" title="hapus">'.
+                                   '<label class="fa fa-trash"></label></button>'.
+                                  '</div>';
+                        })
+                        ->addColumn('none', function ($barang) {
+                          return '-';
+                      })
+                      ->rawColumns(['aksi', 'confirmed'])
+                        ->make(true);
+   }
 }

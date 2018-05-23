@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Barang;
+use Yajra\Datatables\Datatables;
+use DB;
 
 class MasterController extends Controller
 {
@@ -29,8 +31,10 @@ class MasterController extends Controller
     }
     public function barang()
     {
-        $barang=Barang::all();
+        $barang=DB::table('m_item')->get() ;
+        
     	return view('master/barang/barang', compact('barang'));
+
     }
     public function vendor()
     {
@@ -40,26 +44,6 @@ class MasterController extends Controller
     {
         return view('master/bundle/bundle');
     }
-    public function datatable_barang()
-   {
-        
-        $barang= new Barang();
-        
-        
-        // return $data;
-        $barang = collect($barang);
-        // return $barang;
-        return datatables::of($barang)
-                        ->addColumn('aksi', function ($barang) {
-                          return  '<div class="btn-group">'.
-                                   '<button type="button" onclick="edit(this)" class="btn btn-info btn-lg" title="edit">'.
-                                   '<label class="fa fa-pencil-alt"></label></button>'.
-                                   '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-lg" title="hapus">'.
-                                   '<label class="fa fa-trash"></label></button>'.
-                                  '</div>';
-                        })
-                        
-                        ->make(true);
-   }
+    
        
 }
