@@ -30,23 +30,27 @@
                                   <th class="wd-15p" width="5%">Item Code</th>
                                   <th class="wd-15p">Item Name</th>
                                   <th class="wd-15p" width="5%">Unit</th>
-                                  <th class="wd-15p">Category Item</th>
+                                  <th class="wd-15p">Description Item</th>
                                   <th width="15%">Action</th>
                                 </tr>
                               </thead>
                               <tbody>
+                                @foreach($barang as $item)
+
                                 <tr>
-                                  <td>BRG0218/001</td>
-                                  <td>Kabel</td>
-                                  <td>Meter</td>
-                                  <td></td>
+                                  <td>{{$item['i_code']}}</td>
+                                  <td>{{$item['i_name']}}</td>
+                                  <td>{{$item['i_unit']}}</td>
+                                  <td>{{$item['i_description']}}</td>
                                   <td>
-                                    <div class="">    
-                                      <a href="#" class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></a>
-                                      <a href="#" class="btn btn-outline-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></a>
+                                    <div class="btn-group">    
+                                      <a href="#" class="btn btn-info btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>
+
+                                      <a href="baranghapus/{{$item['i_id']}}" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></a>
                                     </div>  
                                   </td>
                                 </tr>
+                                @endforeach
                                 
                               </tbody>
                           
