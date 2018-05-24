@@ -175,7 +175,9 @@
     var id    = $(par).find('.d_id').text();
 
     iziToast.show({
-            timeout: 10000, 
+            overlay: true,
+            close: false,
+            timeout: 20000, 
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
