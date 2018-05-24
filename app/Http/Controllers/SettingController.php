@@ -387,17 +387,51 @@ class SettingController extends Controller
                                     'dm_group'=>strtoupper($req->grup_menu),
                                     ]);
 
-               return response()->json(['status' => 1]);
+              $hak_akses = DB::table('d_hak_akses')
+                             ->select('ha_level')
+                             ->groupBy('ha_level')
+                             ->get();
+
+              for ($i=0; $i < count($hak_akses); $i++) { 
+                $simpan = DB::table('d_hak_akses')
+                            ->insert([
+                              'ha_id'=>$id,
+                              'ha_dt'=>$id,
+                              'ha_level'=>$hak_akses[$i]->ha_level,
+                              'ha_menu'=>strtoupper($req->nama),
+                            ]);
+              }
+
+              return response()->json(['status' => 1]);
             }else{
                return response()->json(['status' => 0]);
             }
             
          }else{
+
+
+            $cari = DB::table('d_daftar_menu')
+                        ->where('dm_id',$req->id)
+                        ->first();
+
+
+            $update = DB::table('d_hak_akses')
+                          ->where('ha_menu',$cari->dm_nama)
+                          ->update([
+                            'ha_menu'=>strtoupper($req->nama),
+                          ]);
+
+
+
             $update = DB::table('d_daftar_menu')
                         ->where('dm_id',$req->id)
                         ->update(['dm_nama'=>$req->nama,
                                  'dm_group'=>$req->grup_menu,
                                  ]);
+
+            
+            
+
             return response()->json(['status' => 2]);
         }
       });
@@ -405,6 +439,14 @@ class SettingController extends Controller
    public function hapus_daftar_menu(request $req)
    {
       
+      $cari = DB::table('d_daftar_menu')
+                        ->where('dm_id',$req->id)
+                        ->first();
+
+      $hapus_menu = DB::table('d_hak_akses')
+                            ->where('ha_menu',$cari->dm_nama)
+                            ->delete();
+
       $hapus = DB::table('d_daftar_menu')
                ->where('dm_id',$req->id)
                ->delete();
@@ -413,11 +455,52 @@ class SettingController extends Controller
    }
    // END
    public function hak_akses()
-   {
+   {  
 
-      $data = DB::table('d_hak_akses')
+      $hak_akses = DB::table('d_hak_akses')
+                ->select('ha_level')
+                ->groupBy('ha_level')
                 ->get();
 
-      return view('setting.hak_akses.hak_akses');
+      $daftar = DB::table('d_daftar_menu')
+                ->get();
+
+      $grup_menu = DB::table('d_grup_menu')
+                ->get();
+
+      for ($i=0; $i < count($grup_menu); $i++) { 
+         for ($a=0; $a < count($daftar); $a++) { 
+            if ($grup_menu[$i]->gm_id == $daftar[$a]->dm_group) {
+              $data[$i][$a] = $daftar[$a]->dm_nama;
+            }
+         }
+        $data[$i] = array_values($data[$i]);
+      }
+
+      return view('setting.hak_akses.hak_akses',compact('data','grup_menu','hak_akses'));
+   }
+
+   public function table_data(request $req)
+   {
+      $hak_akses = DB::table('d_hak_akses')
+                     ->where('ha_level',$req->level)
+                     ->get();
+
+      $daftar = DB::table('d_daftar_menu')
+                ->get();
+
+      $grup_menu = DB::table('d_grup_menu')
+                ->get();
+
+      for ($i=0; $i < count($grup_menu); $i++) { 
+         for ($a=0; $a < count($daftar); $a++) { 
+            if ($grup_menu[$i]->gm_id == $daftar[$a]->dm_group) {
+              $data[$i][$a] = $daftar[$a]->dm_nama;
+            }
+         }
+        $data[$i] = array_values($data[$i]);
+      }
+
+      return view('setting.hak_akses.table_data',compact('data','grup_menu','hak_akses'));
    }
 }

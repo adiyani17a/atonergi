@@ -215,7 +215,8 @@ table, td, th {
 	<table class="border-none" width="100%">
 		<thead>
 			<tr>
-				<th class="border-none" width="10%">Item #</th>
+				<th class="border-none" width="1%">No.</th>
+				<th class="border-none" width="155px">Item Name #</th>
 				<th class="border-none" width="10%">Qty</th>
 				<th class="border-none" width="10%">Unit</th>
 				<th class="border-none">Description</th>
@@ -226,9 +227,10 @@ table, td, th {
 		<tbody>
 			<tr>
 				<td>1</td>
+				<td>Cable</td>
 				<td>30</td>
 				<td>Meter</td>
-				<td>Cable</td>
+				<td>Kabel Hitam</td>
 				<td>
 					<div class="float-left">
 						Rp.
@@ -248,9 +250,10 @@ table, td, th {
 			</tr>
 			<tr>
 				<td>2</td>
+				<td>Pompa Air</td>
 				<td>1</td>
 				<td>Pcs</td>
-				<td>Pompa Air</td>
+				<td>Pompa Merk Sanyo</td>
 				<td>
 					<div class="float-left">
 						Rp.
@@ -273,27 +276,6 @@ table, td, th {
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
 				<td></td>
 				<td>
 					<div class="float-left">
@@ -314,6 +296,7 @@ table, td, th {
 			</tr>
 			<tr>
 				<td class="blank"></td>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -339,27 +322,6 @@ table, td, th {
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
 				<td></td>
 				<td>
 					<div class="float-left">
@@ -380,6 +342,7 @@ table, td, th {
 			</tr>
 			<tr>
 				<td class="blank"></td>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -405,27 +368,6 @@ table, td, th {
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
 				<td></td>
 				<td>
 					<div class="float-left">
@@ -446,6 +388,7 @@ table, td, th {
 			</tr>
 			<tr>
 				<td class="blank"></td>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -471,27 +414,6 @@ table, td, th {
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
 				<td></td>
 				<td>
 					<div class="float-left">
@@ -515,6 +437,7 @@ table, td, th {
 				<td></td>
 				<td></td>
 				<td></td>
+				<td></td>
 				<td>
 					<div class="float-left">
 						
@@ -533,7 +456,99 @@ table, td, th {
 				</td>
 			</tr>
 			<tr>
-				<td class="border-none" colspan="4"></td>
+				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<div class="float-left">
+						
+					</div>
+					<div class="float-right">
+						
+					</div>
+				</td>
+				<td>
+					<div class="float-left">
+						
+					</div>
+					<div class="float-right">
+						
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<div class="float-left">
+						
+					</div>
+					<div class="float-right">
+						
+					</div>
+				</td>
+				<td>
+					<div class="float-left">
+						
+					</div>
+					<div class="float-right">
+						
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<div class="float-left">
+						
+					</div>
+					<div class="float-right">
+						
+					</div>
+				</td>
+				<td>
+					<div class="float-left">
+						
+					</div>
+					<div class="float-right">
+						
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<div class="float-left">
+						
+					</div>
+					<div class="float-right">
+						
+					</div>
+				</td>
+				<td>
+					<div class="float-left">
+						
+					</div>
+					<div class="float-right">
+						
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="border-none" colspan="5"></td>
 				<td class="border-none text-right">Subtotal</td>
 				<td>
 					<div class="float-left">
@@ -545,7 +560,7 @@ table, td, th {
 				</td>
 			</tr>
 			<tr>
-				<td class="border-none" colspan="4"></td>
+				<td class="border-none" colspan="5"></td>
 				<td class="border-none text-right">Sales Tax</td>
 				<td>
 					<div class="float-left">
@@ -557,7 +572,7 @@ table, td, th {
 				</td>
 			</tr>
 			<tr>
-				<td class="border-none" colspan="4"></td>
+				<td class="border-none" colspan="5"></td>
 				<td class="border-none text-right">Total</td>
 				<td>
 					<div class="float-left">

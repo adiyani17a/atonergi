@@ -18,7 +18,7 @@
               <div class="card row">
                 <div class="card-body">
                   <h4 class="card-title">Setting Daftar Menu</h4>
-                  @if(Auth::user()->akses('Daftar Menu','tambah'))
+                  @if(Auth::user()->akses('SETTING DAFTAR MENU','tambah'))
                   <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
                   	<button type="button" class="btn btn-info btn_modal" data-toggle="modal" data-target="#daftar-menu"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                   </div>

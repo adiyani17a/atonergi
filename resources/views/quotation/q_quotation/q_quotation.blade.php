@@ -6,6 +6,8 @@
 @include('master/customer/tambah')
 
 @include('quotation/q_quotation/detail')
+
+@include('quotation/q_quotation/detail_status')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="col-lg-12">	
@@ -35,16 +37,18 @@
 						      <th>Customer Item</th>
 						      <th>Total</th>
 						      <th>Status</th>
+						      <th>History Status</th>
 						      <th>Action</th>
 						    </tr>
 						  </thead>
 						  <tbody>
 						    <tr>
 						    	<td>1</td>
-						    	<td>30-04-2018/Q001</td>
+						    	<td>QO-0001/ACC/9G/052018</td>
 						    	<td><button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#detail_item">Detail</button></td>
 						    	<td>Rp. 600.000,-</td>
 						    	<td><span class="badge badge-pill badge-warning">Not yet paid off</span></td>
+						    	<td><button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#detail_status">Detail</button></td>
 						    	<td>
                     			<div class="btn-group" role="group">
 						    		<a href="{{url('quotation/q_quotation/edit_quotation')}}" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>
