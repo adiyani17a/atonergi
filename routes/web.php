@@ -72,6 +72,8 @@ Route::get('/master/status/status', 'MasterController@status');
 
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
+Route::get('/quotation/q_quotation/datatable', 'QuotationController@quote_datatable')->name('quote_datatable');
+
 Route::get('/quotation/k_penawaran/k_penawaran', 'QuotationController@k_penawaran');
 Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_penawaran');
 Route::get('/quotation/q_quotation/edit_quotation', 'QuotationController@edit_quotation');

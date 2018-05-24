@@ -29,7 +29,7 @@
 						<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Quotation</button>
 					</div>
 					<div class="table-responsive">
-						<table class="table table-hover data-table" id="pziv" cellspacing="0">
+						<table class="table table-hover" id="table_quote" cellspacing="0">
 						  <thead class="bg-gradient-info">
 						    <tr>
 						      <th>No</th>
@@ -69,9 +69,86 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
-<script type="text/javascript">
+
+<script>
 	$(document).ready(function(){
-		$("#pziv").DataTable();
+
+
+		$('#table_quote').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: {
+              url:'{{ route('quote_datatable') }}',
+          },
+          // columnDefs: [
+
+          //         {
+          //            targets: 0 ,
+          //            className: 'center d_id'
+          //         },
+          //         {
+          //            targets: 1,
+          //            className: 'd_nama'
+          //         },
+          //         {
+          //            targets: 2,
+          //            className: 'center d_grup'
+          //         },
+          //         {
+          //            targets: 4,
+          //            className: 'center'
+          //         }
+          //       ],
+          columns: [
+            {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+            {data: 'q_nota', name: 'q_nota'},
+            {data: 'detail', name: 'detail'},
+            {data: 'total', name: 'total'},
+            {data: 'status', name: 'status'},
+            {data: 'histori', name: 'histori'},
+            {data: 'aksi', name: 'aksi'},
+
+          ]
+
+    	});
+
+
+    	var m_table       = $("#apfsds").DataTable();
+        var q_qty         = $("#q_qty");
+        var q_item        = $("#q_item");
+        var q_kodeitem    = $("#q_kodeitem");
+
+        var x = 1;
+ 
+	    q_qty.keypress(function(e) {
+	      if(e.which == 13 || e.keyCode == 13){
+	        m_table.row.add( [
+	            '<input type="text" id="item_kode[]" class="form-control input-sm min-width" readonly value="'+ q_kodeitem.val() +'">',
+	            '<input type="text" id="item_name[]" class="form-control input-sm min-width" value="'+ q_item.val() +'">',
+	            '<input type="number" id="jumlah[]" class="form-control input-sm min-width" value="'+ q_qty.val() +'">',
+	            '<input type="text" id="unit[]" class="form-control input-sm min-width">',
+	            '<input type="text" id="description[]" class="form-control input-sm min-width">',
+	            '<input type="text" id="unit_price[]" class="form-control input-sm min-width">',
+	            '<input type="text" id="line_total[]" class="form-control input-sm min-width">',
+	            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
+	        ] ).draw( false );
+	  
+	        x++;
+	        q_item.focus();
+	        q_item.val('');
+	        q_qty.val('');
+	      }
+	    } );
+	 
+	    
+
+	    $('#apfsds tbody').on( 'click', '.delete', function () {
+	    m_table
+	        .row( $(this).parents('tr') )
+	        .remove()
+	        .draw();
+	    });
+
 	});
 </script>
 @endsection
