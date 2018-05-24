@@ -68,10 +68,27 @@
 		              </div>
 		              <div class="col-md-6 col-sm-6 col-xs-12">
 		                <div class="form-group">
-		                  <select class="form-control form-control-sm" id="type_qo" onchange="kepala_suku()">
+		                  <select class="form-control form-control-sm" id="type_qo">
 		                    <option>--Select Type--</option>
-		                    <option value="so">Sales Order</option>
-		                    <option value="wo">Work Order</option>
+		                    <option>SWP</option>
+		                    <option>WP</option>
+		                    <option selected="">Accesories</option>
+		                    <option>Off Grid</option>
+		                    <option>On Grid</option>
+		                  </select>
+		                </div>
+		              </div>
+		              <div class="col-md-3 col-sm-0 col-xs-0">
+		                <!-- empty -->
+		              </div>
+		              <div class="col-md-3 col-sm-6 col-xs-12">
+		                <label title="Tipe Pompa">Type Pump</label>
+		              </div>
+		              <div class="col-md-6 col-sm-6 col-xs-12">
+		                <div class="form-group">
+		                  <select class="form-control form-control-sm" id="type_pump">
+		                    <option>--Select Type--</option>
+		                    <option selected="">9G</option>
 		                  </select>
 		                </div>
 		              </div>
@@ -124,6 +141,14 @@
 		                  <input type="text" class="form-control form-control-sm" name="">
 		                </div>
 		              </div>
+		              <div class="col-md-6 col-sm-6 col-xs-12">
+		                <label>Sales</label>
+		              </div>
+		              <div class="col-md-6 col-sm-6 col-xs-12">
+		                <div class="form-group">
+		                  <input readonly="" type="text" class="form-control form-control-sm" name="" value="Administrator">
+		                </div>
+		              </div>
 		            </div>
 		          </div>
 
@@ -165,7 +190,7 @@
 		              <input type="text" class="form-control form-control-sm" readonly="" name="" id="q_kodeitem">
 		            </div>
 		          </div>
-		          <div class="col-md-2 col-sm-6 col-xs-12">
+		          <div class="col-md-2 col-sm-12 col-xs-12">
 		            <div class="form-group">
 		              <input type="text" class="form-control form-control-sm" name="" id="q_item">
 		            </div>
@@ -223,7 +248,7 @@
 		                	</td>
 		                	
 		                	<td>
-		                		<button type="button" class="delete btn btn-outline-danger btn-sm "><i class="fa fa-trash-o"></i></button>
+		                		<button type="button" class="delete btn btn-outline-danger btn-sm "><i class="fa fa-trash"></i></button>
 		                	</td>
 		                </tr>
 		                <tr>
@@ -255,7 +280,7 @@
 		                	</td>
 		                	
 		                	<td>
-		                		<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+		                		<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
 		                	</td>
 		                </tr>
 		              </tbody>
@@ -303,24 +328,7 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-	function kepala_suku()
-	  {
-	    var div = $('.122mm');
-	    var select = $('#type_qo').val();
-	    var select2 = $('#w_order');
-
-
-	    if (select == "wo") 
-	    {
-	      div.removeClass('d-none');
-	    } 
-	    else 
-	    {
-	      div.addClass('d-none');
-	      select2.val('');
-	    }
-	  }
-
+	
 	function save_detail(){
 		
 		var amount 	= $('#amount').val();
@@ -353,7 +361,7 @@ $(document).ready(function(){
             '<input type="text" id="[]" class="form-control input-sm min-width">',
             '<input type="text" id="unit_price[]" class="form-control input-sm min-width">',
             '<input type="text" id="[]" class="form-control input-sm min-width">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
+            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
   
         x++;

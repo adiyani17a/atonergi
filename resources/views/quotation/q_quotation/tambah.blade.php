@@ -61,13 +61,26 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <select class="form-control form-control-sm" id="type_qo" onchange="kepala_suku()">
+                  <select class="form-control form-control-sm" id="type_qo">
                     <option>--Select Type--</option>
                     <option>SWP</option>
                     <option>WP</option>
                     <option>Accesories</option>
                     <option>Off Grid</option>
                     <option>On Grid</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-0 col-xs-0">
+                <!-- empty -->
+              </div>
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                <label title="Tipe Pompa">Type Pump</label>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <select class="form-control form-control-sm" id="type_pump">
+                    <option>--Select Type--</option>
                   </select>
                 </div>
               </div>
@@ -174,7 +187,7 @@
               <input type="text" class="form-control form-control-sm" readonly="" name="" id="q_kodeitem">
             </div>
           </div>
-          <div class="col-md-2 col-sm-6 col-xs-12">
+          <div class="col-md-2 col-sm-12 col-xs-12">
             <div class="form-group">
               <input type="text" class="form-control form-control-sm" name="" id="q_item">
             </div>
@@ -252,24 +265,7 @@
 <script type="text/javascript">
   
 
-  function kepala_suku()
-  {
-    var div = $('.122mm');
-    var select = $('#type_qo').val();
-    var select2 = $('#w_order');
-
-
-    if (select == "wo") 
-    {
-      div.removeClass('d-none');
-    } 
-    else 
-    {
-      div.addClass('d-none');
-      select2.val('');
-    }
-  }
-
+  
   $(document).ready(function(){
     var m_table           = $("#apfsds").DataTable();
         var q_qty             = $("#q_qty");

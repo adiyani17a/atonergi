@@ -183,8 +183,9 @@ table, td, th {
 	<table class="border-none" width="100%"">
 		<thead>
 			<tr>
-				<th class="border-none" width="10%">Item #</th>
-				<th class="border-none" width="10%">Qty</th>
+				<th class="border-none" width="1%">No.</th>
+				<th class="border-none" width="15%">Item Name #</th>
+				<th class="border-none" width="5%">Qty</th>
 				<th class="border-none">Description</th>
 				<th class="border-none">Checklist</th>
 				<th class="border-none">Remarks</th>
@@ -193,34 +194,23 @@ table, td, th {
 		<tbody>
 			<tr>
 				<td>1</td>
-				<td>30</td>
 				<td>Cable</td>
+				<td>30</td>
+				<td>Kabel Hitam</td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td>2</td>
-				<td>1</td>
 				<td>Pompa Air</td>
+				<td>1</td>
+				<td>Pompa Merk Sanyo</td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td class="blank"></td>
 				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -232,23 +222,11 @@ table, td, th {
 				<td></td>
 				<td></td>
 				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td class="blank"></td>
 				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -260,12 +238,6 @@ table, td, th {
 				<td></td>
 				<td></td>
 				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -274,9 +246,51 @@ table, td, th {
 				<td></td>
 				<td></td>
 				<td></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="blank"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="blank"></td>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
