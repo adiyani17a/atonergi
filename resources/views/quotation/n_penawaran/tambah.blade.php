@@ -27,27 +27,6 @@
             </div>
 
             <hr>
-            
-            <!-- <div class="col-md-3 col-sm-6 col-xs-12">
-              <label>Item</label>
-            </div>
-
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <input type="text" class="form-control form-control-sm" name="">
-              </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <label>Range Price</label>
-            </div>
-
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <input type="text" class="form-control form-control-sm" name="">
-              </div>
-            </div> -->
-
             <div class="table-responsive-xs table-responsive-sm table-responsive">
               <table class="table">
                 <tbody>

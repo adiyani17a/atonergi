@@ -148,7 +148,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <img src="{{route('thumbnail').'/'.Auth::user()->m_image}}" alt="image">
-              <span class="d-none d-lg-inline">{{Auth::user()->name}}</span>
+              <span class="d-none d-lg-inline">{{Auth::user()->m_name}}</span>
             </a>
             <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
               <a class="dropdown-item" href="#">

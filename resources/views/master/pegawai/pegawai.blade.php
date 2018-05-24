@@ -19,10 +19,10 @@
                 <div class="card-body">
                   <h4 class="card-title">Master Data Pegawai</h4>
                   <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                  	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                  	<button type="button" class="btn btn-info" data-toggle="modal" id="button_add" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                   </div>
                   <div class="table-responsive">
-				      <table class="table data-table table-hover table-bordered" cellspacing="0">
+				      <table class="table table-hover table-bordered" id="table-pegawai" cellspacing="0">
 				                          <thead class="bg-gradient-info">
 				                            <tr>
 				                              <th>ID</th>
@@ -35,46 +35,7 @@
 				                          </thead>
 
 				                          <tbody>
-				                            <tr>
-				                              <td>PG-0001</td>
-				                              <td>11111</td>
-				                              <td>Delta</td>
-				                              <td>Jl. Delta</td>
-				                              <td>Sudah Menikah</td>                            
-				                             <td class="text-center">
-				                               <div class="">    
-				                               <a href="#" class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></a>
-				                               <a href="#" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></a>
-				                              </div>                              
-				                              </td>
-				                            </tr>
-				                            <tr>
-				                              <td>PG-0002</td>
-				                              <td>11112</td>
-				                              <td>Charlie</td>
-				                              <td>Jl. Charlie</td>
-				                              <td>Lajang</td>                              
-				                             <td class="text-center">
-				                               <div class="">    
-				                               <a href="#" class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></a>
-				                               <a href="#" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></a>
-				                              </div>                               
-				                              </td>
-				                            </tr>
-				                            
-				                            <tr>
-				                              <td>PG-0003</td>
-				                              <td>11113</td>
-				                              <td>Kilo</td>
-				                              <td>Jl. Kilo</td>
-				                              <td>Sudah Menikah</td>                              
-				                             <td class="text-center">
-				                               <div class="">    
-				                               <a href="#" class="btn btn-outline-info btn-sm" title="Edit"><i class="fa fa-pencil"></i></a>
-				                               <a href="#" class="btn btn-outline-danger btn-sm" title="Hapus"><i class="fa fa-trash-o"></i></a>
-				                              </div>                              
-				                              </td>
-				                            </tr>
+				                          
 				                          </tbody>
 
 				                          
@@ -87,5 +48,86 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
+<script type="text/javascript">
+	
 
+    $('#table-pegawai').DataTable({
+            processing: true,
+            // responsive:true,
+            serverSide: true,
+            ajax: {
+                url:'{{ route('datatalble_customer') }}',
+            },
+             columnDefs: [
+
+                  {
+                     targets: 1 ,
+                     className: 'center d_id'
+                  }, 
+                ],
+            "columns": [
+            { "data": "c_birthday" },
+            { "data": "c_code" },
+            { "data": "c_name" },
+            { "data": "c_type" },
+            { "data": "c_information" },
+            { "data": "aksi" },
+            ]
+      });
+
+  $('#button_add').click(function(){
+    
+  })
+
+   $('#save_data').click(function(){
+    $.ajax({
+         type: "get",
+         url: baseUrl + '/master/simpancustomer/simpan_customer',
+         data: $('#form_save').serialize(),
+         success: function(data){
+            $('#tambah-customer').modal('hide');
+            var table = $('#table-cust').DataTable();
+            table.ajax.reload();
+
+            iziToast.success({
+              icon: 'fas fa-check-circle',
+              message: 'Data Telah Tersimpan!',
+            });
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });
+  })
+
+   function update() {
+      $.ajax({
+           type: "get",
+           url: baseUrl + '/master/updatecustomer/update_customer',
+           data: $('#form_save').serialize(),
+           success: function(data){
+              $('#tambah-customer').modal('hide');
+              var table = $('#table-cust').DataTable();
+              table.ajax.reload();
+
+              iziToast.success({
+                icon: 'fas fa-check-circle',
+                message: 'Data Telah Terupdate!',
+              });
+           },
+           error: function(){
+            iziToast.warning({
+              icon: 'fa fa-times',
+              message: 'Terjadi Kesalahan!',
+            });
+           },
+           async: false
+         });
+   }
+
+</script>
 @endsection

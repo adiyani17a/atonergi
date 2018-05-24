@@ -24,7 +24,10 @@
           <tbody>
             @for($a = 0; $a < count($data[$i]); $a++ )
             <tr>
-              <td>{{ $data[$i][$a] }}</td>
+              <td>
+                {{ $data[$i][$a] }}
+                <input class="penanda" value="{{ $data[$i][$a] }}" name="penanda" type="hidden" />
+              </td>
               <td align="center">
                   <label class="label">
                     @foreach($hak_akses as $c=>$val)
@@ -85,7 +88,7 @@
                   <label class="label">
                   @foreach($hak_akses as $c=>$val)
                     @if($val->ha_menu == $data[$i][$a])
-                      <input @if($val->print == 1) checked="" @endif class="label__checkbox tambah" name="tambah" type="checkbox" />
+                      <input @if($val->print == 1) checked="" @endif class="label__checkbox hapus" name="hapus" type="checkbox" />
                     @endif
                   @endforeach
                     <span class="label__text">
@@ -104,3 +107,76 @@
     </div>
   </div>
 @endforeach
+
+<script type="text/javascript">
+  $('.aksi').change(function(){
+    var level = $('.level').val();
+    var par = $(this).parents('tr');
+    var tanda = $(par).find('.penanda').val();
+    var aksi = $(this).is(':checked');
+    $.ajax({
+      url:baseUrl + '/setting/hak_akses/centang',
+      data:{level,tanda,aksi},
+      success:function(data){
+        
+      }
+    });
+
+  })
+
+  $('.tambah').change(function(){
+    var level = $('.level').val();
+    var par = $(this).parents('tr');  
+    var tanda = $(par).find('.penanda').val();
+    var tambah = $(this).is(':checked');
+    $.ajax({
+      url:baseUrl + '/setting/hak_akses/centang',
+      data:{level,tanda,tambah},
+      success:function(data){
+        
+      }
+    });
+  })
+
+  $('.ubah').change(function(){
+    var level = $('.level').val();
+    var par = $(this).parents('tr');  
+    var tanda = $(par).find('.penanda').val();
+    var ubah = $(this).is(':checked');
+    $.ajax({
+      url:baseUrl + '/setting/hak_akses/centang',
+      data:{level,tanda,ubah},
+      success:function(data){
+        
+      }
+    });
+  })
+
+  $('.print').change(function(){
+    var level = $('.level').val();
+    var par = $(this).parents('tr');  
+    var tanda = $(par).find('.penanda').val();
+    var print = $(this).is(':checked');
+    $.ajax({
+      url:baseUrl + '/setting/hak_akses/centang',
+      data:{level,tanda,print},
+      success:function(data){
+        
+      }
+    });
+  })
+
+  $('.hapus').change(function(){
+    var level = $('.level').val();
+    var par = $(this).parents('tr');  
+    var tanda = $(par).find('.penanda').val();
+    var hapus = $(this).is(':checked');
+    $.ajax({
+      url:baseUrl + '/setting/hak_akses/centang',
+      data:{level,tanda,hapus},
+      success:function(data){
+        
+      }
+    });
+  })
+</script>

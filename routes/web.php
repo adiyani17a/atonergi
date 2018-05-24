@@ -58,10 +58,10 @@ Route::get('logout',function(){
     //hak akses
         Route::get('/setting/hak_akses', 'SettingController@hak_akses');
         Route::get('/setting/hak_akses/table_data', 'SettingController@table_data');
+        Route::get('/setting/hak_akses/centang', 'SettingController@centang');
 
 // Master
 Route::get('/master/suplier/suplier', 'MasterController@suplier');
-Route::get('/master/customer/cust', 'MasterController@customer');
 Route::get('/master/pegawai/pegawai', 'MasterController@pegawai');
 Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
@@ -73,7 +73,6 @@ Route::get('/master/status/status', 'MasterController@status');
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
 Route::get('/quotation/k_penawaran/k_penawaran', 'QuotationController@k_penawaran');
-Route::get('/quotation/n_penawaran/n_penawaran', 'QuotationController@n_penawaran');
 Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_penawaran');
 Route::get('/quotation/q_quotation/edit_quotation', 'QuotationController@edit_quotation');
 Route::get('/quotation/q_quotation/print_quotation', 'QuotationController@print_quotation');
@@ -176,25 +175,47 @@ Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController
 
             
 //master vendor 
-Route::get('/master/vendor/vendor', 'master_vendorController@vendor');
-Route::get('/master/simpanvendor/simpan_vendor', 'master_vendorController@simpan_vendor');
-Route::get('/master/hapusvendor/hapus_vendor', 'master_vendorController@hapus_vendor');
-Route::get('/master/updatevendor/update_vendor', 'master_vendorController@update_vendor');
-Route::get('/master/dataeditvendor/dataedit_vendor', 'master_vendorController@dataedit_vendor');
-Route::get('/master/datatalble_vendor/datatalble_vendor', 'master_vendorController@datatalble_vendor')->name('datatalble_vendor');
+Route::get('/master/vendor/vendor', 'master\master_vendorController@vendor');
+Route::get('/master/simpanvendor/simpan_vendor', 'master\master_vendorController@simpan_vendor');
+Route::get('/master/hapusvendor/hapus_vendor', 'master\master_vendorController@hapus_vendor');
+Route::get('/master/updatevendor/update_vendor', 'master\master_vendorController@update_vendor');
+Route::get('/master/dataeditvendor/dataedit_vendor', 'master\master_vendorController@dataedit_vendor');
+Route::get('/master/datatalble_vendor/datatalble_vendor', 'master\master_vendorController@datatalble_vendor')->name('datatalble_vendor');
 
 //master marketing
-Route::get('/quotation/marketing/marketing', 'master_marketingController@marketing');
-Route::get('/quotation/simpanmarketing/simpan_marketing', 'master_marketingController@simpan_marketing');
-Route::get('/quotation/hapusmarketing/hapus_marketing', 'master_marketingController@hapus_marketing');
-Route::get('/quotation/updatemarketing/update_marketing', 'master_marketingController@update_marketing');
-Route::get('/quotation/dataeditmarketing/dataedit_marketing', 'master_marketingController@dataedit_marketing');
-Route::get('/quotation/datatalble_marketing/datatalble_marketing', 'master_marketingController@datatalble_marketing')->name('datatalble_marketing');
+Route::get('/quotation/marketing/marketing', 'master\master_marketingController@marketing');
+Route::get('/quotation/simpanmarketing/simpan_marketing', 'master\master_marketingController@simpan_marketing');
+Route::get('/quotation/hapusmarketing/hapus_marketing', 'master\master_marketingController@hapus_marketing');
+Route::get('/quotation/updatemarketing/update_marketing', 'master\master_marketingController@update_marketing');
+Route::get('/quotation/dataeditmarketing/dataedit_marketing', 'master\master_marketingController@dataedit_marketing');
+Route::get('/quotation/datatalble_marketing/datatalble_marketing', 'master\master_marketingController@datatalble_marketing')->name('datatalble_marketing');
 
+//master customer
+Route::get('/master/customer/cust', 'MasterController@customer');
+Route::get('/master/simpancustomer/simpan_customer', 'master\master_customerController@simpan_customer');
+Route::get('/master/hapuscustomer/hapus_customer', 'master\master_customerController@hapus_customer');
+Route::get('/master/updatecustomer/update_customer', 'master\master_customerController@update_customer');
+Route::get('/master/dataeditcustomer/dataedit_customer', 'master\master_customerController@dataedit_customer');
+Route::get('/master/datatalble_customer/datatalble_customer', 'master\master_customerController@datatalble_customer')->name('datatalble_customer');
 
+//master Npenawaran
+Route::get('/quotation/n_penawaran/n_penawaran', 'master\master_NpenawaranController@n_penawaran');
+Route::get('/master/hapusNpenawaran/hapus_Npenawaran', 'master\master_NpenawaranController@hapus_Npenawaran');
+Route::get('/master/updateNpenawaran/update_Npenawaran', 'master\master_NpenawaranController@update_Npenawaran');
+Route::get('/quotation/n_penawaran/simpan_n_penawaran', 'master\master_NpenawaranController@simpan_Npenawaran');
+Route::get('/quotation/dataeditNpenawaran/dataedit_Npenawaran', 'master\master_NpenawaranController@dataedit_Npenawaran');
+Route::get('/quotation/datatable_Npenawaran/datatable_Npenawaran', 'master\master_NpenawaranController@datatable_Npenawaran')->name('datatable_Npenawaran');
+
+//master pegawai 
+Route::get('/master/pegawai/pegawai', 'master\master_pegawaiController@pegawai');
+Route::get('/master/simpanpegawai/simpan_pegawai', 'master\master_pegawaiController@simpan_pegawai');
+Route::get('/master/hapuspegawai/hapus_pegawai', 'master\master_pegawaiController@hapus_pegawai');
+Route::get('/master/updatepegawai/update_pegawai', 'master\master_pegawaiController@update_pegawai');
+Route::get('/master/dataeditpegawai/dataedit_pegawai', 'master\master_pegawaiController@dataedit_pegawai');
+Route::get('/master/datatalble_pegawai/datatalble_pegawai', 'master\master_pegawaiController@datatalble_pegawai')->name('datatalble_pegawai');
 
 // Master Barang
-Route::post('master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
-Route::get('master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
-
-Route::get('master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
+Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
+Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
+Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_edit');
+Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
