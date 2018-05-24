@@ -19,6 +19,8 @@
   <!-- injectjs -->
 
   <script src="{{asset('assets/js/off-canvas.js')}}"></script>
+  <script src="{{asset('assets/js/accounting.min.js')}}"></script>
+  <script src="{{asset('assets/js/jquery.maskMoney.js')}}"></script>
   <script src="{{asset('assets/js/misc.js')}}"></script>
   <script src="{{asset('assets/js/hoverable-collapse.js')}}"></script>
   <script src="{{asset('assets/js/settings.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/js/settings.js"></script>
@@ -99,5 +101,8 @@
   var baseUrl = '{{ url('/') }}';
   // var regex_huruf = replace(/[A-Za-z$. ,-]/g, "");
   // var regex_angka = replace(/[^0-9\-]+/g,"");
+  $('.format_money').maskMoney({prefix:' ', allowNegative: false, thousands:'.', decimal:',',precision:false, affixesStay: false});
 
+  $('.right').css('text-align','right')
+  $('.bintang_merah').css('color','red')
 </script>
