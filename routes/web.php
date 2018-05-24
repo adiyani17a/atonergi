@@ -194,7 +194,7 @@ Route::get('/quotation/datatalble_marketing/datatalble_marketing', 'master_marke
 
 
 // Master Barang
-Route::post('master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
-Route::get('master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
+Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
+Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
 
-Route::get('master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
+Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
