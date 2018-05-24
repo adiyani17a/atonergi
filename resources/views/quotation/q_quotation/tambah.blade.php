@@ -94,7 +94,7 @@
 
           </div>
 
-          <div class="col-md-4 col-sm-12 col-xs-12" style="height: 1%;">
+          <div class="col-md-4 col-sm-12 col-xs-12" >
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <label>Date</label>
@@ -118,6 +118,14 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                   <input type="text" class="form-control form-control-sm" name="">
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label>Sales</label>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <input readonly="" type="text" class="form-control form-control-sm" name="" value="{{Auth::user()->m_name}}">
                 </div>
               </div>
             </div>
