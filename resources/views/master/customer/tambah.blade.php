@@ -9,14 +9,14 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          
+       <form id="form_save"> 
+       <div class="row">
           <div class="col-md-3 col-sm-3 col-xs-12">
             <label>Customer Name</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="">
+              <input type="text" class="form-control form-control-sm" name="c_name">
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -24,7 +24,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="" readonly="">
+              <input type="text" class="form-control form-control-sm" name="c_id" readonly="">
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -32,8 +32,11 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <select class="form-control form-control-sm">
-                
+              <select class="form-control form-control-sm" name="c_hometown"> 
+                  <option selected="" disabled="" value="">- Pilih -</option>
+                  <option value="spg">spg</option>
+                  <option value="spb">spb</option>
+                  <option value="sales">sales</option>
               </select>
             </div>
           </div>
@@ -42,7 +45,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="">
+              <input type="text" class="form-control form-control-sm" name="c_phone">
             </div>
           </div>
            
@@ -51,7 +54,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="email" class="form-control form-control-sm" name="">
+              <input type="email" class="form-control form-control-sm" name="c_email">
             </div>
           </div>
 
@@ -60,7 +63,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" maxlength="10" class="form-control form-control-sm datepicker" name="">
+              <input type="text" maxlength="10" class="form-control form-control-sm datepicker" name="c_birthday">
             </div>
           </div>
           
@@ -69,7 +72,7 @@
           </div>
           <div class="col-md-9 col-sm-9 col-xs-12">
             <div class="form-group">
-              <textarea class="form-control form-control-sm"></textarea>
+              <textarea class="form-control form-control-sm" id="c_address" name="c_address"></textarea>
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -77,7 +80,8 @@
           </div>
           <div class="col-md-9 col-sm-9 col-xs-12">
             <div class="form-group">
-              <select class="form-control form-control-sm">
+              <select class="form-control form-control-sm" name="c_type">
+                <option selected="" disabled="" value="">- Pilih -</option>
                 <option>Piutang</option>
                 <option>Tunai</option>
               </select>
@@ -88,7 +92,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control" name="">
+              <input type="text" class="form-control" name="c_plafon">
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -96,7 +100,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control" name="">
+              <input type="text" class="form-control" name="c_creditterms">
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -104,7 +108,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="">
+              <input type="text" class="form-control form-control-sm" name="c_bankname">
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -112,7 +116,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="">
+              <input type="text" class="form-control form-control-sm" name="c_accountnumber">
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -120,7 +124,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control" name="">
+              <input type="text" class="form-control" name="c_npwp">
             </div>
           </div>
           <div class="col-md-6 col-sm-0 col-xs-0">
@@ -131,13 +135,17 @@
           </div>
           <div class="col-md-9 col-sm-9 col-xs-12">
             <div class="form-group">
-              <textarea class="form-control form-control-sm"></textarea>
+              <textarea class="form-control form-control-sm" id="c_information" name="c_information"></textarea>
             </div>
           </div>
+          <input type="hidden" name="kode_old">
          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button">Save Data</button>
+        <div id="change_function">
+          <button class="btn btn-primary" type="button" id="save_data">Save Data</button>
+        </div>
         <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>
