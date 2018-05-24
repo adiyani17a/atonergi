@@ -58,6 +58,7 @@ Route::get('logout',function(){
     //hak akses
         Route::get('/setting/hak_akses', 'SettingController@hak_akses');
         Route::get('/setting/hak_akses/table_data', 'SettingController@table_data');
+        Route::get('/setting/hak_akses/centang', 'SettingController@centang');
 
 // Master
 Route::get('/master/suplier/suplier', 'MasterController@suplier');
