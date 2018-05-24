@@ -99,17 +99,21 @@ $(document).ready(function(){
 
 $('#tombol_modal_tambah').click(function(){
 
+  alert('a');
+
     var item  = $('input[name="item_name"]').val('');
-    var img   = $('#chooseFile"]').val('');
-    var img_label   = $('#noFile"]').text('');
+    var img   = $('#chooseFile').val('');
+    var img_label   = $('#noFile').text('');
     var img_name  = $('#output').removeAttr('src');
-    var type_barang  = $('input[name="type_barang"]').val('').trigger('change');
+    var type_barang  = $('select[name="type_barang"]').val('').trigger('change');
     var unit = $('input[name="unit"]').val('');
     var price = $('input[name="price"]').val('');
     var weight = $('input[name="weight"]').val('');
     var min_stock = $('input[name="min_stock"]').val('');
     var description = $('textarea[name="description"]').val('');
     var item_codex = $('input[name="item_codex"]').val('');
+
+    $('#ganti_tombol').html('<button class="btn btn-primary" type="button" id="simpan">Save Data</button>');
 
   });
 
@@ -153,15 +157,22 @@ function edit(m1a2){
     var id    = $(par).find('.i_id').text();
     $.ajax({
        type: "get",
-         url: baseUrl + '/master/dataeditvendor/dataedit_vendor',
+         url: baseUrl + '/master/barang/barang_edit',
          data: {id},
          success: function(data){
           $('#tambah').modal('show');
           
-          console.log(data);
+          // console.log(data[0]);
 
-            var v_name      = $("input[name='v_name']").val(data[0].s_name);
-            var v_hometown  = $("select[name='v_hometown']").val(data[0].s_hometown).trigger('change'); 
+            var i_id      = $("input[name='item_codex']").val(data[0].i_id);
+            var i_code    = $("input[name='item_name']").val(data[0].i_name);
+            var i_unit      = $("input[name='unit']").val(data[0].i_unit);
+            var i_weight      = $("input[name='weight']").val(data[0].i_weight);
+            var i_price      = $("input[name='price']").val(data[0].i_price);
+            var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
+            var i_description      = $("textarea[name='description']").val(data[0].i_description);
+            var i_type      = $("input[name='type_barang']").val(data[0].i_type);
+            var i_unit      = $("input[name='unit']").val(data[0].i_unit);
 
             $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
          },

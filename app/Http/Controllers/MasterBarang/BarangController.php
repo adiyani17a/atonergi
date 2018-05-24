@@ -156,7 +156,7 @@ class BarangController extends Controller
     public function barang_edit(Request $request)
     {
     	// dd($request->all());
-    	$data = DB::table('m_item')->where('i_id','=',$request->id)->get();
+    	$data = DB::table('m_item')->where('i_code','=',$request->id)->get();
     	return response()->json($data);
     }
  }

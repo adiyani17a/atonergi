@@ -217,5 +217,5 @@ Route::get('/master/datatalble_pegawai/datatalble_pegawai', 'master\master_pegaw
 // Master Barang
 Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
 Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
-
+Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_edit');
 Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
