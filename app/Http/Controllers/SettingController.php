@@ -500,7 +500,6 @@ class SettingController extends Controller
          }
         $data[$i] = array_values($data[$i]);
       }
-
       return view('setting.hak_akses.table_data',compact('data','grup_menu','hak_akses'));
    }
 }
