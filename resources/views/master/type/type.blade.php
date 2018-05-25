@@ -98,7 +98,7 @@
 	         async: false
 	       });
 	}
-	
+
 	function edit(m1a2)
 {
     var par   = $(m1a2).parents('tr');
@@ -110,7 +110,7 @@
          success: function(data){
           $('#tambah').modal('show');
          
-          	var t_codex	   = $("input[name='t_codex']").val(data[0].it_id);
+          	var t_codex	   = $("input[name='it_codex']").val(data[0].it_id);
             var it_id      = $("input[name='t_code']").val(data[0].it_code);
             var it_code    = $("input[name='t_name']").val(data[0].it_name);
 
