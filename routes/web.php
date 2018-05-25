@@ -78,6 +78,11 @@ Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_pe
 Route::get('/quotation/q_quotation/edit_quotation', 'QuotationController@edit_quotation');
 Route::get('/quotation/q_quotation/print_quotation', 'QuotationController@print_quotation');
 Route::get('/quotation/q_quotation/autocomplete', 'QuotationController@autocomplete');
+Route::get('/quotation/q_quotation/customer', 'QuotationController@customer');
+Route::get('/quotation/q_quotation/nota_quote', 'QuotationController@nota_quote');
+Route::get('/quotation/q_quotation/append_item', 'QuotationController@append_item');
+Route::get('/quotation/q_quotation/edit_item', 'QuotationController@edit_item');
+Route::get('/quotation/q_quotation/save_quote', 'QuotationController@save_quote');
 
 // Purchase
 Route::get('/purchase/purchaseorder/purchaseorder', 'PurchaseController@purchaseorder');

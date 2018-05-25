@@ -63,8 +63,7 @@
 @section('extra_script')
 
 <script>
-	$(document).ready(function(){
-
+$(document).ready(function(){
 		$('#table_quote').DataTable({
           processing: true,
           serverSide: true,
@@ -104,59 +103,263 @@
     	});
 
 
-    	var m_table       = $("#apfsds").DataTable();
-        var q_qty         = $("#q_qty");
-        var q_item        = $("#q_item");
-        var q_kodeitem    = $("#q_kodeitem");
+    	$('#tax').maskMoney({
+		    precision : 0,
+		    thousands:'.',
+		    allowZero:true,
+		    defaultZero: true
+		});
+})
 
-        var x = 1;
- 
-	    q_qty.keypress(function(e) {
-	      if(e.which == 13 || e.keyCode == 13){
-	        m_table.row.add( [
-	            '<input type="text" id="item_kode[]" class="form-control input-sm min-width" readonly value="'+ q_kodeitem.val() +'">',
-	            '<input type="text" id="item_name[]" class="form-control input-sm min-width" value="'+ q_item.val() +'">',
-	            '<input type="number" id="jumlah[]" class="form-control input-sm min-width" value="'+ q_qty.val() +'">',
-	            '<input type="text" id="unit[]" class="form-control input-sm min-width">',
-	            '<input type="text" id="description[]" class="form-control input-sm min-width">',
-	            '<input type="text" id="unit_price[]" class="form-control input-sm min-width">',
-	            '<input type="text" id="line_total[]" class="form-control input-sm min-width">',
-	            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
-	        ] ).draw( false );
-	  
-	        x++;
-	        q_item.focus();
-	        q_item.val('');
-	        q_qty.val('');
-	      }
-	    } );
-	 
+
+
+function hitung_total() {
+	var tax = $('#tax').val();
+	var sub = $('#subtotal').val();
+
+	tax = tax.replace(/[^0-9\-]+/g,"")/1;
+	sub = sub.replace(/[^0-9\-]+/g,"")/100;
+
+	$('#total').val(accounting.formatMoney(tax + sub, "", 2, ".",','))
+}
+
+$('#tax').keyup(function(){
+	hitung_total();
+})
+
+function hitung_dpp() {
+	var total = 0;
+	$('.line_total').each(function(){
+		var temp = $(this).val();
+		temp 	 = temp.replace(/[^0-9\-]+/g,"")/100;
+		total += temp;
+	})
+	$('#subtotal').val(accounting.formatMoney(total, "", 2, ".",','));
+	hitung_total();
+}
+
+
+function qty(p) {
+	var par  		= $(p).parents('tr');
+	var unit_price  = $(par).find('.unit_price').val();
+	unit_price 	    = unit_price.replace(/[^0-9\-]+/g,"")/100;
+	var qty 	    = $(par).find('.jumlah').val();
+
+    $(par).find('.line_total').val(accounting.formatMoney(unit_price * qty, "", 2, ".",','));
+    hitung_dpp();
+}
+
+function edit_item(p) {
+	var par  = $(p).parents('tr');
+	var qty  = $(par).find('.jumlah').val();
+	var item  = $(par).find('.item_name').val();
+
+	$.ajax({
+      url:baseUrl + '/quotation/q_quotation/edit_item',
+      data:{item},
+      dataType:'json',
+      success:function(data){
+
+        $(par).find('.description').val(data.data.i_description);
+        $(par).find('.unit_price').val(accounting.formatMoney(data.data.i_price, "", 2, ".",','));
+        $(par).find('.line_total').val(accounting.formatMoney(data.data.i_price * qty, "", 2, ".",','));
+        hitung_dpp();
+      }
+    });
+}
+
+
+var q_qty         = $("#q_qty");
+var q_kodeitem    = $("#q_kodeitem");
+
+var x = 1;
+
+q_qty.keypress(function(e) {
+var m_table       = $("#apfsds").DataTable();
+
+  if(e.which == 13 || e.keyCode == 13){
+  	var item = $('.item').val();
+  	$.ajax({
+      url:baseUrl + '/quotation/q_quotation/append_item',
+      data:{item},
+      dataType:'json',
+      success:function(data){
+      	var temp;
+
+      	for (var i = 0; i < data.item.length; i++) {
+      		var temp1 = '<option value="'+data.item[i].i_code+'">'+data.item[i].i_code+' - '+data.item[i].i_name+'</option>';
+      		temp += temp1;
+      	}
+      	var dropdown = '<select onchange="edit_item(this)" name="item_name[]" style="width:200px" class="item_name">'+temp+'</select>'
+
+         m_table.row.add( [
+            dropdown,
+            '<input type="number" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ q_qty.val() +'">',
+            '<input type="text" name="description[]" class="description form-control input-sm min-width" value="'+data.data.i_description+'">',
+            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.i_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
+            '<input type="text" value="'+accounting.formatMoney(data.data.i_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
+            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
+        ] ).draw( false );
+
+        $('.item_name').last().val(data.data.i_code);
+  		$('.item_name').select2();
+        x++;
+        q_qty.val('');
+        $('.item').val('0');
+  		$('.item').select2();
+  		hitung_dpp();
+      }
+    });
+   
+  }
+
+});
+
+	
+
+
+
+	// $(".ship_method").select2({
+	//     tags: true,
+	//     multiple: true,
+	//     tokenSeparators: [',', ' '],
+	//     minimumInputLength: 2,
+	//     minimumResultsForSearch: 10,
+	//     ajax: {
+	//         url: URL,
+	//         dataType: "json",
+	//         type: "GET",
+	//         data: function (params) {
+
+	//             var queryParameters = {
+	//                 term: params.term
+	//             }
+	//             return queryParameters;
+	//         },
+	//         processResults: function (data) {
+	//             return {
+	//                 results: $.map(data, function (item) {
+	//                     return {
+	//                         text: item.tag_value,
+	//                         id: item.tag_id
+	//                     }
+	//                 })
+	//             };
+	//         }
+	//     }
+	// });
+
+
+
+	
+
+
+
+
+	
+
 	    
 
-	    $('#apfsds tbody').on( 'click', '.delete', function () {
-	    m_table
-	        .row( $(this).parents('tr') )
-	        .remove()
-	        .draw();
+$('#apfsds tbody').on( 'click', '.delete', function () {
+	var m_table       = $("#apfsds").DataTable();
+
+    m_table
+        .row( $(this).parents('tr') )
+        .remove()
+        .draw();
+    });
+
+	$('.customer').change(function(){
+		var customer = $(this).val();
+		$.ajax({
+	      url:baseUrl + '/quotation/q_quotation/customer',
+	      data:{customer},
+	      dataType:'json',
+	      success:function(data){
+	        $('.address').text(data.data.c_address)
+	      }
 	    });
+	})
 
-	});
+	$('.type_qo').change(function(){
+		var type_q = $('.type_qo').val();
+		var type_p = $('.type_p').val();
+		var date   = $('.date').val();
 
-	function auto() {
-
-		$( ".autocomplete" ).autocomplete({
-	        source:baseUrl + '/quotation/q_quotation/autocomplete', 
-	        minLength: 1,
-	        select: function(event, ui) {
-	          if (ui.item.validator != null) {
-	          }
-	          $('.harga_do').val(ui.item.harga);
-
-	      	}
-
+		$.ajax({
+	      url:baseUrl + '/quotation/q_quotation/nota_quote',
+	      data:{type_q,type_p,date},
+	      dataType:'json',
+	      success:function(data){
+	        $('.quote').val(data.nota)
+	      }
 	    });
-	}
+	})
 
+
+	$('.type_p').change(function(){
+		var type_q = $('.type_qo').val();
+		var type_p = $('.type_p').val();
+		var date   = $('.date').val();
+
+		$.ajax({
+	      url:baseUrl + '/quotation/q_quotation/nota_quote',
+	      data:{type_q,type_p,date},
+	      dataType:'json',
+	      success:function(data){
+	        $('.quote').val(data.nota)
+	      }
+	    });
+	})
+
+	$('.save').click(function(){
+
+		var 
+
+		var m_table = $("#apfsds").DataTable();
+		iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Simpan Data!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:#32CD32;">Simpan</button>',
+                function (instance, toast) {
+
+                  $.ajax({
+				      url:baseUrl + '/quotation/q_quotation/save_quote',
+				      data:m_table.$('input').serialize()+'&'+
+				     	   m_table.$('.item_name').serialize()+'&'+
+				      	   $('.form_quote :input').serialize()+'&'+
+				      	   $('.total_form').serialize(),
+				      dataType:'json',
+				      success:function(data){
+				      	iziToast.success({
+				            icon: 'fa fa-success',
+				            message: 'Data Berhasil Disimpan!',
+				        });
+				      }
+				    });
+                }
+              ],
+              [
+                '<button style="background-color:#44d7c9;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+		
+	})
 	
 </script>
 @endsection

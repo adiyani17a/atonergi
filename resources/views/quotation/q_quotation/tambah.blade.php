@@ -63,14 +63,29 @@
                     <option value="0">--Select Type--</option>
                     <option value="SWP">SWP</option>
                     <option value="WP">WP</option>
-                    <option value="Accesories">Accesories</option>
-                    <option value="Off Grid">Off Grid</option>
-                    <option value="On Grid">On Grid</option>
+                    <option value="ACC">Accesories</option>
+                    <option value="OFD">Off Grid</option>
+                    <option value="ONG">On Grid</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-3 col-sm-0 col-xs-0">
                 <!-- empty -->
+              </div>
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                <label>Type Product</label>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <select class="form-control form-control-sm type_p" id="type_p" name="type_p">
+                   <option value="0">--Select Type--</option>
+                    <option value="SWP">SWP</option>
+                    <option value="WP">WP</option>
+                    <option value="ACC">Accesories</option>
+                    <option value="OFD">Off Grid</option>
+                    <option value="ONG">On Grid</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -83,7 +98,7 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm datepicker date" name="date">
+                  <input type="text" value="{{ $now }}" class="form-control form-control-sm datepicker date" name="date">
                 </div>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -160,14 +175,14 @@
           <div class="col-md-2 col-sm-6 col-xs-12">
             <label>Item Name</label>
           </div>
-          <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control form-control-sm" readonly="" name="" id="q_kodeitem">
-            </div>
-          </div>
           <div class="col-md-2 col-sm-12 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="" id="q_item">
+              <select class="form-control form-control-sm item" name="item">
+                <option value="0">--Select Item</option>
+                @foreach($item as $i )
+                <option value="{{ $i->i_code }}">{{ $i->i_code }} - {{ $i->i_name }}</option>
+                @endforeach
+              </select>
             </div>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
@@ -175,7 +190,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="number" class="form-control form-control-sm" name="" id="q_qty">
+              <input type="number" class="form-control form-control-sm q_qty" name="" id="q_qty" title="Press Enter">
             </div>
           </div>
         </div>
@@ -183,10 +198,8 @@
             <table class="table table-hover data-table" cellspacing="0" id="apfsds">
               <thead class="bg-gradient-info">
                 <tr>
-                  <th>Item Code</th>
-                  <th>Item Name</th>
+                  <th>Item</th>
                   <th>Qty</th>
-                  <th>Unit</th>
                   <th>Description</th>
                   <th>Unit Price</th>
                   <th>Line Total</th>
@@ -200,13 +213,13 @@
           </div>
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="row">
+              <form class="row total_form">
                 <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
                   <label>Subtotal</label>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                   <div class="form-group">  
-                    <input type="text" class="form-control form-control-sm" readonly="" name="" id="subtotal">
+                    <input type="text" class="form-control form-control-sm" readonly="" name="subtotal" id="subtotal">
                   </div>
                 </div>
                 <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -214,7 +227,7 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                   <div class="form-group">  
-                    <input type="text" class="form-control form-control-sm" name="" id="">
+                    <input type="text" class="form-control form-control-sm" value="0" name="tax" id="tax">
                   </div>
                 </div>
                 <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -222,17 +235,17 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                   <div class="form-group">  
-                    <input type="text" class="form-control form-control-sm" readonly="" name="" id="total">
+                    <input type="text" class="form-control form-control-sm" readonly="" name="total" id="total">
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
 
          
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button">Process</button>
+        <button class="btn btn-primary save" type="button">Process</button>
         <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>
