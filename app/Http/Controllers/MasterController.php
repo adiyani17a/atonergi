@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Barang;
 use App\TypeItem;
-use Yajra\Datatables\Datatables;
-use DB;
 
 class MasterController extends Controller
 {
@@ -48,8 +46,7 @@ class MasterController extends Controller
     }
     public function type()
     {
-        $type = TypeItem::all();
-        return view('master/type/type', compact('type'));
+        return view('master/type/type');
     }
        
 }
