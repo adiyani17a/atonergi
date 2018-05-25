@@ -55,6 +55,7 @@
           $("input[name='ib_price']").val('');
             var table = $('#t72bu').DataTable();
             table.clear().draw();
+            $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
     })  
 
     $('#bund_qty').attr('disabled',true); 
@@ -161,7 +162,7 @@
 
     
 
-  $('#save_data').click(function(){
+  $('#change_function').on("click", "#save_data",function(){
     $.ajax({
          type: "get",
          url: baseUrl + '/master/bundleitem/simpan_bundleitem',
@@ -185,6 +186,7 @@
          async: false
        });
   })
+
   });
 
 function detail(parm) {
@@ -231,20 +233,20 @@ function edit(parm){
             $("input[name='ib_name']").val(data[0][0].ib_item);
             $("input[name='ib_price']").val(accounting.formatMoney(data[0][0].ib_price,"",0,'.',','));
             
-            // var array_edit='';
-            //   $.each(data[1], function(i, terms) {
+            var array_edit='';
+              $.each(data[1], function(i, terms) {
               
-            //   array_edit += '<tr>';
-            //     array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_barang +"'></td>";
-            //     array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].i_name +"'></td>";
-            //     array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_qty +"'></td>";
-            //     array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_unit +"'></td>";
-            //     array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_price +"'></td>";
-            //     array_edit += "<td><button type='button' class='delete btn btn-outline-danger btn-sm hapus'><i class='fa fa-trash-o'></i></button></td>";
-            //   array_edit += '</tr>';
+              array_edit += '<tr>';
+                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_barang +"'></td>";
+                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].i_name +"'></td>";
+                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_qty +"'></td>";
+                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_unit +"'></td>";
+                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_price +"'></td>";
+                array_edit += "<td><button type='button' class='delete btn btn-outline-danger btn-sm hapus'><i class='fa fa-trash-o'></i></button></td>";
+              array_edit += '</tr>';
 
-            //   })
-            // $('#edit_rep').html(array_edit);  
+              })
+            $('#edit_rep').html(array_edit);  
 
 
             $('#change_function').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
