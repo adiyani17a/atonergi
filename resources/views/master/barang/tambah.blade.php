@@ -72,7 +72,7 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm" name="price" maxlength="20">                               
+                    <input type="text"  class="form-control form-control-sm" name="price" maxlength="20" required="">                               
                 </div>
               </div>
 
