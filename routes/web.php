@@ -183,6 +183,7 @@ Route::get('/master/hapusvendor/hapus_vendor', 'master\master_vendorController@h
 Route::get('/master/updatevendor/update_vendor', 'master\master_vendorController@update_vendor');
 Route::get('/master/dataeditvendor/dataedit_vendor', 'master\master_vendorController@dataedit_vendor');
 Route::get('/master/datatalble_vendor/datatalble_vendor', 'master\master_vendorController@datatalble_vendor')->name('datatalble_vendor');
+Route::get('/master/vendor/edit_vendor', 'MasterController@edit_vendor');
 
 //master marketing
 Route::get('/quotation/marketing/marketing', 'master\master_marketingController@marketing');
@@ -221,3 +222,5 @@ Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barang
 Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
 Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_edit');
 Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
+Route::get('assets/barang/thumbnail')->name('barang_thumbnail');
+Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@barang_update');
