@@ -22,8 +22,12 @@ class QuotationController extends Controller
     $customer = DB::table('m_customer')
                   ->get();
 
+    $marketing = DB::table('d_marketing')
+                  ->get();
 
- 		return view('quotation/q_quotation/q_quotation',compact('customer'));
+
+
+ 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing'));
  	}
 
  	public function quote_datatable()

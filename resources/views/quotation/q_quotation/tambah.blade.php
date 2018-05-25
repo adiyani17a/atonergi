@@ -110,6 +110,9 @@
                   @if(Auth::user()->akses('QUOTE MARKETING','aktif'))
                     <select class="marketing" name="marketing">
                       <option>--Select Marketing--</option>
+                      @foreach($marketing as $i)
+                        <option value="{{$i->mk_id}}">{{$i->mk_code}} - {{$i->mk_name}}</option>
+                      @endforeach
                     </select>
                   @else
                     <input readonly="" type="text" class="form-control marketing form-control-sm" name="marketing" value="{{Auth::user()->m_name}}">
