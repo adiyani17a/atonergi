@@ -7,20 +7,44 @@ use App\Barang;
 use Yajra\Datatables\Datatables;
 use DB;
 
-class master_vendorController extends Controller
+class master_pegawaiController extends Controller
 {
    
-    public function vendor()
+    public function pegawai()
     {
-        return view('master/vendor/vendor');
+        $kode = DB::table('m_pegawai')->max('mp_id');
+    
+            if ($kode == null) {
+                $kode = 1;
+            }else{
+                $kode += 1;
+            }
+        $index = str_pad($kode, 5, '0', STR_PAD_LEFT);
+        $nota = 'PGW/'.$index;
+
+        return view('master/pegawai/pegawai',compact('nota'));
     }
-    public function datatalble_vendor(Request $request)
+    public function kode_pegawai()
     {
-    	$list = DB::select("SELECT * from m_vendor");
+        $kode = DB::table('m_pegawai')->max('mp_id');
+    
+            if ($kode == null) {
+                $kode = 1;
+            }else{
+                $kode += 1;
+            }
+        $index = str_pad($kode, 5, '0', STR_PAD_LEFT);
+        $nota = 'PGW/'.$index;
+
+        return response()->json([$nota]);
+    }
+    public function datatalble_pegawai(Request $request)
+    {
+        $list = DB::select("SELECT * from m_pegawai");
         // return $data;
         $data = collect($list);
         return Datatables::of($data)
-        		->addColumn('aksi', function ($data) {
+                ->addColumn('aksi', function ($data) {
                           return  '<div class="btn-group">'.
                                    '<button type="button" onclick="edit(this)" class="btn btn-info btn-lg" title="edit">'.
                                    '<label class="fa fa-pencil-alt"></label></button>'.
@@ -32,91 +56,66 @@ class master_vendorController extends Controller
                     return '-';
                 })
                 ->rawColumns(['aksi', 'confirmed'])
-        		->make(true);
+                ->make(true);
     }
 
-    public function simpan_vendor(Request $request)
+    public function simpan_pegawai(Request $request)
     {
-    	// dd($request->all());
-    	$kode = DB::table('m_vendor')->max('s_id');
+        // dd($request->all());
+        $kode = DB::table('m_pegawai')->max('mp_id');
     
-    		if ($kode == null) {
-    	 		$kode = 1;
-	    	}else{
-	    	 	$kode += 1;
-	    	}
-	    $index = str_pad($kode, 5, '0', STR_PAD_LEFT);
-	    $nota = 'VDR/'.$index;
-	    $tanggal = date("Y-m-d h:i:s");
-	    $date = date_create($request->v_tgl);
-		$date = date_format($date,"Y-m-d");
+            if ($kode == null) {
+                $kode = 1;
+            }else{
+                $kode += 1;
+            }
+        $tanggal = date("Y-m-d h:i:s");
 
-     	$data = DB::table('m_vendor')
-    			->insert([
-    			's_id'=> $kode,
-    			's_kode'=>$nota,
-    			's_company'=>$request->v_company,
-    			's_name'=>$request->v_name,
-    			's_address'=>$request->v_alamat,
-    			's_email'=>$request->v_email,
-    			's_phone'=>$request->v_tlp,
-    			// 's_fax'=>$request->v_tgl,
-    			's_termin'=>$request->v_credit,
-    			's_limit'=>$request->v_plafon,
-    			's_npwp'=>$request->v_npwp,
-    			's_accountnumber'=>$request->v_noakun,
-    			's_bankname'=>$request->v_namabank,
-    			's_information'=>$request->v_informasi,
-    			's_insert'=>$tanggal,
-    			's_date'=>$date,
-    			's_type'=>$request->v_tipe,
-    			's_hometown'=>$request->v_hometown,
-    			]);
+        $data = DB::table('m_pegawai')
+                ->insert([
+                'mp_id'=> $kode,
+                'mp_kode'=>$request->mp_id,
+                'mp_name'=>$request->mp_name,
+                'mp_nik'=>$request->mp_nik,
+                'mp_position'=>$request->mp_position,
+                'mp_status'=>$request->mp_status,
+                'mp_address'=>$request->mp_address,
+                'mp_email'=>$request->mp_email,
+                'mp_insert'=>$tanggal,
+                ]);
 
-    	return response()->json(['status'=>1]);
+        return response()->json(['status'=>1]);
     }
-    public function dataedit_vendor(Request $request)
+    public function dataedit_pegawai(Request $request)
     {
-    	// dd($request->all());
-    	$data = DB::table('m_vendor')->where('s_kode','=',$request->id)->get();
-    	return response()->json($data);
+        // dd($request->all());
+        $data = DB::table('m_pegawai')->where('mp_kode','=',$request->id)->get();
+        return response()->json($data);
     }
-    public function update_vendor(Request $request)
+    public function update_pegawai(Request $request)
     {
-    	// dd($request->all());
-    	$tanggal = date("Y-m-d h:i:s");
-	    $date = date_create($request->v_tgl);
-		$date = date_format($date,"Y-m-d");
-    	// dd($request->all());
-    	$data = DB::table('m_vendor')
-    			->where('s_kode',$request->v_kode_old)
-    			->update([
-    			's_company'=>$request->v_company,
-    			's_name'=>$request->v_name,
-    			's_address'=>$request->v_alamat,
-    			's_email'=>$request->v_email,
-    			's_phone'=>$request->v_tlp,
-    			// 's_fax'=>$request->v_tgl,
-    			's_termin'=>$request->v_credit,
-    			's_limit'=>$request->v_plafon,
-    			's_npwp'=>$request->v_npwp,
-    			's_accountnumber'=>$request->v_noakun,
-    			's_bankname'=>$request->v_namabank,
-    			's_information'=>$request->v_informasi,
-    			's_update'=>$tanggal,
-    			's_date'=>$date,
-    			's_type'=>$request->v_tipe,
-    			's_hometown'=>$request->v_hometown,
-    			]);
+        // dd($request->all());
+        $tanggal = date("Y-m-d h:i:s");
+        $data = DB::table('m_pegawai')
+                ->where('mp_kode',$request->mp_id)
+                ->update([
+                'mp_name'=>$request->mp_name,
+                'mp_nik'=>$request->mp_nik,
+                'mp_position'=>$request->mp_position,
+                'mp_status'=>$request->mp_status,
+                'mp_address'=>$request->mp_address,
+                'mp_email'=>$request->mp_email,
+                'mp_update'=>$tanggal,
+                ]);
 
-    	return response()->json(['status'=>1]);
-    	
+        return response()->json(['status'=>1]);
+        
     }
-    public function hapus_vendor(Request $request)
+    public function hapus_pegawai(Request $request)
     {
-    	// dd($request->all());
-    	$data = DB::table('m_vendor')->where('s_kode','=',$request->id)->delete();
-    	return response()->json($data);
+        // dd($request->all());
+        $data = DB::table('m_pegawai')->where('mp_kode','=',$request->id)->delete();
+        return response()->json($data);
     }
 
        

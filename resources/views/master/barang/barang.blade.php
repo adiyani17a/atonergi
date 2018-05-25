@@ -99,12 +99,12 @@ $(document).ready(function(){
 
 $('#tombol_modal_tambah').click(function(){
 
-  alert('a');
 
     var item  = $('input[name="item_name"]').val('');
     var img   = $('#chooseFile').val('');
-    var img_label   = $('#noFile').text('');
-    var img_name  = $('#output').removeAttr('src');
+    $('#noFile').text('Choose Image...');
+    $(".file-upload").removeClass('active');
+    $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
     var type_barang  = $('select[name="type_barang"]').val('').trigger('change');
     var unit = $('input[name="unit"]').val('');
     var price = $('input[name="price"]').val('');
@@ -113,7 +113,7 @@ $('#tombol_modal_tambah').click(function(){
     var description = $('textarea[name="description"]').val('');
     var item_codex = $('input[name="item_codex"]').val('');
 
-    $('#ganti_tombol').html('<button class="btn btn-primary" type="button" id="simpan">Save Data</button>');
+    $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="simpan()">Save Data</button>');
 
   });
 
@@ -152,46 +152,11 @@ var loadFile = function(event) {
   reader.readAsDataURL(event.target.files[0]);
 };
 
-function edit(m1a2){
-    var par   = $(m1a2).parents('tr');
-    var id    = $(par).find('.i_id').text();
-    $.ajax({
-       type: "get",
-         url: baseUrl + '/master/barang/barang_edit',
-         data: {id},
-         success: function(data){
-          $('#tambah').modal('show');
-          
-          // console.log(data[0]);
-
-            var i_id      = $("input[name='item_codex']").val(data[0].i_id);
-            var i_code    = $("input[name='item_name']").val(data[0].i_name);
-            var i_unit      = $("input[name='unit']").val(data[0].i_unit);
-            var i_weight      = $("input[name='weight']").val(data[0].i_weight);
-            var i_price      = $("input[name='price']").val(data[0].i_price);
-            var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
-            var i_description      = $("textarea[name='description']").val(data[0].i_description);
-            var i_type      = $("input[name='type_barang']").val(data[0].i_type);
-            var i_unit      = $("input[name='unit']").val(data[0].i_unit);
-
-            $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
-         },
-         error: function(){
-          iziToast.warning({
-            icon: 'fa fa-times',
-            message: 'Terjadi Kesalahan!',
-          });
-         },
-         async: false
-       });
-  }
-
-$('#simpan').click(function(event){
-    event.preventDefault();
+function simpan(){
+  
 
     var formdata = new FormData();  
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
-
     $.ajax({
          type: "post",
          url: baseUrl + '/master/barang/barangproses?'+$('#simpan_barang').serialize(),
@@ -217,8 +182,84 @@ $('#simpan').click(function(event){
          },
          async: false
        });
-  });
+}
 
+
+function edit(m1a2)
+{
+    var par   = $(m1a2).parents('tr');
+    var id    = $(par).find('.i_id').text();
+    $.ajax({
+       type: "get",
+         url: baseUrl + '/master/barang/barang_edit',
+         data: {id},
+         success: function(data){
+          $('#tambah').modal('show');
+          
+          console.log(data[0].i_image);
+          $('#chooseFile').val('');
+          $('#noFile').text('Choose Image...');
+          $(".file-upload").removeClass('active');
+          $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
+
+            var i_id      = $("input[name='item_codex']").val(data[0].i_id);
+            var i_code    = $("input[name='item_name']").val(data[0].i_name);
+            var i_unit      = $("input[name='unit']").val(data[0].i_unit);
+            var i_weight      = $("input[name='weight']").val(data[0].i_weight);
+            var i_price      = $("input[name='price']").val(data[0].i_price);
+            var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
+            var i_description      = $("textarea[name='description']").val(data[0].i_description);
+            var i_type      = $("input[name='type_barang']").val(data[0].i_type);
+            var i_unit      = $("input[name='unit']").val(data[0].i_unit);
+
+            if(data[0].i_image!='' || data[0].i_image!=null){
+              $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);
+              $('.file-upload').addClass('active');
+              $("#noFile").text(data[0].i_image); 
+            }
+
+            $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });
+  }
+
+
+function update() {
+    var formdata = new FormData();  
+    formdata.append( 'files', $('#chooseFile')[0].files[0]);
+      $.ajax({
+          processData: false, //important
+          contentType: false,
+          cache: false,
+          type: "post",
+          url: baseUrl + '/master/barang/barang_update?'+$('#simpan_barang').serialize(),
+          data: formdata,
+          success: function(data){
+            $('#tambah').modal('hide');
+            var table = $('#t55').DataTable();
+            table.ajax.reload();
+
+            iziToast.success({
+              icon: 'fas fa-check-circle',
+              message: 'Data Telah Terupdate!',
+            });
+          },
+          error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+          },
+          async: false
+         });
+   }
 
 
 function hapus(a) {

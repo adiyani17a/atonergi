@@ -56,37 +56,53 @@
             // responsive:true,
             serverSide: true,
             ajax: {
-                url:'{{ route('datatalble_customer') }}',
+                url:'{{ route('datatable_pegawai') }}',
             },
              columnDefs: [
 
                   {
-                     targets: 1 ,
+                     targets: 0 ,
                      className: 'center d_id'
                   }, 
                 ],
             "columns": [
-            { "data": "c_birthday" },
-            { "data": "c_code" },
-            { "data": "c_name" },
-            { "data": "c_type" },
-            { "data": "c_information" },
+            { "data": "mp_kode" },
+            { "data": "mp_nik" },
+            { "data": "mp_name" },
+            { "data": "mp_address" },
+            { "data": "mp_status" },
             { "data": "aksi" },
             ]
       });
 
   $('#button_add').click(function(){
+    var mp_name      = $("input[name='mp_name']").val('');
+    var mp_nik       = $("input[name='mp_nik']").val('');
+    var mp_tlp       = $("input[name='mp_phone']").val(''); 
+    var mp_email     = $("input[name='mp_email']").val(''); 
+    var mp_address   = $("textarea#mp_address").val(''); 
+    var mp_status    = $("select[name='mp_status']").val('').trigger('change'); 
+    var mp_position  = $("select[name='mp_position']").val('').trigger('change'); 
+    $.ajax({
+         type: "get",
+         url:'{{ route('kode_pegawai') }}',
+         success: function(data){
+         	console.log(data);
+            var mp_id   = $("input[name='mp_id']").val(data[0]);
+         },
+         async: false
+       });
     
   })
 
    $('#save_data').click(function(){
     $.ajax({
          type: "get",
-         url: baseUrl + '/master/simpancustomer/simpan_customer',
+         url: baseUrl + '/master/simpanpegawai/simpan_pegawai',
          data: $('#form_save').serialize(),
          success: function(data){
-            $('#tambah-customer').modal('hide');
-            var table = $('#table-cust').DataTable();
+            $('#tambah').modal('hide');
+            var table = $('#table-pegawai').DataTable();
             table.ajax.reload();
 
             iziToast.success({
@@ -107,11 +123,11 @@
    function update() {
       $.ajax({
            type: "get",
-           url: baseUrl + '/master/updatecustomer/update_customer',
+           url: baseUrl + '/master/updatepegawai/update_pegawai',
            data: $('#form_save').serialize(),
            success: function(data){
-              $('#tambah-customer').modal('hide');
-              var table = $('#table-cust').DataTable();
+              $('#tambah').modal('hide');
+              var table = $('#table-pegawai').DataTable();
               table.ajax.reload();
 
               iziToast.success({
@@ -128,6 +144,94 @@
            async: false
          });
    }
+   function edit(parm){
+    var par   = $(parm).parents('tr');
+    var id    = $(par).find('.d_id').text();
+    $('#tambah').modal('show');
+    $.ajax({
+       type: "get",
+         url: baseUrl + '/master/dataeditpegawai/dataedit_pegawai',
+         data: {id},
+         success: function(data){
+     	 $('#tambah').modal('hide');
+          var table = $('#table-pegawai').DataTable();
+          table.ajax.reload();
+          console.log(data);
+            var mp_name      = $("input[name='mp_name']").val(data[0].mp_name);
+            var mp_nik       = $("input[name='mp_nik']").val(data[0].mp_nik);
+            var mp_tlp       = $("input[name='mp_phone']").val(data[0].mp_phone); 
+            var mp_email     = $("input[name='mp_email']").val(data[0].mp_email); 
+            var mp_address   = $("textarea#mp_address").val(data[0].mp_address); 
+            var mp_status    = $("select[name='mp_status']").val(data[0].mp_status).trigger('change'); 
+            var mp_position  = $("select[name='mp_position']").val(data[0].mp_position).trigger('change'); 
+            var mp_id        = $("input[name='mp_id']").val(data[0].mp_kode);
+
+            $('#change_function').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });
+  }
+
+  function hapus(parm){
+    var par   = $(parm).parents('tr');
+    var id    = $(par).find('.d_id').text();
+
+    iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:red;">Delete</button>',
+                function (instance, toast) {
+
+                  $.ajax({
+                   type: "get",
+                     url: baseUrl + '/master/hapuspegawai/hapus_pegawai',
+                     data: {id},
+                     success: function(data){
+                      console.log(data);
+                      var table = $('#table-pegawai').DataTable();
+          			  table.ajax.reload();
+                      
+                     
+                     },
+                     error: function(){
+                      iziToast.warning({
+                        icon: 'fa fa-times',
+                        message: 'Terjadi Kesalahan!',
+                      });
+                     },
+                     async: false
+                   });
+                 
+                }
+              ],
+              [
+                '<button style="background-color:#44d7c9;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+
+
+  }
 
 </script>
 @endsection

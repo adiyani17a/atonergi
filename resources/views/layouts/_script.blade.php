@@ -101,8 +101,11 @@
   var baseUrl = '{{ url('/') }}';
   // var regex_huruf = replace(/[A-Za-z$. ,-]/g, "");
   // var regex_angka = replace(/[^0-9\-]+/g,"");
-  $('.format_money').maskMoney({prefix:' ', allowNegative: false, thousands:'.', decimal:',',precision:false, affixesStay: false});
 
+  //function
+  $('.format_money').maskMoney({prefix:' ', allowNegative: false, thousands:'.', decimal:',',precision:false, affixesStay: false});
   $('.right').css('text-align','right')
+  $('.sembuyikan').css('display','none')
+  $('.tampilkan').css('display','block')
   $('.bintang_merah').css('color','red')
 </script>
