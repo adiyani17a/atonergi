@@ -117,6 +117,9 @@
                       <input type="file" name="image" onchange="loadFile(event)" id="chooseFile" accept="image/*">
                     </div>
                   </div>
+                  <div>
+                    
+                  </div>
               </div>
                 
               <div class="col-md-3 col-sm-4 col-xs-12">
