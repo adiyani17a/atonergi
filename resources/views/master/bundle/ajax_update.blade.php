@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-                                
+
             <div class="col-md-3 col-sm-4 col-xs-12">
              
                   <label class="tebal">Bundle Name</label>
@@ -78,7 +78,11 @@
               </tr>
             </thead>
             <tbody id="edit_rep">
-              
+              @foreach ($data_seq as $e)
+              <tr>
+                <td>{{ $e->ibd_id }}</td>
+              </tr>
+              @endforeach
             </tbody>
             
           </table>
@@ -86,7 +90,7 @@
       </div>
       <div class="modal-footer">
         <div id="change_function">
-          <button class="btn btn-primary" type="button" id="save_data" onclick="save_data()">Save Data</button>
+          <button class="btn btn-primary" type="button" onclick="update()">Update Data</button>
         </div>
         <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>

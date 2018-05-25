@@ -65,7 +65,6 @@ Route::get('/master/pegawai/pegawai', 'MasterController@pegawai');
 Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
-Route::get('/master/bundle/bundle', 'MasterController@bundle');
 Route::get('/master/status/status', 'MasterController@status');
 
 
@@ -199,19 +198,30 @@ Route::get('/master/datatalble_customer/datatalble_customer', 'master\master_cus
 
 //master Npenawaran
 Route::get('/quotation/n_penawaran/n_penawaran', 'master\master_NpenawaranController@n_penawaran');
-Route::get('/master/hapusNpenawaran/hapus_Npenawaran', 'master\master_NpenawaranController@hapus_Npenawaran');
-Route::get('/master/updateNpenawaran/update_Npenawaran', 'master\master_NpenawaranController@update_Npenawaran');
+Route::get('/quotation/hapusNpenawaran/hapus_Npenawaran', 'master\master_NpenawaranController@hapus_Npenawaran');
+Route::get('/quotation/updateNpenawaran/update_Npenawaran', 'master\master_NpenawaranController@update_Npenawaran');
 Route::get('/quotation/n_penawaran/simpan_n_penawaran', 'master\master_NpenawaranController@simpan_Npenawaran');
 Route::get('/quotation/dataeditNpenawaran/dataedit_Npenawaran', 'master\master_NpenawaranController@dataedit_Npenawaran');
 Route::get('/quotation/datatable_Npenawaran/datatable_Npenawaran', 'master\master_NpenawaranController@datatable_Npenawaran')->name('datatable_Npenawaran');
 
 //master pegawai 
 Route::get('/master/pegawai/pegawai', 'master\master_pegawaiController@pegawai');
+Route::get('/master/pegawai/kode_pegawai', 'master\master_pegawaiController@kode_pegawai')->name('kode_pegawai');
 Route::get('/master/simpanpegawai/simpan_pegawai', 'master\master_pegawaiController@simpan_pegawai');
 Route::get('/master/hapuspegawai/hapus_pegawai', 'master\master_pegawaiController@hapus_pegawai');
 Route::get('/master/updatepegawai/update_pegawai', 'master\master_pegawaiController@update_pegawai');
 Route::get('/master/dataeditpegawai/dataedit_pegawai', 'master\master_pegawaiController@dataedit_pegawai');
-Route::get('/master/datatalble_pegawai/datatalble_pegawai', 'master\master_pegawaiController@datatalble_pegawai')->name('datatalble_pegawai');
+Route::get('/master/datatalble_pegawai/datatalble_pegawai', 'master\master_pegawaiController@datatalble_pegawai')->name('datatable_pegawai');
+
+//master Bundle Item/barang
+Route::get('/master/bundle/bundle', 'master\master_bundleitemController@bundleitem');
+Route::get('/master/hapusbundleitem/hapus_bundleitem', 'master\master_bundleitemController@hapus_bundleitem')->name('hapus_bundleitem');
+Route::get('/master/detailbundleitem/detail_bundleitem', 'master\master_bundleitemController@detail_bundleitem')->name('detail_bundleitem');
+Route::get('/master/updatebundleitem/update_bundleitem', 'master\master_bundleitemController@update_bundleitem');
+Route::get('/master/bundleitem/simpan_bundleitem', 'master\master_bundleitemController@simpan_bundleitem');
+Route::get('/master/dataeditbundleitem/dataedit_bundleitem', 'master\master_bundleitemController@dataedit_bundleitem')->name('dataedit_bundleitem');
+Route::get('/master/datatable_bundleitem/datatable_bundleitem', 'master\master_bundleitemController@datatable_bundleitem')->name('datatable_bundleitem');
+
 
 // Master Barang
 Route::post('master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
