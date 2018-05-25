@@ -16,7 +16,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="row">
+        <form class="row form_quote">
           
           <div class="col-md-8 col-sm-12 col-xs-12">
             <div class="row">
@@ -24,22 +24,20 @@
                 <label>Customer</label>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control form-control-sm">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-info btn-sm" type="button" title="Add Customer" data-toggle="modal" data-target="#tambah-customer"><i class="fa fa-plus"></i></button>
+                  <div class="row">
+                    <div class="col-sm-10">
+                      <div class="form-group">
+                        <select class="form-control form-control-sm customer"  name="customer">
+                          <option value="0">--Select Customer--</option>
+                          @foreach($customer as $i)
+                          <option value="{{$i->c_code}}">{{$i->c_code}} - {{$i->c_name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                  <div class="col-sm-2">
+                      <button class="btn btn-outline-info btn-sm" type="button" title="Add Customer" data-toggle="modal" data-target="#tambah-customer"><i class="fa fa-plus"></i></button>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-0 col-xs-0">
-                <!-- empty -->
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <label>Order By</label>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-sm" name="">
                 </div>
               </div>
               <div class="col-md-3 col-sm-0 col-xs-0">
@@ -50,7 +48,7 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <textarea class="form-control"></textarea>
+                  <textarea name="address" class="form-control address"></textarea>
                 </div>
               </div>
               <div class="col-md-3 col-sm-0 col-xs-0">
@@ -61,48 +59,19 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <select class="form-control form-control-sm" id="type_qo">
-                    <option>--Select Type--</option>
-                    <option>SWP</option>
-                    <option>WP</option>
-                    <option>Accesories</option>
-                    <option>Off Grid</option>
-                    <option>On Grid</option>
+                  <select class="form-control form-control-sm type_qo" id="type_qo" name="type_qo">
+                    <option value="0">--Select Type--</option>
+                    <option value="SWP">SWP</option>
+                    <option value="WP">WP</option>
+                    <option value="Accesories">Accesories</option>
+                    <option value="Off Grid">Off Grid</option>
+                    <option value="On Grid">On Grid</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-3 col-sm-0 col-xs-0">
                 <!-- empty -->
               </div>
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <label title="Tipe Pompa">Type Pump</label>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="form-group">
-                  <select class="form-control form-control-sm" id="type_pump">
-                    <option>--Select Type--</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-0 col-xs-0">
-                <!-- empty -->
-              </div>
-              <div class="col-md-3 col-sm-6 col-xs-12 122mm d-none" >
-                <label>Work Order</label>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-12 122mm d-none" >
-                <div class="form-group">
-                  <select class="form-control form-control-sm" id="w_order">
-                    <option value="">--Select Work Order--</option>
-                    <option value="pompa">Project Manajemen Pompa</option>
-                    <option value="shs">Project Manajemen SHS</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-0 col-xs-0 122mm d-none">
-                <!-- empty -->
-              </div>
-
             </div>
 
           </div>
@@ -114,7 +83,7 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm datepicker" name="">
+                  <input type="text" class="form-control form-control-sm datepicker date" name="date">
                 </div>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -122,7 +91,7 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm" name="">
+                  <input type="text" class="form-control form-control-sm quote" name="quote">
                 </div>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -130,15 +99,24 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm" name="">
+                  <input type="text" class="form-control form-control-sm ship_to" name="ship_to">
                 </div>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <label>Sales</label>
+                <label>Marketing</label>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input readonly="" type="text" class="form-control form-control-sm" name="" value="{{Auth::user()->m_name}}">
+                  @if(Auth::user()->akses('QUOTE MARKETING','aktif'))
+                    <select class="marketing" name="marketing">
+                      <option>--Select Marketing--</option>
+                      @foreach($marketing as $i)
+                        <option value="{{$i->mk_id}}">{{$i->mk_code}} - {{$i->mk_name}}</option>
+                      @endforeach
+                    </select>
+                  @else
+                    <input readonly="" type="text" class="form-control marketing form-control-sm" name="marketing" value="{{Auth::user()->m_name}}">
+                  @endif
                 </div>
               </div>
             </div>
@@ -151,11 +129,11 @@
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <select class="form-control form-control-sm">
-                    <option>--Select Shipping Method--</option>
-                    <option>Sea</option>
-                    <option>Land Freight</option>
-                    <option>Air Freight</option>
+                  <select class="form-control form-control-sm ship_method" name="ship_method">
+                    <option value="0">--Select Shipping Method--</option>
+                    <option value="Sea">Sea</option>
+                    <option value="Land Freight">Land Freight</option>
+                    <option value="Air Freight">Air Freight</option>
                   </select>
                 </div>
               </div>
@@ -164,7 +142,7 @@
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input type="text" class="form-control-sm form-control" name="">
+                  <input type="text" class="form-control-sm form-control ship_term" name="ship_term">
                 </div>
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
@@ -172,12 +150,12 @@
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input type="text" class="form-control-sm form-control datepicker" name="">
+                  <input type="text" class="form-control-sm form-control datepicker delivery" name="delivery">
                 </div>
               </div>
             </div>
           </div>
-        </div><!-- End div row -->
+        </form><!-- End div row -->
         <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
           <div class="col-md-2 col-sm-6 col-xs-12">
             <label>Item Name</label>

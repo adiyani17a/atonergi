@@ -13,10 +13,13 @@
           <table class="table table-hover table-bordered" cellspacing="0">
             <thead class="bg-gradient-info">
               <tr>
-                <th>Item Name</th>
-                <th>Price</th>
+                <th align="center">Item Name</th>
+                <th align="center">Price</th>
               </tr>
             </thead>
+            <tbody id="detail_rep">
+              
+            </tbody>
           </table>
         </div>
       </div>

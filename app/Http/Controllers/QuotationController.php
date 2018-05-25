@@ -12,12 +12,22 @@ use carbon\carbon;
 use Session;
 use App\mMember;
 use Illuminate\Support\Facades\Crypt;
+use Response;
 
 class QuotationController extends Controller
 {
  	public function q_quotation()
  	{
- 		return view('quotation/q_quotation/q_quotation');
+
+    $customer = DB::table('m_customer')
+                  ->get();
+
+    $marketing = DB::table('d_marketing')
+                  ->get();
+
+
+
+ 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing'));
  	}
 
  	public function quote_datatable()
@@ -64,6 +74,30 @@ class QuotationController extends Controller
                         ->addIndexColumn()
                         ->make(true);
  	}
+
+  public function autocomplete(request $request)
+  {
+      $results = array();
+      $queries = DB::table('m_customer')
+                    ->where('c_code', 'like', '%'.strtoupper($request->term).'%')
+                    ->orWhere('c_name', 'like', '%'.strtoupper($request->term).'%')
+                    ->take(10)->get();
+
+      if ($queries == null){
+          $results[] = [ 'id' => null, 'label' => 'Tidak ditemukan data terkait'];
+      } else {
+
+          foreach ($queries as $query)
+          {
+              $results[] = [ 'id' => $query->c_code,
+                      'label' => $query->c_code . ' - ' . $query->c_name,
+                      'validator'=>$query->c_code,
+                    ];
+          }
+      }
+
+      return Response::json($results);
+  }
 
  	public function k_penawaran()
  	{

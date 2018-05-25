@@ -1,11 +1,6 @@
-@section('extra_style')
-<style type="text/css">
-  .min-width{
-    min-width: 100px;
-  }
-</style>
-@endsection
+
 <!-- Modal -->
+<form id="form-save">
 <div id="tambah" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
 
@@ -25,12 +20,9 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text"  class="form-control form-control-sm">                                  
+                  <input type="text"  class="form-control form-control-sm" name="ib_name">                                    
               </div>
             </div>
-
-            
-
             <div class="col-md-3 col-sm-4 col-xs-12">
               
                   <label class="tebal">Bundle Price</label>
@@ -38,7 +30,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text"  class="form-control form-control-sm">                               
+                  <input type="text"  class="form-control form-control-sm format_money right" name="ib_price" readonly="">                               
               </div>
             </div>
 
@@ -49,12 +41,17 @@
           </div>
           <div class="col-md-2 col-sm-8 col-xs-12">
             <div class="form-group">  
-              <input type="text" class="form-control form-control-sm" readonly="" name="" id="bund_kodeitem">
+              <select class="form-control form-control-sm" name="" id="bund_kodeitem"> 
+                  <option selected="" value="">- Pilih -</option>
+                  @foreach ($item as $e)
+                    <option value="{{ $e->i_code }}" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
+                  @endforeach
+              </select>
             </div>
           </div>
           <div class="col-md-2 col-sm-8 col-xs-12">
             <div class="form-group">  
-              <input type="text" class="form-control form-control-sm" name="" id="bund_item">
+              <input type="text" class="form-control form-control-sm" name="" readonly="" id="bund_item">
             </div>
           </div>
           <div class="col-md-3 col-sm-4 col-xs-12">
@@ -62,25 +59,25 @@
           </div>
           <div class="col-md-3 col-sm-8 col-xs-12">
             <div class="form-group">  
-              <input type="number" class="form-control form-control-sm" name="" id="bund_qty">
+              <input type="text" class="form-control form-control-sm format_money right" name="" id="bund_qty">
             </div>
           </div>
         </div>
         <div class="table-responsive">
-          <table class="table table-hover table-bordered data-table" cellspacing="0" id="t72bu">
+          <table class="table table-hover table-bordered data-table gogo"  cellspacing="0" id="t72bu" width="100%">
 
             <thead class="bg-gradient-info">
               <tr>
-                <th>Item Code</th>
-                <th>Item Name</th>
-                <th width="9%">Qty</th>
-                <th width="15%">Unit</th>
-                <th width="">Item Price</th>
+                <th width="20%">Item Code</th>
+                <th width="20%">Item Name</th>
+                <th width="5%">Qty</th>
+                <th width="5%">Unit</th>
+                <th width="30%">Item Price</th>
                 <th width="1%">Action</th>
 
               </tr>
             </thead>
-            <tbody>
+            <tbody id="edit_rep">
               
             </tbody>
             
@@ -88,53 +85,13 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button" onclick="ay()">Save Data</button>
+        <div id="change_function">
+          <button class="btn btn-primary" type="button" id="save_data" >Save Data</button>
+        </div>
         <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>
 
   </div>
 </div>
-
-@section('extra_script')
-<script type="text/javascript">
-  $(document).ready(function(){
-    var table           = $("#t72bu").DataTable();
-    var bund_kodeitem = $('#bund_kodeitem');
-        var bund_item         = $("#bund_item");
-        var bund_qty          = $("#bund_qty");
-
-        var x = 1;
- 
-    bund_qty.keypress(function(e) {
-      if(e.which == 13 || e.keyCode == 13){
-        table.row.add( [
-          '<input type="text" id="item_kode[]" class="form-control input-sm min-width" readonly="" value="'+ bund_kodeitem.val() +'">',
-            '<input type="text" id="item_name[]" class="form-control input-sm min-width" value="'+ bund_item.val() +'">',
-            '<input type="number" id="jumlah[]" class="form-control input-sm min-width" value="'+ bund_qty.val() +'">',
-            '<input type="text" id="[]" class="form-control input-sm min-width">',
-            '<input type="text" id="unit_price[]" class="form-control input-sm min-width">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
-        ] ).draw( false );
-  
-        x++;
-        bund_item.focus();
-        bund_qty.val('');
-        bund_item.val('');
-      }
-    } );
- 
-    
-
-    $('#t72bu tbody').on( 'click', '.delete', function () {
-    table
-        .row( $(this).parents('tr') )
-        .remove()
-        .draw();
-    });
-
-    
-
-  });
-</script>
-@endsection
+</form>

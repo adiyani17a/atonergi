@@ -1,4 +1,18 @@
 @extends('main')
+
+@section('extra_style')
+<style type="text/css">
+  
+  .float-left{
+    float:left;
+  }
+  .float-right{
+    float:right;
+  }
+
+</style>
+@endsection
+
 @section('content')
 
 @include('master.barang.tambah')
@@ -42,6 +56,8 @@
                           </table> 
                         </div>
                 </div>
+
+
             </div>
     </div>
 </div>
@@ -53,6 +69,11 @@
 <script>
 
 $(document).ready(function(){
+
+  $('input[name="price"]').maskMoney({
+    precision : 0,
+    thousands:',',
+  });
 
     $('#t55').DataTable({
             processing: true,
@@ -73,7 +94,7 @@ $(document).ready(function(){
                   },
                   {
                      targets: 2,
-                     className: 'center i_grup'
+                     className: 'i_price'
                   },
                   {
                      targets: 4,
@@ -87,7 +108,7 @@ $(document).ready(function(){
             "columns": [
             { "data": "i_code" },
             { "data": "i_name" },
-            { "data": "i_price"},
+            { "data": "harga"},
             { "data": "i_unit" },
             { "data": "i_description" },
             { "data": "gambar"},
@@ -99,11 +120,11 @@ $(document).ready(function(){
 
 $('#tombol_modal_tambah').click(function(){
 
-  alert('a');
 
     var item  = $('input[name="item_name"]').val('');
     var img   = $('#chooseFile').val('');
     $('#noFile').text('Choose Image...');
+    $('#chooseFile').val('');
     $(".file-upload").removeClass('active');
     $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
     var type_barang  = $('select[name="type_barang"]').val('').trigger('change');
@@ -155,7 +176,6 @@ var loadFile = function(event) {
 
 function simpan(){
   
-    alert('b');
 
     var formdata = new FormData();  
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
@@ -186,8 +206,6 @@ function simpan(){
        });
 }
 
-  
-
 
 function edit(m1a2)
 {
@@ -200,7 +218,7 @@ function edit(m1a2)
          success: function(data){
           $('#tambah').modal('show');
           
-          // console.log(data[0]);
+          console.log(data[0].i_image);
           $('#chooseFile').val('');
           $('#noFile').text('Choose Image...');
           $(".file-upload").removeClass('active');
@@ -216,6 +234,12 @@ function edit(m1a2)
             var i_type      = $("input[name='type_barang']").val(data[0].i_type);
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
 
+            if(data[0].i_image!='' || data[0].i_image!=null){
+              $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);
+              $('.file-upload').addClass('active');
+              $("#noFile").text(data[0].i_image); 
+            }
+
             $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
          },
          error: function(){
@@ -229,7 +253,35 @@ function edit(m1a2)
   }
 
 
+function update() {
+    var formdata = new FormData();  
+    formdata.append( 'files', $('#chooseFile')[0].files[0]);
+      $.ajax({
+          processData: false, //important
+          contentType: false,
+          cache: false,
+          type: "post",
+          url: baseUrl + '/master/barang/barang_update?'+$('#simpan_barang').serialize(),
+          data: formdata,
+          success: function(data){
+            $('#tambah').modal('hide');
+            var table = $('#t55').DataTable();
+            table.ajax.reload();
 
+            iziToast.success({
+              icon: 'fas fa-check-circle',
+              message: 'Data Telah Terupdate!',
+            });
+          },
+          error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+          },
+          async: false
+         });
+   }
 
 
 function hapus(a) {

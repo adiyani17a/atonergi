@@ -226,7 +226,7 @@
 
                   $.ajax({
                    type: "get",
-                     url: baseUrl + '/master/hapusNpenawaran/hapus_Npenawaran',
+                     url: baseUrl + '/quotation/hapusNpenawaran/hapus_Npenawaran',
                      data: {id},
                      success: function(data){
                       console.log(data);
@@ -264,7 +264,7 @@
   	function update() {
       $.ajax({
            type: "get",
-           url: baseUrl + '/master/updateNpenawaran/update_Npenawaran',
+           url: baseUrl + '/quotation/updateNpenawaran/update_Npenawaran',
            data: $('#form-save').serialize(),
            success: function(data){
               $('#tambah').modal('hide');

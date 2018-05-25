@@ -9,13 +9,14 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
+       <form id="form_save">
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-12">
             <label>ID Employee</label>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control" name="mp_id">
+              <input type="text" class="form-control" name="mp_id" readonly="">
             </div>
           </div>
            <div class="col-md-6 col-sm-6 col-xs-12">
@@ -49,15 +50,16 @@
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
-              <textarea class="form-control" name="mp_address"></textarea>
+              <textarea class="form-control" name="mp_address" id="mp_address"></textarea>
             </div>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
             <label>Position</label>
           </div>
-          <div class="col-md-6 col-sm-6 col-xs-12" name="mp_position">
+          <div class="col-md-6 col-sm-6 col-xs-12" >
             <div class="form-group">
-              <select class="form-control">
+              <select class="form-control" name="mp_position">
+                <option selected="" value="">- Pilih -</option>
                 <option>Manager</option>
                 <option>Pegawai</option>
                 <option>Magang</option>
@@ -71,6 +73,7 @@
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
               <select class="form-control" name="mp_status">
+                <option selected="" value="">- Pilih -</option>
                 <option>Lajang</option>
                 <option>Sudah Menikah</option>
               </select>
@@ -78,6 +81,7 @@
           </div>
           
          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <div id="change_function">
