@@ -52,7 +52,7 @@ class BarangController extends Controller
         if ($file != null) {
           Barang::where('i_id',$index)->first();
 
-          $file_name = 'GBR_BRG_'. $index . $file->getClientOriginalExtension();
+          $file_name = 'GBR_BRG_'. $index .'.' . $file->getClientOriginalExtension();
 
           if (!is_dir(base_path('assets/barang/thumbnail/'))) {
             mkdir(base_path('assets/barang/thumbnail/'), 0777, true);
@@ -73,6 +73,8 @@ class BarangController extends Controller
                   ->save($original_path . $file_name)
                   ->resize(90, 90)
                   ->save($thumbnail_path . $file_name);
+
+        $barang->i_image=$file_name;
         }
         $barang->i_name=$request->get('item_name');
         $barang->i_type=$request->get('type_barang');
@@ -82,11 +84,9 @@ class BarangController extends Controller
         $barang->i_weight=$request->get('weight');
         $barang->i_description=$request->get('description');
         $barang->i_code=$id_auto;
-        if($file_name==''){
-        	$barang->i_image='';
-        }else{
-        $barang->i_image=$file_name;
-    	}
+        
+        
+    	
         $barang->i_id=$m1;
         $barang->save();
         

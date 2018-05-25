@@ -9,9 +9,9 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
         <div class="modal-body">
-          <form id="simpan_barang" method="post" enctype="multipart/form-data">
+          <form id="simpan_barang">
             
-        <input type="hidden" value="{{csrf_token()}}" name="_token">
+            <input type="hidden" value="{{csrf_token()}}" name="_token">
             <div class="row">
 
                                   
@@ -135,7 +135,7 @@
           </div>
         <div class="modal-footer">
           <div id="ganti_tombol">
-            <button class="btn btn-primary" type="button" id="simpan">Save Data</button>
+            <button class="btn btn-primary" type="button" onclick="simpan()">Save Data</button>
           </div>
           <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
         </div>
