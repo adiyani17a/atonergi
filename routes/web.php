@@ -67,7 +67,7 @@ Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
 Route::get('/master/status/status', 'MasterController@status');
-
+Route::get('/master/type/type', 'MasterController@type');
 
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
@@ -234,3 +234,7 @@ Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_e
 Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
 Route::get('assets/barang/thumbnail')->name('barang_thumbnail');
 Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@barang_update');
+
+// Master Type Barang
+Route::get('/master/type/typeproses', 'MasterType\TypeController@typeproses');
+Route::get('/master/type/type_edit', 'MasterType\TypeController@typeproses');

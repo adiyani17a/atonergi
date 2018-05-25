@@ -77,10 +77,14 @@ class BarangController extends Controller
         $barang->i_image=$file_name;
         }
 
+        $get_price = $request->get('price');
+
+        $filter_number = str_replace(',','',$get_price);
+
         $barang->i_name=$request->get('item_name');
         $barang->i_type=$request->get('type_barang');
         $barang->i_unit=$request->get('unit');
-        $barang->i_price=$request->get('price');
+        $barang->i_price=$filter_number;
         $barang->i_minstock=$request->get('min_stock');
         $barang->i_weight=$request->get('weight');
         $barang->i_description=$request->get('description');
@@ -128,7 +132,7 @@ class BarangController extends Controller
         // return $data;
         $barang = collect($barang);
         // return $barang;
-        
+        // return $barang->i_price;
         return Datatables::of($barang)
                         ->addColumn('aksi', function ($barang) {
                           return  '<div class="btn-group">'.
@@ -147,11 +151,17 @@ class BarangController extends Controller
 							}
 
 						})
+						->addColumn('harga', function ($barang){
+							return '<div class="float-left">'. 
+							'Rp. '.
+							'</div>'.
+							'<div class="float-right">'. number_format($barang->i_price,0,"",".") .'</div>';
+						})
                         ->addColumn('none', function ($barang) {
                           return '-';
                       	})
 
-                      ->rawColumns(['aksi','gambar'])
+                      ->rawColumns(['aksi','gambar', 'harga'])
                         ->make(true);
     }
     public function barang_edit(Request $request)
@@ -165,16 +175,19 @@ class BarangController extends Controller
     {
     	$gambar = DB::Table('m_item')->select('i_image')->where('i_id','=',$request->item_codex)->get();
 
-
-        if($gambar[0]->i_image != '')
+    	dd($request->file('files'));
+        if($request->file('files') != null)
         {
-            if(file_exists(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image)))
+        	if($gambar[0]->i_image != '')
             {
-                $storage1 = unlink(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image));
-            }
-            if(file_exists(base_path('assets\barang\original\\'.$gambar[0]->i_image)))
-            {
-                $storage2 = unlink(base_path('assets\barang\original\\'.$gambar[0]->i_image));
+            	if(file_exists(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image)))
+	            {
+	                $storage1 = unlink(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image));
+	            }
+	            if(file_exists(base_path('assets\barang\original\\'.$gambar[0]->i_image)))
+	            {
+	                $storage2 = unlink(base_path('assets\barang\original\\'.$gambar[0]->i_image));
+	            }
             }
 
         }
@@ -212,7 +225,9 @@ class BarangController extends Controller
         	$barang = '';
         }
 
-        
+        $get_price = $request->get('price');
+
+        $filter_number = str_replace(',','',$get_price);
 
     	// dd($request->all());
     	$data = DB::table('m_item')
@@ -221,7 +236,7 @@ class BarangController extends Controller
     			'i_name'=>$request->item_name,
 		        'i_type'=>$request->type_barang,
 		        'i_unit'=>$request->unit,
-		        'i_price'=>$request->price,
+		        'i_price'=>$filter_number,
 		        'i_minstock'=>$request->min_stock,
 		        'i_weight'=>$request->weight,
 		        'i_description'=>$request->description,

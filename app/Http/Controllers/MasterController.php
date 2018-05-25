@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Barang;
+use App\TypeItem;
 use Yajra\Datatables\Datatables;
 use DB;
 
@@ -31,10 +32,7 @@ class MasterController extends Controller
     }
     public function barang()
     {
-        $barang=DB::table('m_item')->get() ;
-        
-    	return view('master/barang/barang', compact('barang'));
-
+    	return view('master/barang/barang');
     }
     public function vendor()
     {
@@ -47,6 +45,11 @@ class MasterController extends Controller
     public function status()
     {
         return view('master/status/status');
+    }
+    public function type()
+    {
+        $type = TypeItem::all();
+        return view('master/type/type', compact('type'));
     }
        
 }

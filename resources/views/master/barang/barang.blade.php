@@ -1,4 +1,18 @@
 @extends('main')
+
+@section('extra_style')
+<style type="text/css">
+  
+  .float-left{
+    float:left;
+  }
+  .float-right{
+    float:right;
+  }
+
+</style>
+@endsection
+
 @section('content')
 
 @include('master.barang.tambah')
@@ -42,6 +56,8 @@
                           </table> 
                         </div>
                 </div>
+
+
             </div>
     </div>
 </div>
@@ -53,6 +69,11 @@
 <script>
 
 $(document).ready(function(){
+
+  $('input[name="price"]').maskMoney({
+    precision : 0,
+    thousands:',',
+  });
 
     $('#t55').DataTable({
             processing: true,
@@ -73,7 +94,7 @@ $(document).ready(function(){
                   },
                   {
                      targets: 2,
-                     className: 'center i_grup'
+                     className: 'i_price'
                   },
                   {
                      targets: 4,
@@ -87,7 +108,7 @@ $(document).ready(function(){
             "columns": [
             { "data": "i_code" },
             { "data": "i_name" },
-            { "data": "i_price"},
+            { "data": "harga"},
             { "data": "i_unit" },
             { "data": "i_description" },
             { "data": "gambar"},
@@ -103,6 +124,7 @@ $('#tombol_modal_tambah').click(function(){
     var item  = $('input[name="item_name"]').val('');
     var img   = $('#chooseFile').val('');
     $('#noFile').text('Choose Image...');
+    $('#chooseFile').val('');
     $(".file-upload").removeClass('active');
     $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
     var type_barang  = $('select[name="type_barang"]').val('').trigger('change');
