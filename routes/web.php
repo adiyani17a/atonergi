@@ -58,6 +58,7 @@ Route::get('logout',function(){
     //hak akses
         Route::get('/setting/hak_akses', 'SettingController@hak_akses');
         Route::get('/setting/hak_akses/table_data', 'SettingController@table_data');
+        Route::get('/setting/hak_akses/centang', 'SettingController@centang');
 
 // Master
 Route::get('/master/suplier/suplier', 'MasterController@suplier');
@@ -70,6 +71,8 @@ Route::get('/master/status/status', 'MasterController@status');
 
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
+Route::get('/quotation/q_quotation/datatable', 'QuotationController@quote_datatable')->name('quote_datatable');
+
 Route::get('/quotation/k_penawaran/k_penawaran', 'QuotationController@k_penawaran');
 Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_penawaran');
 Route::get('/quotation/q_quotation/edit_quotation', 'QuotationController@edit_quotation');
@@ -179,6 +182,7 @@ Route::get('/master/hapusvendor/hapus_vendor', 'master\master_vendorController@h
 Route::get('/master/updatevendor/update_vendor', 'master\master_vendorController@update_vendor');
 Route::get('/master/dataeditvendor/dataedit_vendor', 'master\master_vendorController@dataedit_vendor');
 Route::get('/master/datatalble_vendor/datatalble_vendor', 'master\master_vendorController@datatalble_vendor')->name('datatalble_vendor');
+Route::get('/master/vendor/edit_vendor', 'MasterController@edit_vendor');
 
 //master marketing
 Route::get('/quotation/marketing/marketing', 'master\master_marketingController@marketing');
@@ -224,7 +228,9 @@ Route::get('/master/datatable_bundleitem/datatable_bundleitem', 'master\master_b
 
 
 // Master Barang
-Route::post('master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
-Route::get('master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
-
-Route::get('master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
+Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
+Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
+Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_edit');
+Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
+Route::get('assets/barang/thumbnail')->name('barang_thumbnail');
+Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@barang_update');

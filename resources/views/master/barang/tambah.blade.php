@@ -8,11 +8,11 @@
         <h4 class="modal-title">Form Master Data Barang</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <form method="post" action="{{url('master/barang/barangproses')}}" enctype="multipart/form-data">
-        <input type="hidden" value="{{csrf_token()}}" name="_token">
         <div class="modal-body">
+          <form id="simpan_barang">
             
-            <div class="row col-md-12 col-sm-12 col-xs-12">
+            <input type="hidden" value="{{csrf_token()}}" name="_token">
+            <div class="row">
 
                                   
               
@@ -32,23 +32,8 @@
 
              
 
-              <div class="col-md-3 col-sm-4 col-xs-12">
-               
-                  <label class="tebal">Upload Image</label>
-               
-              </div>
-
-              <div class="col-md-3 col-sm-8 col-xs-12">
-                <div class="form-group">
-                  <input type="file" name="img" class="file-upload-default" multiple accept='image/*'>
-                  <div class="input-group col-xs-12">
-                    <input type="text" class="form-control file-upload-info" readonly="" placeholder="Upload Image">
-                    <span class="input-group-btn">
-                      <button class="file-upload-browse btn btn-info" type="button">Upload</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              
+                
 
               <div class="col-md-3 col-sm-4 col-xs-12">
                
@@ -108,11 +93,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control form-control-sm" name="min_stock">                               
                 </div>
-              </div>
-              <div class="col-md-6 col-sm-0 col-xs-0">
-                <!-- empty -->
-              </div>
-      
+              </div>      
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
                     <label class="tebal">Description</label>
@@ -123,13 +104,44 @@
                     <textarea class="form-control form-control-sm" name="description"></textarea>                               
                 </div>
               </div>
+
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                <label>Image</label>
+              </div>
+
+              <div class="col-md-3 col-sm-8 col-xs-12">
+                  <div class="file-upload">
+                    <div class="file-select">
+                      <div class="file-select-button" id="fileName">Image</div>
+                      <div class="file-select-name" id="noFile">Choose Image...</div> 
+                      <input type="file" name="image" onchange="loadFile(event)" id="chooseFile" accept="image/*">
+                    </div>
+                  </div>
+                  <div>
+                    
+                  </div>
+              </div>
+                
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                <label>Preview</label>
+              </div>
+
+              <div class="col-md-3 col-sm-8 col-xs-12">
+                  <div class="preview_td">
+                      <img style="width: 100px;height: 100px;border:1px solid pink" id="output" >
+                  </div>
+              </div>
+
+              <input type="hidden" name="item_codex">
             </div> 
-        </div>
+          </form>
+          </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" type="submit">Save Data</button>
+          <div id="ganti_tombol">
+            <button class="btn btn-primary" type="button" onclick="simpan()">Save Data</button>
+          </div>
           <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
         </div>
-      </form>
     </div>
 
   </div>

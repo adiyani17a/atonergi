@@ -500,7 +500,81 @@ class SettingController extends Controller
          }
         $data[$i] = array_values($data[$i]);
       }
-
       return view('setting.hak_akses.table_data',compact('data','grup_menu','hak_akses'));
+   }
+   public function centang(request $req)
+   {
+
+      if (isset($req->aksi)) {
+        if ($req->aksi == 'true') {
+          $aksi = 1;
+        }else{
+          $aksi = 0;
+        }
+        $rubah = DB::table('d_hak_akses')
+                ->where('ha_level',$req->level)
+                ->where('ha_menu',$req->tanda)
+                ->update([
+                  'aktif' =>$aksi
+                ]);
+      }
+
+      if (isset($req->tambah)) {
+        if ($req->tambah == 'true') {
+          $tambah = 1;
+        }else{
+          $tambah = 0;
+        }
+        $rubah = DB::table('d_hak_akses')
+                ->where('ha_level',$req->level)
+                ->where('ha_menu',$req->tanda)
+                ->update([
+                  'tambah' =>$tambah
+                ]);
+      }      
+
+      if (isset($req->ubah)) {
+        if ($req->ubah == 'true') {
+          $ubah = 1;
+        }else{
+          $ubah = 0;
+        }
+        $rubah = DB::table('d_hak_akses')
+                ->where('ha_level',$req->level)
+                ->where('ha_menu',$req->tanda)
+                ->update([
+                  'ubah' =>$ubah
+                ]);
+      }  
+
+      if (isset($req->print)) {
+        if ($req->print == 'true') {
+          $print = 1;
+        }else{
+          $print = 0;
+        }
+        $rprint = DB::table('d_hak_akses')
+                ->where('ha_level',$req->level)
+                ->where('ha_menu',$req->tanda)
+                ->update([
+                  'print' =>$print
+                ]);
+      } 
+
+      if (isset($req->hapus)) {
+        if ($req->hapus == 'true') {
+          $hapus = 1;
+        }else{
+          $hapus = 0;
+        }
+        $hapus = DB::table('d_hak_akses')
+                ->where('ha_level',$req->level)
+                ->where('ha_menu',$req->tanda)
+                ->update([
+                  'hapus' =>$hapus
+                ]);
+      } 
+
+      return response()->json(['status' => 1]);
    }
 }

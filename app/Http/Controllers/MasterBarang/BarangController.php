@@ -11,6 +11,10 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+use Intervention\Image\ImageManagerStatic as Image;
+
+use Illuminate\Http\UploadedFile;
+
 class BarangController extends Controller
 {
     public function barangproses(Request $request)
@@ -43,15 +47,36 @@ class BarangController extends Controller
         }
 
         $barang= new Barang();
-    	if($request->hasfile('img')) 
-		{ 
-		  $file = $request->file('img');
-		  $extension = $file->getClientOriginalExtension(); // getting image extension
-		  $filename =time().'.'.$extension;
-		  $file->move('assets/barang', $filename);
-		}else{
-			$filename = '';
-		}
+
+    	$file = $request->file('files');
+        if ($file != null) {
+          Barang::where('i_id',$index)->first();
+
+          $file_name = 'GBR_BRG_'. $index . time() .'.' . $file->getClientOriginalExtension();
+
+          if (!is_dir(base_path('assets/barang/thumbnail/'))) {
+            mkdir(base_path('assets/barang/thumbnail/'), 0777, true);
+          }
+
+          if (!is_dir(base_path('assets/barang/original/'))) {
+            mkdir(base_path('assets/barang/original/'), 0777, true);
+          }
+          
+
+          $thumbnail_path = base_path('assets\barang\thumbnail\\');
+          $original_path = base_path('assets\barang\original\\');
+          // return $original_path;
+          Image::make($file)
+                  ->resize(261,null,function ($constraint) {
+                    $constraint->aspectRatio();
+                     })
+                  ->save($original_path . $file_name)
+                  ->resize(90, 90)
+                  ->save($thumbnail_path . $file_name);
+
+        $barang->i_image=$file_name;
+        }
+
         $barang->i_name=$request->get('item_name');
         $barang->i_type=$request->get('type_barang');
         $barang->i_unit=$request->get('unit');
@@ -60,11 +85,9 @@ class BarangController extends Controller
         $barang->i_weight=$request->get('weight');
         $barang->i_description=$request->get('description');
         $barang->i_code=$id_auto;
-        if($filename==''){
-        	$barang->i_image='';
-        }else{
-        $barang->i_image=$filename;
-    	}
+        
+        
+    	
         $barang->i_id=$m1;
         $barang->save();
         
@@ -78,9 +101,13 @@ class BarangController extends Controller
             // dd(base_path('assets\barang\\'.$gambar[0]->i_image));
         if($gambar[0]->i_image != '')
         {
-            if(file_exists(base_path('assets/barang\\'.$gambar[0]->i_image)))
+            if(file_exists(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image)))
             {
-                $storage = unlink(base_path('assets\barang\\'.$gambar[0]->i_image));
+                $storage1 = unlink(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image));
+            }
+            if(file_exists(base_path('assets\barang\original\\'.$gambar[0]->i_image)))
+            {
+                $storage2 = unlink(base_path('assets\barang\original\\'.$gambar[0]->i_image));
             }
 
         }
@@ -91,6 +118,7 @@ class BarangController extends Controller
         return response()->json(['data'=>1]);
         // return redirect('master/barang/barang')->with('success','Data has been  deleted');
     }
+
     public function datatable_barang()
    {
         
@@ -112,7 +140,7 @@ class BarangController extends Controller
                         })
 						->addColumn('gambar', function ($barang) { 
 							if($barang->i_image!=''){
-								$url=asset("assets/barang/$barang->i_image"); 
+								$url=asset("assets/barang/thumbnail/$barang->i_image"); 
 								return '<img src="'.$url.'" border="0" width="60" class="img-rounded" align="center" />'; 
 							}else{
 								return '<i class="fa fa-minus-square"></i>';
@@ -125,5 +153,83 @@ class BarangController extends Controller
 
                       ->rawColumns(['aksi','gambar'])
                         ->make(true);
+    }
+    public function barang_edit(Request $request)
+    {
+    	// dd($request->all());
+    	$data = DB::table('m_item')->where('i_code','=',$request->id)->get();
+    	return response()->json($data);
+    }
+
+    public function barang_update(Request $request)
+    {
+    	$gambar = DB::Table('m_item')->select('i_image')->where('i_id','=',$request->item_codex)->get();
+
+
+        if($gambar[0]->i_image != '')
+        {
+            if(file_exists(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image)))
+            {
+                $storage1 = unlink(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image));
+            }
+            if(file_exists(base_path('assets\barang\original\\'.$gambar[0]->i_image)))
+            {
+                $storage2 = unlink(base_path('assets\barang\original\\'.$gambar[0]->i_image));
+            }
+
+        }
+
+    	$barang = new Barang();
+
+    	$file = $request->file('files');
+        if ($file != null) {
+          Barang::where('i_id',$request->item_codex)->first();
+
+          $file_name = 'GBR_BRG_'. $request->item_codex . time() .'.' . $file->getClientOriginalExtension();
+
+          if (!is_dir(base_path('assets/barang/thumbnail/'))) {
+            mkdir(base_path('assets/barang/thumbnail/'), 0777, true);
+          }
+
+          if (!is_dir(base_path('assets/barang/original/'))) {
+            mkdir(base_path('assets/barang/original/'), 0777, true);
+          }
+          
+
+          $thumbnail_path = base_path('assets\barang\thumbnail\\');
+          $original_path = base_path('assets\barang\original\\');
+          // return $original_path;
+          Image::make($file)
+                  ->resize(261,null,function ($constraint) {
+                    $constraint->aspectRatio();
+                     })
+                  ->save($original_path . $file_name)
+                  ->resize(90, 90)
+                  ->save($thumbnail_path . $file_name);
+
+        $barang = $file_name;
+        } else {
+        	$barang = '';
+        }
+
+        
+
+    	// dd($request->all());
+    	$data = DB::table('m_item')
+    			->where('i_id',$request->item_codex)
+    			->update([
+    			'i_name'=>$request->item_name,
+		        'i_type'=>$request->type_barang,
+		        'i_unit'=>$request->unit,
+		        'i_price'=>$request->price,
+		        'i_minstock'=>$request->min_stock,
+		        'i_weight'=>$request->weight,
+		        'i_description'=>$request->description,
+		        'i_image'=>$barang,
+    			]);
+
+
+    	return response()->json(['status'=>1]);
+    	
     }
  }
