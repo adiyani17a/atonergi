@@ -11,11 +11,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for bisnis_atonergi
-CREATE DATABASE IF NOT EXISTS `bisnis_atonergi` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `bisnis_atonergi`;
-
 -- Dumping structure for table bisnis_atonergi.d_marketing
 CREATE TABLE IF NOT EXISTS `d_marketing` (
   `mk_id` int(11) DEFAULT NULL,
@@ -28,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `d_marketing` (
   `mk_type` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table bisnis_atonergi.d_marketing: ~2 rows (approximately)
+-- Dumping data for table bisnis_atonergi.d_marketing: ~1 rows (approximately)
 DELETE FROM `d_marketing`;
 /*!40000 ALTER TABLE `d_marketing` DISABLE KEYS */;
 INSERT INTO `d_marketing` (`mk_id`, `mk_code`, `mk_name`, `mk_phone`, `mk_address`, `mk_email`, `mk_information`, `mk_type`) VALUES
@@ -76,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `m_customer` (
   `c_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table bisnis_atonergi.m_customer: ~5 rows (approximately)
+-- Dumping data for table bisnis_atonergi.m_customer: ~6 rows (approximately)
 DELETE FROM `m_customer`;
 /*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
 INSERT INTO `m_customer` (`c_id`, `c_code`, `c_name`, `c_hometown`, `c_birthday`, `c_phone`, `c_address`, `c_email`, `c_type`, `c_creditterms`, `c_plafon`, `c_bankname`, `c_npwp`, `c_accountnumber`, `c_information`, `c_insert`, `c_update`) VALUES
@@ -98,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `m_item_bundling` (
   `ib_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table bisnis_atonergi.m_item_bundling: ~4 rows (approximately)
+-- Dumping data for table bisnis_atonergi.m_item_bundling: ~5 rows (approximately)
 DELETE FROM `m_item_bundling`;
 /*!40000 ALTER TABLE `m_item_bundling` DISABLE KEYS */;
 INSERT INTO `m_item_bundling` (`ib_item`, `ib_detailid`, `ib_price`, `ib_isactive`, `ib_insert`, `ib_update`) VALUES
@@ -121,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `m_item_bundling_dt` (
   `ibd_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table bisnis_atonergi.m_item_bundling_dt: ~6 rows (approximately)
+-- Dumping data for table bisnis_atonergi.m_item_bundling_dt: ~8 rows (approximately)
 DELETE FROM `m_item_bundling_dt`;
 /*!40000 ALTER TABLE `m_item_bundling_dt` DISABLE KEYS */;
 INSERT INTO `m_item_bundling_dt` (`ibd_id`, `ibd_detailid`, `ibd_barang`, `ibd_qty`, `ibd_unit`, `ibd_price`, `ibd_insert`, `ibd_update`) VALUES
@@ -149,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `m_pegawai` (
   `mp_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table bisnis_atonergi.m_pegawai: ~2 rows (approximately)
+-- Dumping data for table bisnis_atonergi.m_pegawai: ~1 rows (approximately)
 DELETE FROM `m_pegawai`;
 /*!40000 ALTER TABLE `m_pegawai` DISABLE KEYS */;
 INSERT INTO `m_pegawai` (`mp_id`, `mp_kode`, `mp_nik`, `mp_name`, `mp_email`, `mp_address`, `mp_position`, `mp_status`, `mp_insert`, `mp_update`) VALUES
