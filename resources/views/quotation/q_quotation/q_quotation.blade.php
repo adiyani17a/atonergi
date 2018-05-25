@@ -8,6 +8,12 @@
 @include('quotation/q_quotation/detail')
 
 @include('quotation/q_quotation/detail_status')
+
+<style type="text/css">
+.ui-autocomplete {
+	z-index: 99999999999;
+}
+</style>
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="col-lg-12">	
@@ -42,21 +48,7 @@
 						    </tr>
 						  </thead>
 						  <tbody>
-						    <tr>
-						    	<td>1</td>
-						    	<td>QO-0001/ACC/9G/052018</td>
-						    	<td><button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#detail_item">Detail</button></td>
-						    	<td>Rp. 600.000,-</td>
-						    	<td><span class="badge badge-pill badge-warning">Not yet paid off</span></td>
-						    	<td><button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#detail_status">Detail</button></td>
-						    	<td>
-                    			<div class="btn-group" role="group">
-						    		<a href="{{url('quotation/q_quotation/edit_quotation')}}" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>
-						    		<a href="{{url('quotation/q_quotation/print_quotation')}}" class="btn btn-info btn-sm" target="_blank" title="Print"><i class="fa fa-print"></i></a>
-						    		<a href="#" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></a>
-						    	</div>
-						    	</td>
-						    </tr>
+						    
 						  </tbody>
 						</table>
 					</div>
@@ -72,7 +64,6 @@
 
 <script>
 	$(document).ready(function(){
-
 
 		$('#table_quote').DataTable({
           processing: true,
@@ -150,5 +141,22 @@
 	    });
 
 	});
+
+	function auto() {
+
+		$( ".autocomplete" ).autocomplete({
+	        source:baseUrl + '/quotation/q_quotation/autocomplete', 
+	        minLength: 1,
+	        select: function(event, ui) {
+	          if (ui.item.validator != null) {
+	          }
+	          $('.harga_do').val(ui.item.harga);
+
+	      	}
+
+	    });
+	}
+
+	
 </script>
 @endsection

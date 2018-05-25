@@ -77,6 +77,7 @@ Route::get('/quotation/k_penawaran/k_penawaran', 'QuotationController@k_penawara
 Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_penawaran');
 Route::get('/quotation/q_quotation/edit_quotation', 'QuotationController@edit_quotation');
 Route::get('/quotation/q_quotation/print_quotation', 'QuotationController@print_quotation');
+Route::get('/quotation/q_quotation/autocomplete', 'QuotationController@autocomplete');
 
 // Purchase
 Route::get('/purchase/purchaseorder/purchaseorder', 'PurchaseController@purchaseorder');
