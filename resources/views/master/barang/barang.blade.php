@@ -118,13 +118,23 @@ $(document).ready(function(){
       });
   });
 
+function change_image()
+{
+  if($('#cbcheck:checkbox:checked').length > 0)
+  {
+    $('.122mm').removeClass('d-none');
+  } else {
+    $('.122mm').addClass('d-none');
+
+  }
+}
+
 $('#tombol_modal_tambah').click(function(){
 
-
+    $('.122mm').removeClass('d-none');
     var item  = $('input[name="item_name"]').val('');
     var img   = $('#chooseFile').val('');
     $('#noFile').text('Choose Image...');
-    $('#chooseFile').val('');
     $(".file-upload").removeClass('active');
     $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
     var type_barang  = $('select[name="type_barang"]').val('').trigger('change');
@@ -136,6 +146,8 @@ $('#tombol_modal_tambah').click(function(){
     var item_codex = $('input[name="item_codex"]').val('');
 
     $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="simpan()">Save Data</button>');
+
+    $("#check_change_image").html('');
 
   });
 
@@ -219,10 +231,7 @@ function edit(m1a2)
           $('#tambah').modal('show');
           
           console.log(data[0].i_image);
-          $('#chooseFile').val('');
-          $('#noFile').text('Choose Image...');
-          $(".file-upload").removeClass('active');
-          $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
+          
 
             var i_id      = $("input[name='item_codex']").val(data[0].i_id);
             var i_code    = $("input[name='item_name']").val(data[0].i_name);
@@ -231,16 +240,27 @@ function edit(m1a2)
             var i_price      = $("input[name='price']").val(data[0].i_price);
             var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
             var i_description      = $("textarea[name='description']").val(data[0].i_description);
-            var i_type      = $("input[name='type_barang']").val(data[0].i_type);
+            var i_type      = $("select[name='type_barang']").val(data[0].i_type).trigger('change');
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
 
             if(data[0].i_image!='' || data[0].i_image!=null){
               $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);
               $('.file-upload').addClass('active');
               $("#noFile").text(data[0].i_image); 
+            } else {
+              $('#chooseFile').val('');
+              $('#noFile').text('Choose Image...');
+              $(".file-upload").removeClass('active');
+              $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
             }
+            $('.122mm').addClass('d-none');
 
             $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
+
+            $('#check_change_image').html('<label class="form-check-label">'+
+                              '<input class="form-check-input" type="checkbox" name="cbcheck" id="cbcheck" value="centang" onchange="change_image()">'+
+                              'Check for change image'+
+                          '<i class="input-helper"></i></label>');
          },
          error: function(){
           iziToast.warning({
@@ -256,6 +276,7 @@ function edit(m1a2)
 function update() {
     var formdata = new FormData();  
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
+
       $.ajax({
           processData: false, //important
           contentType: false,

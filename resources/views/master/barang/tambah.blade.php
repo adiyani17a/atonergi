@@ -43,9 +43,12 @@
 
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <select class="form-control-sm form-control" name="type_barang">
-                      <option value=""></option>
-                      <option value=""></option>
+                    <select class="form-control" name="type_barang">
+                      <option value="">--Select Type--</option>
+                      @foreach($type_barang as $tipe)
+                        <option value="{{$tipe['it_code']}}">{{$tipe['it_code']}} - {{$tipe['it_name']}}</option>
+                      @endforeach
+
                     </select>
                 </div>
               </div>
@@ -105,11 +108,11 @@
                 </div>
               </div>
 
-              <div class="col-md-3 col-sm-4 col-xs-12">
+              <div class="col-md-3 col-sm-4 col-xs-12 122mm">
                 <label>Image</label>
               </div>
 
-              <div class="col-md-3 col-sm-8 col-xs-12">
+              <div class="col-md-3 col-sm-8 col-xs-12 122mm">
                   <div class="file-upload">
                     <div class="file-select">
                       <div class="file-select-button" id="fileName">Image</div>
@@ -117,19 +120,21 @@
                       <input type="file" name="image" onchange="loadFile(event)" id="chooseFile" accept="image/*">
                     </div>
                   </div>
-                  <div>
-                    
-                  </div>
+
               </div>
                 
-              <div class="col-md-3 col-sm-4 col-xs-12">
+              <div class="col-md-3 col-sm-4 col-xs-12 122mm">
                 <label>Preview</label>
               </div>
 
-              <div class="col-md-3 col-sm-8 col-xs-12">
+              <div class="col-md-3 col-sm-8 col-xs-12 122mm">
                   <div class="preview_td">
                       <img style="width: 100px;height: 100px;border:1px solid pink" id="output" >
                   </div>
+              </div>
+
+              <div class="col-12" id="check_change_image">
+                
               </div>
 
               <input type="hidden" name="item_codex">

@@ -30,7 +30,8 @@ class MasterController extends Controller
     }
     public function barang()
     {
-    	return view('master/barang/barang');
+        $type_barang    = TypeItem::all();
+    	return view('master/barang/barang', compact('type_barang'));
     }
     public function vendor()
     {
