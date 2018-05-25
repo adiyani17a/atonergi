@@ -33,19 +33,7 @@
 						    </tr>
 						  </thead>
 						  <tbody>
-						  	@foreach($type as $tipe)
-						  	<tr>
-						  		<td class="it_id">{{$tipe['it_id']}}</td>
-						  		<td>{{$tipe['it_code']}}</td>
-						  		<td>{{$tipe['it_name']}}</td>
-						  		<td>
-						  			<div class="btn-group">
-						  				<button class="btn btn-info btn-sm" type="button" title="Edit" onclick="edit(this)"><i class="fa fa-pencil-alt"></i></button>
-						  				<button class="btn btn-danger btn-sm" type="button" title="Delete" onclick="hapus(this)"><i class="fa fa-trash"></i></button>
-						  			</div>
-						  		</td>
-						  	</tr>
-						  	@endforeach
+						  	
 						  </tbody>
 						</table>
 					</div>
@@ -59,13 +47,54 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
+	$(document).ready(function(){
+
+
+    $('#t-80um').DataTable({
+            processing: true,
+            // responsive:true,
+            serverSide: true,
+            ajax: {
+                url:'{{ route("datatable_type") }}',
+            },
+            columnDefs: [
+
+                  {
+                     targets: 0 ,
+                     className: 'center it_id'
+                  },
+                  {
+                     targets: 1,
+                     className: 'it_code'
+                  },
+                  {
+                     targets: 2,
+                     className: 'it_name'
+                  },
+                  {
+                     targets: 4,
+                     className: 'center'
+                  }
+                ],
+            "columns": [
+            { "data": "i_code" },
+            { "data": "i_name" },
+            { "data": "harga"},
+            { "data": "i_unit" },
+            { "data": "i_description" },
+            { "data": "gambar"},
+            { "data": "aksi" },
+            
+            ]
+      });
+  });
+
 	$('#tombol_modal_tambah').click(function(){
 
 
     
-    var weight = $('input[name="weight"]').val('');
-    var min_stock = $('input[name="min_stock"]').val('');
-    var description = $('textarea[name="description"]').val('');
+    var t_name = $('input[name="t_name"]').val('');
+    var t_code = $('input[name="t_code"]').val('');
     var item_codex = $('input[name="it_codex"]').val('');
 
     $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="simpan()">Save Data</button>');
