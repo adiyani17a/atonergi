@@ -115,7 +115,8 @@ class master_bundleitemController extends Controller
  		$data_head = DB::table('m_item_bundling')->where('ib_detailid','=',$request->id)->get();
  		$data_seq = DB::table('m_item_bundling_dt')->where('ibd_id','=',$request->id)->get();
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
-    	return view('master/bundle/ajax_update',compact('item','data_head','data_seq'));
+ 		return response()->json([$data_head,$data_seq]);
+    	// return view('master/bundle/ajax_update',compact('item','data_head','data_seq'));
  	}
  	public function detail_bundleitem(Request $request)
  	{
