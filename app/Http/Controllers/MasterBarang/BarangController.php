@@ -126,11 +126,11 @@ class BarangController extends Controller
     public function datatable_barang()
    {
         
-        $barang= DB::table('m_item')->get();
+        $data= DB::table('m_item')->get();
         
         
         // return $data;
-        $barang = collect($barang);
+        $barang = collect($data);
         // return $barang;
         // return $barang->i_price;
         return Datatables::of($barang)
@@ -175,44 +175,42 @@ class BarangController extends Controller
     {
     	$gambar = DB::Table('m_item')->select('i_image')->where('i_id','=',$request->item_codex)->get();
 
-    	dd($request->file('files'));
-        if($request->file('files') != null)
+    	// dd($request->file('files'));
+        if($request->cbcheck=="centang")
         {
-        	if($gambar[0]->i_image != '')
+            if($gambar[0]->i_image!="")
             {
             	if(file_exists(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image)))
-	            {
-	                $storage1 = unlink(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image));
-	            }
-	            if(file_exists(base_path('assets\barang\original\\'.$gambar[0]->i_image)))
-	            {
-	                $storage2 = unlink(base_path('assets\barang\original\\'.$gambar[0]->i_image));
-	            }
+                {
+                    $storage1 = unlink(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image));
+                }
+                if(file_exists(base_path('assets\barang\original\\'.$gambar[0]->i_image)))
+                {
+                    $storage2 = unlink(base_path('assets\barang\original\\'.$gambar[0]->i_image));
+                }
             }
 
-        }
+        	$barang = new Barang();
 
-    	$barang = new Barang();
+        	$file = $request->file('files');
+            
+            Barang::where('i_id',$request->item_codex)->first();
 
-    	$file = $request->file('files');
-        if ($file != null) {
-          Barang::where('i_id',$request->item_codex)->first();
+            $file_name = 'GBR_BRG_'. $request->item_codex . time() .'.' . $file->getClientOriginalExtension();
 
-          $file_name = 'GBR_BRG_'. $request->item_codex . time() .'.' . $file->getClientOriginalExtension();
+            if (!is_dir(base_path('assets/barang/thumbnail/'))) {
+                mkdir(base_path('assets/barang/thumbnail/'), 0777, true);
+            }
 
-          if (!is_dir(base_path('assets/barang/thumbnail/'))) {
-            mkdir(base_path('assets/barang/thumbnail/'), 0777, true);
-          }
+            if (!is_dir(base_path('assets/barang/original/'))) {
+                mkdir(base_path('assets/barang/original/'), 0777, true);
+            }
 
-          if (!is_dir(base_path('assets/barang/original/'))) {
-            mkdir(base_path('assets/barang/original/'), 0777, true);
-          }
-          
 
-          $thumbnail_path = base_path('assets\barang\thumbnail\\');
-          $original_path = base_path('assets\barang\original\\');
-          // return $original_path;
-          Image::make($file)
+            $thumbnail_path = base_path('assets\barang\thumbnail\\');
+            $original_path = base_path('assets\barang\original\\');
+            // return $original_path;
+            Image::make($file)
                   ->resize(261,null,function ($constraint) {
                     $constraint->aspectRatio();
                      })
@@ -220,9 +218,12 @@ class BarangController extends Controller
                   ->resize(90, 90)
                   ->save($thumbnail_path . $file_name);
 
-        $barang = $file_name;
+            $barang = $file_name;
+
+             
+
         } else {
-        	$barang = '';
+            $barang = $gambar[0]->i_image;
         }
 
         $get_price = $request->get('price');

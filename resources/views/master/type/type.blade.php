@@ -23,7 +23,7 @@
 						<button class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
 					</div>
 					<div class="table-responsive">
-						<table class="table table-hover data-table" cellspacing="0" id="t-80um">
+						<table class="table table-hover" cellspacing="0" id="t80um">
 						  <thead class="bg-gradient-info">
 						    <tr>
 						      <th>No</th>
@@ -50,7 +50,7 @@
 	$(document).ready(function(){
 
 
-    $('#t-80um').DataTable({
+    $('#t80um').DataTable({
             processing: true,
             // responsive:true,
             serverSide: true,
@@ -72,27 +72,23 @@
                      className: 'it_name'
                   },
                   {
-                     targets: 4,
+                     targets: 3,
                      className: 'center'
                   }
                 ],
             "columns": [
-            { "data": "i_code" },
-            { "data": "i_name" },
-            { "data": "harga"},
-            { "data": "i_unit" },
-            { "data": "i_description" },
-            { "data": "gambar"},
+            { "data": "it_id" },
+            { "data": "it_code"},
+            { "data": "it_name" },
             { "data": "aksi" },
             
             ]
       });
+
   });
 
 	$('#tombol_modal_tambah').click(function(){
 
-
-    
     var t_name = $('input[name="t_name"]').val('');
     var t_code = $('input[name="t_code"]').val('');
     var item_codex = $('input[name="it_codex"]').val('');
@@ -110,7 +106,7 @@
 	         data: form,
 	         success: function(data){
 	            $('#tambah').modal('hide');
-	            var table = $('#t-80um').DataTable();
+	            var table = $('#t80um').DataTable();
 	            table.ajax.reload();
 
 	            iziToast.success({
@@ -128,6 +124,33 @@
 	       });
 	}
 
+  function update()
+  {
+    var form = $('#simpan_tipe').serialize();
+    $.ajax({
+           type: "get",
+           url: baseUrl + '/master/type/type_update',
+           data: form,
+           success: function(data){
+              $('#tambah').modal('hide');
+              var table = $('#t80um').DataTable();
+              table.ajax.reload();
+
+              iziToast.success({
+                icon: 'fa fa-check-circle',
+                message: 'Data Telah Tersimpan!',
+              });
+           },
+           error: function(){
+            iziToast.warning({
+              icon: 'fa fa-times',
+              message: 'Terjadi Kesalahan!',
+            });
+           },
+           async: false
+         });
+  }
+
 	function edit(m1a2)
 {
     var par   = $(m1a2).parents('tr');
@@ -138,7 +161,6 @@
          data: {id},
          success: function(data){
           $('#tambah').modal('show');
-         
           	var t_codex	   = $("input[name='it_codex']").val(data[0].it_id);
             var it_id      = $("input[name='t_code']").val(data[0].it_code);
             var it_code    = $("input[name='t_name']").val(data[0].it_name);
@@ -153,6 +175,32 @@
          },
          async: false
        });
+  }
+  function hapus(a) {
+    var par   = $(a).parents('tr');
+    var id    = $(par).find('.it_id').text();
+    $.ajax({
+        url: baseUrl +'/master/type/type_hapus',
+        type:'get',
+        data: {id},
+        dataType:'json',
+        success:function(data){        
+          var table = $('#t80um').DataTable();
+          table.ajax.reload();
+          console.log(data);
+          iziToast.success({
+            icon: 'fa fa-check',
+            message: 'Data Berhasil Dihapus!',
+          });
+          
+        },
+        error:function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+        }
+    });
   }
 
 </script>
