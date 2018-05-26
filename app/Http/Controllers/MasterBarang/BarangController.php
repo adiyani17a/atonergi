@@ -43,7 +43,7 @@ class BarangController extends Controller
             $id_auto = 'BRG/'.$index;
         }
         else {
-            console.log('code Item sudah mencapai 9999');
+            $id_auto = 'BRG/'.$index;
         }
 
         $barang= new Barang();

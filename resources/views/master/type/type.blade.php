@@ -93,12 +93,40 @@
     var t_code = $('input[name="t_code"]').val('');
     var item_codex = $('input[name="it_codex"]').val('');
 
+    $('input[name="t_name"]').removeClass('border-danger');
+    $('input[name="t_code"]').removeClass('border-danger');
+
     $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="simpan()">Save Data</button>');
 
   });
 
 	function simpan()
 	{
+    var type  = $('input[name="t_name"]');
+    var t_code = $('input[name="t_code"]');
+
+    if(type.val()=='' || t_code.val()=='')
+    {
+      if(type.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Type name cannot be empty!',
+            });
+        type.addClass('border-danger');
+      } else {
+        type.removeClass('border-danger');
+      }
+      if(t_code.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Type code cannot be empty!',
+            });
+        t_code.addClass('border-danger');
+      } else {
+        t_code.removeClass('border-danger');
+      }
+      return false;
+    }
 		var form = $('#simpan_tipe').serialize();
 		$.ajax({
 	         type: "get",
@@ -126,6 +154,31 @@
 
   function update()
   {
+    var type  = $('input[name="t_name"]');
+    var t_code = $('input[name="t_code"]');
+
+    if(type.val()=='' || t_code.val()=='')
+    {
+      if(type.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Type name cannot be empty!',
+            });
+        type.addClass('border-danger');
+      } else {
+        type.removeClass('border-danger');
+      }
+      if(t_code.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Type code cannot be empty!',
+            });
+        t_code.addClass('border-danger');
+      } else {
+        t_code.removeClass('border-danger');
+      }
+      return false;
+    }
     var form = $('#simpan_tipe').serialize();
     $.ajax({
            type: "get",
@@ -153,6 +206,10 @@
 
 	function edit(m1a2)
 {
+
+    $('input[name="t_name"]').removeClass('border-danger');
+    $('input[name="t_code"]').removeClass('border-danger');
+    
     var par   = $(m1a2).parents('tr');
     var id    = $(par).find('.it_id').text();
     $.ajax({
