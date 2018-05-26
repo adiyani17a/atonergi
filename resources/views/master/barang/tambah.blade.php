@@ -46,7 +46,7 @@
                     <select class="form-control" name="type_barang">
                       <option value="">--Select Type--</option>
                       @foreach($type_barang as $tipe)
-                        <option value="{{$tipe['it_code']}}">{{$tipe['it_code']}} - {{$tipe['it_name']}}</option>
+                        <option value="{{$tipe['it_code']}}">{{$tipe['it_code']}} || {{$tipe['it_name']}}</option>
                       @endforeach
 
                     </select>
