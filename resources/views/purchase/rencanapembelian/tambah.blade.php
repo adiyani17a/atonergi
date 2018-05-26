@@ -108,7 +108,6 @@
             <thead class="bg-gradient-info">
               <tr>
                 <th>Item Code</th>
-<<<<<<< HEAD
                  <th>Item Name</th>
                  <th>Price</th>
                  <th width="1%">Qty</th>
@@ -118,16 +117,7 @@
              </thead>
            </table>
          </div>
-=======
-                <th>Item Name</th>
-                <th width="1%">Qty</th>
-                <th width="1%">Stock Warehouse</th>
-                <th width="1%">Action</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
->>>>>>> ac80f4f4f1a691d731d041235ad7d6022b40d365
+
 
       </div> <!-- End div modal-content -->
       <div class="modal-footer">
