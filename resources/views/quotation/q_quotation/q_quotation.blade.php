@@ -32,7 +32,9 @@
 	          	<div class="row">
 	          		
 					<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+						@if(Auth::user()->akses('QUOTATION','tambah'))
 						<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Quotation</button>
+						@endif
 					</div>
 					<div class="table-responsive">
 						<table class="table table-hover" id="table_quote" cellspacing="0">
@@ -70,25 +72,25 @@ $(document).ready(function(){
           ajax: {
               url:'{{ route('quote_datatable') }}',
           },
-          // columnDefs: [
+          columnDefs: [
 
-          //         {
-          //            targets: 0 ,
-          //            className: 'center d_id'
-          //         },
-          //         {
-          //            targets: 1,
-          //            className: 'd_nama'
-          //         },
-          //         {
-          //            targets: 2,
-          //            className: 'center d_grup'
-          //         },
-          //         {
-          //            targets: 4,
-          //            className: 'center'
-          //         }
-          //       ],
+                  {
+                     targets: 0 ,
+                     className: 'center'
+                  },
+                  {
+                     targets: 1 ,
+                     className: 'q_nota'
+                  },
+                  {
+                     targets: 3,
+                     className: 'right'
+                  },
+                  {
+                     targets: 6,
+                     className: 'center'
+                  },
+                ],
           columns: [
             {data: 'DT_Row_Index', name: 'DT_Row_Index'},
             {data: 'q_nota', name: 'q_nota'},
@@ -111,6 +113,14 @@ $(document).ready(function(){
 		});
 })
 
+
+$('.q_qty').keyup(function(){
+
+	var qty = $(this).val();
+	qty = qty.replace(/[A-Za-z$. ,-]/g, "");
+
+	$(this).val(qty);
+})
 
 
 function hitung_total() {
@@ -170,15 +180,22 @@ function edit_item(p) {
 
 
 var q_qty         = $("#q_qty");
-var q_kodeitem    = $("#q_kodeitem");
 
 var x = 1;
-
 q_qty.keypress(function(e) {
 var m_table       = $("#apfsds").DataTable();
 
   if(e.which == 13 || e.keyCode == 13){
+
   	var item = $('.item').val();
+
+  	if (item == '0') {
+  		iziToast.warning({
+            icon: 'fa fa-info',
+            message: 'Item Harus Diisi!',
+        });
+        return false;
+  	}
   	$.ajax({
       url:baseUrl + '/quotation/q_quotation/append_item',
       data:{item},
@@ -194,7 +211,7 @@ var m_table       = $("#apfsds").DataTable();
 
          m_table.row.add( [
             dropdown,
-            '<input type="number" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ q_qty.val() +'">',
+            '<input type="text" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ q_qty.val() +'">',
             '<input type="text" name="description[]" class="description form-control input-sm min-width" value="'+data.data.i_description+'">',
             '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.i_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
             '<input type="text" value="'+accounting.formatMoney(data.data.i_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
@@ -207,6 +224,12 @@ var m_table       = $("#apfsds").DataTable();
         q_qty.val('');
         $('.item').val('0');
   		$('.item').select2();
+
+  		$('.jumlah').keyup(function(){
+			var qty = $(this).val();
+			qty = qty.replace(/[A-Za-z$. ,-]/g, "");
+			$(this).val(qty);
+		})
   		hitung_dpp();
       }
     });
@@ -313,8 +336,123 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	})
 
 	$('.save').click(function(){
+		var array_valid = [];
+		var customer = $('.customer').val();
+		var address = $('.address').text();
+		var type_qo = $('.type_qo').val();
+		var type_p  = $('.type_p').val();
+		var ship_method  = $('.ship_method').val();
+		var ship_term  = $('.ship_term').val();
+		var delivery  = $('.delivery').val();
+		var date  = $('.date').val();
+		var quote  = $('.quote').val();
+		var ship_to  = $('.ship_to').val();
+		var total = $('#total').val();
+		var subtotal = $('#subtotal').val();
+		var tax = $('#tax').val();
 
-		var 
+
+		if (customer == '0') {
+			$('.valid_0').prop('hidden',false);
+			array_valid.push(0);
+		}else if (customer != '0'){
+			$('.valid_0').prop('hidden',true);
+
+		}
+
+		if (address == '') {
+			$('.valid_1').prop('hidden',false);
+			array_valid.push(0);
+		}else if (address != ''){
+			$('.valid_1').prop('hidden',true);
+
+		}
+
+		if (type_qo == '0') {
+			$('.valid_2').prop('hidden',false);
+			array_valid.push(0);
+		}else if (type_qo != '0'){
+			$('.valid_2').prop('hidden',true);
+
+		}
+
+		if (type_p == '0') {
+			$('.valid_3').prop('hidden',false);
+			array_valid.push(0);
+		}else if (type_p != '0'){
+			$('.valid_3').prop('hidden',true);
+
+		}
+
+
+		if (date == '') {
+			$('.valid_4').prop('hidden',false);
+			array_valid.push(0);
+		}else if (date != ''){
+			$('.valid_4').prop('hidden',true);
+
+		}
+
+		if (quote == '') {
+			$('.valid_5').prop('hidden',false);
+			array_valid.push(0);
+		}else if (quote != ''){
+			$('.valid_5').prop('hidden',true);
+
+		}
+
+		if (ship_to == '') {
+			$('.valid_6').prop('hidden',false);
+			array_valid.push(0);
+		}else if (ship_to != ''){
+			$('.valid_6').prop('hidden',true);
+
+		}
+
+
+		if (ship_method == '0') {
+			$('.valid_7').prop('hidden',false);
+			array_valid.push(0);
+		}else if (ship_method != '0'){
+			$('.valid_7').prop('hidden',true);
+
+		}
+
+		if (ship_term == '') {
+			$('.valid_8').prop('hidden',false);
+			array_valid.push(0);
+		}else if (ship_term != ''){
+			$('.valid_8').prop('hidden',true);
+
+		}
+
+		if (delivery == '') {
+			$('.valid_9').prop('hidden',false);
+			array_valid.push(0);
+		}else if (delivery != ''){
+			$('.valid_9').prop('hidden',true);
+
+		}
+
+
+		if (total == '' || total == '0') {
+			$('.valid_10').prop('hidden',false);
+			array_valid.push(0);
+		}else{
+			$('.valid_10').prop('hidden',true);
+
+		}
+
+
+
+		var index = array_valid.indexOf(0);
+
+		if (index != -1) {
+			return false;
+		}
+
+
+
 
 		var m_table = $("#apfsds").DataTable();
 		iziToast.show({
@@ -329,8 +467,14 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
             progressBarColor: 'rgb(0, 255, 184)',
             buttons: [
               [
-                '<button style="background-color:#32CD32;">Simpan</button>',
+                '<button style="background-color:#32CD32;">Save</button>',
                 function (instance, toast) {
+
+                  $.ajaxSetup({
+				      headers: {
+				        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				        }
+				    });
 
                   $.ajax({
 				      url:baseUrl + '/quotation/q_quotation/save_quote',
@@ -340,9 +484,39 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 				      	   $('.total_form').serialize(),
 				      dataType:'json',
 				      success:function(data){
-				      	iziToast.success({
-				            icon: 'fa fa-success',
-				            message: 'Data Berhasil Disimpan!',
+				      	if (data.status == '1') {
+				      		var table = $('#table_quote').DataTable();
+          					table.ajax.reload();
+				      		iziToast.success({
+					            icon: 'fa fa-save',
+					            message: 'Data Berhasil Disimpan!',
+					        });
+
+
+					         $('.customer').val('0');
+							 $('.address').text('');
+							 $('.type_qo').val('0');
+							 $('.type_p').val('0');
+							 $('.ship_method').val('0');
+							 $('.ship_term').val('');
+							 $('.quote').val('');
+							 $('.ship_to').val('');
+							 $('#total').val('0');
+							 $('#subtotal').val('0');
+							 $('#tax').val('0');
+							 $('.delivery').val('');
+							 $('.type_qo').select2();
+							 $('.type_p').select2();
+							 $('.customer').select2();
+							 $('.ship_method').select2();
+
+							 m_table.clear().draw();
+				      		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+data.id);
+				      	}
+				      },error:function(){
+			      		iziToast.warning({
+				            icon: 'fa fa-info',
+				            message: 'Terjadi Kesalahan!',
 				        });
 				      }
 				    });
@@ -361,5 +535,66 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 		
 	})
 	
+
+	function hapus(nota) {
+
+		iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Hapus Data!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:red;">Delete</button>',
+                function (instance, toast) {
+                  $.ajax({
+				      url:baseUrl + '/quotation/q_quotation/hapus_quote',
+				      data:{nota},
+				      dataType:'json',
+				      success:function(data){
+				      	if (data.status == '1') {
+				      		var table = $('#table_quote').DataTable();
+          					table.ajax.reload();
+				      		iziToast.success({
+					            icon: 'fa fa-trash',
+					            message: 'Data Berhasil Dihapus!',
+					        });
+
+				      	}
+				      },error:function(){
+			      		iziToast.warning({
+				            icon: 'fa fa-info',
+				            message: 'Terjadi Kesalahan!',
+				        });
+				      }
+				    });
+                }
+              ],
+              [
+                '<button style="background-color:#44d7c9;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+        });
+
+	}
+
+
+	function printing(id) {
+		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+id);
+	}
+
+	function edit(id) {
+		window.open("{{ url('quotation/q_quotation/edit_quotation') }}"+'/'+id);
+	}
 </script>
 @endsection

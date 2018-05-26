@@ -17,7 +17,7 @@
       </div>
       <div class="modal-body">
         <form class="row form_quote">
-          
+          {{ csrf_field() }}
           <div class="col-md-8 col-sm-12 col-xs-12">
             <div class="row">
               <div class="col-md-3 col-sm-6 col-xs-12">
@@ -27,12 +27,13 @@
                   <div class="row">
                     <div class="col-sm-10">
                       <div class="form-group">
-                        <select class="form-control form-control-sm customer"  name="customer">
+                        <select style="width: 100%" class="form-control form-control-sm customer"  name="customer">
                           <option value="0">--Select Customer--</option>
                           @foreach($customer as $i)
                           <option value="{{$i->c_code}}">{{$i->c_code}} - {{$i->c_name}}</option>
                           @endforeach
                         </select>
+                        <label style="color: red" hidden  class="valid valid_0"><b>Customer Harus Dipilih</b></label>
                       </div>
                     </div>
                   <div class="col-sm-2">
@@ -49,6 +50,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                   <textarea name="address" class="form-control address"></textarea>
+                  <label style="color: red" hidden  class="valid valid_1"><b>Alamat Harus Diisi</b></label>
                 </div>
               </div>
               <div class="col-md-3 col-sm-0 col-xs-0">
@@ -59,7 +61,7 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <select class="form-control form-control-sm type_qo" id="type_qo" name="type_qo">
+                  <select style="width: 100%" class="form-control form-control-sm type_qo" id="type_qo" name="type_qo">
                     <option value="0">--Select Type--</option>
                     <option value="SWP">SWP</option>
                     <option value="WP">WP</option>
@@ -67,6 +69,7 @@
                     <option value="OFD">Off Grid</option>
                     <option value="ONG">On Grid</option>
                   </select>
+                  <label style="color: red" hidden  class="valid valid_2"><b>Type Quotation Harus Dipilih</b></label>
                 </div>
               </div>
               <div class="col-md-3 col-sm-0 col-xs-0">
@@ -77,7 +80,7 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <select class="form-control form-control-sm type_p" id="type_p" name="type_p">
+                  <select style="width: 100%" class="form-control form-control-sm type_p" id="type_p" name="type_p">
                    <option value="0">--Select Type--</option>
                     <option value="SWP">SWP</option>
                     <option value="WP">WP</option>
@@ -85,6 +88,7 @@
                     <option value="OFD">Off Grid</option>
                     <option value="ONG">On Grid</option>
                   </select>
+                  <label style="color: red" hidden  class="valid valid_3"><b>Type Product Harus Dipilih</b></label>
                 </div>
               </div>
             </div>
@@ -99,6 +103,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                   <input type="text" value="{{ $now }}" class="form-control form-control-sm datepicker date" name="date">
+                  <label style="color: red" hidden  class="valid valid_4"><b>Date Harus Diisi</b></label>
                 </div>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -106,7 +111,8 @@
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-sm quote" name="quote">
+                  <input type="text" readonly="" class="form-control form-control-sm quote" name="quote">
+                  <label style="color: red" hidden  class="valid valid_5"><b>Quote Harus Diisi</b></label>
                 </div>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -115,6 +121,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                   <input type="text" class="form-control form-control-sm ship_to" name="ship_to">
+                  <label style="color: red" hidden  class="valid valid_6"><b>Ship to Harus Diisi</b></label>
                 </div>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -144,12 +151,13 @@
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <select class="form-control form-control-sm ship_method" name="ship_method">
+                  <select style="width: 100%" class="form-control form-control-sm ship_method" name="ship_method">
                     <option value="0">--Select Shipping Method--</option>
                     <option value="Sea">Sea</option>
                     <option value="Land Freight">Land Freight</option>
                     <option value="Air Freight">Air Freight</option>
                   </select>
+                  <label style="color: red" hidden  class="valid valid_7"><b>Shipping Method Harus Dipilih</b></label>
                 </div>
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
@@ -158,6 +166,7 @@
               <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="form-group">
                   <input type="text" class="form-control-sm form-control ship_term" name="ship_term">
+                  <label style="color: red" hidden  class="valid valid_8"><b>Shipping Terms Harus Diisi</b></label>
                 </div>
               </div>
               <div class="col-md-2 col-sm-6 col-xs-12">
@@ -166,6 +175,7 @@
               <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="form-group">
                   <input type="text" class="form-control-sm form-control datepicker delivery" name="delivery">
+                  <label style="color: red" hidden  class="valid valid_9"><b>Delivery Date Harus Diisi</b></label>
                 </div>
               </div>
             </div>
@@ -190,7 +200,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="number" class="form-control form-control-sm q_qty" name="" id="q_qty" title="Press Enter">
+              <input type="text" class="form-control form-control-sm q_qty" name="" id="q_qty" title="Press Enter">
             </div>
           </div>
         </div>
@@ -219,7 +229,7 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                   <div class="form-group">  
-                    <input type="text" class="form-control form-control-sm" readonly="" name="subtotal" id="subtotal">
+                    <input style="text-align: right;" value="0" type="text" class="form-control form-control-sm" readonly="" name="subtotal" id="subtotal">
                   </div>
                 </div>
                 <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -227,7 +237,7 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                   <div class="form-group">  
-                    <input type="text" class="form-control form-control-sm" value="0" name="tax" id="tax">
+                    <input style="text-align: right;" type="text" class="form-control form-control-sm" value="0" name="tax" id="tax">
                   </div>
                 </div>
                 <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -235,8 +245,9 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                   <div class="form-group">  
-                    <input type="text" class="form-control form-control-sm" readonly="" name="total" id="total">
+                    <input style="text-align: right;" type="text" class="form-control form-control-sm" readonly="" name="total" value="0" id="total">
                   </div>
+                  <label style="color: red" hidden  class="valid valid_10"><b>Total Tidak Boleh 0</b></label>
                 </div>
               </form>
             </div>

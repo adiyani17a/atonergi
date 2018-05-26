@@ -13,7 +13,7 @@ use Session;
 use App\mMember;
 use Illuminate\Support\Facades\Crypt;
 use Response;
-
+use PDF;
 class QuotationController extends Controller
 {
  	public function q_quotation()
@@ -47,14 +47,34 @@ class QuotationController extends Controller
         // return $data;
         return Datatables::of($data)
                         ->addColumn('aksi', function ($data) {
-                          return  '<div class="btn-group">'.
-                                   '<button type="button" onclick="edit(this)" class="btn btn-primary btn-lg" title="edit">'.
-                                   '<label class="fa fa-pencil-alt"></label></button>'.
-                                   '<button type="button" onclick="printing(this)" class="btn btn-info btn-lg" title="print">'.
-                                   '<label class="fa fa-print"></label></button>'.
-                                   '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-lg" title="hapus">'.
-                                   '<label class="fa fa-trash"></label></button>'.
-                                  '</div>';
+                           $a =  '<div class="btn-group">';
+
+                            if(Auth::user()->akses('QUOTATION','ubah')){
+                             $b = '<button type="button" onclick="edit(\''.$data->q_id.'\')" class="btn btn-primary btn-lg" title="edit">'.'<label class="fa fa-pencil-alt"></label></button>';
+                            }else{
+                              $b = '';
+                            }
+
+                            if(Auth::user()->akses('QUOTATION','print')){
+                             $c = 
+                             '<button type="button" onclick="printing(\''.$data->q_id.'\')" class="btn btn-info btn-lg" title="print">'.'<label class="fa fa-print"></label></button>';
+                            }else{
+                              $c = '';
+                            }
+
+                            if(Auth::user()->akses('QUOTATION','hapus')){
+                             $d = 
+                                 '<button type="button" onclick="hapus(\''.$data->q_nota.'\')" class="btn btn-danger btn-lg" title="hapus">'.
+                                 '<label class="fa fa-trash"></label></button>'.
+                                 '</div>';
+                            }else{
+                              $d = '</div>';
+                            }
+
+                        return $a . $b .$c . $d;
+                            
+
+                                   
                         })
                         ->addColumn('none', function ($data) {
                             return '-';
@@ -69,11 +89,12 @@ class QuotationController extends Controller
                             return 'Rp. '. number_format($data->q_total, 2, ",", ".");
                         })
                         ->addColumn('status', function ($data) {
-                            $data = DB::table('d_status')
+                            $s = DB::table('d_status')
                             		  ->where('s_id',$data->q_status)
                             		  ->first();
 
-                           	return '<span class="badge badge-pill badge-'.$data->s_color.'">'.$data->s_name.'</span>';
+                           	return  '<span class="badge badge-pill badge-'.$s->s_color.'">'.$s->s_name.'</span>'.
+                                    '<input type="hidden" class="q_id" value="'.$data->q_id.'">';
                         })
                         ->rawColumns(['aksi', 'detail','histori','total','status'])
                         ->addIndexColumn()
@@ -164,10 +185,206 @@ class QuotationController extends Controller
   public function save_quote(request $req)
   {
     return DB::transaction(function() use ($req) {  
-      dd($req->all());
+      // dd($req->all());
+
+      $id = DB::table('d_quotation')
+              ->max('q_id')+1;
+
+      $cari_quote = DB::table('d_quotation')
+                      ->where('q_nota',$req->quote)
+                      ->first();
+
+      if ($cari_quote != null) {
+
+        $bulan = Carbon::parse($req->date)->format('m');
+        $tahun = Carbon::parse($req->date)->format('Y');
+
+        $cari_nota = DB::select("SELECT  substring(max(q_nota),4,3) as id from d_quotation
+                                        WHERE q_type = '$req->type_qo'
+                                        AND q_type_product = '$req->type_p'
+                                        AND MONTH(q_date) = '$bulan'
+                                        AND YEAR(q_date) = '$tahun'");
+        $index = filter_var($cari_nota[0]->id,FILTER_SANITIZE_NUMBER_INT);
+
+        $index = (integer)$cari_nota[0]->id + 1;
+        $index = str_pad($index, 3, '0', STR_PAD_LEFT);
+
+
+        $quote = 'QO-'. $index . '/' . $req->type_qo . '/' . $req->type_p .'/'. $bulan . $tahun;
+      }else{
+        $quote = $req->quote;
+      }
+
+      $save = DB::table('d_quotation')
+                ->insert([
+                  'q_id'              => $id,
+                  'q_nota'            => $quote,
+                  'q_subtotal'        => filter_var($req->subtotal,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_tax'             => filter_var($req->tax,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_total'           => filter_var($req->total,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_customer'        => $req->customer,
+                  'q_address'         => $req->address,
+                  'q_type'            => $req->type_qo,
+                  'q_type_product'    => $req->type_p,
+                  'q_shipping_method' => $req->ship_method,
+                  'q_date'            => carbon::parse($req->date)->format('Y-m-d'),
+                  'q_term'            => $req->ship_term,
+                  'q_delivery'        => carbon::parse($req->delivery)->format('Y-m-d'),
+                  'q_ship_to'         => $req->ship_to,
+                  'q_marketing'       => $req->marketing,
+                  'q_status'          => 2,
+                  'q_created_at'      => carbon::now(),
+                  'q_update_by'       => Auth::user()->m_name,
+                ]);
+
+      $h_id = DB::table('d_quotation_history')
+              ->where('qh_id',$id)
+              ->max('qh_id')+1;
+
+      $status = DB::table('d_quotation_history')
+                ->insert([
+                  'qh_id'              => $id,
+                  'qh_dt'              => $h_id,
+                  'qh_status'          => 2,
+                ]);
+
+      for ($i=0; $i < count($req->item_name); $i++) { 
+
+
+        $save = DB::table('d_quotation_dt')
+                ->insert([
+                  'qd_id'          => $id,
+                  'qd_dt'          => $i+1,
+                  'qd_item'        => $req->item_name[$i],
+                  'qd_qty'         => $req->jumlah[$i],
+                  'qd_description' => $req->description[$i],
+                  'qd_price'       => filter_var($req->unit_price[$i],FILTER_SANITIZE_NUMBER_INT)/100,
+                  'qd_total'       => filter_var($req->line_total[$i],FILTER_SANITIZE_NUMBER_INT)/100,
+                  'qd_update_by'   => Auth::user()->m_name,
+             
+                ]);
+      }
+
+
+      return response()->json(['status' => 1,'id'=>$id]);
+
     });
   }
 
+  public function hapus_quote(request $req)
+  {
+      // dd($req->all());
+      $delete = DB::table('d_quotation')  
+                  ->where('q_nota',$req->nota)
+                  ->delete();
+      return response()->json(['status' => 1]);
+  }
+
+  public function print_quote($id)
+  {
+
+      $head = DB::table('d_quotation')
+               ->join('m_customer','c_code','=','q_customer')
+               ->where('q_id',$id)
+               ->first();
+      $data = DB::table('d_quotation')
+               ->join('d_quotation_dt','q_id','=','qd_id')
+               ->join('m_item','i_code','=','qd_item')
+               ->where('q_id',$id)
+               ->get();
+
+      $count = count($data);
+      $tes = 15 - $count;
+      $array = [];
+
+      if ($tes > 0) {
+        for ($i=0; $i < $tes; $i++) { 
+          array_push($array, 'a');
+        }
+      }
+      
+     
+     // $pdf = PDF::loadView('quotation/q_quotation/print_quotation', $data);
+     // return $pdf->stream("test.pdf");
+
+    return view('quotation/q_quotation/print_quotation',compact('head','data','array'));
+
+  }
+
+  public function edit_quotation($id)
+  {
+    $customer = DB::table('m_customer')
+                  ->get();
+
+    $marketing = DB::table('d_marketing')
+                  ->get();
+
+    $item = DB::table('m_item')
+                  ->get();
+
+    $data = DB::table('d_quotation')
+              ->where('q_id',$id)
+              ->first();
+
+    $data_dt = DB::table('d_quotation_dt')
+              ->where('qd_id',$id)
+              ->get();
+
+    $now = carbon::now()->format('d-m-Y');
+    return view('quotation/q_quotation/edit_quotation',compact('customer','marketing','now','item','data','data_dt','id'));
+  }
+
+  public function update_quote(request $req)
+  {
+    return DB::transaction(function() use ($req) {  
+      // dd($req->all());
+
+      $save = DB::table('d_quotation')
+                ->where('q_id',$req->id)
+                ->update([
+                  'q_id'              => $req->id,
+                  'q_nota'            => $req->quote,
+                  'q_subtotal'        => filter_var($req->subtotal,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_tax'             => filter_var($req->tax,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_total'           => filter_var($req->total,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_customer'        => $req->customer,
+                  'q_address'         => $req->address,
+                  'q_type'            => $req->type_qo,
+                  'q_type_product'    => $req->type_p,
+                  'q_shipping_method' => $req->ship_method,
+                  'q_date'            => carbon::parse($req->date)->format('Y-m-d'),
+                  'q_term'            => $req->ship_term,
+                  'q_delivery'        => carbon::parse($req->delivery)->format('Y-m-d'),
+                  'q_ship_to'         => $req->ship_to,
+                  'q_marketing'       => $req->marketing,
+                  'q_status'          => 2,
+                  'q_update_by'       => Auth::user()->m_name,
+                ]);
+
+      $delete = DB::table('d_quotation_dt')
+                  ->where('qd_id',$req->id)
+                  ->delete();
+
+      for ($i=0; $i < count($req->item_name); $i++) { 
+
+        $save = DB::table('d_quotation_dt')
+                ->insert([
+                  'qd_id'          => $req->id,
+                  'qd_dt'          => $i+1,
+                  'qd_item'        => $req->item_name[$i],
+                  'qd_qty'         => $req->jumlah[$i],
+                  'qd_description' => $req->description[$i],
+                  'qd_price'       => filter_var($req->unit_price[$i],FILTER_SANITIZE_NUMBER_INT)/100,
+                  'qd_total'       => filter_var($req->line_total[$i],FILTER_SANITIZE_NUMBER_INT)/100,
+                  'qd_update_by'   => Auth::user()->m_name,
+             
+                ]);
+      }
+
+
+      return response()->json(['status' => 1]);
+    });
+  }
  	public function k_penawaran()
  	{
  		return view('quotation/k_penawaran/k_penawaran');
@@ -184,10 +401,7 @@ class QuotationController extends Controller
  	{
  		return view('quotation/marketing/marketing');
  	}
- 	public function edit_quotation()
- 	{
- 		return view('quotation/q_quotation/edit_quotation');
- 	}
+
  	public function print_quotation()
  	{
  		return view('quotation/q_quotation/print_quotation');
