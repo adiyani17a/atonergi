@@ -1,4 +1,18 @@
 @extends('main')
+
+@section('extra_style')
+<style type="text/css">
+  
+  .float-left{
+    float:left;
+  }
+  .float-right{
+    float:right;
+  }
+
+</style>
+@endsection
+
 @section('content')
 
 @include('master.barang.tambah')
@@ -42,6 +56,8 @@
                           </table> 
                         </div>
                 </div>
+
+
             </div>
     </div>
 </div>
@@ -53,6 +69,11 @@
 <script>
 
 $(document).ready(function(){
+
+  $('input[name="price"]').maskMoney({
+    precision : 0,
+    thousands:',',
+  });
 
     $('#t55').DataTable({
             processing: true,
@@ -73,7 +94,7 @@ $(document).ready(function(){
                   },
                   {
                      targets: 2,
-                     className: 'center i_grup'
+                     className: 'i_price'
                   },
                   {
                      targets: 4,
@@ -87,7 +108,7 @@ $(document).ready(function(){
             "columns": [
             { "data": "i_code" },
             { "data": "i_name" },
-            { "data": "i_price"},
+            { "data": "harga"},
             { "data": "i_unit" },
             { "data": "i_description" },
             { "data": "gambar"},
@@ -97,23 +118,45 @@ $(document).ready(function(){
       });
   });
 
+function change_image()
+{
+  if($('#cbcheck:checkbox:checked').length > 0)
+  {
+    $('.122mm').removeClass('d-none');
+  } else {
+    $('.122mm').addClass('d-none');
+
+  }
+}
+
 $('#tombol_modal_tambah').click(function(){
 
-
-    var item  = $('input[name="item_name"]').val('');
-    var img   = $('#chooseFile').val('');
+    $('.122mm').removeClass('d-none');
+    $('input[name="item_name"]').val('');
+    $('#chooseFile').val('');
     $('#noFile').text('Choose Image...');
     $(".file-upload").removeClass('active');
     $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
-    var type_barang  = $('select[name="type_barang"]').val('').trigger('change');
-    var unit = $('input[name="unit"]').val('');
-    var price = $('input[name="price"]').val('');
-    var weight = $('input[name="weight"]').val('');
-    var min_stock = $('input[name="min_stock"]').val('');
-    var description = $('textarea[name="description"]').val('');
-    var item_codex = $('input[name="item_codex"]').val('');
+    $('select[name="type_barang"]').val('').trigger('change');
+    $('input[name="unit"]').val('');
+    $('input[name="price"]').val('');
+    $('input[name="weight"]').val('');
+    $('input[name="min_stock"]').val('');
+    $('textarea[name="description"]').val('');
+    $('input[name="item_codex"]').val('');
+
+    $('input[name="item_name"]').removeClass('border-danger');
+    $('#chooseFile');
+    $('select[name="type_barang"]').removeClass('border-danger');
+    $('input[name="unit"]').removeClass('border-danger');
+    $('input[name="price"]').removeClass('border-danger');
+    $('input[name="weight"]').removeClass('border-danger');
+    $('input[name="min_stock"]').removeClass('border-danger');
+    $('textarea[name="description"]');
 
     $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="simpan()">Save Data</button>');
+
+    $("#check_change_image").html('');
 
   });
 
@@ -153,8 +196,83 @@ var loadFile = function(event) {
 };
 
 function simpan(){
-  
 
+    var item  = $('input[name="item_name"]');
+    var img   = $('#chooseFile');
+    var type_barang  = $('select[name="type_barang"]');
+    var unit = $('input[name="unit"]');
+    var price = $('input[name="price"]');
+    var weight = $('input[name="weight"]');
+    var min_stock = $('input[name="min_stock"]');
+    var description = $('textarea[name="description"]');
+
+    if(item.val()=='' || img.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='')
+    {
+      if(item.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Item name cannot be empty!',
+            });
+        item.addClass('border-danger');
+      } else {
+        item.removeClass('border-danger');
+      }
+      if(img.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Image cannot be empty!',
+            });
+        img.addClass('border-danger');
+      } else {
+        img.removeClass('border-danger');
+      }
+      if(type_barang.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Item type cannot be empty!',
+            });
+        type_barang.addClass('border-danger');
+      } else {
+        type_barang.removeClass('border-danger');
+      }
+      if(unit.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Unit# cannot be empty!',
+            });
+        unit.addClass('border-danger');
+      } else {
+        unit.removeClass('border-danger');
+      }
+      if(price.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Item price cannot be empty!',
+            });
+        price.addClass('border-danger');
+      } else {
+        price.removeClass('border-danger');
+      }
+      if(weight.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Weight cannot be empty!',
+            });
+        weight.addClass('border-danger');
+      } else {
+        weight.removeClass('border-danger');
+      }
+      if(min_stock.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Min stock cannot be empty!',
+            });
+        min_stock.addClass('border-danger');
+      } else {
+        min_stock.removeClass('border-danger');
+      }
+      return false;
+    }
     var formdata = new FormData();  
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
     $.ajax({
@@ -187,6 +305,13 @@ function simpan(){
 
 function edit(m1a2)
 {
+    $('input[name="item_name"]').removeClass('border-danger');
+    $('select[name="type_barang"]').removeClass('border-danger');
+    $('input[name="unit"]').removeClass('border-danger');
+    $('input[name="price"]').removeClass('border-danger');
+    $('input[name="weight"]').removeClass('border-danger');
+    $('input[name="min_stock"]').removeClass('border-danger');
+
     var par   = $(m1a2).parents('tr');
     var id    = $(par).find('.i_id').text();
     $.ajax({
@@ -197,10 +322,7 @@ function edit(m1a2)
           $('#tambah').modal('show');
           
           console.log(data[0].i_image);
-          $('#chooseFile').val('');
-          $('#noFile').text('Choose Image...');
-          $(".file-upload").removeClass('active');
-          $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
+          
 
             var i_id      = $("input[name='item_codex']").val(data[0].i_id);
             var i_code    = $("input[name='item_name']").val(data[0].i_name);
@@ -209,16 +331,27 @@ function edit(m1a2)
             var i_price      = $("input[name='price']").val(data[0].i_price);
             var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
             var i_description      = $("textarea[name='description']").val(data[0].i_description);
-            var i_type      = $("input[name='type_barang']").val(data[0].i_type);
+            var i_type      = $("select[name='type_barang']").val(data[0].i_type).trigger('change');
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
 
             if(data[0].i_image!='' || data[0].i_image!=null){
               $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);
               $('.file-upload').addClass('active');
               $("#noFile").text(data[0].i_image); 
+            } else {
+              $('#chooseFile').val('');
+              $('#noFile').text('Choose Image...');
+              $(".file-upload").removeClass('active');
+              $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
             }
+            $('.122mm').addClass('d-none');
 
             $('#ganti_tombol').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
+
+            $('#check_change_image').html('<label class="form-check-label">'+
+                              '<input class="form-check-input" type="checkbox" name="cbcheck" id="cbcheck" value="centang" onchange="change_image()">'+
+                              'Check for change image'+
+                          '<i class="input-helper"></i></label>');
          },
          error: function(){
           iziToast.warning({
@@ -232,8 +365,78 @@ function edit(m1a2)
 
 
 function update() {
+
+  var item  = $('input[name="item_name"]');
+  var img   = $('#chooseFile');
+  var type_barang  = $('select[name="type_barang"]');
+  var unit = $('input[name="unit"]');
+  var price = $('input[name="price"]');
+  var weight = $('input[name="weight"]');
+  var min_stock = $('input[name="min_stock"]');
+  var description = $('textarea[name="description"]');
+
+    if(item.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='')
+    {
+      if(item.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Item name cannot be empty!',
+            });
+        item.addClass('border-danger');
+      } else {
+        item.removeClass('border-danger');
+      }
+      if(type_barang.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Item type cannot be empty!',
+            });
+        type_barang.addClass('border-danger');
+      } else {
+        type_barang.removeClass('border-danger');
+      }
+      if(unit.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Unit# cannot be empty!',
+            });
+        unit.addClass('border-danger');
+      } else {
+        unit.removeClass('border-danger');
+      }
+      if(price.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Item price cannot be empty!',
+            });
+        price.addClass('border-danger');
+      } else {
+        price.removeClass('border-danger');
+      }
+      if(weight.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Weight cannot be empty!',
+            });
+        weight.addClass('border-danger');
+      } else {
+        weight.removeClass('border-danger');
+      }
+      if(min_stock.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Min stock cannot be empty!',
+            });
+        min_stock.addClass('border-danger');
+      } else {
+        min_stock.removeClass('border-danger');
+      }
+      return false;
+    }
+
     var formdata = new FormData();  
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
+
       $.ajax({
           processData: false, //important
           contentType: false,

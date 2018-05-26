@@ -43,7 +43,7 @@ class BarangController extends Controller
             $id_auto = 'BRG/'.$index;
         }
         else {
-            console.log('code Item sudah mencapai 9999');
+            $id_auto = 'BRG/'.$index;
         }
 
         $barang= new Barang();
@@ -77,10 +77,14 @@ class BarangController extends Controller
         $barang->i_image=$file_name;
         }
 
+        $get_price = $request->get('price');
+
+        $filter_number = str_replace(',','',$get_price);
+
         $barang->i_name=$request->get('item_name');
         $barang->i_type=$request->get('type_barang');
         $barang->i_unit=$request->get('unit');
-        $barang->i_price=$request->get('price');
+        $barang->i_price=$filter_number;
         $barang->i_minstock=$request->get('min_stock');
         $barang->i_weight=$request->get('weight');
         $barang->i_description=$request->get('description');
@@ -122,13 +126,13 @@ class BarangController extends Controller
     public function datatable_barang()
    {
         
-        $barang= DB::table('m_item')->get();
+        $data= DB::table('m_item')->get();
         
         
         // return $data;
-        $barang = collect($barang);
+        $barang = collect($data);
         // return $barang;
-        
+        // return $barang->i_price;
         return Datatables::of($barang)
                         ->addColumn('aksi', function ($barang) {
                           return  '<div class="btn-group">'.
@@ -147,11 +151,17 @@ class BarangController extends Controller
 							}
 
 						})
+						->addColumn('harga', function ($barang){
+							return '<div class="float-left">'. 
+							'Rp. '.
+							'</div>'.
+							'<div class="float-right">'. number_format($barang->i_price,0,"",".") .'</div>';
+						})
                         ->addColumn('none', function ($barang) {
                           return '-';
                       	})
 
-                      ->rawColumns(['aksi','gambar'])
+                      ->rawColumns(['aksi','gambar', 'harga'])
                         ->make(true);
     }
     public function barang_edit(Request $request)
@@ -165,41 +175,42 @@ class BarangController extends Controller
     {
     	$gambar = DB::Table('m_item')->select('i_image')->where('i_id','=',$request->item_codex)->get();
 
-
-        if($gambar[0]->i_image != '')
+    	// dd($request->file('files'));
+        if($request->cbcheck=="centang")
         {
-            if(file_exists(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image)))
+            if($gambar[0]->i_image!="")
             {
-                $storage1 = unlink(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image));
+            	if(file_exists(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image)))
+                {
+                    $storage1 = unlink(base_path('assets\barang\thumbnail\\'.$gambar[0]->i_image));
+                }
+                if(file_exists(base_path('assets\barang\original\\'.$gambar[0]->i_image)))
+                {
+                    $storage2 = unlink(base_path('assets\barang\original\\'.$gambar[0]->i_image));
+                }
             }
-            if(file_exists(base_path('assets\barang\original\\'.$gambar[0]->i_image)))
-            {
-                $storage2 = unlink(base_path('assets\barang\original\\'.$gambar[0]->i_image));
+
+        	$barang = new Barang();
+
+        	$file = $request->file('files');
+            
+            Barang::where('i_id',$request->item_codex)->first();
+
+            $file_name = 'GBR_BRG_'. $request->item_codex . time() .'.' . $file->getClientOriginalExtension();
+
+            if (!is_dir(base_path('assets/barang/thumbnail/'))) {
+                mkdir(base_path('assets/barang/thumbnail/'), 0777, true);
             }
 
-        }
+            if (!is_dir(base_path('assets/barang/original/'))) {
+                mkdir(base_path('assets/barang/original/'), 0777, true);
+            }
 
-    	$barang = new Barang();
 
-    	$file = $request->file('files');
-        if ($file != null) {
-          Barang::where('i_id',$request->item_codex)->first();
-
-          $file_name = 'GBR_BRG_'. $request->item_codex . time() .'.' . $file->getClientOriginalExtension();
-
-          if (!is_dir(base_path('assets/barang/thumbnail/'))) {
-            mkdir(base_path('assets/barang/thumbnail/'), 0777, true);
-          }
-
-          if (!is_dir(base_path('assets/barang/original/'))) {
-            mkdir(base_path('assets/barang/original/'), 0777, true);
-          }
-          
-
-          $thumbnail_path = base_path('assets\barang\thumbnail\\');
-          $original_path = base_path('assets\barang\original\\');
-          // return $original_path;
-          Image::make($file)
+            $thumbnail_path = base_path('assets\barang\thumbnail\\');
+            $original_path = base_path('assets\barang\original\\');
+            // return $original_path;
+            Image::make($file)
                   ->resize(261,null,function ($constraint) {
                     $constraint->aspectRatio();
                      })
@@ -207,12 +218,17 @@ class BarangController extends Controller
                   ->resize(90, 90)
                   ->save($thumbnail_path . $file_name);
 
-        $barang = $file_name;
+            $barang = $file_name;
+
+             
+
         } else {
-        	$barang = '';
+            $barang = $gambar[0]->i_image;
         }
 
-        
+        $get_price = $request->get('price');
+
+        $filter_number = str_replace(',','',$get_price);
 
     	// dd($request->all());
     	$data = DB::table('m_item')
@@ -221,7 +237,7 @@ class BarangController extends Controller
     			'i_name'=>$request->item_name,
 		        'i_type'=>$request->type_barang,
 		        'i_unit'=>$request->unit,
-		        'i_price'=>$request->price,
+		        'i_price'=>$filter_number,
 		        'i_minstock'=>$request->min_stock,
 		        'i_weight'=>$request->weight,
 		        'i_description'=>$request->description,

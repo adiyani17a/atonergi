@@ -67,7 +67,7 @@ Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
 Route::get('/master/status/status', 'MasterController@status');
-
+Route::get('/master/type/type', 'MasterController@type');
 
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
@@ -75,9 +75,21 @@ Route::get('/quotation/q_quotation/datatable', 'QuotationController@quote_datata
 
 Route::get('/quotation/k_penawaran/k_penawaran', 'QuotationController@k_penawaran');
 Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_penawaran');
-Route::get('/quotation/q_quotation/edit_quotation', 'QuotationController@edit_quotation');
+Route::get('/quotation/q_quotation/edit_quotation/{id}', 'QuotationController@edit_quotation');
 Route::get('/quotation/q_quotation/print_quotation', 'QuotationController@print_quotation');
 Route::get('/quotation/q_quotation/autocomplete', 'QuotationController@autocomplete');
+Route::get('/quotation/q_quotation/customer', 'QuotationController@customer');
+Route::get('/quotation/q_quotation/nota_quote', 'QuotationController@nota_quote');
+Route::get('/quotation/q_quotation/append_item', 'QuotationController@append_item');
+Route::get('/quotation/q_quotation/edit_item', 'QuotationController@edit_item');
+Route::get('/quotation/q_quotation/save_quote', 'QuotationController@save_quote');
+Route::get('/quotation/q_quotation/update_quote', 'QuotationController@update_quote');
+Route::get('/quotation/q_quotation/hapus_quote', 'QuotationController@hapus_quote');
+Route::get('/quotation/q_quotation/print_quote/{id}', 'QuotationController@print_quote');
+
+Route::get('/quotation/q_quotation/detail', 'QuotationController@detail');
+Route::get('/quotation/q_quotation/histori', 'QuotationController@histori');
+
 
 // Purchase
 Route::get('/purchase/purchaseorder/purchaseorder', 'PurchaseController@purchaseorder');
@@ -170,8 +182,6 @@ Route::get('inventory/barcode/barcode', 'InventoryController@barcode');
 Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance');
 Route::get('inventory/opname/opname', 'InventoryController@opname');
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');
-});
-
             //---------------------- MASTER ------------Own: Deny------------\\
 
             
@@ -226,7 +236,16 @@ Route::get('/master/bundleitem/simpan_bundleitem', 'master\master_bundleitemCont
 Route::get('/master/dataeditbundleitem/dataedit_bundleitem', 'master\master_bundleitemController@dataedit_bundleitem')->name('dataedit_bundleitem');
 Route::get('/master/datatable_bundleitem/datatable_bundleitem', 'master\master_bundleitemController@datatable_bundleitem')->name('datatable_bundleitem');
 
-            //-------------END OF ---------------------------\\
+// ------------------------------ view edit bundle ari -------------------------------------------//
+Route::get('/master/bundle/edit_bundle', 'master\master_bundleitemController@edit_bundle');
+//------------------------------------------------------------------------------------------------//
+
+// Edit Purchase Order
+Route::get('purchase/purchaseorder/edit_purchaseorder', 'PurchaseController@edit_purchaseorder');
+
+// Edit Request Order
+Route::get('purchase/rencanapembelian/edit_rencanapembelian', 'PurchaseController@edit_rencanapembelian');
+
 // Master Barang
 Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
 Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
@@ -234,6 +253,7 @@ Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_e
 Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
 Route::get('assets/barang/thumbnail')->name('barang_thumbnail');
 Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@barang_update');
+
 
             //--------------PURCHASE -----------deny------------\\
 //request order
@@ -249,3 +269,14 @@ Route::get('/purchase/rencanapembelian/datatable_rencanapembelian', 'purchase\re
 
 
             //-----------------END OF PURCHASE------------------\\
+
+// Master Type Barang
+Route::get('/master/type/typeproses', 'MasterType\TypeController@typeproses');
+Route::get('/master/type/type_edit', 'MasterType\TypeController@type_edit');
+Route::get('/master/type/type_hapus', 'MasterType\TypeController@type_hapus');
+Route::get('/master/type/type_update', 'MasterType\TypeController@type_update');
+Route::get('/master/type/datatable_type', 'MasterType\TypeController@datatable_type')->name('datatable_type');
+
+
+}); // End Route Groub middleware auth
+

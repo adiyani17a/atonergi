@@ -151,12 +151,12 @@ table, td, th {
 			<tbody>
 				<tr >
 					<td class="text-left border-none">Cust :</td>
-					<td class="text-left border-none">Alpha</td>
+					<td class="text-left border-none">{{ $head->c_name }}</td>
 
 				</tr>
 				<tr>
 					<td class="text-left border-none"></td>
-					<td class="text-left border-none"><e class="email">alpha@alpha.com</e></td>
+					<td class="text-left border-none"><e class="email">{{ $head->c_email }}</e></td>
 				</tr>
 			</tbody>
 		</table>
@@ -168,16 +168,16 @@ table, td, th {
 			<tbody>
 				<tr >
 					<td class="text-left border-none">Date : </td>
-					<td class="text-left border-none">April 14, 2018</td>
+					<td class="text-left border-none">{{ carbon\carbon::parse($head->q_date)->format('M d, Y') }}</td>
 
 				</tr>
 				<tr>
 					<td class="text-left border-none">Rev Quote#</td>
-					<td class="text-left border-none">A001</td>
+					<td class="text-left border-none">{{ $head->q_nota }}</td>
 				</tr>
 				<tr>
 					<td class="text-left border-none">Customer ID</td>
-					<td class="text-left border-none">CUS/001</td>
+					<td class="text-left border-none">{{ $head->q_customer }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -187,7 +187,7 @@ table, td, th {
 			<tbody>
 				<tr>
 					<td class="text-left border-none">Ship to : </td>
-					<td class="text-left border-none"></td>
+					<td class="text-left border-none">{{ $head->q_ship_to }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -204,9 +204,9 @@ table, td, th {
 
 		<tbody>
 			<tr>
-				<td>Air Freight</td>
-				<td>5 Minggu</td>
-				<td></td>
+				<td>{{ $head->q_shipping_method }}</td>
+				<td>{{ $head->q_term }}</td>
+				<td>{{ carbon\carbon::parse($head->q_delivery)->format('d-m-Y') }}</td>
 			</tr>
 		</tbody>
 		
@@ -225,41 +225,19 @@ table, td, th {
 			</tr>
 		</thead>
 		<tbody>
+			@foreach($data as $i=> $b)
 			<tr>
-				<td>1</td>
-				<td>Cable</td>
-				<td>30</td>
-				<td>Meter</td>
-				<td>Kabel Hitam</td>
+				<td>{{ $i+1 }}</td>
+				<td>{{ $b->i_name }}</td>
+				<td>{{ $b->qd_qty }}</td>
+				<td>{{ $b->i_unit }}</td>
+				<td>{{ $b->qd_description }}</td>
 				<td>
 					<div class="float-left">
 						Rp.
 					</div>
 					<div class="float-right">
-						10.000,00
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						Rp.
-					</div>
-					<div class="float-right">
-						300.000,00
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Pompa Air</td>
-				<td>1</td>
-				<td>Pcs</td>
-				<td>Pompa Merk Sanyo</td>
-				<td>
-					<div class="float-left">
-						Rp.
-					</div>
-					<div class="float-right">
-						300.000,00
+						{{ number_format($b->qd_price, 2, ",", ".") }}
 					</div>
 				</td>
 				<td>
@@ -267,10 +245,12 @@ table, td, th {
 						Rp.
 					</div>
 					<div class="float-right">
-						300.000,00
+						{{ number_format($b->qd_total, 2, ",", ".") }}
 					</div>
 				</td>
 			</tr>
+			@endforeach
+			@foreach($array as $a)
 			<tr>
 				<td class="blank"></td>
 				<td></td>
@@ -294,259 +274,7 @@ table, td, th {
 					</div>
 				</td>
 			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
+			@endforeach
 			<tr>
 				<td class="border-none" colspan="5"></td>
 				<td class="border-none text-right">Subtotal</td>
@@ -555,7 +283,7 @@ table, td, th {
 						Rp.
 					</div>
 					<div class="float-right">
-						600.000,00
+						{{ number_format($head->q_subtotal, 2, ",", ".") }}
 					</div>
 				</td>
 			</tr>
@@ -564,9 +292,10 @@ table, td, th {
 				<td class="border-none text-right">Sales Tax</td>
 				<td>
 					<div class="float-left">
-						
+						Rp.
 					</div>
 					<div class="float-right">
+						{{ number_format($head->q_tax, 2, ",", ".") }}
 						
 					</div>
 				</td>
@@ -579,7 +308,7 @@ table, td, th {
 						Rp.
 					</div>
 					<div class="float-right">
-						600.000,00
+						{{ number_format($head->q_total, 2, ",", ".") }}
 					</div>
 				</td>
 			</tr>

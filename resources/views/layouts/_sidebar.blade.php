@@ -229,6 +229,7 @@
                   Master Data Transaksi Keuangan
                   Master Data Barang
                   Master Data Bundle Item
+                  Master Data Tipe Barang
                 </span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
@@ -241,6 +242,7 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/akun/a_keuangan') ? 'active' : '' || Request::is('master/akun/*') ? 'active' : '' }}" href="{{url('master/akun/a_keuangan')}}">Master Data Akun Keuangan</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/transaksi/t_keuangan') ? 'active' : '' || Request::is('master/transaksi/*') ? 'active' : '' }}" href="{{url('master/transaksi/t_keuangan')}}">Master Data Transaksi<br> Keuangan</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/barang/barang') ? 'active' : '' || Request::is('master/barang/*') ? 'active' : '' }}" href="{{url('master/barang/barang')}}">Master Data Barang</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/type/type') ? 'active' : '' || Request::is('master/type/*') ? 'active' : '' }}" href="{{url('master/type/type')}}">Master Data Tipe Barang</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/bundle/bundle') ? 'active' : '' || Request::is('master/bundle/*') ? 'active' : '' }}" href="{{url('master/bundle/bundle')}}">Master Data Bundle Item</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/status/*') ? 'active' : '' }}" href="{{url('master/status/status')}}">Master Data Status Q.O.#</a></li>
                   
@@ -303,7 +305,7 @@
                 <span class="menu-title">Purchase</span>
                 <span class="d-none">
                   
-                  Rencana Pembelian
+                  Request Order
                   Belanja Langsung
                   Purchase Order
                 </span>
@@ -313,7 +315,7 @@
               <div class="collapse {{Request::is('purchase') ? 'show' : '' || Request::is('purchase/*') ? 'show' : '' }}" id="m_penjualan">
                 <ul class="nav flex-column sub-menu">
                   
-                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/rencanapembelian/rencanapembelian') ? 'active' : '' || Request::is('purchase/rencanapembelian/*') ? 'active' : '' }}" href="{{url('purchase/rencanapembelian/rencanapembelian')}}">Rencana Pembelian<span class="d-none">Purchase</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/rencanapembelian/rencanapembelian') ? 'active' : '' || Request::is('purchase/rencanapembelian/*') ? 'active' : '' }}" href="{{url('purchase/rencanapembelian/rencanapembelian')}}">Request Order<span class="d-none">Purchase</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('purchase/belanjalangsung/belanjalangsung') ? 'active' : '' || Request::is('purchase/belanjalangsung/*') ? 'active' : '' }}" href="{{url('purchase/belanjalangsung/belanjalangsung')}}">Belanja Langsung<span class="d-none">Purchase</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('purchase/purchaseorder/purchaseorder') ? 'active' : '' || Request::is('purchase/purchaseorder/*') ? 'active' : '' }}" href="{{url('purchase/purchaseorder/purchaseorder')}}">Purchase Order<span class="d-none">Purchase</span></a></li>
                 </ul>

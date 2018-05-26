@@ -26,4 +26,12 @@ class PurchaseController extends Controller
     {
     	return view('purchase/hub_suplier/hub_suplier');
     }
+    public function edit_rencanapembelian()
+    {
+        return view('purchase/rencanapembelian/edit_rencanapembelian');
+    }
+    public function edit_purchaseorder()
+    {
+        return view('purchase/purchaseorder/edit_purchaseorder');
+    }
 }

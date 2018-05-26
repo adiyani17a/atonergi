@@ -8,7 +8,11 @@ use Yajra\Datatables\Datatables;
 use DB;
 class master_bundleitemController extends Controller
 {
- 	
+ 	public function edit_bundle()
+ 	{
+ 		return view('master/bundle/edit_bundle');
+ 	}
+
  	public function bundleitem()
  	{
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
