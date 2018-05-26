@@ -11,11 +11,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for atonergi
-CREATE DATABASE IF NOT EXISTS `atonergi` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `atonergi`;
-
 -- Dumping structure for table atonergi.d_daftar_menu
 CREATE TABLE IF NOT EXISTS `d_daftar_menu` (
   `dm_id` int(11) DEFAULT NULL,

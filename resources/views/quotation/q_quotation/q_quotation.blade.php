@@ -596,5 +596,32 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	function edit(id) {
 		window.open("{{ url('quotation/q_quotation/edit_quotation') }}"+'/'+id);
 	}
+
+	function detail(p) {
+		var par = $(p).parents('tr');
+		var id  = $(par).find('.q_id').val();
+
+		$.ajax({
+	      url:baseUrl + '/quotation/q_quotation/detail',
+	      data:{id},
+	      success:function(data){
+	        $('.detail_table').html(data)
+	      }
+	    });
+	}
+
+	function histori(p) {
+		var par = $(p).parents('tr');
+		var id  = $(par).find('.q_id').val();
+
+		$.ajax({
+	      url:baseUrl + '/quotation/q_quotation/histori',
+	      data:{id},
+	      success:function(data){
+	        $('.histori_status').html(data)
+	      }
+	    });
+	}
+
 </script>
 @endsection

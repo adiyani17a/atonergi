@@ -80,10 +80,10 @@ class QuotationController extends Controller
                             return '-';
                         })
                         ->addColumn('detail', function ($data) {
-                            return '<button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#detail_item">Detail</button>';
+                            return '<button class="btn btn-outline-primary btn-sm" onclick="detail(this)" data-toggle="modal" data-target="#detail_item">Detail</button>';
                         })
                         ->addColumn('histori', function ($data) {
-                            return '<button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#detail_status">Detail</button>';
+                            return '<button onclick="histori(this)" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#detail_status">Detail</button>';
                         })
                         ->addColumn('total', function ($data) {
                             return 'Rp. '. number_format($data->q_total, 2, ",", ".");
@@ -384,6 +384,25 @@ class QuotationController extends Controller
 
       return response()->json(['status' => 1]);
     });
+  }
+
+  public function detail(request $req)
+  {
+    $data_dt = DB::table('d_quotation_dt')
+               ->join('m_item','i_code','=','qd_item')
+              ->where('qd_id',$req->id)
+              ->get();
+
+    return view('quotation/q_quotation/detail_table',compact('data_dt'));
+  }
+
+  public function histori(request $req)
+  {
+    $data_dt = DB::table('d_quotation_history')
+               ->join('d_status','s_id','=','qh_status')
+              ->where('qh_id',$req->id)
+              ->get();
+    return view('quotation/q_quotation/histori_status',compact('data_dt'));
   }
  	public function k_penawaran()
  	{

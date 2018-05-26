@@ -87,6 +87,10 @@ Route::get('/quotation/q_quotation/update_quote', 'QuotationController@update_qu
 Route::get('/quotation/q_quotation/hapus_quote', 'QuotationController@hapus_quote');
 Route::get('/quotation/q_quotation/print_quote/{id}', 'QuotationController@print_quote');
 
+Route::get('/quotation/q_quotation/detail', 'QuotationController@detail');
+Route::get('/quotation/q_quotation/histori', 'QuotationController@histori');
+
+
 // Purchase
 Route::get('/purchase/purchaseorder/purchaseorder', 'PurchaseController@purchaseorder');
 Route::get('/purchase/purchaseorder/print_purchaseorder', 'PurchaseController@print_purchaseorder');
