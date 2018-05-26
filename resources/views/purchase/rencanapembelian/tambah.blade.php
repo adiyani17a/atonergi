@@ -6,6 +6,7 @@
 </style>
 @endsection
 <!-- Modal -->
+<form id="form-save">
 <div id="tambah" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
 
@@ -24,30 +25,43 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="">
+              <input type="text" class="form-control form-control-sm readonly" name="ro_code_header" id="ro_code" >
             </div>
           </div>
-          <div class="col-md-6 col-sm-0 col-xs-0">
-            <!-- empty -->
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <label>Price Total</label>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+              <input type="text" class="form-control form-control-sm right readonly" name="ro_total_header" id="ro_total_header">
+            </div>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <label>Date Purchase Plan</label>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm datepicker" name="">
+              <input type="text" class="form-control form-control-sm datepicker_today" name="ro_date">
             </div>
           </div>
-          <div class="col-md-6 col-sm-0 col-xs-0">
-            <!-- empty -->
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <label>QTY Total</label>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+              <input type="text" class="form-control form-control-sm right readonly" name="ro_qty_header" id="ro_qty_header">
+            </div>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <label>Vendor</label>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <select class="form-control form-control-sm">
-                <option>--Select--</option>
+              <select class="form-control form-control-sm" name="ro_vendor_header" id="ro_vendor_header">
+                <option selected="" value="">- Pilih -</option>
+                @foreach ($vendor as $e)
+                  <option value="{{ $e->s_kode }}">{{ $e->s_company }} - {{ $e->s_name }} </option>
+                @endforeach
               </select>
             </div>
           </div>
@@ -56,25 +70,30 @@
           </div>
         </div> 
          <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
-          <div class="col-md-2 col-sm-12 col-xs-12">
+          <div class="col-md-3 col-sm-6 col-xs-12">
             <label>Item</label>
           </div>
-          <div class="col-md-2 col-sm-12 col-xs-12">
+          <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="" readonly="" id="rp_kodeitem">
+              <select class="form-control form-control-sm" id="rp_kodeitem">
+                <option selected="" value="">- Pilih -</option>
+                @foreach ($item as $i)
+                  <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}">{{ $i->i_code }} - {{ $i->i_name }} </option>
+                @endforeach
+              </select>
             </div>
           </div>
           <div class="col-md-2 col-sm-12 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="" id="rp_item">
+              <input type="text" class="form-control form-control-sm right readonly" name="" id="rp_item">
             </div>
           </div>
-          <div class="col-md-3 col-sm-12 col-xs-12">
+          <div class="col-md-1 col-sm-12 col-xs-12">
             <label>Qty</label>
           </div>
           <div class="col-md-3 col-sm-12 col-xs-12">
             <div class="form-group">
-              <input type="number" class="form-control form-control-sm" name="" id="rp_qty">
+              <input type="text" class="form-control form-control-sm right" name="" id="rp_qty">
             </div>
           </div>
         </div>
@@ -85,6 +104,7 @@
                <tr>
                 <th>Item Code</th>
                  <th>Item Name</th>
+                 <th>Price</th>
                  <th width="1%">Qty</th>
                  <th width="1%">Stock Warehouse</th>
                  <th width="1%">Action</th>
@@ -95,52 +115,13 @@
 
       </div> <!-- End div modal-content -->
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button">Process</button>
+        <div id="change_function">
+          <button class="btn btn-primary" type="button" id="save_data" >Save Data</button>
+        </div>
         <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>
 
   </div>
 </div>
-
-@section('extra_script')
-<script type="text/javascript">
-  $(document).ready(function(){
-    var table           = $("#t72a").DataTable();
-        var rp_qty         = $("#rp_qty");
-        var rp_item          = $("#rp_item");
-        var rp_kodeitem       = $("#rp_kodeitem");
-
-        var x = 1;
- 
-    rp_qty.keypress(function(e) {
-      if(e.which == 13 || e.keyCode == 13){
-        table.row.add( [
-            '<input type="text" id="item_name[]" class="form-control input-sm min-width" readonly value="'+ rp_kodeitem.val() +'">',
-            '<input type="text" id="item_name[]" class="form-control input-sm min-width" value="'+ rp_item.val() +'">',
-            '<input type="number" id="jumlah[]" class="form-control input-sm min-width" value="'+ rp_qty.val() +'">',
-            '<input type="text" id="unit_price[]" class="form-control input-sm min-width">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
-        ] ).draw( false );
-  
-        x++;
-        rp_item.focus();
-        rp_item.val('');
-        rp_qty.val('');
-      }
-    } );
- 
-    
-
-    $('#t72a tbody').on( 'click', '.delete', function () {
-    table
-        .row( $(this).parents('tr') )
-        .remove()
-        .draw();
-    });
-
-    
-
-  });
-</script>
-@endsection
+</form>

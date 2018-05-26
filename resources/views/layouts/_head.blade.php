@@ -33,7 +33,10 @@
   {{-- TOASTR --}}
   <link rel="stylesheet" href="{{asset('node_modules/izitoast/dist/css/iziToast.min.css')}}">
   <link rel="stylesheet" href="{{asset('node_modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css')}}" />
-  
+  {{-- validetta --}}
+  <link rel="shortcut icon" href="{{asset('assets/validetta/validetta.css')}}" />
+  <link rel="shortcut icon" href="{{asset('assets/validetta/validetta.min.css')}}" />
+
 
 <style type="text/css">
 

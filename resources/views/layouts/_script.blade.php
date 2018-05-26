@@ -40,6 +40,11 @@
   {{-- toastr --}}
   <script rel="stylesheet" src="{{asset('node_modules/izitoast/dist/js/iziToast.min.js')}}"></script>
 
+  {{-- VALIDATTE --}}
+  <script src="{{asset('assets/validetta/validetta.js')}}"></script>
+  <script src="{{asset('assets/validetta/validetta.min.js')}}"></script>
+
+
   <script type="text/javascript">
   iziToast.settings({
     timeout: 3000,
@@ -75,6 +80,10 @@
       autoclose:true
     });
 
+    var datepicker_today = $('.datepicker_today').datepicker({
+      format:"dd-mm-yyyy",
+      autoclose:true
+    }).datepicker("setDate", "0");
     $('select').select2({ 
       width: '100%' 
     });
@@ -109,4 +118,5 @@
   $('.sembuyikan').css('display','none')
   $('.tampilkan').css('display','block')
   $('.bintang_merah').css('color','red')
+  $('.readonly').attr('readonly',true)
 </script>
