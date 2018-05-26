@@ -183,8 +183,6 @@ Route::get('inventory/barcode/barcode', 'InventoryController@barcode');
 Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance');
 Route::get('inventory/opname/opname', 'InventoryController@opname');
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');
-});
-
             //---------------------- MASTER ------------Own: Deny------------\\
 
             
@@ -240,6 +238,10 @@ Route::get('/master/dataeditbundleitem/dataedit_bundleitem', 'master\master_bund
 Route::get('/master/datatable_bundleitem/datatable_bundleitem', 'master\master_bundleitemController@datatable_bundleitem')->name('datatable_bundleitem');
 
 
+// ------------------------------ view edit bundle ari -------------------------------------------//
+Route::get('/master/bundle/edit_bundle', 'master\master_bundleitemController@edit_bundle');
+//------------------------------------------------------------------------------------------------//
+
 // Master Barang
 Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
 Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
@@ -254,3 +256,6 @@ Route::get('/master/type/type_edit', 'MasterType\TypeController@type_edit');
 Route::get('/master/type/type_hapus', 'MasterType\TypeController@type_hapus');
 Route::get('/master/type/type_update', 'MasterType\TypeController@type_update');
 Route::get('/master/type/datatable_type', 'MasterType\TypeController@datatable_type')->name('datatable_type');
+
+
+}); // End Route Groub middleware auth
