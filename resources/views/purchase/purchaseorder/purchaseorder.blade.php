@@ -50,8 +50,8 @@
                           <td>
                             <div class="btn-group">
                               <a href="{{url('purchase/purchaseorder/print_purchaseorder')}}" class="btn btn-info btn-sm" target="_blank" title="Print"><i class="fa fa-print"></i></a>
-                              <a href="#" class="btn btn-warning btn-sm" title="Edit"><i class="fa fa-pencil"></i></a>
-                              <a href="#" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash-o"></i></a>
+                              <a href="{{url('purchase/purchaseorder/edit_purchaseorder')}}" class="btn btn-warning btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>
+                              <a href="#" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></a>
                             </div>
                           </td>
                         </tr>

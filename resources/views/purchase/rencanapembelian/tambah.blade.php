@@ -12,7 +12,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Rencana Pembelian</h4>
+        <h4 class="modal-title">Form Request Order</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -20,7 +20,7 @@
           
           
           <div class="col-md-3 col-sm-6 col-xs-12">
-            <label>Purchase Plan Code</label>
+            <label>Request Order Code</label>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
@@ -31,7 +31,7 @@
             <!-- empty -->
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
-            <label>Date Purchase Plan</label>
+            <label>Date Request Order</label>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
@@ -55,7 +55,7 @@
             <!-- empty -->
           </div>
         </div> 
-         <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
+        <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
           <div class="col-md-2 col-sm-12 col-xs-12">
             <label>Item</label>
           </div>
@@ -79,19 +79,19 @@
           </div>
         </div>
 
-         <div class="table-responsive">
-           <table class="table data-table table-hover" cellspacing="0" id="t72a">
-             <thead class="bg-gradient-info">
-               <tr>
+        <div class="table-responsive">
+          <table class="table data-table table-hover" cellspacing="0" id="t72a">
+            <thead class="bg-gradient-info">
+              <tr>
                 <th>Item Code</th>
-                 <th>Item Name</th>
-                 <th width="1%">Qty</th>
-                 <th width="1%">Stock Warehouse</th>
-                 <th width="1%">Action</th>
-               </tr>
-             </thead>
-           </table>
-         </div>
+                <th>Item Name</th>
+                <th width="1%">Qty</th>
+                <th width="1%">Stock Warehouse</th>
+                <th width="1%">Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
 
       </div> <!-- End div modal-content -->
       <div class="modal-footer">

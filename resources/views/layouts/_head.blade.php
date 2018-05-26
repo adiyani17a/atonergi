@@ -40,6 +40,9 @@
 td > div.form-check.form-check-flat > label.form-check-label {
   margin-bottom: -25px;
 }
+body.modal-open{
+  overflow-y: hidden !important;
+}
 .modal {
   overflow-y:auto;
 }

@@ -11,7 +11,7 @@
       <ol class="breadcrumb bg-info">
         <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
         <li class="breadcrumb-item">Purchase</li>
-        <li class="breadcrumb-item active" aria-current="page">Rencana Pembelian</li>
+        <li class="breadcrumb-item active" aria-current="page">Request Order</li>
       </ol>
     </nav>
   </div>
@@ -23,10 +23,10 @@
                   <div class="card-title">
                     <ul class="nav nav-tabs tab-solid  tab-solid-primary" role="tablist">
                       <li class="nav-item">
-                        <a class="nav-link active" id="tab-6-1" data-toggle="tab" href="#daftar" role="tab" aria-controls="daftar" aria-selected="true"><i class="fa fa-list"></i>Daftar Rencana Pembelian</a>
+                        <a class="nav-link active" id="tab-6-1" data-toggle="tab" href="#daftar" role="tab" aria-controls="daftar" aria-selected="true"><i class="fa fa-list"></i>List Request Order</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="tab-6-2" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false"><i class="mdi mdi-history"></i>History Rencana Pembelian</a>
+                        <a class="nav-link" id="tab-6-2" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false"><i class="mdi mdi-history"></i>History Request Order</a>
                       </li>
                       <!-- <li class="nav-item">
                         <a class="nav-link" id="tab-6-3" data-toggle="tab" href="#tab-ke-3" role="tab" aria-controls="tab-ke-3" aria-selected="false"><i class="mdi mdi-message-text-outline"></i>Contact</a>
@@ -62,12 +62,14 @@
                                   <td>10</td>
                                   <td></td>
                                   <td>
-                                    <span class="badge badge-warning">Waiting</span>
+                                    <span class="badge badge-warning badge-pill">Waiting</span>
                                   </td>
                                   <td>
-                                    <div class="">    
-                                      <a href="#" class="btn btn-outline-info btn-sm" title="Setuju"><i class="fa fa-check"></i></a>
-                                      <a href="#" class="btn btn-outline-danger btn-sm" title="Pending"><i class="fa fa-times"></i></a>
+                                    <div class="btn-group">    
+                                      <a href="#" class="btn btn-info btn-sm" title="Approve"><i class="fa fa-check"></i></a>
+                                      <a href="#" class="btn btn-warning btn-sm" title="Pending"><i class="fa fa-times"></i></a>
+                                      <a href="{{url('purchase/rencanapembelian/edit_rencanapembelian')}}" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>
+                                      <button type="button" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                     </div> 
                                   </td>
                                 </tr>
@@ -102,7 +104,7 @@
                                 <td>10</td>
                                 <td></td>
                                 <td>
-                                  <span class="badge badge-success">Approved</span>
+                                  <span class="badge badge-success badge-pill">Approved</span>
                                 </td>
                                 <td align="center">
                                  .. 

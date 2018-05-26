@@ -242,6 +242,12 @@ Route::get('/master/datatable_bundleitem/datatable_bundleitem', 'master\master_b
 Route::get('/master/bundle/edit_bundle', 'master\master_bundleitemController@edit_bundle');
 //------------------------------------------------------------------------------------------------//
 
+// Edit Purchase Order
+Route::get('purchase/purchaseorder/edit_purchaseorder', 'PurchaseController@edit_purchaseorder');
+
+// Edit Request Order
+Route::get('purchase/rencanapembelian/edit_rencanapembelian', 'PurchaseController@edit_rencanapembelian');
+
 // Master Barang
 Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
 Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');

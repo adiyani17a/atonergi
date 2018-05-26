@@ -49,5 +49,13 @@ class MasterController extends Controller
     {
         return view('master/type/type');
     }
+    public function edit_rencanapembelian()
+    {
+        return view('master/rencanapembelian/edit_rencanapembelian');
+    }
+    public function edit_purchaseorder()
+    {
+        return view('master/rencanapembelian/edit_purchaseorder');
+    }
        
 }
