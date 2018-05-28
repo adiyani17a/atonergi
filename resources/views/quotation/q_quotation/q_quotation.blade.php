@@ -7,6 +7,8 @@
 
 @include('quotation/q_quotation/detail')
 
+@include('quotation/q_quotation/update_status')
+
 @include('quotation/q_quotation/detail_status')
 
 <style type="text/css">
@@ -622,6 +624,33 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	      }
 	    });
 	}
+
+	function status(id) {
+		$('.q_id_status').val(id)
+		$('#update_status').modal('show');
+	}
+	$('.update_status').click(function(){
+		$.ajax({
+	      url:baseUrl + '/quotation/q_quotation/update_status',
+	      data:$('.table_status :input').serialize(),
+	      success:function(data){
+	      	if (data.status == 1) {
+	      		iziToast.success({
+		            icon: 'fa fa-pencil-alt',
+		            message: 'Status Berhasil Di Update!',
+		        });
+
+		        var table = $('#table_quote').DataTable();
+          		table.ajax.reload();
+	      	}else{
+	      		iziToast.warning({
+		            icon: 'fa fa-info',
+		            message: 'Data Sudah Di Approve!',
+		        });
+	      	}
+	      }
+	    });
+	})
 
 </script>
 @endsection

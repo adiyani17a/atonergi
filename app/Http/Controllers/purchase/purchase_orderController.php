@@ -31,5 +31,8 @@ class purchase_orderController extends Controller
 
    		return view('purchase/purchaseorder/edit_purchaseorder',compact('data_header','data_seq','vendor'));
    	}
-       
+    public function edit_purchaseorder()
+    {
+      return view('purchase/purchaseorder/edit_purchaseorder');
+    }
 }

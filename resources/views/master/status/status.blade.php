@@ -116,10 +116,15 @@
               icon: 'fa fa-info',
               message: 'Data Sudah Ada!',
           });
-        }else{
+        }else if (data.status == 3){
           iziToast.success({
               icon: 'fa fa-save',
               message: 'Data Berhasil Diubah!',
+          });
+        }else if (data.status == 4){
+          iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Data Ini Tidak Bisa Dirubah!',
           });
         }
 

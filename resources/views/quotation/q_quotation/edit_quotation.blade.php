@@ -525,6 +525,18 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	})
 
 	$('.save').click(function(){
+
+    var status = '{{ $data->q_status }}';
+
+    if (status == 1) {
+      iziToast.warning({
+          icon: 'fa fa-info',
+          message: 'Data Tidak Bisa Diupdate Karena Sudah Di Approve!',
+      });
+
+      return false;
+    }
+
 		var array_valid = [];
 		var customer = $('.customer').val();
 		var address = $('.address').text();

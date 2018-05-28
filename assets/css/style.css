@@ -14791,7 +14791,7 @@ html {
   overflow: auto !important; }
 
 .content-wrapper {
-  background: #F6F8FA;
+  background: #d7dfe8;
   margin-left: 247px;
   min-height: 100vh;
   padding: 1.5rem 1.7rem;
@@ -14815,21 +14815,27 @@ pre {
 
 table > thead.bg-gradient-secondary{
   color: white;
+  text-align: center;
 }
 table > thead.bg-gradient-primary{
   color: white;
+  text-align: center;
 }
 table > thead.bg-gradient-success{
   color: white;
+  text-align: center;
 }
 table > thead.bg-gradient-info{
   color: white;
+  text-align: center;
 }
 table > thead.bg-gradient-warning{
   color: white;
+  text-align: center;
 }
 table > thead.bg-gradient-danger{
   color: white;
+  text-align: center;
 }
 
 .modal-header.bg-gradient-info {

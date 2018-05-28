@@ -95,6 +95,7 @@ Route::get('/quotation/q_quotation/print_quote/{id}', 'QuotationController@print
 
 Route::get('/quotation/q_quotation/detail', 'QuotationController@detail');
 Route::get('/quotation/q_quotation/histori', 'QuotationController@histori');
+Route::get('/quotation/q_quotation/update_status', 'QuotationController@update_status');
 
 
 // Purchase
@@ -110,8 +111,14 @@ Route::get('/order/checklistform/checklistform', 'OrderController@checklist');
 Route::get('/order/pelunasanorder/pelunasanorder', 'OrderController@pelunasanorder');
 Route::get('/order/f_penjualan/f_penjualan', 'OrderController@f_penjualan');
 Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
-Route::get('/order/pembayarandeposit/pembayarandeposit', 'OrderController@pembayarandeposit');
-Route::get('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit', 'OrderController@detail_pembayarandeposit');
+    
+    // PEMBAYARAN DEPOSIT
+    Route::get('/order/pembayarandeposit/pembayarandeposit', 'OrderController@pembayarandeposit');
+    Route::get('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit/{id}', 'OrderController@detail_pembayarandeposit');
+    Route::get('/order/pembayarandeposit/pembayarandeposit/datatable_deposit', 'OrderController@datatable_deposit')->name('datatable_deposit');
+    // END
+
+
 Route::get('/order/salesorder/s_order/detail_salesorder', 'OrderController@detail_salesorder');
 Route::get('/order/proforma/proforma', 'OrderController@proforma');
 Route::get('/order/pelunasanorder/pelunasanorder/detail_pelunasanorder', 'OrderController@detail_pelunasanorder');
@@ -282,7 +289,7 @@ Route::get('/purchase/purchaseorder/cari_ro_requestorder', 'purchase\purchase_or
 Route::get('/purchase/purchaseorder/cari_po_requestorder', 'purchase\purchase_orderController@cari_po_requestorder')->name('cari_po_requestorder');
 Route::get('/purchase/purchaseorder/create_requestorder', 'purchase\purchase_orderController@create_requestorder')->name('create_requestorder');
 Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder');
-
+Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orderController@edit_purchaseorder');
 
             //-----------------END OF PURCHASE------------------\\
 
