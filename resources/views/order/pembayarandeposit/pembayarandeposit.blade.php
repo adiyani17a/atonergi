@@ -18,9 +18,10 @@
 	          <h4 class="card-title">Pembayaran Deposit</h4>
 	          	
 	          	<div class="table-responsive" style="margin-bottom: 15px;">
-		            <table class="table table-hover data-table" cellspacing="0">
+		            <table id="table_quote" class="table table-hover " cellspacing="0">
 			              <thead class="bg-gradient-info">
 			                <tr>
+			                  <th>No</th>
 			                  <th>Q.O.#</th>
 			                  <th>Customer</th>
 			                  <th>Total Bill</th>
@@ -30,14 +31,7 @@
 			                </tr>
 			              </thead>
 			              <tbody>
-			                <tr>
-			                  <td>A002</td>
-			                  <td>Bravo</td>
-			                  <td align="left">Rp. 700.000,-</td>
-			                  <td align="left">Rp. 0,-</td>
-			                  <td align="left">Rp. 700.000,-</td>
-			                  <td><a href="{{url('order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit')}}" class="btn btn-outline-info btn-sm">Process</a></td>
-			                </tr>
+			                
 			              </tbody>
 		            </table>
 		         </div>
@@ -50,5 +44,54 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
+<script type="text/javascript">
 
+$(document).ready(function(){
+	$('#table_quote').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+          url:'{{ route('datatable_deposit') }}',
+      },
+      columnDefs: [
+
+              {
+                 targets: 0 ,
+                 className: 'center'
+              },
+              {
+                 targets: 1 ,
+                 className: 'q_nota'
+              },
+              {
+                 targets: 3,
+                 className: 'right'
+              },
+              {
+                 targets: 4,
+                 className: 'right'
+              },
+              {
+                 targets: 5,
+                 className: 'right'
+              },
+              {
+                 targets: 6,
+                 className: 'content-wrapper'
+              },
+            ],
+      columns: [
+        {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+        {data: 'q_nota', name: 'q_nota'},
+        {data: 'q_customer', name: 'q_customer'},
+        {data: 'total', name: 'total'},
+        {data: 'dp', name: 'dp'},
+        {data: 'remain', name: 'remain'},
+        {data: 'aksi', name: 'aksi'},
+
+      ]
+
+	});
+})
+</script>
 @endsection

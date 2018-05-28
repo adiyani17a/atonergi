@@ -125,13 +125,17 @@ class MasterController extends Controller
         }
 
         if ($req->id != '') {
-            $save = DB::table('d_status')
+            if($req->id != 1){
+                $save = DB::table('d_status')
                       ->where('s_id',$req->id)
                       ->update([
                         's_name' => $req->name,
                         's_color'=> $req->status,
                       ]);
-            return response()->json(['status'=>3]);
+                return response()->json(['status'=>3]);
+            }else{
+                return response()->json(['status'=>3]);
+            }
         }else{
             $save = DB::table('d_status')
                       ->insert([
