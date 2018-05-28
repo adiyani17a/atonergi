@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -119,7 +120,7 @@ class OrderController extends Controller
         $now = carbon::now()->format('d-m-Y');
 
 
-        // $nota =  DB::table('')
+
         return view('order/pembayarandeposit/detail_pembayarandeposit',compact('customer','marketing','now','item','data','data_dt','id'));
     }
     public function detail_salesorder()
