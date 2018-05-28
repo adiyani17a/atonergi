@@ -30,9 +30,11 @@ class QuotationController extends Controller
 
     $now = carbon::now()->format('d-m-Y');
 
+    $status = DB::table('d_status')
+                ->get();
 
 
- 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing','now','item'));
+ 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing','now','item','status'));
  	}
 
  	public function quote_datatable()
@@ -65,13 +67,21 @@ class QuotationController extends Controller
                             if(Auth::user()->akses('QUOTATION','hapus')){
                              $d = 
                                  '<button type="button" onclick="hapus(\''.$data->q_nota.'\')" class="btn btn-danger btn-lg" title="hapus">'.
-                                 '<label class="fa fa-trash"></label></button>'.
-                                 '</div>';
+                                 '<label class="fa fa-trash"></label></button>';
                             }else{
-                              $d = '</div>';
+                              $d = '';
                             }
 
-                        return $a . $b .$c . $d;
+                            if(Auth::user()->akses('QUOTATION','tambah')){
+                             $e = 
+                                 '<button type="button" onclick="status(\''.$data->q_id.'\')" class="btn btn-warning btn-lg" title="hapus">'.
+                                 '<label class="fa fa-cog"></label></button>'. '</div>';
+                                 
+                            }else{
+                              $e = '</div>';
+                            }
+
+                        return $a . $b .$c . $d .$e ;
                             
 
                                    
@@ -403,6 +413,45 @@ class QuotationController extends Controller
               ->where('qh_id',$req->id)
               ->get();
     return view('quotation/q_quotation/histori_status',compact('data_dt'));
+  }
+
+  public function update_status(request $req)
+  {
+    return DB::transaction(function() use ($req) {  
+      $cari = DB::table('d_quotation_history')
+                ->where('qh_id',$req->q_id_status)
+                ->where('qh_status',$req->status)
+                ->first();
+
+      if ($cari == null) {
+        $dt = DB::table('d_quotation_history')
+                ->where('qh_id',$req->q_id_status)
+                ->max('qh_dt')+1;
+
+        $save = DB::table('d_quotation_history')
+                ->insert([
+                  'qh_id'     => $req->q_id_status,
+                  'qh_dt'     => $dt,
+                  'qh_status' => $req->status,
+                ]);
+      }
+
+      $cari_status = DB::table('d_quotation')
+                ->where('q_id',$req->q_id_status)
+                ->where('q_status',1)
+                ->first();
+      if ($cari_status == null) {
+        $cari_status = DB::table('d_quotation')
+                        ->where('q_id',$req->q_id_status)
+                        ->update([
+                          'q_status' => $req->status,
+                        ]);
+        return response()->json(['status' => 1]);
+      }else{
+        return response()->json(['status' => 2]);
+      }
+
+    });
   }
  	public function k_penawaran()
  	{
