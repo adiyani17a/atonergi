@@ -14,6 +14,19 @@ class master_marketingController extends Controller
     {
         return view('quotation/marketing/marketing');
     }
+    public function kode_marketing(Request $request)
+    {
+        $kode = DB::table('d_marketing')->max('mk_id');
+    
+            if ($kode == null) {
+                $kode = 1;
+            }else{
+                $kode += 1;
+            }
+        $index = str_pad($kode, 5, '0', STR_PAD_LEFT);
+        $nota = 'MKT/'.$index;
+        return response()->json($nota);
+    }
     public function datatalble_marketing(Request $request)
     { 
     	$list = DB::select("SELECT * from d_marketing");
@@ -40,19 +53,17 @@ class master_marketingController extends Controller
     	// dd($request->all());
     	$kode = DB::table('d_marketing')->max('mk_id');
     
-    		if ($kode == null) {
-    	 		$kode = 1;
-	    	}else{
-	    	 	$kode += 1;
-	    	}
-	    $index = str_pad($kode, 5, '0', STR_PAD_LEFT);
-	    $nota = 'MKT/'.$index;
+            if ($kode == null) {
+                $kode = 1;
+            }else{
+                $kode += 1;
+            }
 	    $tanggal = date("Y-m-d h:i:s");
 
      	$data = DB::table('d_marketing')
     			->insert([
     			'mk_id'=> $kode,
-    			'mk_code'=>$nota,
+    			'mk_code'=>$request->d_id,
     			'mk_information'=>$request->d_informasi,
     			'mk_name'=>$request->d_name,
     			'mk_address'=>$request->d_address,

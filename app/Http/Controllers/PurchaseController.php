@@ -6,10 +6,7 @@ use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
-    public function purchaseorder()
-    {
-    	return view('purchase/purchaseorder/purchaseorder');
-    }
+    
     public function print_purchaseorder()
     {
         return view('purchase/purchaseorder/print_purchaseorder');

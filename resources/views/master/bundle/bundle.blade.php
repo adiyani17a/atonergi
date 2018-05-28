@@ -223,42 +223,7 @@ function detail(parm) {
 function edit(parm){
     var par   = $(parm).parents('tr');
     var id    = $(par).find('.d_id').text();
-    $('#tambah').modal('show');
-    $.ajax({
-       type: "get",
-         url: '{{ route('dataedit_bundleitem') }}',
-         data: {id},
-         success: function(data){
-          console.log(data);
-            $("input[name='ib_name']").val(data[0][0].ib_item);
-            $("input[name='ib_price']").val(accounting.formatMoney(data[0][0].ib_price,"",0,'.',','));
-            
-            var array_edit='';
-              $.each(data[1], function(i, terms) {
-              
-              array_edit += '<tr>';
-                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_barang +"'></td>";
-                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].i_name +"'></td>";
-                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_qty +"'></td>";
-                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_unit +"'></td>";
-                array_edit += "<td><input type='text' id='item_kode[]' name='ib_kode_dt[]' class='form-control input-sm min-width' readonly='' value='"+ data[1][i].ibd_price +"'></td>";
-                array_edit += "<td><button type='button' class='delete btn btn-outline-danger btn-sm hapus'><i class='fa fa-trash-o'></i></button></td>";
-              array_edit += '</tr>';
-
-              })
-            $('#edit_rep').html(array_edit);  
-
-
-            $('#change_function').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
-         },
-         error: function(){
-          iziToast.warning({
-            icon: 'fa fa-times',
-            message: 'Terjadi Kesalahan!',
-          });
-         },
-         async: false
-       });
+    window.location.href = (baseUrl +'/master/bundle/edit_bundle/'+id);
   }
 
   function hapus(parm){

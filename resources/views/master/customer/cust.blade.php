@@ -19,7 +19,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Master Data Customer</h4>
                   <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                  	<button type="button" class="btn btn-info" data-toggle="modal" id="tambah" data-target="#tambah-customer"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                  	<button type="button" class="btn btn-info" data-toggle="modal" id="button_add" data-target="#tambah-customer"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                   </div>
                   <div class="table-responsive">
       				        <table class="table table-hover " id="table-cust" cellspacing="0">
@@ -76,16 +76,25 @@
       });
 
   $('#button_add').click(function(){
-    var d_name      = $("input[name='d_name']").val('');
-    var d_hometown  = $("select[name='d_hometown']").val('').trigger('change');
-    var d_tlp       = $("input[name='d_tlp']").val(''); 
-    var d_email     = $("input[name='d_email']").val(''); 
-    var d_alamat    = $("textarea#d_alamat").val(''); 
-    var d_tipe      = $("select[name='d_tipe']").val('').trigger('change'); 
-    var d_informasi = $("textarea#d_informasi").val('');
+    var c_name      = $("input[name='c_name']").val('');
+    var c_tlp       = $("input[name='c_phone']").val(''); 
+    var c_email     = $("input[name='c_email']").val(''); 
+    var c_alamat    = $("textarea#c_address").val(''); 
+    var c_tipe      = $("select[name='c_type']").val('').trigger('change'); 
+    var c_hometown  = $("select[name='c_hometown']").val('').trigger('change'); 
+    var c_informasi = $("textarea#c_information").val('');
+    var c_npwp      = $("input[name='c_npwp']").val('');
+    var c_creditterms     = $("input[name='c_creditterms']").val('');
+    var c_bankname        = $("input[name='c_bankname']").val('');
+    var c_accountnumber   = $("input[name='c_accountnumber']").val('');
+    var c_plafon    = $("input[name='c_plafon']").val('');
+    var c_id        = $("input[name='c_id']").val('');
+    var c_birthday  = $("input[name='c_birthday']").val('');
+    var kode_old  = $("input[name='kode_old']").val('');
+    $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
   })
 
-  $('#save_data').click(function(){
+  $('#change_function').on("click", "#save_data",function(){
     $.ajax({
          type: "get",
          url: baseUrl + '/master/simpancustomer/simpan_customer',

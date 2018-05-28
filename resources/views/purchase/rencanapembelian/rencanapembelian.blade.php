@@ -4,7 +4,9 @@
 @include('purchase.rencanapembelian.tambah')
 @include('purchase.rencanapembelian.detail')
 
-
+<style type="text/css">
+ 
+</style>
 <!-- partial -->
 <div class="content-wrapper">
   <div class="col-lg-12">
@@ -51,32 +53,12 @@
                                 <th class="wd-15p">Amount Requested</th>
                                 <th class="wd-10p">Amount Approved</th>
                                 <th class="wd-10p">Detail</th>
+                                <th class="wd-10p">Status</th>
                                 <th class="wd-15p">Action</th>
                               </tr>
                             </thead>
                             <tbody>
-<<<<<<< HEAD
-                             
-=======
-                                <tr>
-                                  <td>1</td>
-                                  <td>Kabel</td>
-                                  <td><i class="fa fa-check"></i></td>
-                                  <td>10</td>
-                                  <td></td>
-                                  <td>
-                                    <span class="badge badge-warning badge-pill">Waiting</span>
-                                  </td>
-                                  <td>
-                                    <div class="btn-group">    
-                                      <a href="#" class="btn btn-info btn-sm" title="Approve"><i class="fa fa-check"></i></a>
-                                      <a href="#" class="btn btn-warning btn-sm" title="Pending"><i class="fa fa-times"></i></a>
-                                      <a href="{{url('purchase/rencanapembelian/edit_rencanapembelian')}}" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>
-                                      <button type="button" title="Delete" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                    </div> 
-                                  </td>
-                                </tr>
->>>>>>> ac80f4f4f1a691d731d041235ad7d6022b40d365
+
                                 
                             </tbody>
                                        
@@ -87,35 +69,19 @@
 
                     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="tab-6-2">
                       <div class="table-responsive">
-                        <table class="table table-hover table-bordered " id="table_datatable_histori" cellspacing="0">
+                        <table class="table table-hover table-bordered " id="table_datatable_histori" style="width: 100%;" cellspacing="0">
                           <thead class="bg-gradient-info">
                             <tr>
+                              <th class="wd-15p">Id</th>
                               <th class="wd-15p">Kode</th>
-                              <th class="wd-20p">Vendor</th>
+                              <th class="wd-15p">Item</th>
                               <th class="wd-15p">Amount Requested</th>
                               <th class="wd-10p">Amount Approved</th>
-                              <th class="wd-15p">Action</th>
+                              <th class="wd-10p">Status</th>
                             </tr>
                           </thead>
 
                           <tbody>
-<<<<<<< HEAD
-=======
-                            <tr>
-                                <td>1</td>
-                                <td>Kabel</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>10</td>
-                                <td></td>
-                                <td>
-                                  <span class="badge badge-success badge-pill">Approved</span>
-                                </td>
-                                <td align="center">
-                                 .. 
-                                </td>
-                              </tr>
-                             
->>>>>>> ac80f4f4f1a691d731d041235ad7d6022b40d365
                           </tbody>
                         
                         </table> 
@@ -159,11 +125,53 @@
                 ],
             "columns": [
             { "data": "ro_code" },
-            { "data": "ro_vendor" },
+            { "data": "s_company" },
             { "data": "ro_qty" },
-            { "data": "approved" },
+            { "data": "ro_qty_approved" },
             { "data": "detail" },
+            { "data": "status" },
             { "data": "aksi" },
+            ]
+      });
+
+     $('#table_datatable_histori').DataTable({
+            processing: true,
+            // responsive:true,
+            serverSide: true,
+            ajax: {
+                url:'{{ route('datatable_historypembelian') }}',
+            },
+             columnDefs: [
+
+                  {
+                     targets: 0 ,
+                     className: 'left'
+                  }, 
+                  {
+                     targets: 1 ,
+                     className: 'right format_money'
+                  },
+                  {
+                     targets: 3 ,
+                     className: 'right format_money'
+                  },
+                  {
+                     targets: 4 ,
+                     className: 'right format_money'
+                  },
+                  {
+                     targets: 5 ,
+                     className: 'center'
+                  },
+                  
+                ],
+            "columns": [
+            { "data": "rodt_code" },
+            { "data": "rodt_id" },
+            { "data": "i_name" },
+            { "data": "rodt_qty" },
+            { "data": "rodt_qty_approved" },
+            { "data": "status" },
             ]
       });
 
@@ -256,16 +264,16 @@
 
     });
 
-   $('#change_function').on("click", "#save_data",function(){
+  $('#change_function').on("click", "#save_data",function(){
     $.ajax({
          type: "get",
          url: '{{ route('simpan_rencanapembelian') }}',
          data: $('#form-save').serialize(),
          success: function(data){
             $('#tambah').modal('hide');
-            var table_history = ('#table_datatable_histori').DataTable();
+            // var table_history = $('#table_datatable_histori').DataTable();
             var table_rencana = $('#table_datatable_rencana').DataTable();
-            table_history.ajax.reload();
+            // table_history.ajax.reload();
             table_rencana.ajax.reload();
 
             iziToast.success({
@@ -312,10 +320,15 @@ function detail(parm) {
           var array_nama='';
           $.each(data, function(i, item) {
               array_nama += '<tr>';
-                array_nama += '<td>'+data[i].rodt_barang+' - '+data[i].i_name+'</td>';
-                array_nama += '<td align="right">'+accounting.formatMoney(data[i].rodt_price,"",0,'.',',')+'</td>';
+                array_nama += '<td><input type="hidden" class="form-control right" value="'+data[i].rodt_id+'" name="kode_detail[]">'+data[i].rodt_barang+' - '+data[i].i_name+'</td>';
+                array_nama += '<td align="right"><input type="hidden" class="form-control right" value="'+data[i].rodt_code+'" name="kode[]">'+accounting.formatMoney(data[i].rodt_price,"",0,'.',',')+'</td>';
                 array_nama += '<td align="right">'+accounting.formatMoney(data[i].rodt_qty,"",0,'.',',')+'</td>';
-                array_nama += '<td align="right"><input type="text" class="form-control right"></td>';
+                if (data[i].rodt_qty_approved != 0) {
+                    array_nama += '<td align="right"><input type="text"  name="approved[]" readonly value="'+data[i].rodt_qty_approved+'" class="form-control right "></td>';
+                }else{
+                    array_nama += '<td align="right"><input type="text"  name="approved[]" value="'+0+'" class="form-control right"></td>';
+                }
+                
               array_nama += '</tr>';
           })
           $('#detail_rep').html(array_nama);  
@@ -330,6 +343,142 @@ function detail(parm) {
          },
          async: false
        });
-}
+  }
+
+
+function hapus(parm){
+    var par   = $(parm).parents('tr');
+    var id    = $(par).find('.d_id').text();
+
+    iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fa-exclamation-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:red;">Delete</button>',
+                function (instance, toast) {
+
+                  $.ajax({
+                   type: "get",
+                     url: '{{ route('hapus_rencanapembelian') }}',
+                     data: {id},
+                     success: function(data){
+                      console.log(data);
+                      $('#tambah').modal('hide');
+                      var table = $('#table-bundle').DataTable();
+                      table.ajax.reload();
+
+                      iziToast.success({
+                        icon: 'fas fa-check-circle',
+                        message: 'Data Telah Terhapus!',
+                      });
+                     
+                     },
+                     error: function(){
+                      iziToast.warning({
+                        icon: 'fa fa-times',
+                        message: 'Terjadi Kesalahan!',
+                      });
+                     },
+                     async: false
+                   });
+                 
+                }
+              ],
+              [
+                '<button style="background-color:#44d7c9;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+    }
+
+
+  $('#change_detail').on("click", "#approve_data",function(){
+
+
+    iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-exclamation-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:red;">Save</button>',
+                function (instance, toast) {
+
+                  
+                  $.ajax({
+                   type: "get",
+                   url: '{{ route('approve_rencanapembelian') }}',
+                   data: $('#form-detail').serialize(),
+                   success: function(data){
+                      $('#tambah').modal('hide');
+                      var table_history = $('#table_datatable_histori').DataTable();
+                      var table_rencana = $('#table_datatable_rencana').DataTable();
+                      table_history.ajax.reload();
+                      table_rencana.ajax.reload();
+
+                      iziToast.success({
+                        icon: 'fas fa-check-circle',
+                        message: 'Data Telah Tersimpan!',
+                      });
+                   },
+                   error: function(){
+                    iziToast.warning({
+                      icon: 'fa fa-times',
+                      message: 'Terjadi Kesalahan!',
+                    });
+                   },
+                   async: false
+                 });
+
+                 
+                }
+              ],
+              [
+                '<button style="background-color:#44d7c9;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+
+
+
+    
+  })
+
+  $('#ro_vendor_header').change(function(){
+    var this_val = $(this).val();
+      $.ajax({
+         type: "get",
+         url: '{{ route('kode_rencanapembelian') }}',
+         data: {vendor:this_val},
+         success: function(data){
+            $('#ro_code').val(data);
+         }
+       });
+  })
+
 </script>
 @endsection

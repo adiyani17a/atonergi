@@ -98,8 +98,6 @@ Route::get('/quotation/q_quotation/histori', 'QuotationController@histori');
 
 
 // Purchase
-Route::get('/purchase/purchaseorder/purchaseorder', 'PurchaseController@purchaseorder');
-Route::get('/purchase/purchaseorder/print_purchaseorder', 'PurchaseController@print_purchaseorder');
 Route::get('/purchase/belanjalangsung/belanjalangsung', 'PurchaseController@belanjalangsung');
 Route::get('/purchase/hub_suplier/hub_suplier', 'PurchaseController@hub_suplier');
 
@@ -203,6 +201,7 @@ Route::get('/master/vendor/edit_vendor', 'MasterController@edit_vendor');
 //master marketing
 Route::get('/quotation/marketing/marketing', 'master\master_marketingController@marketing');
 Route::get('/quotation/simpanmarketing/simpan_marketing', 'master\master_marketingController@simpan_marketing');
+Route::get('/quotation/simpanmarketing/kode_marketing', 'master\master_marketingController@kode_marketing')->name('kode_marketing');
 Route::get('/quotation/hapusmarketing/hapus_marketing', 'master\master_marketingController@hapus_marketing');
 Route::get('/quotation/updatemarketing/update_marketing', 'master\master_marketingController@update_marketing');
 Route::get('/quotation/dataeditmarketing/dataedit_marketing', 'master\master_marketingController@dataedit_marketing');
@@ -234,23 +233,24 @@ Route::get('/master/dataeditpegawai/dataedit_pegawai', 'master\master_pegawaiCon
 Route::get('/master/datatalble_pegawai/datatalble_pegawai', 'master\master_pegawaiController@datatalble_pegawai')->name('datatable_pegawai');
 
 //master Bundle Item/barang
-Route::get('/master/bundle/bundle', 'master\master_bundleitemController@bundleitem');
+Route::get('/master/bundle/bundle', 'master\master_bundleitemController@bundleitem')->name('bundleitem');
 Route::get('/master/hapusbundleitem/hapus_bundleitem', 'master\master_bundleitemController@hapus_bundleitem')->name('hapus_bundleitem');
 Route::get('/master/detailbundleitem/detail_bundleitem', 'master\master_bundleitemController@detail_bundleitem')->name('detail_bundleitem');
-Route::get('/master/updatebundleitem/update_bundleitem', 'master\master_bundleitemController@update_bundleitem');
+Route::get('/master/updatebundleitem/update_bundleitem', 'master\master_bundleitemController@update_bundleitem')->name('update_bundleitem');
 Route::get('/master/bundleitem/simpan_bundleitem', 'master\master_bundleitemController@simpan_bundleitem');
-Route::get('/master/dataeditbundleitem/dataedit_bundleitem', 'master\master_bundleitemController@dataedit_bundleitem')->name('dataedit_bundleitem');
+// Route::get('/master/dataeditbundleitem/dataedit_bundleitem', 'master\master_bundleitemController@dataedit_bundleitem')->name('dataedit_bundleitem');
 Route::get('/master/datatable_bundleitem/datatable_bundleitem', 'master\master_bundleitemController@datatable_bundleitem')->name('datatable_bundleitem');
+Route::get('/master/bundle/edit_bundle/{id}', 'master\master_bundleitemController@edit_bundle')->name('edit_bundle');
 
 // ------------------------------ view edit bundle ari -------------------------------------------//
-Route::get('/master/bundle/edit_bundle', 'master\master_bundleitemController@edit_bundle');
 //------------------------------------------------------------------------------------------------//
 
 // Edit Purchase Order
-Route::get('purchase/purchaseorder/edit_purchaseorder', 'PurchaseController@edit_purchaseorder');
+// Route::get('purchase/purchaseorder/edit_purchaseorder', 'PurchaseController@edit_purchaseorder');
 
 // Edit Request Order
-Route::get('purchase/rencanapembelian/edit_rencanapembelian', 'PurchaseController@edit_rencanapembelian');
+// Route::get('purchase/rencanapembelian/edit_rencanapembelian', 'PurchaseController@edit_rencanapembelian');
+// Route::get('purchase/rencanapembelian/edit_rencanapembelian', 'PurchaseController@edit_rencanapembelian');
 
 // Master Barang
 Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
@@ -269,9 +269,17 @@ Route::get('/purchase/rencanapembelian/detail_rencanapembelian', 'purchase\reque
 Route::get('/purchase/rencanapembelian/hapus_rencanapembelian', 'purchase\request_orderController@hapus_rencanapembelian')->name('hapus_rencanapembelian');
 Route::get('/purchase/rencanapembelian/detail_rencanapembelian', 'purchase\request_orderController@detail_rencanapembelian')->name('detail_rencanapembelian');
 Route::get('/purchase/rencanapembelian/update_rencanapembelian', 'purchase\request_orderController@update_rencanapembelian')->name('update_rencanapembelian');
+Route::get('/purchase/rencanapembelian/approve_rencanapembelian', 'purchase\request_orderController@approve_rencanapembelian')->name('approve_rencanapembelian');
 Route::get('/purchase/rencanapembelian/simpan_rencanapembelian', 'purchase\request_orderController@simpan_rencanapembelian')->name('simpan_rencanapembelian');
 Route::get('/purchase/rencanapembelian/dataedit_rencanapembelian', 'purchase\request_orderController@dataedit_rencanapembelian')->name('dataedit_rencanapembelian');
 Route::get('/purchase/rencanapembelian/datatable_rencanapembelian', 'purchase\request_orderController@datatable_rencanapembelian')->name('datatable_rencanapembelian');
+Route::get('/purchase/rencanapembelian/datatable_historypembelian', 'purchase\request_orderController@datatable_historypembelian')->name('datatable_historypembelian');
+
+//Purchase Order 
+Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_orderController@create_purchaseorder')->name('create_purchaseorder');
+Route::get('/purchase/purchaseorder/purchaseorder', 'purchase\purchase_orderController@purchaseorder')->name('purchaseorder');
+Route::get('/purchase/purchaseorder/cari_requestorder', 'purchase\purchase_orderController@cari_requestorder')->name('cari_requestorder');
+Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder');
 
 
             //-----------------END OF PURCHASE------------------\\
