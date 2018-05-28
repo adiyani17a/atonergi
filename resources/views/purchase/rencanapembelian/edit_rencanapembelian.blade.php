@@ -105,7 +105,3 @@
 </div>
 <!-- content-wrapper ends -->
 @endsection
-
-@section('extra_script')
-
-@endsection

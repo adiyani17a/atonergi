@@ -69,13 +69,10 @@
             <!-- empty -->
           </div>
         </div> 
-<<<<<<< HEAD
+
          <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
           <div class="col-md-3 col-sm-6 col-xs-12">
-=======
-        <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
-          <div class="col-md-2 col-sm-12 col-xs-12">
->>>>>>> ac80f4f4f1a691d731d041235ad7d6022b40d365
+
             <label>Item</label>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">

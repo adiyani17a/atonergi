@@ -118,5 +118,6 @@
   $('.sembuyikan').css('display','none')
   $('.tampilkan').css('display','block')
   $('.bintang_merah').css('color','red')
+  $('.red').css('color','red')
   $('.readonly').attr('readonly',true)
 </script>

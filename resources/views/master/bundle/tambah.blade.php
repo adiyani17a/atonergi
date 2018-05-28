@@ -74,7 +74,6 @@
                 <th width="5%">Unit</th>
                 <th width="30%">Item Price</th>
                 <th width="1%">Action</th>
-
               </tr>
             </thead>
             <tbody id="edit_rep">

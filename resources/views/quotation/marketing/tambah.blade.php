@@ -24,7 +24,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="" readonly="">
+              <input type="text" class="form-control form-control-sm" name="d_id" readonly="">
             </div>
           </div>
           

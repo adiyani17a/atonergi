@@ -96,9 +96,10 @@
     var v_npwp      = $("input[name='v_npwp']").val(''); 
     var v_informasi = $("textarea#v_informasi").val('');
     var v_kode_old  = $("input[name='v_kode_old']").val('');
+    $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
   })
 
-  $('#save_data').click(function(){
+  $('#change_function').on("click", "#save_data",function(){
     $.ajax({
          type: "get",
          url: baseUrl + '/master/simpanvendor/simpan_vendor',

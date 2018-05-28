@@ -37,7 +37,6 @@ class master_customerController extends Controller
 
     public function simpan_customer(Request $request)
     {
-    	// dd($request->all());
     	$kode = DB::table('m_customer')->max('c_id');
     
     		if ($kode == null) {

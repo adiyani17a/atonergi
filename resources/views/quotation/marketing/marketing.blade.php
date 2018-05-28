@@ -20,7 +20,7 @@
 	          	<div class="row">
 	          		
 					<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-						<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+						<button class="btn btn-info" data-toggle="modal" id="button_add" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
 					</div>
                   <div class="table-responsive">
       				    <table class="table table-hover" id="table-marketing" cellspacing="0">
@@ -87,9 +87,20 @@
     var d_alamat    = $("textarea#d_alamat").val(''); 
     var d_tipe      = $("select[name='d_tipe']").val('').trigger('change'); 
     var d_informasi = $("textarea#d_informasi").val('');
+    $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
+     $.ajax({
+         type: "get",
+         url:'{{ route('kode_marketing') }}',
+         success: function(data){
+          console.log(data);
+            var mp_id   = $("input[name='d_id']").val(data);
+         },
+         async: false
+       });
+
   })
 
-  $('#save_data').click(function(){
+  $('#change_function').on("click", "#save_data",function(){
     $.ajax({
          type: "get",
          url: baseUrl + '/quotation/simpanmarketing/simpan_marketing',
@@ -151,12 +162,13 @@
          success: function(data){
           // console.log(data);
             var d_name      = $("input[name='d_name']").val(data[0].mk_name);
-		    var d_tlp       = $("input[name='d_tlp']").val(data[0].mk_phone); 
-		    var d_email     = $("input[name='d_email']").val(data[0].mk_email); 
-		    var d_alamat    = $("textarea#d_address").val(data[0].mk_address); 
-		    var d_tipe      = $("select[name='d_tipe']").val(data[0].mk_type).trigger('change'); 
-		    var d_informasi = $("textarea#d_informasi").val(data[0].mk_information);
-		    var d_kodeold   = $("input[name='kode_old']").val(data[0].mk_code);
+    		    var d_tlp       = $("input[name='d_tlp']").val(data[0].mk_phone); 
+    		    var d_email     = $("input[name='d_email']").val(data[0].mk_email); 
+    		    var d_alamat    = $("textarea#d_address").val(data[0].mk_address); 
+    		    var d_tipe      = $("select[name='d_tipe']").val(data[0].mk_type).trigger('change'); 
+    		    var d_informasi = $("textarea#d_informasi").val(data[0].mk_information);
+            var d_kodeold   = $("input[name='kode_old']").val(data[0].mk_code);
+    		    var d_id   = $("input[name='d_id']").val(data[0].mk_code);
 
             $('#change_function').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
          },

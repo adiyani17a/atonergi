@@ -92,10 +92,10 @@
          },
          async: false
        });
-    
+    $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
   })
 
-   $('#save_data').click(function(){
+  $('#change_function').on("click", "#save_data",function(){
     $.ajax({
          type: "get",
          url: baseUrl + '/master/simpanpegawai/simpan_pegawai',
