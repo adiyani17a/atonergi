@@ -3,15 +3,58 @@
   <div id="right-sidebar" class="settings-panel">
     <i class="settings-close mdi mdi-close"></i>
     <ul class="nav nav-tabs bg-gradient-primary" id="setting-panel" role="tablist">
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
-      </li>
+      </li> -->
       <li class="nav-item">
-        <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+        <a class="nav-link active" id="logs-tab" data-toggle="tab" href="#user-log-activity" role="tab" aria-expanded="true" aria-controls="user-log-activity">Log User Activity</a>
       </li>
     </ul>
     <div class="tab-content" id="setting-content">
-      <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+      <!-- User log activity -->
+      <div class="tab-pane fade show active scroll-wrapper" id="user-log-activity" role="tabpanel" aria-labelledby="user-log-activity">
+        <div class="d-flex align-items-center justify-content-between border-bottom">
+          <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Log Activity</p>
+        </div>
+        <ul class="chat-list">
+          <li class="list">
+            <div class="info">
+              <p style="font-weight: bold;">admin</p>
+              <p>Master Data Barang</p>
+              <P>Delete Data : Pompa Air</P>
+            </div>
+            <small class="text-muted my-auto">2018-05-28 14:54:56</small>
+          </li>
+          <li class="list">
+            <div class="info">
+              <p style="font-weight: bold;">admin</p>
+              <p>Master Data Barang</p>
+              <P>Add Data : Pompa Air</P>
+            </div>
+            <small class="text-muted my-auto">2018-05-28 14:49:56</small>
+          </li>
+          <li class="list">
+            <div class="info">
+              <p style="font-weight: bold;">admin</p>
+              <p>Master Data Barang</p>
+              <P>Edit Data : Controller to Kontroler</P>
+            </div>
+            <small class="text-muted my-auto">2018-05-28 14:45:56</small>
+          </li>
+          <li class="list">
+            <div class="info">
+              <p style="font-weight: bold;">admin</p>
+              <p>Master Data Barang</p>
+              <P>Add Data : Controller</P>
+            </div>
+            <small class="text-muted my-auto">2018-05-28 14:43:56</small>
+          </li>
+          
+        </ul>
+      </div>
+      
+      <!-- To do section tab ends -->
+      <div class="tab-pane fade" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
         <div class="add-items d-flex px-3 mb-0">
           <form class="form w-100">
             <div class="form-group d-flex">
@@ -86,66 +129,6 @@
           <p class="text-gray mb-0 ">Call Sarah Graves</p>
         </div>
       </div>
-      <!-- To do section tab ends -->
-      <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-        <div class="d-flex align-items-center justify-content-between border-bottom">
-          <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">FRIENDS</p>
-          <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
-        </div>
-        <ul class="chat-list">
-          <li class="list active">
-            <div class="profile"><img src="{{asset('assets/images/faces/face1.jpg')}}" tppabs="http://www.bootstrapdash.com/demo/purple/images/faces/face1.jpg" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Thomas Douglas</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">19 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="{{asset('assets/images/faces/face2.jpg')}}" tppabs="http://www.bootstrapdash.com/demo/purple/images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
-            <div class="info">
-              <div class="wrapper d-flex">
-                <p>Catherine</p>
-              </div>
-              <p>Away</p>
-            </div>
-            <div class="badge badge-success badge-pill my-auto mx-2">4</div>
-            <small class="text-muted my-auto">23 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="{{asset('assets/images/faces/face3.jpg')}}" tppabs="http://www.bootstrapdash.com/demo/purple/images/faces/face3.jpg" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Daniel Russell</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">14 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="{{asset('assets/images/faces/face4.jpg')}}" tppabs="http://www.bootstrapdash.com/demo/purple/images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
-            <div class="info">
-              <p>James Richardson</p>
-              <p>Away</p>
-            </div>
-            <small class="text-muted my-auto">2 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="{{asset('assets/images/faces/face5.jpg')}}" tppabs="http://www.bootstrapdash.com/demo/purple/images/faces/face5.jpg" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Madeline Kennedy</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">5 min</small>
-          </li>
-          <li class="list">
-            <div class="profile"><img src="{{asset('assets/images/faces/face6.jpg')}}" tppabs="http://www.bootstrapdash.com/demo/purple/images/faces/face6.jpg" alt="image"><span class="online"></span></div>
-            <div class="info">
-              <p>Sarah Graves</p>
-              <p>Available</p>
-            </div>
-            <small class="text-muted my-auto">47 min</small>
-          </li>
-        </ul>
-      </div>
       <!-- chat tab ends -->
     </div>
   </div>
@@ -166,4 +149,4 @@
       <div class="tiles light"></div>
     </div>
   </div>
-  <!-- partial -->
+  <!-- partial
