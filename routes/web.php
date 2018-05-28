@@ -276,9 +276,11 @@ Route::get('/purchase/rencanapembelian/datatable_rencanapembelian', 'purchase\re
 Route::get('/purchase/rencanapembelian/datatable_historypembelian', 'purchase\request_orderController@datatable_historypembelian')->name('datatable_historypembelian');
 
 //Purchase Order 
-Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_orderController@create_purchaseorder')->name('create_purchaseorder');
+// Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_orderController@create_purchaseorder')->name('create_purchaseorder');
 Route::get('/purchase/purchaseorder/purchaseorder', 'purchase\purchase_orderController@purchaseorder')->name('purchaseorder');
-Route::get('/purchase/purchaseorder/cari_requestorder', 'purchase\purchase_orderController@cari_requestorder')->name('cari_requestorder');
+Route::get('/purchase/purchaseorder/cari_ro_requestorder', 'purchase\purchase_orderController@cari_ro_requestorder')->name('cari_ro_requestorder');
+Route::get('/purchase/purchaseorder/cari_po_requestorder', 'purchase\purchase_orderController@cari_po_requestorder')->name('cari_po_requestorder');
+Route::get('/purchase/purchaseorder/create_requestorder', 'purchase\purchase_orderController@create_requestorder')->name('create_requestorder');
 Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder');
 
 

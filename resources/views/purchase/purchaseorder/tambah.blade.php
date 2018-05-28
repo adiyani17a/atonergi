@@ -1,5 +1,6 @@
 
 <!-- Modal -->
+<form id="form_cari">
 <div id="cari" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg" style="width:400px">
 
@@ -20,7 +21,7 @@
                 </div>
                 <div class="col-md-10 col-sm-6 col-xs-12">
                   <div class="form-group">
-                      <select class="form-control form-control-sm" name="" id="cari_vendor">
+                      <select class="form-control form-control-sm" name="cari_vendor" id="cari_vendor">
                         <option selected="" value="">- Pilih -</option>
                           @foreach ($vendor as $v)
                               <option value="{{ $v->s_kode }}" data-name="{{ $v->s_name }}">{{ $v->s_kode }} - {{ $v->s_name }}</option>
@@ -34,7 +35,7 @@
                 </div>
                 <div class="col-md-10 col-sm-6 col-xs-12">
                   <div class="form-group">
-                      <select class="form-control form-control-sm" name="" id="cari_ro">
+                      <select class="form-control form-control-sm" name="cari_ro" id="cari_ro">
                         <option selected="" value="">- Pilih -</option>
                       </select>
                   </div>
@@ -52,7 +53,7 @@
          
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button" style="margin-right: 0.1px;">Process</button>
+        <button class="btn btn-primary" type="button" id="create_po" style="margin-right: 0.1px;">Process</button>
         <button type="button" class="btn btn-warning" data-dismiss="modal" style="margin-right: 50px;">Close</button>
       </div>
     </div>
@@ -60,3 +61,4 @@
   </div>
 </div>
 </div>
+</form>

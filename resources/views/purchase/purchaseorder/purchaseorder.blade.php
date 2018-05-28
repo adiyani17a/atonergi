@@ -69,12 +69,28 @@
   
   $('#cari_vendor').change(function(){
       var this_val = $(this).val();
+
         $.ajax({
            type: "get",
-           url: baseUrl + '/master/simpancustomer/simpan_customer',
-           data: $('#form_save').serialize(),
+           url: '{{ route('cari_ro_requestorder') }}',
+           data: $('#form_cari').serialize(),
            success: function(data){
-              
+           console.log(data);   
+           var array_ro='';    
+            if (data.length == 0) {
+                iziToast.warning({
+                  icon: 'fa fa-times',
+                  message: 'Data Not Found!',
+                });
+
+                  array_ro = '<option>- Pilih -</option>';
+                  $('#cari_ro').html(array_ro);
+            }else{
+                  $.each(data, function(i, item) {
+                        array_ro += '<option>'+data[i].ro_code+'</option>';
+                  })
+                  $('#cari_ro').html(array_ro);
+            }
            },
            error: function(){
             iziToast.warning({
@@ -86,5 +102,59 @@
          });
   })
 
+
+  $('#create_po').click(function(){
+
+      iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:#44d7c9;">Process</button>',
+                function (instance, toast) {
+
+
+                //ajax
+                 $.ajax({
+                   type: "get",
+                   url: '{{ route('cari_po_requestorder') }}',
+                   data: $('#form_cari').serialize(),
+                   success: function(data){
+                      
+                   },
+                    complete : function(){
+                      window.location.href = this.url;
+                    },
+                   error: function(){
+                    iziToast.warning({
+                      icon: 'fa fa-times',
+                      message: 'Terjadi Kesalahan!',
+                    });
+                   },
+                   async: false
+                 });
+                //end of ajax
+
+
+                }
+              ],
+              [
+                '<button style="background-color:red;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+  })
 </script>
 @endsection
