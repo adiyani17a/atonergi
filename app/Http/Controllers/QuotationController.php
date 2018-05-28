@@ -74,7 +74,7 @@ class QuotationController extends Controller
 
                             if(Auth::user()->akses('QUOTATION','tambah')){
                              $e = 
-                                 '<button type="button" onclick="status(\''.$data->q_id.'\')" class="btn btn-warning btn-lg" title="hapus">'.
+                                 '<button type="button" onclick="status(\''.$data->q_id.'\')" class="btn btn-warning btn-lg" title="update status">'.
                                  '<label class="fa fa-cog"></label></button>'. '</div>';
                                  
                             }else{
