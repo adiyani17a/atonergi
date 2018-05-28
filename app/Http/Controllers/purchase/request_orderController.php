@@ -92,7 +92,7 @@ class request_orderController extends Controller
             }
         $index = str_pad($kode, 3, '0', STR_PAD_LEFT);
         $date = date('my');
-        return $nota = 'PO-'.$index.'/'.$request->vendor.'/'.$date;
+        return $nota = 'RO-'.$index.'/'.$request->vendor.'/'.$date;
         return response()->json($kode);
     }
 
