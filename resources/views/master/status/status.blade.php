@@ -2,7 +2,9 @@
 @section('content')
 
 @include('master.status.tambah_status')
+<style type="text/css">
 
+</style>
 <!-- partial -->
 <div class="content-wrapper">
   <div class="col-lg-12"> 
@@ -19,14 +21,15 @@
                 <div class="card-body">
                   <h4 class="card-title">Master Data Status Q.O.#</h4>
                   <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                  	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                    @if(Auth::user()->akses('MASTER DATA STATUS','tambah'))
+                  	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah_status"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                    @endif
                   </div>
                   <div class="table-responsive">
-      				        <table class="table table-hover data-table" cellspacing="0">
+      				        <table class="table table_status table-hover " id="table_status" cellspacing="0">
                           <thead class="bg-gradient-info">
                             <tr>
                               <th>No</th>
-                              <th>ID</th>
                               <th>Status Name</th>
                               <th>Color</th>
                               <th>Action</th>
@@ -34,30 +37,7 @@
                           </thead>
                          
                           <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>status/1</td>
-                              <td>Won</td>
-                              <td><span class="badge badge-pill badge-success">Success</span></td>
-                              <td>
-                                <div class="btn-group">
-                                  <button type="button" class="btn btn-info btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></button>
-                                  <button type="button" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></button>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>status/2</td>
-                              <td>Lost to Competitor</td>
-                              <td><span class="badge badge-pill badge-danger">Danger</span></td>
-                              <td>
-                                <div class="btn-group">
-                                  <button type="button" class="btn btn-info btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></button>
-                                  <button type="button" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></button>
-                                </div>
-                              </td>
-                            </tr>
+           
                           </tbody>
 
                           
@@ -72,54 +52,103 @@
 @section('extra_script')
 <script>
 
-  function ganti_color()
-  {
-    var input = $('#i_status_color').val();
-    var span  = $('#status_color');
-    var div   = $('#div_status_color');
+  $(document).ready(function(){
+    $('#table_status').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url:'{{ route('datatable_status') }}',
+        },
+        columnDefs: [
 
-    // primary
-    if(input=='badge-primary'){
-      div.html('<span class="badge badge-pill badge-primary">Primary</span>');
-    }else{
-      div.html('');
-    }
-    // secondary
-    if (input=='badge-secondary') 
-    {
-      div.html('<span class="badge badge-pill badge-secondary">Secondary</span>');
-    }else{
-      span.text('');
-    }
-    // success
-    if (input=='badge-success') 
-    {
-      div.html('<span class="badge badge-pill badge-success">Success</span>');
-    }else{
-      span.text('');
-    }
-    // info
-    if (input=='badge-info') 
-    {
-      div.html('<span class="badge badge-pill badge-info">Info</span>');
-    }else{
-      span.text('');
-    }
-    // warning
-    if (input=='badge-warning') 
-    {
-      div.html('<span class="badge badge-pill badge-warning">Warning</span>');
-    }else{
-      span.text('');
-    }
-    // danger
-    if (input=='badge-danger') 
-    {
-      div.html('<span class="badge badge-pill badge-danger">Danger</span>');
-    }else{
-      span.text('');
-    }
+                {
+                   targets: 0 ,
+                   className: 'center'
+                },
+                {
+                   targets: 3,
+                   className: 'center'
+                },
+              ],
+        columns: [
+          {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+          {data: 's_name', name: 's_name'},
+          {data: 'status', name: 'status'},
+          {data: 'aksi', name: 'aksi'},
+          
 
+        ]
+
+    });
+  })
+
+
+  function edit(id) {
+    // body...
+    $.ajax({
+      url:baseUrl + '/master/status/edit_status',
+      data:{id},
+      dataType:'json',
+      success:function(data){
+        $('.id').val(data.data.s_id);
+        $('#i_status_color').val(data.data.s_color);
+        $('#i_status_color').select2();
+        $('.name').val(data.data.s_name);
+        $('#tambah_status').modal('show');
+      }
+    });
+
+  }
+
+  $('.simpan_status').click(function(){
+    $.ajax({
+      url:baseUrl + '/master/status/simpan_status',
+      data:$('.table_status :input').serialize(),
+      dataType:'json',
+      success:function(data){
+        if (data.status == 1) {
+          iziToast.success({
+              icon: 'fa fa-save',
+              message: 'Data Berhasil Disimpan!',
+          });
+        }else if(data.status == 2){
+          iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Data Sudah Ada!',
+          });
+        }else{
+          iziToast.success({
+              icon: 'fa fa-save',
+              message: 'Data Berhasil Diubah!',
+          });
+        }
+
+        $('#tambah_status').modal('hide');
+        $('#table_status :input').val('');
+        $('#i_status_color').val('0');
+        $('#i_status_color').select2();
+        var table = $('#table_status').DataTable();
+        table.ajax.reload();
+      }
+    });
+  })
+
+
+  function hapus(id) {
+    $.ajax({
+      url:baseUrl + '/master/status/hapus_status',
+      data:{id},
+      dataType:'json',
+      success:function(data){
+        iziToast.success({
+            icon: 'fa fa-trash',
+            message: 'Data Berhasil Dihapus!',
+        });
+
+        var table = $('#table_status').DataTable();
+        table.ajax.reload();
+      }
+    });
   }
 </script>
 @endsection
