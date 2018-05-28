@@ -236,28 +236,57 @@
   function hapus(a) {
     var par   = $(a).parents('tr');
     var id    = $(par).find('.it_id').text();
-    $.ajax({
-        url: baseUrl +'/master/type/type_hapus',
-        type:'get',
-        data: {id},
-        dataType:'json',
-        success:function(data){        
-          var table = $('#t80um').DataTable();
-          table.ajax.reload();
-          console.log(data);
-          iziToast.success({
-            icon: 'fa fa-check',
-            message: 'Data Berhasil Dihapus!',
+    iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:red;">Delete</button>',
+                function (instance, toast) {
+
+                  $.ajax({
+				        url: baseUrl +'/master/type/type_hapus',
+				        type:'get',
+				        data: {id},
+				        dataType:'json',
+				        success:function(data){        
+				          var table = $('#t80um').DataTable();
+				          table.ajax.reload();
+				          console.log(data);
+				          iziToast.success({
+				            icon: 'fa fa-check',
+				            message: 'Data Berhasil Dihapus!',
+				          });
+				          
+				        },
+				        error:function(){
+				          iziToast.warning({
+				            icon: 'fa fa-times',
+				            message: 'Terjadi Kesalahan!',
+				          });
+				        }
+				    });
+                 
+                }
+              ],
+              [
+                '<button style="background-color:#44d7c9;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
           });
-          
-        },
-        error:function(){
-          iziToast.warning({
-            icon: 'fa fa-times',
-            message: 'Terjadi Kesalahan!',
-          });
-        }
-    });
+    
   }
 
 </script>
