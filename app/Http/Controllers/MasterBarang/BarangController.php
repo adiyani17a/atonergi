@@ -63,8 +63,8 @@ class BarangController extends Controller
           }
           
 
-          $thumbnail_path = base_path('assets\barang\thumbnail\\');
-          $original_path = base_path('assets\barang\original\\');
+          $thumbnail_path = base_path('assets/barang/thumbnail/');
+          $original_path = base_path('assets/barang/original/');
           // return $original_path;
           Image::make($file)
                   ->resize(261,null,function ($constraint) {
@@ -207,8 +207,8 @@ class BarangController extends Controller
             }
 
 
-            $thumbnail_path = base_path('assets\barang\thumbnail\\');
-            $original_path = base_path('assets\barang\original\\');
+            $thumbnail_path = base_path('assets/barang/thumbnail/');
+            $original_path = base_path('assets/barang/original/');
             // return $original_path;
             Image::make($file)
                   ->resize(261,null,function ($constraint) {
