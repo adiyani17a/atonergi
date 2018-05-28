@@ -22,7 +22,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Purchase Order</h4>
                   <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cari" ><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                   </div>
                   <div class="table-responsive">
                     <table class="table table-bordered table-hover data-table" cellspacing="0">
@@ -65,5 +65,26 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
+<script type="text/javascript">
+  
+  $('#cari_vendor').change(function(){
+      var this_val = $(this).val();
+        $.ajax({
+           type: "get",
+           url: baseUrl + '/master/simpancustomer/simpan_customer',
+           data: $('#form_save').serialize(),
+           success: function(data){
+              
+           },
+           error: function(){
+            iziToast.warning({
+              icon: 'fa fa-times',
+              message: 'Terjadi Kesalahan!',
+            });
+           },
+           async: false
+         });
+  })
 
+</script>
 @endsection

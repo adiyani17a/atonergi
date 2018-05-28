@@ -92,8 +92,6 @@ Route::get('/quotation/q_quotation/histori', 'QuotationController@histori');
 
 
 // Purchase
-Route::get('/purchase/purchaseorder/purchaseorder', 'PurchaseController@purchaseorder');
-Route::get('/purchase/purchaseorder/print_purchaseorder', 'PurchaseController@print_purchaseorder');
 Route::get('/purchase/belanjalangsung/belanjalangsung', 'PurchaseController@belanjalangsung');
 Route::get('/purchase/hub_suplier/hub_suplier', 'PurchaseController@hub_suplier');
 
@@ -246,6 +244,7 @@ Route::get('/master/bundle/edit_bundle/{id}', 'master\master_bundleitemControlle
 
 // Edit Request Order
 // Route::get('purchase/rencanapembelian/edit_rencanapembelian', 'PurchaseController@edit_rencanapembelian');
+// Route::get('purchase/rencanapembelian/edit_rencanapembelian', 'PurchaseController@edit_rencanapembelian');
 
 // Master Barang
 Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barangproses');
@@ -269,6 +268,12 @@ Route::get('/purchase/rencanapembelian/simpan_rencanapembelian', 'purchase\reque
 Route::get('/purchase/rencanapembelian/dataedit_rencanapembelian', 'purchase\request_orderController@dataedit_rencanapembelian')->name('dataedit_rencanapembelian');
 Route::get('/purchase/rencanapembelian/datatable_rencanapembelian', 'purchase\request_orderController@datatable_rencanapembelian')->name('datatable_rencanapembelian');
 Route::get('/purchase/rencanapembelian/datatable_historypembelian', 'purchase\request_orderController@datatable_historypembelian')->name('datatable_historypembelian');
+
+//Purchase Order 
+Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_orderController@create_purchaseorder')->name('create_purchaseorder');
+Route::get('/purchase/purchaseorder/purchaseorder', 'purchase\purchase_orderController@purchaseorder')->name('purchaseorder');
+Route::get('/purchase/purchaseorder/cari_requestorder', 'purchase\purchase_orderController@cari_requestorder')->name('cari_requestorder');
+Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder');
 
 
             //-----------------END OF PURCHASE------------------\\
