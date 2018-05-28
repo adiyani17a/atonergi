@@ -280,7 +280,7 @@ Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_or
 Route::get('/purchase/purchaseorder/purchaseorder', 'purchase\purchase_orderController@purchaseorder')->name('purchaseorder');
 Route::get('/purchase/purchaseorder/cari_requestorder', 'purchase\purchase_orderController@cari_requestorder')->name('cari_requestorder');
 Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder');
-
+Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orderController@edit_purchaseorder');
 
             //-----------------END OF PURCHASE------------------\\
 

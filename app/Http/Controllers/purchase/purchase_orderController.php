@@ -19,5 +19,8 @@ class purchase_orderController extends Controller
    	{
    		dd($request->all());	
    	}
-       
+    public function edit_purchaseorder()
+    {
+      return view('purchase/purchaseorder/edit_purchaseorder');
+    }
 }
