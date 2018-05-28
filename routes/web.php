@@ -66,7 +66,13 @@ Route::get('/master/pegawai/pegawai', 'MasterController@pegawai');
 Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
-Route::get('/master/status/status', 'MasterController@status');
+    // STATUS QO
+    Route::get('/master/status/status', 'MasterController@status');
+    Route::get('/master/status/datatable_status', 'MasterController@datatable_status')->name('datatable_status');
+    Route::get('/master/status/edit_status', 'MasterController@edit_status');
+    Route::get('/master/status/simpan_status', 'MasterController@simpan_status');
+    Route::get('/master/status/hapus_status', 'MasterController@hapus_status');
+    // 
 Route::get('/master/type/type', 'MasterController@type');
 
 // Quotation
