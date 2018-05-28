@@ -694,7 +694,7 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 					        });
 
 
-				      		window.href("{{ url('quotation/q_quotation/q_quotation') }}");
+                  location.href = "{{ url('/quotation/q_quotation/q_quotation') }}";
 				      	}
 				      },error:function(){
 			      		iziToast.warning({

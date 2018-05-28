@@ -116,6 +116,7 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
     Route::get('/order/pembayarandeposit/pembayarandeposit', 'OrderController@pembayarandeposit');
     Route::get('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit/{id}', 'OrderController@detail_pembayarandeposit');
     Route::get('/order/pembayarandeposit/pembayarandeposit/datatable_deposit', 'OrderController@datatable_deposit')->name('datatable_deposit');
+    Route::get('/order/pembayarandeposit/save_deposit', 'OrderController@save_deposit');
     // END
 
 
