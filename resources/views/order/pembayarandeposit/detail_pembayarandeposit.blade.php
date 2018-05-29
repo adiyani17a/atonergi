@@ -19,9 +19,7 @@
       	<div class="card">
 	        <div class="card-body">
 	          	<h4 class="card-title">Pembayaran Deposit</h4>
-					
 					<div class="row">
-						
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>S.O.#</label>
 						</div>

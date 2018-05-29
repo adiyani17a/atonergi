@@ -36,7 +36,7 @@
 					</div>
 
 					<div class="table-responsive">
-						<table class="table table-hover table-bordered data-table" cellspacing="0">
+						<table id="table_quote" class="table table-hover table-bordered " cellspacing="0">
 							<thead class="bg-gradient-info">
 								<tr>
 									<th>S.O.#</th>
@@ -49,21 +49,8 @@
                 				</tr>
 							</thead>
 							<tbody>
-				                <tr>
-				                  <td>A002</td>
-				                  <td>I001</td>
-				                  <td>Bravo</td>
-				                  <td align="left">Rp. 700.000,-</td>
-				                  <td align="left">Rp. 700.000,-</td>
-				                  <td align="left">Rp. 0,-</td>
-				                  <td>
-				                  	<div class="btn-group">
-				                  		<a href="{{url('order/salesorder/s_order/detail_salesorder')}}" class="btn btn-info btn-sm">Detail</a>
-				                  		<a href="{{url('order/salesorder/print_salesorder')}}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-				                  	</div>
-				                  </td>
-				                </tr>
-				              </tbody>
+				               
+				            </tbody>
 						</table>
 					</div>
 	        	
@@ -74,5 +61,53 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
+<script>
+$(document).ready(function(){
+	$('#table_quote').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+          url:'{{ route('datatable_so') }}',
+      },
+      columnDefs: [
 
+              {
+                 targets: 0 ,
+                 className: 'center'
+              },
+              {
+                 targets: 1 ,
+                 className: 'q_nota'
+              },
+              {
+                 targets: 3,
+                 className: 'right'
+              },
+              {
+                 targets: 4,
+                 className: 'right'
+              },
+              {
+                 targets: 5,
+                 className: 'right'
+              },
+              {
+                 targets: 6,
+                 className: 'center'
+              },
+            ],
+      columns: [
+        {data: 'so_nota', name: 'so_nota'},
+        {data: 'q_nota', name: 'q_nota'},
+        {data: 'q_customer', name: 'q_customer'},
+        {data: 'total', name: 'total'},
+        {data: 'dp', name: 'dp'},
+        {data: 'remain', name: 'remain'},
+        {data: 'aksi', name: 'aksi'},
+
+      ]
+
+	});
+})
+</script>
 @endsection

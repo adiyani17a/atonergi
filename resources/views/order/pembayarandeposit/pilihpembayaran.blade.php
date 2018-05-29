@@ -57,7 +57,7 @@
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
               <select class="form-control form-control-sm" name="pay_method">
-                <option value="cash">Cash</option>
+                <option value="tunai">Tunai</option>
                 <option value="transfer">Transfer</option>
               </select>
             </div>

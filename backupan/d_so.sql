@@ -30,11 +30,13 @@ CREATE TABLE IF NOT EXISTS `d_sales_order` (
   PRIMARY KEY (`so_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table atonergi.d_sales_order: ~0 rows (approximately)
+-- Dumping data for table atonergi.d_sales_order: ~3 rows (approximately)
 DELETE FROM `d_sales_order`;
 /*!40000 ALTER TABLE `d_sales_order` DISABLE KEYS */;
 INSERT INTO `d_sales_order` (`so_id`, `so_nota`, `so_ref`, `so_note`, `so_type`, `so_amount`, `so_remain`, `so_method`, `so_note2`, `so_account`, `so_date`, `so_update_at`, `so_update_by`, `so_create_by`) VALUES
-	(1, 'SO-001/SWP/SWP/052018', 'QO-014/SWP/SWP/052018', 'xxx', 'Down Payment', 20000000, 13500000, 'cash', 'xxx', 'Cash', '2018-05-29', '2018-05-29 00:46:40', 'admin', 'admin');
+	(1, 'SO-001/SWP/SWP/052018', 'QO-014/SWP/SWP/052018', 'xxx', 'Down Payment', 20000000, 13500000, 'tunai', 'xxx', 'Cash', '2018-05-29', '2018-05-29 00:46:40', 'admin', 'admin'),
+	(2, 'SO-002/WP/SWP/052018', 'QO-001/WP/SWP/052018', 'xx', 'Down Payment', 10000000, 7500000, 'tunai', 'xx', 'Cash', '2018-05-30', '2018-05-30 03:32:06', 'admin', 'admin'),
+	(3, 'SO-003/SWP/SWP/052018', 'QO-013/SWP/SWP/052018', 'xx', 'Down Payment', 5000000, 5000000, 'tunai', 'xx', 'Cash', '2018-05-30', '2018-05-30 04:20:10', 'admin', 'admin');
 /*!40000 ALTER TABLE `d_sales_order` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -37,6 +37,8 @@ Route::get('logout',function(){
     Session::forget('key');
     return Redirect('/');
 });
+
+
 // SETTING
     // jabatan
         Route::get('/setting/jabatan', 'SettingController@jabatan');
@@ -104,7 +106,7 @@ Route::get('/purchase/hub_suplier/hub_suplier', 'PurchaseController@hub_suplier'
 
 // Order
 Route::get('/order/s_invoice/s_invoice', 'OrderController@s_invoice');
-Route::get('/order/salesorder/s_order', 'OrderController@s_order');
+
 Route::get('/order/workorder/w_order', 'OrderController@w_order');
 Route::get('/order/workorder/w_order/detail_workorder', 'OrderController@detail_workorder');
 Route::get('/order/checklistform/checklistform', 'OrderController@checklist');
@@ -119,11 +121,14 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
     Route::get('/order/pembayarandeposit/save_deposit', 'OrderController@save_deposit');
     // END
 
-
-Route::get('/order/salesorder/s_order/detail_salesorder', 'OrderController@detail_salesorder');
+    // SALES ORDER
+    Route::get('/order/salesorder/s_order', 'OrderController@s_order');
+    Route::get('/order/salesorder/datatable_so', 'OrderController@datatable_so')->name('datatable_so');
+    Route::get('/order/salesorder/s_order/detail_salesorder/{id}', 'OrderController@detail_salesorder');
+    Route::get('/order/salesorder/print_salesorder/{id}', 'OrderController@print_salesorder');
+    // 
 Route::get('/order/proforma/proforma', 'OrderController@proforma');
 Route::get('/order/pelunasanorder/pelunasanorder/detail_pelunasanorder', 'OrderController@detail_pelunasanorder');
-Route::get('/order/salesorder/print_salesorder', 'OrderController@print_salesorder');
 Route::get('/order/workorder/print_workorder', 'OrderController@print_workorder');
 Route::get('/order/checklistform/print_checklistform', 'OrderController@print_checklistform');
 Route::get('/order/s_invoice/print_salesinvoice', 'OrderController@print_salesinvoice');
