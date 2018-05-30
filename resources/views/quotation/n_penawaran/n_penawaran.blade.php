@@ -19,17 +19,18 @@
                 <div class="card-body">
                   <h4 class="card-title">Master Data Customer</h4>
                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                  	<button type="button" class="btn btn-info button_add" data-toggle="modal" id="tambah" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                  	<button type="button" class="btn btn-info button_add" data-toggle="modal" id="button_add" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                   </div>
                   <div class="table-responsive">
       				        <table class="table table-hover " id="table-np" cellspacing="0">
                           <thead class="bg-gradient-info">
                             <tr>
                              <th>Item Kode</th>
-			                 <th>Item Name</th>
-			                 <th>Item Price</th>
-			                 <th>Lower Limit Price</th>
-			                 <th width="1%">Action</th>
+                             <th>Marketing</th>
+      			                 <th>Item Name</th>
+      			                 <th>Item Price</th>
+      			                 <th>Lower Limit Price</th>
+      			                 <th width="1%">Action</th>
                             </tr>
                           </thead>
                          
@@ -58,15 +59,23 @@
                 url:'{{ route('datatable_Npenawaran') }}',
             },
              columnDefs: [
-
                   {
                      targets: 0 ,
                      className: 'center d_id'
                   }, 
+                  {
+                     targets: 3 ,
+                     className: 'right'
+                  }, 
+                  {
+                     targets: 4 ,
+                     className: 'right'
+                  }, 
                 ],
             "columns": [
             { "data": "np_kode" },
-            { "data": "np_kodeitem" },
+            { "data": "marketing" },
+            { "data": "item" },
             { "data": "np_price" },
             { "data": "np_lowerlimit" },
             { "data": "aksi" },
@@ -77,7 +86,9 @@
 
   $(document).ready(function(){
 	  $('.button_add').click(function(){
-	    	$('.hilangin').show();
+            var table = $('#object_906').DataTable();
+            table.clear().draw();
+	    	    $('.hilangin').show();
             $('#d_marketname').val('').trigger('change');
             $('#d_itemname').val('').trigger('change');
             $('#d_price').val('');
@@ -96,7 +107,8 @@
         var b = n_price.val();
         a = a.replace(/[^0-9\-]+/g,"");
         b = b.replace(/[^0-9\-]+/g,"");
-        n_lowerprice.keypress(function(e) {
+
+        n_price.keypress(function(e) {
 	      if(e.which == 13 || e.keyCode == 13){
 	        if (a < b) {
 	           iziToast.warning({
@@ -104,18 +116,12 @@
 	             message: 'Lower Price lebih rendah dari Price!',
 	           });
 	          return false;
-	        }else{
-	          iziToast.success({
-	             icon: 'fas fa-check-circle',
-	             message: 'Apend Data Success!',
-	           });
-	          // return true;
 	        }
 	        m_table.row.add( [
 	            '<input type="text" id="item_kode[]"  name="item_kode[]" class="form-control input-sm min-width" value="'+ n_item.val()+'">',
 	            '<input type="text" id="item_name[]"  name="item_name[]" class="form-control input-sm min-width" value="'+ n_item.find(':selected').data('name')+'">',
-	            '<input type="text" id="item_price[]"  name="item_price[]" class="form-control input-sm min-width right" readonly value="'+ n_price.val() +'">',
-	            '<input type="text" id="item_lowerprice[]" name="item_lowerprice[]" class="form-control input-sm min-width right" value="'+ n_lowerprice.val() +'">',           
+	            '<input type="text" id="item_price[]"  name="item_price[]" class="form-control input-sm min-width right" readonly value="'+ n_lowerprice.val() +'">',
+	            '<input type="text" id="item_lowerprice[]" name="item_lowerprice[]" class="form-control input-sm min-width right" value="'+ n_price.val() +'">',           
 	            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
 	        ] ).draw( false );
 	  
@@ -140,12 +146,12 @@
 	        var ini = $('#d_itemname').find(':selected').val();
 
 	        if(ini != '') {
-	          $('#d_lowerprice').attr('disabled',false);
+	          $('#d_price').attr('disabled',false);
 	        }else{
-	          $('#d_lowerprice').attr('disabled',true);          
+	          $('#d_price').attr('disabled',true);          
 	        }
 	        var i_price = $(this).find(':selected').data('harga');
-	        $('#d_price').val(accounting.formatMoney(i_price,"",0,'.',','));
+	        $('#d_lowerprice').val(accounting.formatMoney(i_price,"",0,'.',','));
 	    })
  
   })
