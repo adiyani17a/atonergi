@@ -71,10 +71,14 @@ class ServiceProvider extends IlluminateServiceProvider
 
     public function boot()
     {
+
+
         if (! $this->isLumen()) {
             $configPath = __DIR__.'/../config/dompdf.php';
             $this->publishes([$configPath => config_path('dompdf.php')], 'config');
         }
+
+        
     }
 
     /**

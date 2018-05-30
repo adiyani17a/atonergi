@@ -74,7 +74,7 @@ class QuotationController extends Controller
 
                             if(Auth::user()->akses('QUOTATION','tambah')){
                              $e = 
-                                 '<button type="button" onclick="status(\''.$data->q_id.'\')" class="btn btn-warning btn-lg" title="hapus">'.
+                                 '<button type="button" onclick="status(\''.$data->q_id.'\')" class="btn btn-warning btn-lg" title="update status">'.
                                  '<label class="fa fa-cog"></label></button>'. '</div>';
                                  
                             }else{
@@ -292,7 +292,7 @@ class QuotationController extends Controller
 
   public function print_quote($id)
   {
-
+    if (Auth::user()->akses('QUOTATION','print')) {
       $head = DB::table('d_quotation')
                ->join('m_customer','c_code','=','q_customer')
                ->where('q_id',$id)
@@ -317,31 +317,38 @@ class QuotationController extends Controller
      // $pdf = PDF::loadView('quotation/q_quotation/print_quotation', $data);
      // return $pdf->stream("test.pdf");
 
-    return view('quotation/q_quotation/print_quotation',compact('head','data','array'));
-
+      return view('quotation/q_quotation/print_quotation',compact('head','data','array'));
+    }else{
+      return redirect()->back();
+    }
   }
 
   public function edit_quotation($id)
   {
-    $customer = DB::table('m_customer')
-                  ->get();
+    if (Auth::user()->akses('QUOTATION','ubah')) {
 
-    $marketing = DB::table('d_marketing')
-                  ->get();
+      $customer = DB::table('m_customer')
+                    ->get();
 
-    $item = DB::table('m_item')
-                  ->get();
+      $marketing = DB::table('d_marketing')
+                    ->get();
 
-    $data = DB::table('d_quotation')
-              ->where('q_id',$id)
-              ->first();
+      $item = DB::table('m_item')
+                    ->get();
 
-    $data_dt = DB::table('d_quotation_dt')
-              ->where('qd_id',$id)
-              ->get();
+      $data = DB::table('d_quotation')
+                ->where('q_id',$id)
+                ->first();
 
-    $now = carbon::now()->format('d-m-Y');
-    return view('quotation/q_quotation/edit_quotation',compact('customer','marketing','now','item','data','data_dt','id'));
+      $data_dt = DB::table('d_quotation_dt')
+                ->where('qd_id',$id)
+                ->get();
+
+      $now = carbon::now()->format('d-m-Y');
+      return view('quotation/q_quotation/edit_quotation',compact('customer','marketing','now','item','data','data_dt','id'));
+    }else{
+      return redirect()->back();
+    }
   }
 
   public function update_quote(request $req)

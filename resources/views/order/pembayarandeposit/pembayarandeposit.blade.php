@@ -77,7 +77,7 @@ $(document).ready(function(){
               },
               {
                  targets: 6,
-                 className: 'content-wrapper'
+                 className: 'center'
               },
             ],
       columns: [
