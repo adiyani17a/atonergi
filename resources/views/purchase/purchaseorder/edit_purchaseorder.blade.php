@@ -32,12 +32,9 @@
                 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                   <div class="form-group">
-                      <select class="form-control form-control-sm" name="" id="cari_vendor">
-                        <option selected="" value="">- Pilih -</option>
-                          {{--@foreach ($vendor as $v)
-                              <option value="{{ $v->s_kode }}" data-name="{{ $v->s_name }}">{{ $v->s_kode }} - {{ $v->s_name }}</option>
-                          @endforeach--}}
-                      </select>
+                      <div class="form-group">
+                        <input type="text" class="form-control form-control-sm readonly" name="">
+                      </div>
                   </div>
                 </div>
 
@@ -56,17 +53,7 @@
                 <div class="col-md-3 col-sm-0 col-xs-0">
                   <!-- Empty -->
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                  <label>No.ro</label>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                
-                  <div class="form-group">
-                    <select class="form-control form-control-sm" name="" id="cari_ro">
-                      <option selected="" value="">- Pilih -</option>
-                    </select>
-                  </div>
-                </div>
+              
 
                 <div class="col-md-3 col-sm-0 col-xs-0">
                   <!-- Empty -->
@@ -140,7 +127,7 @@
           </div>
         </div>
 
-       <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
+      {{--  <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
           <div class="col-md-2 col-sm-6 col-xs-12">
             <label>Item Name</label>
           </div>
@@ -162,7 +149,7 @@
               <input type="number" class="form-control form-control-sm" name="" id="po_qty">
             </div>
           </div>
-        </div>
+        </div> --}}
 
            <div class="table-responsive" style="margin-bottom: 15px;">
              <table class="table table-bordered table-hover data-table" cellspacing="0" id="abrams">
@@ -177,6 +164,9 @@
                    <th>Line Total</th>
                  </tr>
                </thead>
+               <tbody>
+                 
+               </tbody>
              </table>
            </div>
 

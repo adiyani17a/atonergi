@@ -53,7 +53,6 @@
                                 <th class="wd-15p">Amount Requested</th>
                                 <th class="wd-10p">Amount Approved</th>
                                 <th class="wd-10p">Detail</th>
-                                <th class="wd-10p">Status</th>
                                 <th class="wd-15p">Action</th>
                               </tr>
                             </thead>
@@ -121,6 +120,10 @@
                      targets: 2 ,
                      className: 'right format_money'
                   },
+                  {
+                     targets: 5 ,
+                     className: 'center format_money'
+                  },
                   
                 ],
             "columns": [
@@ -129,7 +132,6 @@
             { "data": "ro_qty" },
             { "data": "ro_qty_approved" },
             { "data": "detail" },
-            { "data": "status" },
             { "data": "aksi" },
             ]
       });
@@ -207,8 +209,10 @@
         table.row.add( [
             '<input type="text" id="item_kode[]"   name="ro_item_seq[]"    class="form-control input-sm min-width readonly" readonly value="'+ rp_kodeitem.val() +'">',
             '<input type="text" id="item_name[]"      class="form-control input-sm min-width readonly" value="'+ rp_kodeitem.find(':selected').data('name') +'">',
+            '<input type="text" id="item_harga[]"   name="ro_unit_price_seq[]"    class="form-control input-sm min-width right readonly " value="'+ accounting.formatMoney(rp_kodeitem.find(':selected').data('price'),"",0,'.',',') +'">',
             '<input type="text" id="item_harga[]"   name="ro_price_seq[]"    class="form-control input-sm min-width right readonly total_price " value="'+ accounting.formatMoney(total,"",0,'.',',') +'">',
             '<input type="number" id="jumlah[]"   name="ro_qty_seq[]"    class="form-control input-sm min-width right readonly total_qty " value="'+ accounting.formatMoney(rp_qty.val(),"",0,'.',',') +'">',
+
             '<input type="text" id="unit_price[]"   name=""    class="form-control input-sm min-width right readonly">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
         ] ).draw( false );
@@ -271,9 +275,9 @@
          data: $('#form-save').serialize(),
          success: function(data){
             $('#tambah').modal('hide');
-            // var table_history = $('#table_datatable_histori').DataTable();
+            var table_history = $('#table_datatable_histori').DataTable();
             var table_rencana = $('#table_datatable_rencana').DataTable();
-            // table_history.ajax.reload();
+            table_history.ajax.reload();
             table_rencana.ajax.reload();
 
             iziToast.success({
@@ -291,17 +295,17 @@
        });
   })
 
-  $('#ro_vendor_header').change(function(){
-    var this_val = $(this).val();
-      $.ajax({
-         type: "get",
-         url: '{{ route('kode_rencanapembelian') }}',
-         data: {vendor:this_val},
-         success: function(data){
-            $('#ro_code').val(data);
-         }
-       });
-  })
+  // $('#ro_vendor_header').change(function(){
+  //   var this_val = $(this).val();
+  //     $.ajax({
+  //        type: "get",
+  //        url: '{{ route('kode_rencanapembelian') }}',
+  //        data: {vendor:this_val},
+  //        success: function(data){
+  //           $('#ro_code').val(data);
+  //        }
+  //      });
+  // })
 
   
 
@@ -322,11 +326,11 @@ function detail(parm) {
               array_nama += '<tr>';
                 array_nama += '<td><input type="hidden" class="form-control right" value="'+data[i].rodt_id+'" name="kode_detail[]">'+data[i].rodt_barang+' - '+data[i].i_name+'</td>';
                 array_nama += '<td align="right"><input type="hidden" class="form-control right" value="'+data[i].rodt_code+'" name="kode[]">'+accounting.formatMoney(data[i].rodt_price,"",0,'.',',')+'</td>';
-                array_nama += '<td align="right">'+accounting.formatMoney(data[i].rodt_qty,"",0,'.',',')+'</td>';
+                array_nama += '<td align="right" class="qty">'+accounting.formatMoney(data[i].rodt_qty,"",0,'.',',')+'</td>';
                 if (data[i].rodt_qty_approved != 0) {
-                    array_nama += '<td align="right"><input type="text"  name="approved[]" readonly value="'+data[i].rodt_qty_approved+'" class="form-control right "></td>';
+                    array_nama += '<td align="right"><input type="text"  name="approved[]" onkeyup="qty(this)" readonly value="'+data[i].rodt_qty_approved+'" class="form-control right qty_approved_value hanya_angka"></td>';
                 }else{
-                    array_nama += '<td align="right"><input type="text"  name="approved[]" value="'+0+'" class="form-control right"></td>';
+                    array_nama += '<td align="right"><input type="text"  name="approved[]"  onkeyup="qty(this)" value="'+0+'" class="form-control right qty_approved_value hanya_angka"></td>';
                 }
                 
               array_nama += '</tr>';
@@ -344,7 +348,23 @@ function detail(parm) {
          async: false
        });
   }
+  function qty(a){
+      //HITUNG QTY PADA TABLE
+      var parents_qty = $(a).parents('tr');    
+      var qty_value = $(parents_qty).find('.qty').text();
+      var qty_approved_value = $(parents_qty).find('.qty_approved_value').val();
+      //regex
+      //PERINGATAN MELEBIHI BATAS QTY
+      if (parseInt(qty_approved_value) > parseInt(qty_value)) {
+        iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Qty Melebihi Batas MAX!',
+        });
 
+        $(parents_qty).find('.qty_approved_value').val(0);
+
+      }
+    }
 
 function hapus(parm){
     var par   = $(parm).parents('tr');
@@ -429,7 +449,7 @@ function hapus(parm){
                    url: '{{ route('approve_rencanapembelian') }}',
                    data: $('#form-detail').serialize(),
                    success: function(data){
-                      $('#tambah').modal('hide');
+                      $('#detail').modal('hide');
                       var table_history = $('#table_datatable_histori').DataTable();
                       var table_rencana = $('#table_datatable_rencana').DataTable();
                       table_history.ajax.reload();
