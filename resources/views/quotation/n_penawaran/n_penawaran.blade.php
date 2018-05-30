@@ -28,8 +28,8 @@
                              <th>Item Kode</th>
                              <th>Marketing</th>
       			                 <th>Item Name</th>
-      			                 <th>Item Price</th>
       			                 <th>Lower Limit Price</th>
+                             <th>Item Price</th>
       			                 <th width="1%">Action</th>
                             </tr>
                           </thead>
@@ -76,8 +76,8 @@
             { "data": "np_kode" },
             { "data": "marketing" },
             { "data": "item" },
-            { "data": "np_price" },
-            { "data": "np_lowerlimit" },
+            { "data": "np_lowerlimit"},
+            { "data": "np_price"},
             { "data": "aksi" },
             ]
       });
@@ -195,9 +195,9 @@
             $('.hilangin').hide();
             $('#d_marketname').val(data[0].np_marketing).trigger('change');
             $('#d_itemname').val(data[0].np_kodeitem).trigger('change');
-            $('#d_price').val(data[0].np_price);
+            $('#d_price').val(data[0].np_lowerlimit);
             $('#kode_old').val(data[0].np_kode);
-            $('#d_lowerprice').val(data[0].np_lowerlimit);
+            $('#d_lowerprice').val(data[0].np_price);
 
             $('#change_function').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
          },

@@ -67,8 +67,8 @@ class master_NpenawaranController extends Controller
 						'np_kode' => $nota,
 						'np_kodeitem' =>$request->item_kode[$i],
 						'np_marketing' =>$request->d_marketing,
-						'np_price' =>$price[$i],
-						'np_lowerlimit' =>$low_price[$i],
+						'np_price' =>$low_price[$i],
+						'np_lowerlimit' =>$price[$i],
 						'np_insert' =>$tanggal,
 					]);
  		}
