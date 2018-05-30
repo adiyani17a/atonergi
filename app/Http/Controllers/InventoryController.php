@@ -10,6 +10,10 @@ class InventoryController extends Controller
     {
     	return view('inventory/barangmasuk/barangmasuk');
     }
+    public function process_po()
+    {
+        return view('inventory/barangmasuk/process_po');
+    }
     public function barangkeluar()
     {
     	return view('inventory/barangkeluar/barangkeluar');

@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('inventory/barangmasuk/detail_barangmasuk')
+@include('inventory/barangmasuk/cari_po')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="col-lg-12">	
@@ -9,17 +9,20 @@
 			<ol class="breadcrumb bg-info">
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
 				<li class="breadcrumb-item">Inventory</li>
-				<li class="breadcrumb-item active" aria-current="page">Barang Masuk</li>
+				<li class="breadcrumb-item active" aria-current="page">Penerimaan Barang</li>
 			</ol>
 		</nav>
 	</div>
 	<div class="col-lg-12 grid-margin stretch-card">
       	<div class="card">
 	        <div class="card-body">
-	          <h4 class="card-title">Barang Masuk</h4>
+	          <h4 class="card-title">Penerimaan Barang</h4>
 	          	<div class="row">
+	          		<div class="col-md-12 col-sm-12 col-xs-12" align="right">
+	          			<button class="btn btn-info btn-sm" type="button" data-target="#cari_po" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Add Data</button>
+	          		</div>
 	          		
-					<div class="table-responsive">
+					<div class="table-responsive" style="margin-top: 15px;">
 						<table class="table table-hover data-table" cellspacing="0">
 						  <thead class="bg-gradient-info">
 						    <tr>
@@ -35,20 +38,24 @@
 						    	<td>1</td>
 						    	<td>P001</td>
 						    	<td>Bravo</td>
-						    	<td><span class="badge badge-success">Complete</span></td>
+						    	<td><span class="badge badge-success badge-pill">Complete</span></td>
 						    	<td>
-						    		<button class="btn btn-outline-success" data-toggle="modal" data-target="#detail"><i class="fa fa-check"></i></button>
-						    		<button class="btn btn-outline-info"><i class="fa fa-print"></i></button>
+						    		<div class="btn-group">
+							    		<!-- <button class="btn btn-primary" data-toggle="modal" data-target="#detail"><i class="fa fa-check"></i></button> -->
+							    		<button class="btn btn-info"><i class="fa fa-print"></i></button>
+							    	</div>
 						    	</td>
 						    </tr>
 						    <tr>
 						    	<td>2</td>
 						    	<td>P002</td>
 						    	<td>Charlie</td>
-						    	<td><span class="badge badge-warning">Uncomplete</span></td>
+						    	<td><span class="badge badge-warning badge-pill">Uncomplete</span></td>
 						    	<td>
-						    		<button class="btn btn-outline-success" data-toggle="modal" data-target="#detail"><i class="fa fa-check"></i></button>
-						    		<button class="btn btn-outline-info"><i class="fa fa-print"></i></button>
+						    		<div class="btn-group">
+							    		<button class="btn btn-primary" data-toggle="modal" data-target="#detail"><i class="fa fa-check"></i></button>
+							    		<button class="btn btn-info"><i class="fa fa-print"></i></button>
+							    	</div>
 						    	</td>
 						    </tr>
 						  </tbody>
