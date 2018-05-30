@@ -489,6 +489,7 @@ class QuotationController extends Controller
 
     return$item = DB::table('d_npenawaran')
               ->leftjoin('m_item','i_code','=','np_kodeitem')
+              ->leftjoin('m_item','i_code','=','np_kodeitem')
               ->where('np_marketing',$kode->mk_code)
               ->get();
 
