@@ -31,22 +31,22 @@ class request_orderController extends Controller
         
         $data = collect($list);
         
-       for ($i=0; $i <count($list) ; $i++) { 
-                        $code[$i] = $list[$i]->ro_code;
-                        $true[$i] = DB::select("SELECT * from d_requestorder_dt where rodt_code = '$code[$i]' and rodt_status = 'F'");
-                    }
-        for ($i=0; $i <count($true) ; $i++) { 
-            for ($j=0; $j <count($true[$i]) ; $j++) { 
-                $code[$i] = $true[$i][$j]->rodt_code;
-                    if ($true[$i] == null) {
-                        $true_nested[$i] = 0;
-                    }else{
-                        $true_nested[$i] = DB::select("SELECT * from d_requestorder_dt where rodt_code = '$code[$i]' and rodt_status = 'F'");
-                    }
+       // for ($i=0; $i <count($list) ; $i++) { 
+       //                  $code[$i] = $list[$i]->ro_code;
+       //                  $true[$i] = DB::select("SELECT * from d_requestorder_dt where rodt_code = '$code[$i]' and rodt_status = 'F'");
+       //              }
+       //  for ($i=0; $i <count($true) ; $i++) { 
+       //      for ($j=0; $j <count($true[$i]) ; $j++) { 
+       //          $code[$i] = $true[$i][$j]->rodt_code;
+       //              if ($true[$i] == null) {
+       //                  $true_nested[$i] = 0;
+       //              }else{
+       //                  $true_nested[$i] = DB::select("SELECT * from d_requestorder_dt where rodt_code = '$code[$i]' and rodt_status = 'F'");
+       //              }
                     
-                    $lol[$i] = count($true_nested[$i]);
-            }
-        }
+       //              $lol[$i] = count($true_nested[$i]);
+       //      }
+       //  }
         // return $lol; 
 
         return Datatables::of($data)
