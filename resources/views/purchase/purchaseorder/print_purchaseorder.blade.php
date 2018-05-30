@@ -50,7 +50,7 @@ table, td, th {
 	border-style: hidden;
 }
 .div-width{
-	width: 900px;
+	width: 1200px;
 	position: relative;
 }
 .div-width:before{
@@ -147,20 +147,20 @@ table, td, th {
 			<tbody>
 				<tr >
 					<td class="text-left border-none">Vendor :</td>
-					<td class="text-left border-none">Zulu</td>
+					<td class="text-left border-none">{{ $print_header->s_company }}</td>
 
 				</tr>
 				<tr>
 					<td class="text-left border-none"></td>
-					<td class="text-left border-none"><e class="email">zulu@zulu.com</e></td>
+					<td class="text-left border-none"><e class="email">{{ $print_header->s_email }}</e></td>
 				</tr>
 				<tr>
 					<td class="text-left border-none"></td>
-					<td class="text-left border-none">Jl. Zulu, Surabaya, Jawa Timur, Indonesia</td>
+					<td class="text-left border-none">{{ $print_header->s_address }}</td>
 				</tr>
 				<tr>
 					<td class="text-left border-none"></td>
-					<td class="text-left border-none">[+ 62 853 333 3333]</td>
+					<td class="text-left border-none">[{{ $print_header->s_phone }}]</td>
 				</tr>
 			</tbody>
 		</table>
@@ -172,20 +172,20 @@ table, td, th {
 			<tbody>
 				<tr >
 					<td class="text-left border-none">Date : </td>
-					<td class="text-left border-none">April 14, 2018</td>
+					<td class="text-left border-none">{{ $print_header->po_date }}</td>
 
 				</tr>
 				<tr>
 					<td class="text-left border-none">S.O#</td>
-					<td class="text-left border-none">A001</td>
+					<td class="text-left border-none">{{ $print_header->po_code }}</td>
 				</tr>
 				<tr>
 					<td class="text-left border-none">Customer ID</td>
-					<td class="text-left border-none">CUS/001</td>
+					<td class="text-left border-none">-</td>
 				</tr>
 				<tr>
 					<td class="text-left border-none">Rev Quote#</td>
-					<td class="text-left border-none">B001</td>
+					<td class="text-left border-none">-</td>
 				</tr>
 			</tbody>
 		</table>
@@ -194,7 +194,7 @@ table, td, th {
 		<table class="border-none" width="50%">
 			<tbody>
 				<tr>
-					<td class="text-left border-none">Ship to : </td>
+					<td class="text-left border-none">Ship to : -</td>
 					<td class="text-left border-none"></td>
 				</tr>
 			</tbody>
@@ -212,9 +212,9 @@ table, td, th {
 
 		<tbody>
 			<tr>
-				<td>Air Freight</td>
-				<td>5 Minggu</td>
-				<td></td>
+				<td>{{ $print_header->po_shipping_method }}</td>
+				<td>{{ $print_header->po_shipping_term }}</td>
+				<td>{{ $print_header->po_delivery_date }}</td>
 			</tr>
 		</tbody>
 		
@@ -233,328 +233,34 @@ table, td, th {
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>Cable</td>
-				<td>30</td>
-				<td>Meter</td>
-				<td>Kabel Hitam</td>
-				<td>
+			@foreach ($print_seq as $index => $seq)
+				<tr>
+					<td>{{ $index+1 }}</td>
+					<td>{{ $seq->i_name }}</td>
+					<td>{{ $seq->podt_qty_approved }}</td>
+					<td>{{ $seq->i_unit }}</td>
+					<td>{{ $seq->i_description }}</td>
+					<td>
 					<div class="float-left">
 						Rp.
 					</div>
 					<div class="float-right">
-						10.000,00
+						{{ number_format($seq->podt_unit_price,2,',','.') }}
 					</div>
-				</td>
-				<td>
+					</td>
+					<td>
 					<div class="float-left">
 						Rp.
 					</div>
 					<div class="float-right">
-						300.000,00
+						{{ number_format($seq->podt_price,2,',','.') }}
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Pompa Air</td>
-				<td>1</td>
-				<td>Pcs</td>
-				<td>Pompa Merk Sanyo</td>
-				<td>
-					<div class="float-left">
-						Rp.
-					</div>
-					<div class="float-right">
-						300.000,00
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						Rp.
-					</div>
-					<div class="float-right">
-						300.000,00
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-				<td>
-					<div class="float-left">
-						
-					</div>
-					<div class="float-right">
-						
-					</div>
-				</td>
-			</tr>
+					</td>
+					
+					
+				</tr>
+			@endforeach
+			
 			<tr>
 				<td class="border-none" colspan="5"></td>
 				<td class="border-none text-right">Subtotal</td>
@@ -563,7 +269,7 @@ table, td, th {
 						Rp.
 					</div>
 					<div class="float-right">
-						600.000,00
+						{{ number_format($print_header->po_subtotal,2,',','.') }}
 					</div>
 				</td>
 			</tr>
@@ -575,7 +281,7 @@ table, td, th {
 						
 					</div>
 					<div class="float-right">
-						
+						{{ number_format($print_header->po_sales_tax,2,',','.') }}
 					</div>
 				</td>
 			</tr>
@@ -587,13 +293,13 @@ table, td, th {
 						Rp.
 					</div>
 					<div class="float-right">
-						600.000,00
+						{{ number_format($print_header->po_total_net,2,',','.') }}
 					</div>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	<div class="text-left" style="margin-top: -50px;font-size: 12px;width: 40%;">
+	<div class="text-left" style="margin-top: -40px;font-size: 12px;width: 40%;">
 		1. Please send two copies of your invoice.<br>
 		2. Enter this order in accordance with prices, terms, delivery method, and specification listed above.<br>
 		3. Please notify US immediately if you are unable to ship as specified.<br>

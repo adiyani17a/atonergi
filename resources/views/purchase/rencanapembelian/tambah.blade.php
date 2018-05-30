@@ -25,7 +25,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm readonly" name="ro_code_header" id="ro_code" >
+              <input type="text" class="form-control form-control-sm readonly" name="ro_code_header" id="ro_code" value="{{ $nota }}">
             </div>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
@@ -95,7 +95,7 @@
           </div>
           <div class="col-md-3 col-sm-12 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm right" name="" id="rp_qty">
+              <input type="text" class="form-control form-control-sm right hanya_angka" name="" id="rp_qty">
             </div>
           </div>
         </div>
@@ -104,8 +104,9 @@
           <table class="table data-table table-hover" cellspacing="0" id="t72a">
             <thead class="bg-gradient-info">
               <tr>
-                <th>Item Code</th>
+                 <th>Item Code</th>
                  <th>Item Name</th>
+                 <th>Unit Price</th>
                  <th>Price</th>
                  <th width="1%">Qty</th>
                  <th width="1%">Stock Warehouse</th>

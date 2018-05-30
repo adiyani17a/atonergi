@@ -289,13 +289,16 @@ Route::get('/purchase/rencanapembelian/datatable_rencanapembelian', 'purchase\re
 Route::get('/purchase/rencanapembelian/datatable_historypembelian', 'purchase\request_orderController@datatable_historypembelian')->name('datatable_historypembelian');
 
 //Purchase Order 
-// Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_orderController@create_purchaseorder')->name('create_purchaseorder');
 Route::get('/purchase/purchaseorder/purchaseorder', 'purchase\purchase_orderController@purchaseorder')->name('purchaseorder');
-Route::get('/purchase/purchaseorder/cari_ro_requestorder', 'purchase\purchase_orderController@cari_ro_requestorder')->name('cari_ro_requestorder');
-Route::get('/purchase/purchaseorder/cari_po_requestorder', 'purchase\purchase_orderController@cari_po_requestorder')->name('cari_po_requestorder');
-Route::get('/purchase/purchaseorder/create_requestorder', 'purchase\purchase_orderController@create_requestorder')->name('create_requestorder');
-Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder');
-Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orderController@edit_purchaseorder');
+Route::get('/purchase/purchaseorder/cari_ro_purchaseorder', 'purchase\purchase_orderController@cari_ro_purchaseorder')->name('cari_ro_purchaseorder');
+Route::get('/purchase/purchaseorder/cari_po_purchaseorder', 'purchase\purchase_orderController@cari_po_purchaseorder')->name('cari_po_purchaseorder');
+Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_orderController@create_purchaseorder')->name('create_purchaseorder');
+Route::get('/purchase/purchaseorder/datatable_purchaseorder', 'purchase\purchase_orderController@datatable_purchaseorder')->name('datatable_purchaseorder');
+Route::get('/purchase/purchaseorder/save_purchaseorder', 'purchase\purchase_orderController@save_purchaseorder')->name('save_purchaseorder');
+Route::get('/purchase/purchaseorder/hapus_purchaseorder', 'purchase\purchase_orderController@hapus_purchaseorder')->name('hapus_purchaseorder');
+Route::get('/purchase/purchaseorder/detail_purchaseorder', 'purchase\purchase_orderController@detail_purchaseorder')->name('detail_purchaseorder');
+Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder')->name('print_purchaseorder');
+Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orderController@edit_purchaseorder')->name('edit_purchaseorder');
 
             //-----------------END OF PURCHASE------------------\\
 
