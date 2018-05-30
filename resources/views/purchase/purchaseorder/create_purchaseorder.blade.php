@@ -21,7 +21,7 @@
               <h4 class="card-title">Edit Purchase Order</h4>
                
 
-           <div class="row">
+          <div class="row">
 
               
               
@@ -106,7 +106,7 @@
 
                  </div>
 
-              </div>
+          </div>
 
           <div class="row" style="margin-top: 15px;">
             <div class="col-md-12 col-sm-12 col-xs-12">

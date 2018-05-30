@@ -195,6 +195,7 @@ Route::get('aftersales/kebutuhanbiaya/kebutuhanbiaya', 'ASSController@kebutuhanb
 // Inventory
 Route::get('inventory/barangkeluar/barangkeluar', 'InventoryController@barangkeluar');
 Route::get('inventory/barangmasuk/barangmasuk', 'InventoryController@barangmasuk');
+Route::get('inventory/barangmasuk/process_po', 'InventoryController@process_po');
 Route::get('inventory/barcode/barcode', 'InventoryController@barcode');
 Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance');
 Route::get('inventory/opname/opname', 'InventoryController@opname');
