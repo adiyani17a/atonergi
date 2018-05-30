@@ -306,9 +306,11 @@
                    success: function(data){
                       var table = $('#dataTable').DataTable();
                       table.ajax.reload();
+                      window.open().document.write(data);
+
                    },
                    complete:function(){
-                      window.open(this.url);
+                      // alert(this.url);
                    },
                    error: function(){
                     iziToast.warning({
