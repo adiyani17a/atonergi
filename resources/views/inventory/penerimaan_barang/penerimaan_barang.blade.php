@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('inventory/barangmasuk/cari_po')
+@include('inventory/penerimaan_barang/cari_po')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="col-lg-12">	
@@ -19,7 +19,7 @@
 	          <h4 class="card-title">Penerimaan Barang</h4>
 	          	<div class="row">
 	          		<div class="col-md-12 col-sm-12 col-xs-12" align="right">
-	          			<button class="btn btn-info btn-sm" type="button" data-target="#cari_po" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Add Data</button>
+	          			<button class="btn btn-info btn-sm" type="button" data-target="#cari_po" id="button_add" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Add Data</button>
 	          		</div>
 	          		
 					<div class="table-responsive" style="margin-top: 15px;">
@@ -70,5 +70,34 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
+
+<script type="text/javascript">
+
+	function cari_purchaseorder() {
+		var this_val = $('#cari_purchaseorder').val();
+		console.log(this_val);
+		$.ajax({
+         type: "get",
+         url: '{{ route('cari_penerimaan_barang') }}',
+         data: {this_val},
+         success: function(data){
+            iziToast.success({
+              icon: 'fas fa-check-circle',
+              message: 'Data Telah Tersimpan!',
+            });
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });	
+	}
+
+
+</script>
+
 
 @endsection

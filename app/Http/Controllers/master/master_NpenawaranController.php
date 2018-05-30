@@ -70,6 +70,7 @@ class master_NpenawaranController extends Controller
 						'np_price' =>$low_price[$i],
 						'np_lowerlimit' =>$price[$i],
 						'np_insert' =>$tanggal,
+						'np_flag' =>$request->item_flag[$i],
 					]);
  		}
  		return response()->json($data);

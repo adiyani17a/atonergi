@@ -33,12 +33,12 @@
                   <option selected="" value="">- Pilih -</option>
                     <optgroup label="Item">
                       @foreach ($item as $e)
-                        <option value="{{ $e->i_code }}" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
+                        <option value="{{ $e->i_code }}" data-flag="ITEM" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
                       @endforeach
                     </optgroup>
                     <optgroup label="Bundle">
                       @foreach ($bundle as $e)
-                        <option value="{{ $e->ib_item }}" data-harga="{{ $e->ib_price }}">{{ $e->ib_item }}</option>
+                        <option value="{{ $e->ib_item }}" data-flag="BUNDLE" data-harga="{{ $e->ib_price }}">{{ $e->ib_item }}</option>
                       @endforeach
                     </optgroup>
               </select>

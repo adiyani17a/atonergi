@@ -9,7 +9,7 @@
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
 					<li class="breadcrumb-item">Inventory</li>
-					<li class="breadcrumb-item"><a href="{{url('inventory/barangmasuk/barangmasuk')}}">Penerimaan Barang</a></li>
+					<li class="breadcrumb-item"><a href="{{url('inventory/penerimaan_barang/penerimaan_barang')}}">Penerimaan Barang</a></li>
 					<li class="breadcrumb-item active" aria-current="page">Process Penerimaan Barang</li>
 				</ol>
 			</nav>
@@ -177,7 +177,7 @@
 		          		
 								<div align="right">
 									<button type="button" class="btn btn-info btn-sm">Add Data</button>
-									<a href="{{url('inventory/barangmasuk/barangmasuk')}}" class="btn btn-secondary btn-sm">Back</a>
+									<a href="{{url('inventory/penerimaan_barang/penerimaan_barang')}}" class="btn btn-secondary btn-sm">Back</a>
 								</div>
 						
 		        		

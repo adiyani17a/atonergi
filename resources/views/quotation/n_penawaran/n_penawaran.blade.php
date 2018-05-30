@@ -118,10 +118,12 @@
 	          return false;
 	        }
 	        m_table.row.add( [
+
 	            '<input type="text" id="item_kode[]"  name="item_kode[]" class="form-control input-sm min-width" value="'+ n_item.val()+'">',
 	            '<input type="text" id="item_name[]"  name="item_name[]" class="form-control input-sm min-width" value="'+ n_item.find(':selected').data('name')+'">',
 	            '<input type="text" id="item_price[]"  name="item_price[]" class="form-control input-sm min-width right" readonly value="'+ n_lowerprice.val() +'">',
 	            '<input type="text" id="item_lowerprice[]" name="item_lowerprice[]" class="form-control input-sm min-width right" value="'+ n_price.val() +'">',           
+              '<input type="hidden"  name="item_flag[]" class="form-control input-sm min-width right" value="'+ n_item.find(':selected').data('flag') +'">',
 	            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
 	        ] ).draw( false );
 	  

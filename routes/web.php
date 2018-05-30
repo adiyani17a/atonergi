@@ -194,15 +194,13 @@ Route::get('aftersales/kebutuhanbiaya/kebutuhanbiaya', 'ASSController@kebutuhanb
 
 // Inventory
 Route::get('inventory/barangkeluar/barangkeluar', 'InventoryController@barangkeluar');
-Route::get('inventory/barangmasuk/barangmasuk', 'InventoryController@barangmasuk');
-Route::get('inventory/barangmasuk/process_po', 'InventoryController@process_po');
 Route::get('inventory/barcode/barcode', 'InventoryController@barcode');
 Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance');
 Route::get('inventory/opname/opname', 'InventoryController@opname');
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');
-            //---------------------- MASTER ------------Own: Deny------------\\
 
-            
+
+            //---------------------- MASTER ------------Own: Deny------------\\            
 //master vendor 
 Route::get('/master/vendor/vendor', 'master\master_vendorController@vendor');
 Route::get('/master/simpanvendor/simpan_vendor', 'master\master_vendorController@simpan_vendor');
@@ -276,6 +274,7 @@ Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@baran
 
 
             //--------------PURCHASE -----------deny------------\\
+
 //request order
 Route::get('/purchase/rencanapembelian/rencanapembelian', 'purchase\request_orderController@rencanapembelian');
 Route::get('/purchase/rencanapembelian/kode_rencanapembelian', 'purchase\request_orderController@kode_rencanapembelian')->name('kode_rencanapembelian');
@@ -302,6 +301,33 @@ Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_ord
 Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orderController@edit_purchaseorder')->name('edit_purchaseorder');
 
             //-----------------END OF PURCHASE------------------\\
+
+
+
+     //  ,g  8b ,g                 ,g        8g   8g
+     //   o8888"  88 Y8     .od888888888P"       88'  88'
+     //     88    88 "        88  88  88        88'  88888888b
+     // 8888888888888888   d88888888888888b    888  88  oo  88
+     //     88    88       88    88      88   8'88 8'   88  P'
+     //     88,o  88 o9,     888888888888       88    8 88
+     //     88P   88,8P         88              88   o8 88 g
+     //   ,888    888'         88888888b        88   8' 88 `8,
+     //  d8'88   g88          88 gg ,88'        88  ,P  88  8b
+     //  8' 88 oP 88,        d8' `g88'          88  8   88  `P
+     //     88    `88 g     o8'  gg88b,         88 f    88
+     //    d8'      `b'    o8  oP'   "Y8ao      88     d8'       I love you
+
+
+                            
+                            //--------INVENTORY DENY-------\\
+
+
+Route::get('inventory/penerimaan_barang/penerimaan_barang', 'inventory\penerimaan_barangController@penerimaan_barang')->name('penerimaan_barang');
+Route::get('inventory/penerimaan_barang/create_penerimaan_barang', 'inventory\penerimaan_barangController@create_penerimaan_barang')->name('create_penerimaan_barang');
+Route::get('inventory/penerimaan_barang/cari_penerimaan_barang', 'inventory\penerimaan_barangController@cari_penerimaan_barang')->name('cari_penerimaan_barang');
+
+                                   //END OF INVENTORY
+
 
 // Master Type Barang
 Route::get('/master/type/typeproses', 'MasterType\TypeController@typeproses');
