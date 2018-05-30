@@ -53,7 +53,7 @@
     $('#button_add').click(function(){
           $("input[name='ib_name']").val('');
           $("input[name='ib_price']").val('');
-            var table = $('#t72bu').DataTable();
+            var table = $('#object_906').DataTable();
             table.clear().draw();
             $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
     })  

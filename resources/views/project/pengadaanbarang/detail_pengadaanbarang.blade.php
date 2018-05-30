@@ -17,8 +17,15 @@
                 <th>Qty</th>
               </tr>
             </thead>
-            <tbody id="detail_rep">
-              
+            <tbody>
+              <tr>
+                <td>Cable</td>
+                <td>30</td>
+              </tr>
+              <tr>
+                <td>Pompa Air</td>
+                <td>1</td>
+              </tr>
             </tbody>
           </table>
         </div>

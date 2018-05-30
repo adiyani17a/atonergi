@@ -22,13 +22,12 @@
                 <div class="card-body">
                   <h4 class="card-title">Purchase Order</h4>
                   <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cari" ><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cari" id="cari"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                   </div>
                   <div class="table-responsive">
-                    <table class="table table-bordered table-hover data-table" cellspacing="0">
+                    <table class="table table-bordered table-hover " id="datatable" cellspacing="0">
                       <thead class="bg-gradient-info">
                         <tr>
-                          <th>No</th>
                           <th>P.O.#</th>
                           <th>Vendor</th>
                           <th>Item</th>
@@ -38,7 +37,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                       {{--  <tr>
                           <td>1</td>
                           <td>PO-001</td>
                           <td>Zulu</td>
@@ -54,7 +53,7 @@
                               <a href="#" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></a>
                             </div>
                           </td>
-                        </tr>
+                        </tr> --}}
                       </tbody>
                     </table>
                   </div>
@@ -67,12 +66,49 @@
 @section('extra_script')
 <script type="text/javascript">
   
+  $('#datatable').DataTable({
+            processing: true,
+            // responsive:true,
+            serverSide: true,
+            ajax: {
+                url:'{{ route('datatable_purchaseorder') }}',
+            },
+             columnDefs: [
+
+                  {
+                     targets: 0 ,
+                     className: 'd_id center'
+                  },
+                  {
+                     targets: 2 ,
+                     className: 'center'
+                  }, 
+                  {
+                     targets: 3 ,
+                     className: 'right format_money'
+                  },
+                  {
+                     targets: 4 ,
+                     className: 'center'
+                  },
+                ],
+            "columns": [
+            { "data": "po_code" },
+            { "data": "s_company" },
+            { "data": "detail" },
+            { "data": "po_total_net" ,render: $.fn.dataTable.render.number( '.', '.', 0, '' )},
+            { "data": "status" },
+            { "data": "aksi" },
+            ]
+      });
+
+
   $('#cari_vendor').change(function(){
       var this_val = $(this).val();
 
         $.ajax({
            type: "get",
-           url: '{{ route('cari_ro_requestorder') }}',
+           url: '{{ route('cari_ro_purchaseorder') }}',
            data: $('#form_cari').serialize(),
            success: function(data){
            console.log(data);   
@@ -102,6 +138,36 @@
          });
   })
 
+  function detail(parm) {
+    var par   = $(parm).parents('tr');
+    var id    = $(par).find('.d_id').text();
+    $('#detail_item').modal('show');
+    $.ajax({
+       type: "get",
+         url: '{{ route('detail_purchaseorder') }}',
+         data: {id},
+         success: function(data){
+          console.log(data);
+          var array_nama='';
+          $.each(data, function(i, item) {
+              array_nama += '<tr>';
+                array_nama += '<td>'+data[i].i_code+' - '+data[i].i_name+'</td>';
+                array_nama += '<td align="right">'+data[i].podt_qty_approved+'</td>';
+              array_nama += '</tr>';
+          })
+          $('#detail_rep').html(array_nama);  
+
+
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });
+  }
 
   $('#create_po').click(function(){
 
@@ -124,7 +190,7 @@
                 //ajax
                  $.ajax({
                    type: "get",
-                   url: '{{ route('cari_po_requestorder') }}',
+                   url: '{{ route('cari_po_purchaseorder') }}',
                    data: $('#form_cari').serialize(),
                    success: function(data){
                       
@@ -144,6 +210,7 @@
 
 
                 }
+
               ],
               [
                 '<button style="background-color:red;">Cancel</button>',
@@ -155,6 +222,124 @@
               ]
             ]
           });
-  })
+    })
+
+
+   function hapus(a) {
+    var par   = $(a).parents('tr');
+    var id    = $(par).find('.d_id').text();
+    
+          iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:#44d7c9;">Process</button>',
+                function (instance, toast) {
+
+
+                //ajax
+                 $.ajax({
+                   type: "get",
+                   url: '{{ route('hapus_purchaseorder') }}',
+                   data: {id},
+                   success: function(data){
+                      var table = $('#dataTable').DataTable();
+                      table.ajax.reload();
+                   },
+                   error: function(){
+                    iziToast.warning({
+                      icon: 'fa fa-times',
+                      message: 'Terjadi Kesalahan!',
+                    });
+                   },
+                   async: false
+                 });
+                //end of ajax
+
+
+                }
+
+              ],
+              [
+                '<button style="background-color:red;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+    }
+
+   function print(parm) {
+     var par   = $(parm).parents('tr');
+     var id    = $(par).find('.d_id').text();
+
+          iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?!',
+            position: 'center',
+            progressBarColor: 'rgb(0, 255, 184)',
+            buttons: [
+              [
+                '<button style="background-color:#44d7c9;">Process</button>',
+                function (instance, toast) {
+                //ajax
+                 $.ajax({
+                   type: "get",
+                   url: '{{ route('print_purchaseorder') }}',
+                   data: {id},
+                   success: function(data){
+                      var table = $('#dataTable').DataTable();
+                      table.ajax.reload();
+                      window.open().document.write(data);
+
+                   },
+                   complete:function(){
+                      // alert(this.url);
+                   },
+                   error: function(){
+                    iziToast.warning({
+                      icon: 'fa fa-times',
+                      message: 'Terjadi Kesalahan!',
+                    });
+                   },
+                   async: false
+                 });
+                //end of ajax
+
+
+                }
+
+              ],
+              [
+                '<button style="background-color:red;">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+   }
+
+
+
+  // cari_vendor
 </script>
 @endsection

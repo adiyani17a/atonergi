@@ -14,11 +14,13 @@ class master_NpenawaranController extends Controller
  		// return 'a';
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
  		$marketing = DB::table('d_marketing')->select('mk_code','mk_name')->get();
- 		return view('quotation/n_penawaran/n_penawaran',compact('item','marketing'));
+ 		$bundle = DB::table('m_item_bundling')->select('ib_item','ib_price')->get();
+
+ 		return view('quotation/n_penawaran/n_penawaran',compact('item','marketing','bundle'));
  	}
  	public function datatable_Npenawaran()
  	{
- 		$list = DB::select("SELECT * from d_npenawaran");
+ 		$list = DB::select("SELECT * from d_npenawaran left join m_item on m_item.i_code = d_npenawaran.np_kodeitem left join d_marketing on d_marketing.mk_code = d_npenawaran.np_marketing ");
         // return $list;
         $data = collect($list);
         
@@ -33,8 +35,11 @@ class master_NpenawaranController extends Controller
                                    '<label class="fa fa-trash"></label></button>'.
                                   '</div>';
                 })
-                ->addColumn('none', function ($data) {
-                    return '-';
+                ->addColumn('item', function ($data) {
+                    return $data->i_code.'  -   '.$data->i_name;
+                })
+                ->addColumn('marketing', function ($data) {
+                    return $data->mk_code.'  -   '.$data->mk_name;
                 })
                 ->rawColumns(['aksi', 'confirmed'])
         		->make(true);
@@ -62,9 +67,10 @@ class master_NpenawaranController extends Controller
 						'np_kode' => $nota,
 						'np_kodeitem' =>$request->item_kode[$i],
 						'np_marketing' =>$request->d_marketing,
-						'np_price' =>$price[$i],
-						'np_lowerlimit' =>$low_price[$i],
+						'np_price' =>$low_price[$i],
+						'np_lowerlimit' =>$price[$i],
 						'np_insert' =>$tanggal,
+						'np_flag' =>$request->item_flag[$i],
 					]);
  		}
  		return response()->json($data);

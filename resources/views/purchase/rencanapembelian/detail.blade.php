@@ -1,7 +1,7 @@
-<!-- Modal -->\
-<form id="form-detail">
+<!-- Modal -->
 <div id="detail_modal" class="modal fade" role="dialog">
   <div class="modal-dialog" style="width:700px;">
+<form id="form-detail">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -37,6 +37,6 @@
       </div>
     </div>
 
+</form>
   </div>
 </div>
-</form>

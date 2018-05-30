@@ -52,26 +52,26 @@
            </div>
 
         
-               <div class="col-md-3 col-sm-12 col-xs-12" style="height: 1%;">
-                <div class="row">
-                  <div class="col-md-4 col-sm-6 col-xs-12">
-                    <label>Date</label>
-                  </div>
-                  <div class="col-md-8 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-sm datepicker" name="">
-                    </div>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-12">
-                    <label>P.O.#</label>
-                  </div>
-                  <div class="col-md-8 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-sm" name="">
-                    </div>
-                  </div>
+          <div class="col-md-3 col-sm-12 col-xs-12" style="height: 1%;">
+            <div class="row">
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <label>Date</label>
+              </div>
+              <div class="col-md-8 col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-sm datepicker" name="">
                 </div>
-               </div>
+              </div>
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <label>P.O.#</label>
+              </div>
+              <div class="col-md-8 col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-sm" name="">
+                </div>
+              </div>
+            </div>
+          </div>
 
             </div>
 

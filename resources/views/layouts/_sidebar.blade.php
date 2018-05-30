@@ -321,14 +321,7 @@
                 </ul>
                 </div>
             </li>
-            <li class="nav-item {{
-            Request::is('projectmp') ? 'active' : '' 
-            || Request::is('projectmp/*') ? 'active' : '' 
-            || Request::is('projectms') ? 'active' : '' 
-            || Request::is('projectms/*') ? 'active' : '' 
-            || Request::is('project') ? 'active' : '' 
-            || Request::is('project/*') ? 'active' : '' 
-          }}">
+            <li class="nav-item {{Request::is('project/*') ? 'active' : ''}}">
               <a class="nav-link" data-toggle="collapse" href="#pompa" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Project Manajemen <br>Pompa / SHS</span>
                 <span class="d-none">
@@ -342,87 +335,27 @@
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-engine menu-icon"></i>
               </a>
-              <div class="collapse {{
-              Request::is('projectmp') ? 'show' : '' 
-              || Request::is('projectmp/*') ? 'show' : ''
-              || Request::is('projectms') ? 'show' : '' 
-              || Request::is('projectms/*') ? 'show' : ''  
-              ||Request::is('project') ? 'show' : '' 
-              || Request::is('project/*') ? 'show' : '' 
-            }}" id="pompa">
+              <div class="collapse {{Request::is('project/*') ? 'show' : ''}}" id="pompa">
                 <ul class="nav flex-column sub-menu">
 
-                  <li class="nav-item"> <a class="nav-link {{
-                    Request::is('projectmp/pmp_pengadaanbarang/pmp_pengadaanbarang') ? 'active' : '' 
-                    || Request::is('projectmp/pmp_pengadaanbarang/*') ? 'active' : '' 
-                    || Request::is('projectms/shs_pengadaanbarang/shs_pengadaanbarang') ? 'active' : '' 
-                    || Request::is('projectms/shs_pengadaanbarang/*') ? 'active' : ''
-                    || Request::is('project/pilih_pengadaanbarang/pilih_pengadaanbarang') ? 'active' : '' 
-                    || Request::is('project/pilih_pengadaanbarang/*') ? 'active' : ''
-                  }}" href="{{url('project/pilih_pengadaanbarang/pilih_pengadaanbarang')}}">Pengadaan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/pengadaanbarang/*') ? 'active' : ''
+                  }}" href="{{url('project/pengadaanbarang/pengadaanbarang')}}">Pengadaan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <!-- <li class="nav-item"> <a class="nav-link {{
-                    Request::is('projectmp/pmp_pengepakanbarang/pmp_pengepakanbarang') ? 'active' : '' 
-                    || Request::is('projectmp/pmp_pengepakanbarang//*') ? 'active' : '' 
-                    || Request::is('projectms/shs_pengepakanbarang/shs_pengepakanbarang') ? 'active' : '' 
-                    || Request::is('projectms/shs_pengepakanbarang//*') ? 'active' : ''
-                    || Request::is('project/pilih_pengepakanbarang/pilih_pengepakanbarang') ? 'active' : '' 
-                    || Request::is('project/pilih_pengepakanbarang/*') ? 'active' : ''
-                  }}" href="{{url('project/pilih_pengepakanbarang/pilih_pengepakanbarang')}}">Pengepakan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li> -->
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/pengirimanbarang/*') ? 'active' : '' 
+                  }}" href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{Request::is('projectmp/pmp_pengirimanbarang/pmp_pengirimanbarang') ? 'active' : '' 
-                    || Request::is('projectmp/pmp_pengirimanbarang/*') ? 'active' : '' 
-                    || Request::is('projectms/shs_pengirimanbarang/shs_pengirimanbarang') ? 'active' : '' 
-                    || Request::is('projectms/shs_pengirimanbarang/*') ? 'active' : '' 
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/pemasangan/*') ? 'active' : '' 
+                  }}" href="{{url('project/pemasangan/pemasangan')}}">Pemasangan<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                    || Request::is('project/pilih_pengirimanbarang/pilih_pengirimanbarang') ? 'active' : '' 
-                    || Request::is('project/pilih_pengirimanbarang/*') ? 'active' : '' 
-                  }}" href="{{url('project/pilih_pengirimanbarang/pilih_pengirimanbarang')}}">Pengiriman Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/jadwalujicoba/*') ? 'active' : ''
+                 }}" href="{{url('project/jadwalujicoba/jadwalujicoba')}}">Schedule Uji Coba dan <br>Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS Schedule Uji Coba dan Dokumentasi</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{
-                    Request::is('projectmp/pmp_pemasangan/pmp_pemasangan') ? 'active' : '' 
-                    || Request::is('projectmp/pmp_pemasangan/*') ? 'active' : '' 
-                    || Request::is('projectms/shs_pemasangan/shs_pemasangan') ? 'active' : '' 
-                    || Request::is('projectms/shs_pemasangan/*') ? 'active' : '' 
-                    || Request::is('project/pilih_pemasangan/pilih_pemasangan') ? 'active' : '' 
-                    || Request::is('project/pilih_pemasangan/*') ? 'active' : '' 
-                  }}" href="{{url('project/pilih_pemasangan/pilih_pemasangan')}}">Pemasangan<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/salescommon/*') ? 'active' : '' 
+                  }}" href="{{url('project/salescommon/salescommon')}}">Sales Common<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{
-                    Request::is('projectmp/pmp_jadwalujicoba/pmp_jadwalujicoba') ? 'active' : ''
-                   || Request::is('projectmp/pmp_jadwalujicoba/*') ? 'active' : '' 
-                   || Request::is('projectms/shs_jadwalujicoba/shs_jadwalujicoba') ? 'active' : '' 
-                   || Request::is('projectms/shs_jadwalujicoba/*') ? 'active' : ''
-                   || Request::is('project/pilih_jadwalujicoba/pilih_jadwalujicoba') ? 'active' : '' 
-                   || Request::is('project/pilih_jadwalujicoba/*') ? 'active' : ''
-                 }}" href="{{url('project/pilih_jadwalujicoba/pilih_jadwalujicoba')}}">Schedule Uji Coba dan <br>Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS Schedule Uji Coba dan Dokumentasi</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/technicianfee/*') ? 'active' : '' 
+                  }}" href="{{url('project/technicianfee/technicianfee')}}">Technician Fee<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{
-                    Request::is('projectmp/pmp_salescommon/pmp_salescommon') ? 'active' : '' 
-                    || Request::is('projectmp/pmp_salescommon/*') ? 'active' : '' 
-                    || Request::is('projectms/shs_salescommon/shs_salescommon') ? 'active' : '' 
-                    || Request::is('projectms/shs_salescommon/*') ? 'active' : '' 
-                    || Request::is('project/pilih_salescommon/pilih_salescommon') ? 'active' : '' 
-                    || Request::is('project/pilih_salescommon/*') ? 'active' : '' 
-                  }}" href="{{url('project/pilih_salescommon/pilih_salescommon')}}">Sales Common<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
-
-                  <li class="nav-item"> <a class="nav-link {{
-                    Request::is('projectmp/pmp_technicianfee/pmp_technicianfee') ? 'active' : '' 
-                    || Request::is('projectmp/pmp_technicianfee/*') ? 'active' : '' 
-                    || Request::is('projectms/shs_technicianfee/shs_technicianfee') ? 'active' : '' 
-                    || Request::is('projectms/shs_technicianfee/*') ? 'active' : '' 
-                    || Request::is('project/pilih_technicianfee/pilih_technicianfee') ? 'active' : '' 
-                    || Request::is('project/pilih_technicianfee/*') ? 'active' : '' 
-                  }}" href="{{url('project/pilih_technicianfee/pilih_technicianfee')}}">Technician Fee<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
-
-                  <!-- <li class="nav-item"> <a class="nav-link {{
-                    Request::is('projectmp/pmp_dokumentasi/pmp_dokumentasi') ? 'active' : '' 
-                    || Request::is('projectmp/pmp_dokumentasi/*') ? 'active' : '' 
-                    || Request::is('projectms/shs_dokumentasi/shs_dokumentasi') ? 'active' : '' 
-                    || Request::is('projectms/shs_dokumentasi/*') ? 'active' : '' 
-                    || Request::is('project/pilih_dokumentasi/pilih_dokumentasi') ? 'active' : '' 
-                    || Request::is('project/pilih_dokumentasi/*') ? 'active' : '' 
-                  }}" href="{{url('project/pilih_dokumentasi/pilih_dokumentasi')}}">Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS</span></a></li> -->
 
                 </ul>
 
@@ -456,8 +389,8 @@
               <a class="nav-link" data-toggle="collapse" href="#inven" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Inventory</span>
                 <span class="d-none">
-                  Barang Masuk
-                  Barang Keluar
+                  Penerimaan Barang
+                  Pengeluaran Barang
                   Stock Opname
                   Maintenance
                   
@@ -469,8 +402,8 @@
               </a>
               <div class="collapse {{Request::is('inventory') ? 'show' : '' || Request::is('inventory/*') ? 'show' : '' }}" id="inven">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangmasuk/barangmasuk') ? 'active' : '' || Request::is('inventory/barangmasuk/*') ? 'active' : '' }}" href="{{url('inventory/barangmasuk/barangmasuk')}}">Barang Masuk<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangkeluar/barangkeluar') ? 'active' : '' || Request::is('inventory/barangkeluar/*') ? 'active' : '' }}" href="{{url('inventory/barangkeluar/barangkeluar')}}">Barang Keluar<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/penerimaan_barang/penerimaan_barang') ? 'active' : '' || Request::is('inventory/penerimaan_barang/*') ? 'active' : '' }}" href="{{url('inventory/penerimaan_barang/penerimaan_barang')}}">Penerimaan Barang<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangkeluar/barangkeluar') ? 'active' : '' || Request::is('inventory/barangkeluar/*') ? 'active' : '' }}" href="{{url('inventory/barangkeluar/barangkeluar')}}">Pengeluaran Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/opname/opname') ? 'active' : '' || Request::is('inventory/opname/*') ? 'active' : '' }}" href="{{url('inventory/opname/opname')}}">Stock Opname<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/maintenance/maintenance') ? 'active' : '' || Request::is('inventory/maintenance/*') ? 'active' : '' }}" href="{{url('inventory/maintenance/maintenance')}}">Maintenance<span class="d-none">Inventory</span></a></li>
                   

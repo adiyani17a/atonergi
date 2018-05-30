@@ -136,14 +136,16 @@ Route::get('/order/checklistform/print_checklistform', 'OrderController@print_ch
 Route::get('/order/s_invoice/print_salesinvoice', 'OrderController@print_salesinvoice');
 
 // Pilih Project Manejmen Pompa | SHS
-Route::get('/project/pilih_dokumentasi/pilih_dokumentasi', 'SelectController@pilih_dokumentasi');
-Route::get('/project/pilih_jadwalujicoba/pilih_jadwalujicoba', 'SelectController@pilih_jadwalujicoba');
-Route::get('/project/pilih_pemasangan/pilih_pemasangan', 'SelectController@pilih_pemasangan');
-Route::get('/project/pilih_pengadaanbarang/pilih_pengadaanbarang', 'SelectController@pilih_pengadaanbarang');
-Route::get('/project/pilih_pengepakanbarang/pilih_pengepakanbarang', 'SelectController@pilih_pengepakanbarang');
-Route::get('/project/pilih_pengirimanbarang/pilih_pengirimanbarang', 'SelectController@pilih_pengirimanbarang');
-Route::get('/project/pilih_salescommon/pilih_salescommon', 'SelectController@pilih_salescommon');
-Route::get('/project/pilih_technicianfee/pilih_technicianfee', 'SelectController@pilih_technicianfee');
+Route::get('/project/dokumentasi/dokumentasi', 'ProjectController@dokumentasi');
+Route::get('/project/jadwalujicoba/jadwalujicoba', 'ProjectController@jadwalujicoba');
+Route::get('/project/pemasangan/pemasangan', 'ProjectController@pemasangan');
+Route::get('/project/pengadaanbarang/pengadaanbarang', 'ProjectController@pengadaanbarang');
+Route::get('/project/pengepakanbarang/pengepakanbarang', 'ProjectController@pengepakanbarang');
+Route::get('/project/pengirimanbarang/pengirimanbarang', 'ProjectController@pengirimanbarang');
+Route::get('/project/salescommon/salescommon', 'ProjectController@salescommon');
+Route::get('/project/technicianfee/technicianfee', 'ProjectController@technicianfee');
+Route::get('/project/pengadaanbarang/prosespengadaanbarang', 'ProjectController@prosespengadaanbarang');
+Route::get('/project/pengirimanbarang/prosespengirimanbarang', 'ProjectController@prosespengirimanbarang');
 
 // Pompa
 Route::get('/projectmp/pmp_dokumentasi/pmp_dokumentasi', 'PompaController@pmp_dokumentasi');
@@ -154,8 +156,6 @@ Route::get('/projectmp/pmp_pengepakanbarang/pmp_pengepakanbarang', 'PompaControl
 Route::get('/projectmp/pmp_pengirimanbarang/pmp_pengirimanbarang', 'PompaController@pmp_pengirimanbarang');
 Route::get('/projectmp/pmp_salescommon/pmp_salescommon', 'PompaController@pmp_salescommon');
 Route::get('/projectmp/pmp_technicianfee/pmp_technicianfee', 'PompaController@pmp_technicianfee');
-Route::get('/projectmp/pmp_pengadaanbarang/pmp_prosespengadaanbarang', 'PompaController@pmp_prosespengadaanbarang');
-Route::get('/projectmp/pmp_pengirimanbarang/pmp_prosespengirimanbarang', 'PompaController@pmp_prosespengirimanbarang');
 
 // SHS
 Route::get('/projectms/shs_dokumentasi/shs_dokumentasi', 'SHSController@shs_dokumentasi');
@@ -196,14 +196,13 @@ Route::get('aftersales/kebutuhanbiaya/kebutuhanbiaya', 'ASSController@kebutuhanb
 
 // Inventory
 Route::get('inventory/barangkeluar/barangkeluar', 'InventoryController@barangkeluar');
-Route::get('inventory/barangmasuk/barangmasuk', 'InventoryController@barangmasuk');
 Route::get('inventory/barcode/barcode', 'InventoryController@barcode');
 Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance');
 Route::get('inventory/opname/opname', 'InventoryController@opname');
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');
-            //---------------------- MASTER ------------Own: Deny------------\\
 
-            
+
+            //---------------------- MASTER ------------Own: Deny------------\\            
 //master vendor 
 Route::get('/master/vendor/vendor', 'master\master_vendorController@vendor');
 Route::get('/master/simpanvendor/simpan_vendor', 'master\master_vendorController@simpan_vendor');
@@ -277,6 +276,7 @@ Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@baran
 
 
             //--------------PURCHASE -----------deny------------\\
+
 //request order
 Route::get('/purchase/rencanapembelian/rencanapembelian', 'purchase\request_orderController@rencanapembelian');
 Route::get('/purchase/rencanapembelian/kode_rencanapembelian', 'purchase\request_orderController@kode_rencanapembelian')->name('kode_rencanapembelian');
@@ -291,15 +291,45 @@ Route::get('/purchase/rencanapembelian/datatable_rencanapembelian', 'purchase\re
 Route::get('/purchase/rencanapembelian/datatable_historypembelian', 'purchase\request_orderController@datatable_historypembelian')->name('datatable_historypembelian');
 
 //Purchase Order 
-// Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_orderController@create_purchaseorder')->name('create_purchaseorder');
 Route::get('/purchase/purchaseorder/purchaseorder', 'purchase\purchase_orderController@purchaseorder')->name('purchaseorder');
-Route::get('/purchase/purchaseorder/cari_ro_requestorder', 'purchase\purchase_orderController@cari_ro_requestorder')->name('cari_ro_requestorder');
-Route::get('/purchase/purchaseorder/cari_po_requestorder', 'purchase\purchase_orderController@cari_po_requestorder')->name('cari_po_requestorder');
-Route::get('/purchase/purchaseorder/create_requestorder', 'purchase\purchase_orderController@create_requestorder')->name('create_requestorder');
-Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder');
-Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orderController@edit_purchaseorder');
+Route::get('/purchase/purchaseorder/cari_ro_purchaseorder', 'purchase\purchase_orderController@cari_ro_purchaseorder')->name('cari_ro_purchaseorder');
+Route::get('/purchase/purchaseorder/cari_po_purchaseorder', 'purchase\purchase_orderController@cari_po_purchaseorder')->name('cari_po_purchaseorder');
+Route::get('/purchase/purchaseorder/create_purchaseorder', 'purchase\purchase_orderController@create_purchaseorder')->name('create_purchaseorder');
+Route::get('/purchase/purchaseorder/datatable_purchaseorder', 'purchase\purchase_orderController@datatable_purchaseorder')->name('datatable_purchaseorder');
+Route::get('/purchase/purchaseorder/save_purchaseorder', 'purchase\purchase_orderController@save_purchaseorder')->name('save_purchaseorder');
+Route::get('/purchase/purchaseorder/hapus_purchaseorder', 'purchase\purchase_orderController@hapus_purchaseorder')->name('hapus_purchaseorder');
+Route::get('/purchase/purchaseorder/detail_purchaseorder', 'purchase\purchase_orderController@detail_purchaseorder')->name('detail_purchaseorder');
+Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder')->name('print_purchaseorder');
+Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orderController@edit_purchaseorder')->name('edit_purchaseorder');
 
             //-----------------END OF PURCHASE------------------\\
+
+
+
+     //  ,g  8b ,g                 ,g        8g   8g
+     //   o8888"  88 Y8     .od888888888P"       88'  88'
+     //     88    88 "        88  88  88        88'  88888888b
+     // 8888888888888888   d88888888888888b    888  88  oo  88
+     //     88    88       88    88      88   8'88 8'   88  P'
+     //     88,o  88 o9,     888888888888       88    8 88
+     //     88P   88,8P         88              88   o8 88 g
+     //   ,888    888'         88888888b        88   8' 88 `8,
+     //  d8'88   g88          88 gg ,88'        88  ,P  88  8b
+     //  8' 88 oP 88,        d8' `g88'          88  8   88  `P
+     //     88    `88 g     o8'  gg88b,         88 f    88
+     //    d8'      `b'    o8  oP'   "Y8ao      88     d8'       I love you
+
+
+                            
+                            //--------INVENTORY DENY-------\\
+
+
+Route::get('inventory/penerimaan_barang/penerimaan_barang', 'inventory\penerimaan_barangController@penerimaan_barang')->name('penerimaan_barang');
+Route::get('inventory/penerimaan_barang/create_penerimaan_barang', 'inventory\penerimaan_barangController@create_penerimaan_barang')->name('create_penerimaan_barang');
+Route::get('inventory/penerimaan_barang/cari_penerimaan_barang', 'inventory\penerimaan_barangController@cari_penerimaan_barang')->name('cari_penerimaan_barang');
+
+                                   //END OF INVENTORY
+
 
 // Master Type Barang
 Route::get('/master/type/typeproses', 'MasterType\TypeController@typeproses');
