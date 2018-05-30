@@ -6,9 +6,9 @@
 </style>
 @endsection
 <!-- Modal -->
-<form id="form-save">
 <div id="tambah" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
+<form id="form-save">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -125,6 +125,6 @@
       </div>
     </div>
 
+</form>
   </div>
 </div>
-</form>
