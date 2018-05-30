@@ -186,12 +186,9 @@
             <label>Item Name</label>
           </div>
           <div class="col-md-2 col-sm-12 col-xs-12">
-            <div class="form-group">
-              <select class="form-control form-control-sm item" name="item">
-                <option value="0">--Select Item</option>
-                @foreach($item as $i )
-                <option value="{{ $i->i_code }}">{{ $i->i_code }} - {{ $i->i_name }}</option>
-                @endforeach
+            <div class="form-group item_div">
+              <select class="form-control form-control-sm" name="item">
+                <option value="0">--Select Marketing First --</option>
               </select>
             </div>
           </div>

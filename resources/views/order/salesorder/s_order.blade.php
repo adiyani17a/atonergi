@@ -45,6 +45,7 @@
 									<th>Total Bill</th>
 									<th>DP</th>
 									<th>Total Balance</th>
+									<th>Status</th>
 									<th>Action</th>
                 				</tr>
 							</thead>
@@ -95,6 +96,10 @@ $(document).ready(function(){
                  targets: 6,
                  className: 'center'
               },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
             ],
       columns: [
         {data: 'so_nota', name: 'so_nota'},
@@ -103,11 +108,46 @@ $(document).ready(function(){
         {data: 'total', name: 'total'},
         {data: 'dp', name: 'dp'},
         {data: 'remain', name: 'remain'},
+        {data: 'status', name: 'status'},
         {data: 'aksi', name: 'aksi'},
 
       ]
 
 	});
 })
+
+function printing(id) {
+	iziToast.show({
+        overlay: true,
+        close: false,
+        timeout: 20000, 
+        color: 'dark',
+        icon: 'fas fa-question-circle',
+        title: 'Print Data!',
+        message: 'Apakah Anda Yakin ?!',
+        position: 'center',
+        progressBarColor: 'rgb(0, 255, 184)',
+        buttons: [
+          [
+            '<button style="background-color:#32CD32;">Print</button>',
+            function (instance, toast) {
+              window.open("{{ url('/order/salesorder/print_salesorder') }}"+"/"+id )
+
+            }
+          ],
+          [
+            '<button style="background-color:#44d7c9;">Cancel</button>',
+            function (instance, toast) {
+              instance.hide({
+                transitionOut: 'fadeOutUp'
+              }, toast);
+            }
+          ]
+        ]
+    });
+
+    var table = $('#table_quote').DataTable();
+    table.ajax.reload();
+}
 </script>
 @endsection

@@ -37,7 +37,7 @@ class OrderController extends Controller
                         ->addColumn('aksi', function ($data) {
                             return '<div class="btn-group">
                                         <a href="'.url('order/salesorder/s_order/detail_salesorder'). '/' . $data->so_id.'" class="btn btn-info btn-sm">Detail</a>
-                                        <a href="'.url('order/salesorder/print_salesorder'). '/' . $data->so_id.'" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
+                                        <a onclick="printing(\''.$data->so_id.'\')" style="color:white" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
                                     </div>';                               
                         })
                         ->addColumn('none', function ($data) {
@@ -59,12 +59,12 @@ class OrderController extends Controller
                             return 'Rp. '. number_format($data->q_remain, 2, ",", ".");
                         })
                         ->addColumn('status', function ($data) {
-                            $s = DB::table('d_status')
-                                      ->where('s_id',$data->q_status)
-                                      ->first();
-
-                            return  '<span class="badge badge-pill badge-'.$s->s_color.'">'.$s->s_name.'</span>'.
-                                    '<input type="hidden" class="q_id" value="'.$data->q_id.'">';
+                            if ($data->so_status == 'Released') {
+                                return  '<span class="badge badge-pill badge-primary">Released</span>';
+                            }else{
+                                return  '<span class="badge badge-pill badge-success">Printed</span>';
+                            }
+                            
                         })
                         ->rawColumns(['aksi', 'detail','histori','total','status','dp','remain'])
                         ->addIndexColumn()
@@ -93,7 +93,7 @@ class OrderController extends Controller
 
             for ($i=0; $i < count($marketing); $i++) { 
                 if ($marketing[$i]->mk_id == $data->q_marketing) {
-                    $market = $marketing[$i]->mk_name;
+                    $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
                 }
             }
 
@@ -101,27 +101,12 @@ class OrderController extends Controller
                       ->get();
 
             $data_dt = DB::table('d_quotation_dt')
-                  ->where('qd_id',$data->q_id)
-                  ->orderBy('qd_dt','ASC')
-                  ->get();
+                       ->join('d_npenawaran','np_kode','=','qd_item')
+                       ->join('m_item','i_code','=','np_kodeitem')
+                       ->where('qd_id',$id)
+                       ->get();
 
-            for ($i=0; $i < count($data_dt); $i++) { 
-                for ($a=0; $a < count($item); $a++) { 
-                    if ($data_dt[$i]->qd_item == $item[$a]->i_code) {
-                        $detail[$i]['nama_item'] = $item[$a]->i_name;
-                        $detail[$i]['qty']       = $data_dt[$i]->qd_qty;
-                        $detail[$i]['unit']      = $item[$a]->i_unit;
-                        $detail[$i]['desc']      = $data_dt[$i]->qd_description;
-                        $detail[$i]['price']     = $data_dt[$i]->qd_price;
-                        $detail[$i]['total']     = $data_dt[$i]->qd_total;
-                    }
-                }
-            }
-
-
-
-
-            return view('order/salesorder/detail_salesorder',compact('detail','data','market'));
+            return view('order/salesorder/detail_salesorder',compact('data_dt','data','market','id'));
         }
     }
 
@@ -137,11 +122,17 @@ class OrderController extends Controller
                           ->orderBy('q_id','DESC')
                           ->first();
 
-            $data = DB::table('d_quotation')
-                       ->join('d_quotation_dt','q_id','=','qd_id')
-                       ->join('m_item','i_code','=','qd_item')
-                       ->where('q_id',$head->q_id)
+            $data = DB::table('d_quotation_dt')
+                       ->join('d_npenawaran','np_kode','=','qd_item')
+                       ->join('m_item','i_code','=','np_kodeitem')
+                       ->where('qd_id',$head->q_id)
                        ->get();
+
+            $update = DB::table('d_sales_order')
+                          ->where('so_id',$id)
+                          ->update([
+                            'so_status' => 'Printed',
+                          ]);
 
             $count = count($data);
             $tes = 15 - $count;
@@ -212,12 +203,11 @@ class OrderController extends Controller
                             return 'Rp. '. number_format($data->q_remain, 2, ",", ".");
                         })
                         ->addColumn('status', function ($data) {
-                            $s = DB::table('d_status')
-                                      ->where('s_id',$data->q_status)
-                                      ->first();
-
-                            return  '<span class="badge badge-pill badge-'.$s->s_color.'">'.$s->s_name.'</span>'.
-                                    '<input type="hidden" class="q_id" value="'.$data->q_id.'">';
+                            if ($data->so_status == 'Released') {
+                                return  '<span class="badge badge-pill badge-primary">Released</span>';
+                            }else{
+                                return  '<span class="badge badge-pill badge-success">Printed</span>';
+                            }
                         })
                         ->rawColumns(['aksi', 'detail','histori','total','status','dp','remain'])
                         ->addIndexColumn()
@@ -235,14 +225,9 @@ class OrderController extends Controller
                       ->get();
 
         $data = DB::table('d_quotation')
+                  ->leftjoin('d_sales_order','q_nota','=','so_ref')
                   ->where('q_id',$id)
                   ->first();
-
-        $data_dt = DB::table('d_quotation_dt')
-                  ->where('qd_id',$id)
-                  ->orderBy('qd_dt','ASC')
-                  ->get();
-
 
         $bulan = Carbon::parse($data->q_date)->format('m');
         $tahun = Carbon::parse($data->q_date)->format('Y');
@@ -263,24 +248,17 @@ class OrderController extends Controller
 
         for ($i=0; $i < count($marketing); $i++) { 
             if ($marketing[$i]->mk_id == $data->q_marketing) {
-                $market = $marketing[$i]->mk_name;
+                $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
             }
         }
       
-        for ($i=0; $i < count($data_dt); $i++) { 
-            for ($a=0; $a < count($item); $a++) { 
-                if ($data_dt[$i]->qd_item == $item[$a]->i_code) {
-                    $detail[$i]['nama_item'] = $item[$a]->i_name;
-                    $detail[$i]['qty']       = $data_dt[$i]->qd_qty;
-                    $detail[$i]['unit']      = $item[$a]->i_unit;
-                    $detail[$i]['desc']      = $data_dt[$i]->qd_description;
-                    $detail[$i]['price']     = $data_dt[$i]->qd_price;
-                    $detail[$i]['total']     = $data_dt[$i]->qd_total;
-                }
-            }
-        }
+        $data_dt = DB::table('d_quotation_dt')
+                       ->join('d_npenawaran','np_kode','=','qd_item')
+                       ->join('m_item','i_code','=','np_kodeitem')
+                       ->where('qd_id',$id)
+                       ->get();
 
-        return view('order/pembayarandeposit/detail_pembayarandeposit',compact('item','data','detail','id','nota','market','nama_item'));
+        return view('order/pembayarandeposit/detail_pembayarandeposit',compact('item','data','data_dt','id','nota','market','nama_item'));
     }
 
     public function save_deposit(request $req)
@@ -294,69 +272,65 @@ class OrderController extends Controller
             $cari = DB::table('d_sales_order')
                       ->where('so_nota',$req->so_nota)
                       ->first();
-
-            $cari1 = DB::table('d_sales_order')
-                      ->where('so_ref',$data->q_nota)
-                      ->first();
-
-            if ($cari != null) {
-
-                if ($cari1 == null) {
-                    $bulan = Carbon::parse($data->q_date)->format('m');
-                    $tahun = Carbon::parse($data->q_date)->format('Y');
-
-                    $cari_nota = DB::select("SELECT  substring(max(so_nota),4,3) as id from d_sales_order
-                                                    WHERE MONTH(so_date) = '$bulan'
-                                                    AND YEAR(so_date) = '$tahun'");
-                    $index = filter_var($cari_nota[0]->id,FILTER_SANITIZE_NUMBER_INT);
-
-                    $index = (integer)$cari_nota[0]->id + 1;
-                    $index = str_pad($index, 3, '0', STR_PAD_LEFT);
-
-
-                    $nota = 'SO-'. $index . '/' . $data->q_type . '/' . $data->q_type_product .'/'. $bulan . $tahun;
-                }else{
-
-                    return response()->json(['status' => 2]);
-                }
-                
-            }else{
-
-                if ($cari1 == null){
-                    $nota = $req->so_nota;
-                }else{
-                    return response()->json(['status' => 2]);
-                }
-            }
-
-            $id = DB::table('d_sales_order')
+            $nota = $req->so_nota;
+            if ($cari == null) {
+                $id = DB::table('d_sales_order')
                     ->max('so_id')+1;
 
-            $save = DB::table('d_sales_order')
-                      ->insert([
-                        'so_id'         => $id,
-                        'so_nota'       => $nota,
-                        'so_ref'        => $data->q_nota,
-                        'so_note'       => $req->nota1,
-                        'so_type'       => $req->payment_type,
-                        'so_amount'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
-                        'so_remain'     => filter_var($req->remain,FILTER_SANITIZE_NUMBER_INT)/100,
-                        'so_method'     => $req->pay_method,
-                        'so_note2'      => $req->nota2,
-                        'so_account'    => $req->akun,
-                        'so_date'       => carbon::parse($req->date)->format('Y-m-d'),
-                        'so_update_at'  => carbon::now(),
-                        'so_update_by'  => Auth::user()->m_name,
-                        'so_create_by'  => Auth::user()->m_name,
-                      ]);
+                $save = DB::table('d_sales_order')
+                          ->insert([
+                            'so_id'         => $id,
+                            'so_nota'       => $nota,
+                            'so_ref'        => $data->q_nota,
+                            'so_note'       => $req->nota1,
+                            'so_type'       => $req->payment_type,
+                            'so_amount'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
+                            'so_remain'     => filter_var($req->remain,FILTER_SANITIZE_NUMBER_INT)/100,
+                            'so_method'     => $req->pay_method,
+                            'so_note2'      => $req->nota2,
+                            'so_account'    => $req->akun,
+                            'so_status'     => 'Released',
+                            'so_date'       => carbon::parse($req->date)->format('Y-m-d'),
+                            'so_update_at'  => carbon::now(),
+                            'so_update_by'  => Auth::user()->m_name,
+                            'so_create_by'  => Auth::user()->m_name,
+                          ]);
 
-            $update = DB::table('d_quotation')  
-                        ->where('q_id',$req->id)
-                        ->update([
-                            'q_dp'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
-                            'q_remain' => filter_var($req->remain,FILTER_SANITIZE_NUMBER_INT)/100,
-                        ]);
+                $update = DB::table('d_quotation')  
+                            ->where('q_id',$req->id)
+                            ->update([
+                                'q_dp'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
+                                'q_remain' => filter_var($req->remain,FILTER_SANITIZE_NUMBER_INT)/100,
+                            ]);
 
+            }else{
+                $save = DB::table('d_sales_order')
+                          ->where('so_nota',$req->so_nota)
+                          ->update([
+                            'so_nota'       => $nota,
+                            'so_ref'        => $data->q_nota,
+                            'so_note'       => $req->nota1,
+                            'so_type'       => $req->payment_type,
+                            'so_amount'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
+                            'so_remain'     => filter_var($req->remain,FILTER_SANITIZE_NUMBER_INT)/100,
+                            'so_method'     => $req->pay_method,
+                            'so_note2'      => $req->nota2,
+                            'so_account'    => $req->akun,
+                            'so_status'     => 'Released',
+                            'so_date'       => carbon::parse($req->date)->format('Y-m-d'),
+                            'so_update_at'  => carbon::now(),
+                            'so_update_by'  => Auth::user()->m_name,
+                          ]);
+
+                $update = DB::table('d_quotation')  
+                            ->where('q_id',$req->id)
+                            ->update([
+                                'q_dp'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
+                                'q_remain' => filter_var($req->remain,FILTER_SANITIZE_NUMBER_INT)/100,
+                            ]);
+            }
+
+            
             return response()->json(['status' => 1]);
         });
     }
