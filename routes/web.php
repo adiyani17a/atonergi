@@ -134,14 +134,16 @@ Route::get('/order/checklistform/print_checklistform', 'OrderController@print_ch
 Route::get('/order/s_invoice/print_salesinvoice', 'OrderController@print_salesinvoice');
 
 // Pilih Project Manejmen Pompa | SHS
-Route::get('/project/pilih_dokumentasi/pilih_dokumentasi', 'SelectController@pilih_dokumentasi');
-Route::get('/project/pilih_jadwalujicoba/pilih_jadwalujicoba', 'SelectController@pilih_jadwalujicoba');
-Route::get('/project/pilih_pemasangan/pilih_pemasangan', 'SelectController@pilih_pemasangan');
-Route::get('/project/pilih_pengadaanbarang/pilih_pengadaanbarang', 'SelectController@pilih_pengadaanbarang');
-Route::get('/project/pilih_pengepakanbarang/pilih_pengepakanbarang', 'SelectController@pilih_pengepakanbarang');
-Route::get('/project/pilih_pengirimanbarang/pilih_pengirimanbarang', 'SelectController@pilih_pengirimanbarang');
-Route::get('/project/pilih_salescommon/pilih_salescommon', 'SelectController@pilih_salescommon');
-Route::get('/project/pilih_technicianfee/pilih_technicianfee', 'SelectController@pilih_technicianfee');
+Route::get('/project/dokumentasi/dokumentasi', 'ProjectController@dokumentasi');
+Route::get('/project/jadwalujicoba/jadwalujicoba', 'ProjectController@jadwalujicoba');
+Route::get('/project/pemasangan/pemasangan', 'ProjectController@pemasangan');
+Route::get('/project/pengadaanbarang/pengadaanbarang', 'ProjectController@pengadaanbarang');
+Route::get('/project/pengepakanbarang/pengepakanbarang', 'ProjectController@pengepakanbarang');
+Route::get('/project/pengirimanbarang/pengirimanbarang', 'ProjectController@pengirimanbarang');
+Route::get('/project/salescommon/salescommon', 'ProjectController@salescommon');
+Route::get('/project/technicianfee/technicianfee', 'ProjectController@technicianfee');
+Route::get('/project/pengadaanbarang/prosespengadaanbarang', 'ProjectController@prosespengadaanbarang');
+Route::get('/project/pengirimanbarang/prosespengirimanbarang', 'ProjectController@prosespengirimanbarang');
 
 // Pompa
 Route::get('/projectmp/pmp_dokumentasi/pmp_dokumentasi', 'PompaController@pmp_dokumentasi');
@@ -152,8 +154,6 @@ Route::get('/projectmp/pmp_pengepakanbarang/pmp_pengepakanbarang', 'PompaControl
 Route::get('/projectmp/pmp_pengirimanbarang/pmp_pengirimanbarang', 'PompaController@pmp_pengirimanbarang');
 Route::get('/projectmp/pmp_salescommon/pmp_salescommon', 'PompaController@pmp_salescommon');
 Route::get('/projectmp/pmp_technicianfee/pmp_technicianfee', 'PompaController@pmp_technicianfee');
-Route::get('/projectmp/pmp_pengadaanbarang/pmp_prosespengadaanbarang', 'PompaController@pmp_prosespengadaanbarang');
-Route::get('/projectmp/pmp_pengirimanbarang/pmp_prosespengirimanbarang', 'PompaController@pmp_prosespengirimanbarang');
 
 // SHS
 Route::get('/projectms/shs_dokumentasi/shs_dokumentasi', 'SHSController@shs_dokumentasi');
