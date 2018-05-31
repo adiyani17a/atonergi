@@ -45,7 +45,7 @@
               <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
             </a>
           </li>
-          <!-- <li class="nav-item dropdown">
+         <!--  <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <i class="mdi mdi-email-outline"></i>
               <span class="count"></span>
@@ -91,7 +91,7 @@
               <div class="dropdown-divider"></div>
               <h6 class="p-3 mb-0 text-center">4 new messages</h6>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell-outline"></i>
@@ -144,7 +144,7 @@
               <div class="dropdown-divider"></div>
               <h6 class="p-3 mb-0 text-center">See all notifications</h6>
             </div>
-          </li> -->
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <img src="{{route('thumbnail').'/'.Auth::user()->m_image}}" alt="image">
