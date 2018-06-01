@@ -7,7 +7,7 @@
         <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
       </li> -->
       <li class="nav-item">
-        <a class="nav-link active" id="logs-tab" data-toggle="tab" href="#user-log-activity" role="tab" aria-expanded="true" aria-controls="user-log-activity">Log User Activity</a>
+        <a class="nav-link active" id="logs-tab" data-toggle="tab" href="#user-log-activity" role="tab" aria-expanded="true" aria-controls="user-log-activity">User Log Activity</a>
       </li>
     </ul>
     <div class="tab-content" id="setting-content">
