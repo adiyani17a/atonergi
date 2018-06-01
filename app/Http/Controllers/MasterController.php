@@ -38,8 +38,13 @@ class MasterController extends Controller
     }
     public function barang()
     {
-        $type_barang    = TypeItem::all();
-    	return view('master/barang/barang', compact('type_barang'));
+        $type_barang = TypeItem::all();
+
+        $unit        = DB::table('d_unit')
+                         ->get();
+
+
+    	return view('master/barang/barang', compact('type_barang','unit'));
     }
     public function vendor()
     {

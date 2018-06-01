@@ -487,7 +487,7 @@ class QuotationController extends Controller
               ->where('mk_id',$req->market)
               ->first();
 
-    return$item = DB::table('d_npenawaran')
+    $item = DB::table('d_npenawaran')
               ->leftjoin('m_item','i_code','=','np_kodeitem')
               ->leftjoin('m_item','i_code','=','np_kodeitem')
               ->where('np_marketing',$kode->mk_code)
