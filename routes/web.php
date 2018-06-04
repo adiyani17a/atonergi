@@ -189,6 +189,7 @@ Route::get('/hrd/kpi/kpi', 'HRDController@kpi');
 
 // ASS
 Route::get('aftersales/tandaterima/tandaterima', 'ASSController@tandaterima');
+Route::get('aftersales/tandaterima/proses_tandaterima', 'ASSController@proses_tandaterima');
 Route::get('aftersales/repairreport/repairreport', 'ASSController@repairreport');
 Route::get('aftersales/repairorder/repairorder', 'ASSController@repairorder');
 Route::get('aftersales/rencanatindakan/rencanatindakan', 'ASSController@rencanatindakan');
