@@ -80,9 +80,8 @@ Route::get('/master/type/type', 'MasterController@type');
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
 Route::get('/quotation/q_quotation/datatable', 'QuotationController@quote_datatable')->name('quote_datatable');
+Route::get('/quotation/q_quotation/cari_penawaran', 'QuotationController@cari_penawaran');
 
-Route::get('/quotation/k_penawaran/k_penawaran', 'QuotationController@k_penawaran');
-Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_penawaran');
 Route::get('/quotation/q_quotation/edit_quotation/{id}', 'QuotationController@edit_quotation');
 Route::get('/quotation/q_quotation/print_quotation', 'QuotationController@print_quotation');
 Route::get('/quotation/q_quotation/autocomplete', 'QuotationController@autocomplete');
@@ -99,6 +98,9 @@ Route::get('/quotation/q_quotation/detail', 'QuotationController@detail');
 Route::get('/quotation/q_quotation/histori', 'QuotationController@histori');
 Route::get('/quotation/q_quotation/update_status', 'QuotationController@update_status');
 
+
+Route::get('/quotation/k_penawaran/k_penawaran', 'QuotationController@k_penawaran');
+Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_penawaran');
 
 // Purchase
 Route::get('/purchase/belanjalangsung/belanjalangsung', 'PurchaseController@belanjalangsung');
@@ -187,6 +189,7 @@ Route::get('/hrd/kpi/kpi', 'HRDController@kpi');
 
 // ASS
 Route::get('aftersales/tandaterima/tandaterima', 'ASSController@tandaterima');
+Route::get('aftersales/tandaterima/proses_tandaterima', 'ASSController@proses_tandaterima');
 Route::get('aftersales/repairreport/repairreport', 'ASSController@repairreport');
 Route::get('aftersales/repairorder/repairorder', 'ASSController@repairorder');
 Route::get('aftersales/rencanatindakan/rencanatindakan', 'ASSController@rencanatindakan');

@@ -26,7 +26,8 @@
 			                  <th>Customer</th>
 			                  <th>Total Bill</th>
 			                  <th>DP</th>
-			                  <th>Total Balance</th>
+                        <th>Total Balance</th>
+			                  <th>Status</th>
 			                  <th>Action</th>
 			                </tr>
 			              </thead>
@@ -79,6 +80,10 @@ $(document).ready(function(){
                  targets: 6,
                  className: 'center'
               },
+              {
+                 targets: 7,
+                 className: 'center'
+              },
             ],
       columns: [
         {data: 'DT_Row_Index', name: 'DT_Row_Index'},
@@ -87,6 +92,7 @@ $(document).ready(function(){
         {data: 'total', name: 'total'},
         {data: 'dp', name: 'dp'},
         {data: 'remain', name: 'remain'},
+        {data: 'status', name: 'status'},
         {data: 'aksi', name: 'aksi'},
 
       ]

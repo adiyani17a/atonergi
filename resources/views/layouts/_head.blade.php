@@ -39,6 +39,11 @@
 
 
 <style type="text/css">
+small.text-muted {
+  position: absolute;
+  right: 0;
+  margin-right:10px;
+}
 
 td > div.form-check.form-check-flat > label.form-check-label {
   margin-bottom: -25px;

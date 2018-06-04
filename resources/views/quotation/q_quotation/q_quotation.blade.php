@@ -162,19 +162,20 @@ function qty(p) {
 }
 
 function edit_item(p) {
-	var par  = $(p).parents('tr');
-	var qty  = $(par).find('.jumlah').val();
-	var item  = $(par).find('.item_name').val();
+	var par    = $(p).parents('tr');
+	var qty    = $(par).find('.jumlah').val();
+	var item   = $(par).find('.item_name').val();
+	var market = $('.marketing').val();
 
 	$.ajax({
       url:baseUrl + '/quotation/q_quotation/edit_item',
-      data:{item},
+      data:{item,market},
       dataType:'json',
       success:function(data){
 
         $(par).find('.description').val(data.data.i_description);
-        $(par).find('.unit_price').val(accounting.formatMoney(data.data.i_price, "", 2, ".",','));
-        $(par).find('.line_total').val(accounting.formatMoney(data.data.i_price * qty, "", 2, ".",','));
+        $(par).find('.unit_price').val(accounting.formatMoney(data.data.np_price, "", 2, ".",','));
+        $(par).find('.line_total').val(accounting.formatMoney(data.data.np_price * qty, "", 2, ".",','));
         hitung_dpp();
       }
     });
@@ -186,7 +187,7 @@ var q_qty         = $("#q_qty");
 var x = 1;
 q_qty.keypress(function(e) {
 var m_table       = $("#apfsds").DataTable();
-
+var market   	  = $('.marketing').val();
   if(e.which == 13 || e.keyCode == 13){
 
   	var item = $('.item').val();
@@ -200,13 +201,13 @@ var m_table       = $("#apfsds").DataTable();
   	}
   	$.ajax({
       url:baseUrl + '/quotation/q_quotation/append_item',
-      data:{item},
+      data:{item,market},
       dataType:'json',
       success:function(data){
       	var temp;
 
       	for (var i = 0; i < data.item.length; i++) {
-      		var temp1 = '<option value="'+data.item[i].i_code+'">'+data.item[i].i_code+' - '+data.item[i].i_name+'</option>';
+      		var temp1 = '<option value="'+data.item[i].np_kode+'">'+data.item[i].np_kode+' - '+data.item[i].i_name+'</option>';
       		temp += temp1;
       	}
       	var dropdown = '<select onchange="edit_item(this)" name="item_name[]" style="width:200px" class="item_name">'+temp+'</select>'
@@ -215,12 +216,12 @@ var m_table       = $("#apfsds").DataTable();
             dropdown,
             '<input type="text" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ q_qty.val() +'">',
             '<input type="text" name="description[]" class="description form-control input-sm min-width" value="'+data.data.i_description+'">',
-            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.i_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
-            '<input type="text" value="'+accounting.formatMoney(data.data.i_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
+            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.np_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
+            '<input type="text" value="'+accounting.formatMoney(data.data.np_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
 
-        $('.item_name').last().val(data.data.i_code);
+        $('.item_name').last().val(data.data.np_kode);
   		$('.item_name').select2();
         x++;
         q_qty.val('');
@@ -320,6 +321,17 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	      }
 	    });
 	})
+	$('.marketing').change(function(){
+		var market = $(this).val();
+		$.ajax({
+	      url:baseUrl + '/quotation/q_quotation/cari_penawaran',
+	      data:{market},
+	      success:function(data){
+	        $('.item_div').html(data)
+	        $('.item').select2();
+	      }
+	    });
+	});
 
 
 	$('.type_p').change(function(){

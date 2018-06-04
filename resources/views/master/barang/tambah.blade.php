@@ -13,12 +13,6 @@
             
             <input type="hidden" value="{{csrf_token()}}" name="_token">
             <div class="row">
-
-                                  
-              
-
-              
-
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
                     <label class="tebal">Item Name</label>
@@ -29,18 +23,11 @@
                     <input type="text"  class="form-control form-control-sm" name="item_name">                               
                 </div>
               </div>
-
-             
-
-              
-                
-
               <div class="col-md-3 col-sm-4 col-xs-12">
                
                   <label class="tebal">Type</label>
                
               </div>
-
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
                     <select class="form-control" name="type_barang">
@@ -52,19 +39,20 @@
                     </select>
                 </div>
               </div>
-
               <div class="col-md-3 col-sm-4 col-xs-12">
                
                   <label class="tebal">Unit#</label>
                
               </div>
-
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="unit">
+                    <select class="unit" name="unit">
+                      @foreach($unit as $i)
+                        <option value="{{$i->u_id}}">{{$i->u_unit}}</option>
+                      @endforeach
+                    </select>
                 </div>
               </div>
-            
              <div class="col-md-3 col-sm-4 col-xs-12">
                 
                     <label class="tebal">Price</label>

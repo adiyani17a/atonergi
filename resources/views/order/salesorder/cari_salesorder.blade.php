@@ -36,7 +36,9 @@
                     <div class="form-check form-check-flat">
                             <label class="form-check-label">
                               <input class="form-check-input" type="checkbox">
-                          <i class="input-helper"></i></label></div>
+                          <i class="input-helper"></i></label>
+                        </div>
+                        
                   </td>
                 </tr>
                 <tr>

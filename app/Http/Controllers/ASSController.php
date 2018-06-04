@@ -10,6 +10,10 @@ class ASSController extends Controller
     {
     	return view('aftersales/tandaterima/tandaterima');
     }
+    public function proses_tandaterima()
+    {
+        return view('aftersales/tandaterima/proses_tandaterima');
+    }
     public function repairreport()
     {
     	return view('aftersales/repairreport/repairreport');

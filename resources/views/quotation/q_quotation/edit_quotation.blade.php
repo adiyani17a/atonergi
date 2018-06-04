@@ -135,9 +135,9 @@
                 <label>Marketing</label>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="form-group">
+                <div class="form-group disabled">
                   @if(Auth::user()->akses('QUOTE MARKETING','aktif'))
-                    <select class="marketing" name="marketing">
+                    <select class="marketing " name="marketing">
                       <option value="0">--Select Marketing--</option>
                       @foreach($marketing as $i)
                         <option  @if($data->q_marketing == $i->mk_id) selected="" @endif value="{{$i->mk_id}}">{{$i->mk_code}} - {{$i->mk_name}}</option>
@@ -195,12 +195,9 @@
             <label>Item Name</label>
           </div>
           <div class="col-md-2 col-sm-12 col-xs-12">
-            <div class="form-group">
-              <select class="form-control form-control-sm item" name="item">
-                <option value="0">--Select Item</option>
-                @foreach($item as $i )
-                <option value="{{ $i->i_code }}">{{ $i->i_code }} - {{ $i->i_name }}</option>
-                @endforeach
+            <div class="form-group item_div">
+              <select class="form-control form-control-sm" name="item">
+                <option value="0">--Select Marketing First --</option>
               </select>
             </div>
           </div>
@@ -278,7 +275,7 @@
 @section('extra_script')
 <script type="text/javascript">
 var m_table = $('#apfsds').DataTable({
-	columnDefs: [
+  columnDefs: [
 
                   {
                      targets: 5 ,
@@ -286,84 +283,97 @@ var m_table = $('#apfsds').DataTable({
                   },
                 ],
 });
-$(document).ready(function(){
-	$('#tax').maskMoney({
-	    precision : 0,
-	    thousands:'.',
-	    allowZero:true,
-	    defaultZero: true
-	});
 
-	var customer = $('.customer').val();
-	$.ajax({
-      url:baseUrl + '/quotation/q_quotation/customer',
-      data:{customer},
-      dataType:'json',
+$(document).ready(function(){
+  $('#tax').maskMoney({
+      precision : 0,
+      thousands:'.',
+      allowZero:true,
+      defaultZero: true
+  });
+
+  var customer = $('.customer').val();
+  $.ajax({
+    url:baseUrl + '/quotation/q_quotation/customer',
+    data:{customer},
+    dataType:'json',
+    success:function(data){
+      $('.address').text(data.data.c_address)
+    }
+  });
+
+  var market = $('.marketing').val();
+    $.ajax({
+      url:baseUrl + '/quotation/q_quotation/cari_penawaran',
+      data:{market},
       success:function(data){
-        $('.address').text(data.data.c_address)
+        $('.item_div').html(data)
+        $('.item').select2();
       }
     });
 })
 
+
 $('.q_qty').keyup(function(){
 
-	var qty = $(this).val();
-	qty = qty.replace(/[A-Za-z$. ,-]/g, "");
+  var qty = $(this).val();
+  qty = qty.replace(/[A-Za-z$. ,-]/g, "");
 
-	$(this).val(qty);
+  $(this).val(qty);
 })
 
 
 function hitung_total() {
-	var tax = $('#tax').val();
-	var sub = $('#subtotal').val();
+  var tax = $('#tax').val();
+  var sub = $('#subtotal').val();
 
-	tax = tax.replace(/[^0-9\-]+/g,"")/1;
-	sub = sub.replace(/[^0-9\-]+/g,"")/100;
+  tax = tax.replace(/[^0-9\-]+/g,"")/1;
+  sub = sub.replace(/[^0-9\-]+/g,"")/100;
 
-	$('#total').val(accounting.formatMoney(tax + sub, "", 2, ".",','))
+  $('#total').val(accounting.formatMoney(tax + sub, "", 2, ".",','))
 }
 
 $('#tax').keyup(function(){
-	hitung_total();
+  hitung_total();
 })
 
 function hitung_dpp() {
-	var total = 0;
-	$('.line_total').each(function(){
-		var temp = $(this).val();
-		temp 	 = temp.replace(/[^0-9\-]+/g,"")/100;
-		total += temp;
-	})
-	$('#subtotal').val(accounting.formatMoney(total, "", 2, ".",','));
-	hitung_total();
+  var total = 0;
+  $('.line_total').each(function(){
+    var temp = $(this).val();
+    temp   = temp.replace(/[^0-9\-]+/g,"")/100;
+    total += temp;
+  })
+  $('#subtotal').val(accounting.formatMoney(total, "", 2, ".",','));
+  hitung_total();
 }
 
 
 function qty(p) {
-	var par  		= $(p).parents('tr');
-	var unit_price  = $(par).find('.unit_price').val();
-	unit_price 	    = unit_price.replace(/[^0-9\-]+/g,"")/100;
-	var qty 	    = $(par).find('.jumlah').val();
+  var par     = $(p).parents('tr');
+  var unit_price  = $(par).find('.unit_price').val();
+  unit_price      = unit_price.replace(/[^0-9\-]+/g,"")/100;
+  var qty       = $(par).find('.jumlah').val();
 
     $(par).find('.line_total').val(accounting.formatMoney(unit_price * qty, "", 2, ".",','));
     hitung_dpp();
 }
 
 function edit_item(p) {
-	var par  = $(p).parents('tr');
-	var qty  = $(par).find('.jumlah').val();
-	var item  = $(par).find('.item_name').val();
+  var par    = $(p).parents('tr');
+  var qty    = $(par).find('.jumlah').val();
+  var item   = $(par).find('.item_name').val();
+  var market = $('.marketing').val();
 
-	$.ajax({
+  $.ajax({
       url:baseUrl + '/quotation/q_quotation/edit_item',
-      data:{item},
+      data:{item,market},
       dataType:'json',
       success:function(data){
 
         $(par).find('.description').val(data.data.i_description);
-        $(par).find('.unit_price').val(accounting.formatMoney(data.data.i_price, "", 2, ".",','));
-        $(par).find('.line_total').val(accounting.formatMoney(data.data.i_price * qty, "", 2, ".",','));
+        $(par).find('.unit_price').val(accounting.formatMoney(data.data.np_price, "", 2, ".",','));
+        $(par).find('.line_total').val(accounting.formatMoney(data.data.np_price * qty, "", 2, ".",','));
         hitung_dpp();
       }
     });
@@ -374,53 +384,54 @@ var q_qty         = $("#q_qty");
 
 var x = 1;
 q_qty.keypress(function(e) {
-
+var m_table       = $("#apfsds").DataTable();
+var market      = $('.marketing').val();
   if(e.which == 13 || e.keyCode == 13){
 
-  	var item = $('.item').val();
+    var item = $('.item').val();
 
-  	if (item == '0') {
-  		iziToast.warning({
+    if (item == '0') {
+      iziToast.warning({
             icon: 'fa fa-info',
             message: 'Item Harus Diisi!',
         });
         return false;
-  	}
-  	$.ajax({
+    }
+    $.ajax({
       url:baseUrl + '/quotation/q_quotation/append_item',
-      data:{item},
+      data:{item,market},
       dataType:'json',
       success:function(data){
-      	var temp;
+        var temp;
 
-      	for (var i = 0; i < data.item.length; i++) {
-      		var temp1 = '<option value="'+data.item[i].i_code+'">'+data.item[i].i_code+' - '+data.item[i].i_name+'</option>';
-      		temp += temp1;
-      	}
-      	var dropdown = '<select onchange="edit_item(this)" name="item_name[]" style="width:200px" class="item_name">'+temp+'</select>'
+        for (var i = 0; i < data.item.length; i++) {
+          var temp1 = '<option value="'+data.item[i].np_kode+'">'+data.item[i].np_kode+' - '+data.item[i].i_name+'</option>';
+          temp += temp1;
+        }
+        var dropdown = '<select onchange="edit_item(this)" name="item_name[]" style="width:200px" class="item_name">'+temp+'</select>'
 
          m_table.row.add( [
             dropdown,
             '<input type="text" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ q_qty.val() +'">',
             '<input type="text" name="description[]" class="description form-control input-sm min-width" value="'+data.data.i_description+'">',
-            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.i_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
-            '<input type="text" value="'+accounting.formatMoney(data.data.i_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
+            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.np_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
+            '<input type="text" value="'+accounting.formatMoney(data.data.np_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
 
-        $('.item_name').last().val(data.data.i_code);
-  		$('.item_name').select2();
+        $('.item_name').last().val(data.data.np_kode);
+      $('.item_name').select2();
         x++;
         q_qty.val('');
         $('.item').val('0');
-  		$('.item').select2();
+      $('.item').select2();
 
-  		$('.jumlah').keyup(function(){
-			var qty = $(this).val();
-			qty = qty.replace(/[A-Za-z$. ,-]/g, "");
-			$(this).val(qty);
-		})
-  		hitung_dpp();
+      $('.jumlah').keyup(function(){
+      var qty = $(this).val();
+      qty = qty.replace(/[A-Za-z$. ,-]/g, "");
+      $(this).val(qty);
+    })
+      hitung_dpp();
       }
     });
    
@@ -428,52 +439,9 @@ q_qty.keypress(function(e) {
 
 });
 
-	
-
-
-
-	// $(".ship_method").select2({
-	//     tags: true,
-	//     multiple: true,
-	//     tokenSeparators: [',', ' '],
-	//     minimumInputLength: 2,
-	//     minimumResultsForSearch: 10,
-	//     ajax: {
-	//         url: URL,
-	//         dataType: "json",
-	//         type: "GET",
-	//         data: function (params) {
-
-	//             var queryParameters = {
-	//                 term: params.term
-	//             }
-	//             return queryParameters;
-	//         },
-	//         processResults: function (data) {
-	//             return {
-	//                 results: $.map(data, function (item) {
-	//                     return {
-	//                         text: item.tag_value,
-	//                         id: item.tag_id
-	//                     }
-	//                 })
-	//             };
-	//         }
-	//     }
-	// });
-
-
-
-	
-
-
-
-
-	
-
-	    
-
+  
 $('#apfsds tbody').on( 'click', '.delete', function () {
+  var m_table       = $("#apfsds").DataTable();
 
     m_table
         .row( $(this).parents('tr') )
@@ -481,48 +449,59 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
         .draw();
     });
 
-	$('.customer').change(function(){
-		var customer = $(this).val();
-		$.ajax({
-	      url:baseUrl + '/quotation/q_quotation/customer',
-	      data:{customer},
-	      dataType:'json',
-	      success:function(data){
-	        $('.address').text(data.data.c_address)
-	      }
-	    });
-	})
+  $('.customer').change(function(){
+    var customer = $(this).val();
+    $.ajax({
+        url:baseUrl + '/quotation/q_quotation/customer',
+        data:{customer},
+        dataType:'json',
+        success:function(data){
+          $('.address').text(data.data.c_address)
+        }
+      });
+  })
 
-	$('.type_qo').change(function(){
-		var type_q = $('.type_qo').val();
-		var type_p = $('.type_p').val();
-		var date   = $('.date').val();
+  $('.type_qo').change(function(){
+    var type_q = $('.type_qo').val();
+    var type_p = $('.type_p').val();
+    var date   = $('.date').val();
 
-		$.ajax({
-	      url:baseUrl + '/quotation/q_quotation/nota_quote',
-	      data:{type_q,type_p,date},
-	      dataType:'json',
-	      success:function(data){
-	        $('.quote').val(data.nota)
-	      }
-	    });
-	})
+    $.ajax({
+        url:baseUrl + '/quotation/q_quotation/nota_quote',
+        data:{type_q,type_p,date},
+        dataType:'json',
+        success:function(data){
+          $('.quote').val(data.nota)
+        }
+      });
+  })
+  $('.marketing').change(function(){
+    var market = $(this).val();
+    $.ajax({
+        url:baseUrl + '/quotation/q_quotation/cari_penawaran',
+        data:{market},
+        success:function(data){
+          $('.item_div').html(data)
+          $('.item').select2();
+        }
+      });
+  });
 
 
-	$('.type_p').change(function(){
-		var type_q = $('.type_qo').val();
-		var type_p = $('.type_p').val();
-		var date   = $('.date').val();
+  $('.type_p').change(function(){
+    var type_q = $('.type_qo').val();
+    var type_p = $('.type_p').val();
+    var date   = $('.date').val();
 
-		$.ajax({
-	      url:baseUrl + '/quotation/q_quotation/nota_quote',
-	      data:{type_q,type_p,date},
-	      dataType:'json',
-	      success:function(data){
-	        $('.quote').val(data.nota)
-	      }
-	    });
-	})
+    $.ajax({
+        url:baseUrl + '/quotation/q_quotation/nota_quote',
+        data:{type_q,type_p,date},
+        dataType:'json',
+        success:function(data){
+          $('.quote').val(data.nota)
+        }
+      });
+  })
 
 	$('.save').click(function(){
 
@@ -723,7 +702,7 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	var temp;
 
 	@foreach($item as $i)
-  		var temp1 = '<option value="'+'{{ $i->i_code }}'+'">'+'{{ $i->i_code }}'+' - '+'{{ $i->i_name }}'+'</option>';
+  		var temp1 = '<option value="'+'{{ $i->np_kode }}'+'">'+'{{ $i->np_kode }}'+' - '+'{{ $i->i_name }}'+'</option>';
   		temp += temp1;
 	@endforeach
 

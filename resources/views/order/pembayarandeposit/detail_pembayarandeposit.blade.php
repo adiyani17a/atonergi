@@ -25,7 +25,11 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
+								@if($data->so_nota != null)
+								<input type="text" readonly="" class="form-control-sm form-control so_nota" value="{{ $data->so_nota }}" name="so_nota">
+								@else
 								<input type="text" readonly="" class="form-control-sm form-control so_nota" value="{{ $nota }}" name="so_nota">
+								@endif
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
@@ -67,7 +71,7 @@
 							<div class="form-group">
 							  <input type="text" class="form-control form-control-sm" value="{{ $data->q_ship_to }}" readonly="" name="">
 							</div>
-						</div>
+						</div>	
 
 					</div>
 
@@ -111,14 +115,14 @@
 			                </tr>
 			              </thead>
 			              <tbody>
-			              	@foreach($detail as $i=>$val)
+			              	@foreach($data_dt as $i=>$val)
 			                <tr>
-			                	<td>{{ $detail[$i]['nama_item'] }}</td>
-			                	<td>{{ $detail[$i]['qty'] }}</td>
-			                	<td>{{ $detail[$i]['unit'] }}</td>
-			                	<td>{{ $detail[$i]['desc'] }}</td>
-			                	<td>{{ 'Rp. '. number_format($detail[$i]['price'], 2, ",", ".") }}</td>
-			                	<td>{{ 'Rp. '. number_format($detail[$i]['total'], 2, ",", ".") }}</td>
+			                	<td>{{ $val->i_name }}</td>
+			                	<td>{{ $val->qd_qty }}</td>
+			                	<td>{{ $val->i_unit }}</td>
+			                	<td>{{ $val->qd_description }}</td>
+			                	<td>{{ 'Rp. '. number_format($val->qd_price, 2, ",", ".") }}</td>
+			                	<td>{{ 'Rp. '. number_format($val->qd_total, 2, ",", ".") }}</td>
 			                </tr>
 			                @endforeach
 			              </tbody>
@@ -158,7 +162,11 @@
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
+				              	@if($data->so_amount != null)
+				                <input type="text" class="form-control form-control-sm" name="dp" id="dp" readonly="" value="{{'Rp. '. number_format($data->so_amount, 2, ",", ".")}}">
+				                @else
 				                <input type="text" class="form-control form-control-sm" name="dp" id="dp" readonly="" value="0">
+				                @endif
 				              </div>
 				            </div>
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -175,7 +183,11 @@
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
+				              	@if($data->so_remain != null)
+				                <input value="{{'Rp. '. number_format($data->so_remain, 2, ",", ".")}}" type="text" class="form-control form-control-sm" name="remain" readonly="" id="remaining_dp">
+				                @else
 				                <input value="0" type="text" class="form-control form-control-sm" name="remain" readonly="" id="remaining_dp">
+				                @endif
 				              </div>
 				            </div>
 				            <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-top: 15px;">
@@ -217,6 +229,12 @@
 	            message: 'Nominal Kurang Dari 50 %!',
 	        });
 	        return false;
+		}else if(amount > total_harga){
+			iziToast.warning({
+	            icon: 'fa fa-info',
+	            message: 'Nominal Melebihi Total!',
+	        });
+	        return false;
 		}
 		var bayar_dp	= dp.val(accounting.formatMoney(amount,"Rp .", 2, ".",','));
 
@@ -232,6 +250,7 @@
 		amount     = amount.replace(/[^0-9\-]+/g,"");
 		var so_nota = $('.so_nota').val();
 		var id = '{{ $id }}';
+		var status = '{{ $data->so_status }}';
 
 		if (amount == 0 || amount == '') {
 			iziToast.warning({
@@ -239,7 +258,17 @@
 	            message: 'DP Tidak Boleh 0',
 	        });
 	        return false;
-		}		
+		}	
+
+		if (status == 'Printed') {
+			iziToast.warning({
+	            icon: 'fa fa-info',
+	            message: 'Data Telah Di Print',
+	        });
+	        return false;
+		}	
+
+
 
 		iziToast.show({
             overlay: true,

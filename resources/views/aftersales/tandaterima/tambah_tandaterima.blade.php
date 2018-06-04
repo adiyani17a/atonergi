@@ -5,38 +5,22 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Kebutuhan Biaya</h4>
+        <h4 class="modal-title">Form Tanda Terima Service</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="row">
           
-          
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <label>Offer Code</label>
+              <label title="S.O.# / Q.O.#">S.O.# / Q.O.#</label>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="form-group">
-                <input type="text" class="form-control form-control-sm" name="">
+                <select class="form-control form-control-sm">
+                  <option>--Select S.O.# / Q.O.#--</option>
+                </select>
               </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <label>Offer Classification</label>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <input type="text" class="form-control form-control-sm" name="">
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <label>Information</label>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <div class="form-group">
-                <textarea class="form-control"></textarea>
-              </div>
-            </div>
-            
 
           
           
@@ -44,7 +28,7 @@
          </div> <!-- End div row -->
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button">Process</button>
+        <a class="btn btn-primary" href="{{url('aftersales/tandaterima/proses_tandaterima')}}">Process</a>
         <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>

@@ -108,14 +108,14 @@
 			                </tr>
 			              </thead>
 			              <tbody>
-			                @foreach($detail as $i=>$val)
+			                @foreach($data_dt as $i=>$val)
 			                <tr>
-			                	<td>{{ $detail[$i]['nama_item'] }}</td>
-			                	<td>{{ $detail[$i]['qty'] }}</td>
-			                	<td>{{ $detail[$i]['unit'] }}</td>
-			                	<td>{{ $detail[$i]['desc'] }}</td>
-			                	<td>{{ 'Rp. '. number_format($detail[$i]['price'], 2, ",", ".") }}</td>
-			                	<td>{{ 'Rp. '. number_format($detail[$i]['total'], 2, ",", ".") }}</td>
+			                	<td>{{ $val->i_name }}</td>
+			                	<td>{{ $val->qd_qty }}</td>
+			                	<td>{{ $val->i_unit }}</td>
+			                	<td>{{ $val->qd_description }}</td>
+			                	<td>{{ 'Rp. '. number_format($val->qd_price, 2, ",", ".") }}</td>
+			                	<td>{{ 'Rp. '. number_format($val->qd_total, 2, ",", ".") }}</td>
 			                </tr>
 			                @endforeach
 			              </tbody>
@@ -177,7 +177,7 @@
 				              </div>
 				            </div>
 				            <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-top: 15px;">
-					            <a href="{{url('order/salesorder/s_order')}}" class="btn btn-info" target="_blank"><i class="fa fa-print"></i>Print</a>
+					            <a onclick="printing('{{$id}}')" style="color:white"  class="btn btn-info" target="_blank"><i class="fa fa-print"></i>Print</a>
 					            <a href="{{url('order/salesorder/s_order')}}" class="btn btn-secondary">Back</a>
 					        </div>
 					    </div>
@@ -191,5 +191,35 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
-
+<script type="text/javascript">
+function printing(id) {
+	iziToast.show({
+        overlay: true,
+        close: false,
+        timeout: 20000, 
+        color: 'dark',
+        icon: 'fas fa-question-circle',
+        title: 'Print Data!',
+        message: 'Apakah Anda Yakin ?!',
+        position: 'center',
+        progressBarColor: 'rgb(0, 255, 184)',
+        buttons: [
+          [
+            '<button style="background-color:#32CD32;">Print</button>',
+            function (instance, toast) {
+              window.open("{{ url('/order/salesorder/print_salesorder') }}"+"/"+id )
+            }
+          ],
+          [
+            '<button style="background-color:#44d7c9;">Cancel</button>',
+            function (instance, toast) {
+              instance.hide({
+                transitionOut: 'fadeOutUp'
+              }, toast);
+            }
+          ]
+        ]
+    });
+}
+</script>
 @endsection

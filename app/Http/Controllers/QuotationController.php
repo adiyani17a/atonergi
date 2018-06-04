@@ -172,12 +172,23 @@ class QuotationController extends Controller
 
   public function append_item(request $req)
   {
-      $data = DB::table('m_item')
-                ->where('i_code',$req->item)
+
+      $kode = DB::table('d_marketing')
+                ->where('mk_id',$req->market)
                 ->first();
 
-      $item = DB::table('m_item')
-                  ->get();
+      $data = DB::table('d_npenawaran')
+                ->join('m_item','i_code','=','np_kodeitem')
+                ->where('np_marketing',$kode->mk_code)
+                ->where('np_kode',$req->item)
+                ->first();
+
+
+
+      $item  = DB::table('d_npenawaran')
+                        ->join('m_item','i_code','=','np_kodeitem')
+                        ->where('np_marketing',$kode->mk_code)
+                        ->get();
 
       return response()->json(['data'=>$data,'item'=>$item]);
               
@@ -185,8 +196,14 @@ class QuotationController extends Controller
 
   public function edit_item(request $req)
   {
-      $data = DB::table('m_item')
-                ->where('i_code',$req->item)
+      $kode = DB::table('d_marketing')
+                ->where('mk_id',$req->market)
+                ->first();
+
+      $data = DB::table('d_npenawaran')
+                ->join('m_item','i_code','=','np_kodeitem')
+                ->where('np_marketing',$kode->mk_code)
+                ->where('np_kode',$req->item)
                 ->first();
 
       return response()->json(['data'=>$data]);
@@ -297,11 +314,12 @@ class QuotationController extends Controller
                ->join('m_customer','c_code','=','q_customer')
                ->where('q_id',$id)
                ->first();
-      $data = DB::table('d_quotation')
-               ->join('d_quotation_dt','q_id','=','qd_id')
-               ->join('m_item','i_code','=','qd_item')
-               ->where('q_id',$id)
-               ->get();
+               
+      $data = DB::table('d_quotation_dt')
+               ->join('d_npenawaran','np_kode','=','qd_item')
+               ->join('m_item','i_code','=','np_kodeitem')
+              ->where('qd_id',$id)
+              ->get();
 
       $count = count($data);
       $tes = 15 - $count;
@@ -332,13 +350,14 @@ class QuotationController extends Controller
 
       $marketing = DB::table('d_marketing')
                     ->get();
-
-      $item = DB::table('m_item')
-                    ->get();
-
+      
       $data = DB::table('d_quotation')
                 ->where('q_id',$id)
                 ->first();
+
+      $item = DB::table('d_npenawaran')
+                ->join('m_item','i_code','=','np_kodeitem')
+                ->get();
 
       $data_dt = DB::table('d_quotation_dt')
                 ->where('qd_id',$id)
@@ -406,7 +425,8 @@ class QuotationController extends Controller
   public function detail(request $req)
   {
     $data_dt = DB::table('d_quotation_dt')
-               ->join('m_item','i_code','=','qd_item')
+               ->join('d_npenawaran','np_kode','=','qd_item')
+               ->join('m_item','i_code','=','np_kodeitem')
               ->where('qd_id',$req->id)
               ->get();
 
@@ -459,6 +479,21 @@ class QuotationController extends Controller
       }
 
     });
+  }
+
+  public function cari_penawaran(request $req)
+  {
+    $kode = DB::table('d_marketing')
+              ->where('mk_id',$req->market)
+              ->first();
+
+    $item = DB::table('d_npenawaran')
+              ->leftjoin('m_item','i_code','=','np_kodeitem')
+              ->leftjoin('m_item','i_code','=','np_kodeitem')
+              ->where('np_marketing',$kode->mk_code)
+              ->get();
+
+    return view('quotation/q_quotation/item',compact('item'));
   }
  	public function k_penawaran()
  	{
