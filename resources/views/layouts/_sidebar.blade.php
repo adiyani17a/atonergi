@@ -392,6 +392,7 @@
                   Penerimaan Barang
                   Pengeluaran Barang
                   Stock Opname
+                  Stock Gudang
                   Maintenance
                   
                   Surat Pinjam Barang
@@ -405,6 +406,7 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/penerimaan_barang/penerimaan_barang') ? 'active' : '' || Request::is('inventory/penerimaan_barang/*') ? 'active' : '' }}" href="{{url('inventory/penerimaan_barang/penerimaan_barang')}}">Penerimaan Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangkeluar/barangkeluar') ? 'active' : '' || Request::is('inventory/barangkeluar/*') ? 'active' : '' }}" href="{{url('inventory/barangkeluar/barangkeluar')}}">Pengeluaran Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/opname/opname') ? 'active' : '' || Request::is('inventory/opname/*') ? 'active' : '' }}" href="{{url('inventory/opname/opname')}}">Stock Opname<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockgudang/stockgudang') ? 'active' : '' || Request::is('inventory/stockgudang/*') ? 'active' : '' }}" href="{{url('inventory/stockgudang/stockgudang')}}">Stock Gudang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/maintenance/maintenance') ? 'active' : '' || Request::is('inventory/maintenance/*') ? 'active' : '' }}" href="{{url('inventory/maintenance/maintenance')}}">Maintenance<span class="d-none">Inventory</span></a></li>
                   
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/suratpinjambarang/suratpinjambarang') ? 'active' : '' || Request::is('inventory/suratpinjambarang/*') ? 'active' : '' }}" href="{{url('inventory/suratpinjambarang/suratpinjambarang')}}">Surat Pinjam Barang<span class="d-none">Inventory</span></a></li>

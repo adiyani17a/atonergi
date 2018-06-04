@@ -80,7 +80,13 @@
               <select class="form-control form-control-sm" id="rp_kodeitem">
                 <option selected="" value="">- Pilih -</option>
                 @foreach ($item as $i)
-                  <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}">{{ $i->i_code }} - {{ $i->i_name }} </option>
+                  <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}" 
+                    @if ($i->sg_qty != null)
+                      data-qty="{{ $i->sg_qty }}"
+                    @else
+                      data-qty='0'
+                    @endif
+                  >{{ $i->i_code }} - {{ $i->i_name }} </option>
                 @endforeach
               </select>
             </div>
@@ -95,7 +101,7 @@
           </div>
           <div class="col-md-3 col-sm-12 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm right hanya_angka" name="" id="rp_qty">
+              <input type="text" class="form-control form-control-sm right hanya_angka"  name="" id="rp_qty" >
             </div>
           </div>
         </div>

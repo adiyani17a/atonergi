@@ -196,7 +196,6 @@ Route::get('aftersales/kebutuhanbiaya/kebutuhanbiaya', 'ASSController@kebutuhanb
 Route::get('inventory/barangkeluar/barangkeluar', 'InventoryController@barangkeluar');
 Route::get('inventory/barcode/barcode', 'InventoryController@barcode');
 Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance');
-Route::get('inventory/opname/opname', 'InventoryController@opname');
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');
 
 
@@ -273,7 +272,16 @@ Route::get('assets/barang/thumbnail')->name('barang_thumbnail');
 Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@barang_update');
 
 
-            //--------------PURCHASE -----------deny------------\\
+        /* ,,,;''  :: ;,      ,,,;;;;;'''         ,;' ;;
+          '''::    ::  '        '; ': ;'        ,::' ;;,,,,,,,,
+         ,,,,;;,,,,;;,,,,   ,;'''''''''''';'  ;;':: ;;'  :: ,;'
+             ::    ::        ,;';; ';, ';,,      ::   ,, :: .
+             ::,;  :: ,;     ;' ';;;;;;' ';      ::   :: :: ':.
+          .,;::'    :;;'         ,;,,,,,         ::  ;'  ::  ';
+          '  ::   ,;;:. .       ''';,;'          ::      ::
+            ';;  '   ``;'       .;;' ';;.        ;;     ';;*/
+
+//--------------PURCHASE -----------deny------------\\
 
 //request order
 Route::get('/purchase/rencanapembelian/rencanapembelian', 'purchase\request_orderController@rencanapembelian');
@@ -300,33 +308,35 @@ Route::get('/purchase/purchaseorder/detail_purchaseorder', 'purchase\purchase_or
 Route::get('/purchase/purchaseorder/print_purchaseorder', 'purchase\purchase_orderController@print_purchaseorder')->name('print_purchaseorder');
 Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orderController@edit_purchaseorder')->name('edit_purchaseorder');
 
-            //-----------------END OF PURCHASE------------------\\
-
-
-
-     //  ,g  8b ,g                 ,g        8g   8g
-     //   o8888"  88 Y8     .od888888888P"       88'  88'
-     //     88    88 "        88  88  88        88'  88888888b
-     // 8888888888888888   d88888888888888b    888  88  oo  88
-     //     88    88       88    88      88   8'88 8'   88  P'
-     //     88,o  88 o9,     888888888888       88    8 88
-     //     88P   88,8P         88              88   o8 88 g
-     //   ,888    888'         88888888b        88   8' 88 `8,
-     //  d8'88   g88          88 gg ,88'        88  ,P  88  8b
-     //  8' 88 oP 88,        d8' `g88'          88  8   88  `P
-     //     88    `88 g     o8'  gg88b,         88 f    88
-     //    d8'      `b'    o8  oP'   "Y8ao      88     d8'       I love you
-
+ //-----------------END OF PURCHASE------------------\\
 
                             
-                            //--------INVENTORY DENY-------\\
+//--------INVENTORY-DENY-------\\
 
-
+//penerimaan barang
 Route::get('inventory/penerimaan_barang/penerimaan_barang', 'inventory\penerimaan_barangController@penerimaan_barang')->name('penerimaan_barang');
+Route::get('inventory/penerimaan_barang/datatable_penerimaan_barang', 'inventory\penerimaan_barangController@datatable_penerimaan_barang')->name('datatable_penerimaan_barang');
 Route::get('inventory/penerimaan_barang/create_penerimaan_barang', 'inventory\penerimaan_barangController@create_penerimaan_barang')->name('create_penerimaan_barang');
 Route::get('inventory/penerimaan_barang/cari_penerimaan_barang', 'inventory\penerimaan_barangController@cari_penerimaan_barang')->name('cari_penerimaan_barang');
+Route::get('inventory/penerimaan_barang/save_penerimaan_barang', 'inventory\penerimaan_barangController@save_penerimaan_barang')->name('save_penerimaan_barang');
+Route::get('inventory/penerimaan_barang/edit_penerimaan_barang', 'inventory\penerimaan_barangController@edit_penerimaan_barang')->name('edit_penerimaan_barang');
+Route::get('inventory/penerimaan_barang/update_penerimaan_barang', 'inventory\penerimaan_barangController@update_penerimaan_barang')->name('update_penerimaan_barang');
+Route::get('inventory/penerimaan_barang/hapus_penerimaan_barang', 'inventory\penerimaan_barangController@hapus_penerimaan_barang')->name('hapus_penerimaan_barang');
 
-                                   //END OF INVENTORY
+//Stock Gudang
+Route::get('inventory/stockgudang/stockgudang', 'inventory\stock_gudangController@stockgudang')->name('stockgudang');
+Route::get('inventory/stockgudang/datatable_stockgudang', 'inventory\stock_gudangController@datatable_stockgudang')->name('datatable_stockgudang');
+Route::get('inventory/stockgudang/detail_stockgudang', 'inventory\stock_gudangController@detail_stockgudang')->name('detail_stockgudang');
+
+//Stock Opname
+Route::get('inventory/opname/opname', 'inventory\stock_opnameController@stockopname')->name('stockopname');
+Route::get('inventory/create_opname/create_opname', 'inventory\stock_opnameController@create_stockopname')->name('create_stockopname');
+Route::get('inventory/create_opname/cari_stockopname', 'inventory\stock_opnameController@cari_stockopname')->name('cari_stockopname');
+
+
+
+
+//END OF INVENTORY
 
 
 // Master Type Barang

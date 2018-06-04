@@ -24,7 +24,7 @@
                       <select class="form-control form-control-sm" name="cari_vendor" id="cari_vendor">
                         <option selected="" value="">- Pilih -</option>
                           @foreach ($vendor as $v)
-                              <option value="{{ $v->s_kode }}" data-name="{{ $v->s_name }}">{{ $v->s_kode }} - {{ $v->s_name }}</option>
+                              <option value="{{ $v->s_kode }}" data-name="{{ $v->s_name }}">{{ $v->s_kode }} - {{ $v->s_company }}</option>
                           @endforeach
                       </select>
                   </div>

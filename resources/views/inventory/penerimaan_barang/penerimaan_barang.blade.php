@@ -23,10 +23,10 @@
 	          		</div>
 	          		
 					<div class="table-responsive" style="margin-top: 15px;">
-						<table class="table table-hover data-table" cellspacing="0">
+						<table class="table table-hover" id="datatable" cellspacing="0">
 						  <thead class="bg-gradient-info">
 						    <tr>
-						      <th>No</th>
+						      <th>Code</th>
 						      <th>P.O.#</th>
 						      <th>Vendor</th>
 						      <th>Status</th>
@@ -34,30 +34,19 @@
 						    </tr>
 						  </thead>
 						  <tbody>
-						    <tr>
+					{{-- 	    <tr>
 						    	<td>1</td>
 						    	<td>P001</td>
 						    	<td>Bravo</td>
 						    	<td><span class="badge badge-success badge-pill">Complete</span></td>
 						    	<td>
 						    		<div class="btn-group">
-							    		<!-- <button class="btn btn-primary" data-toggle="modal" data-target="#detail"><i class="fa fa-check"></i></button> -->
-							    		<button class="btn btn-info"><i class="fa fa-print"></i></button>
-							    	</div>
-						    	</td>
-						    </tr>
-						    <tr>
-						    	<td>2</td>
-						    	<td>P002</td>
-						    	<td>Charlie</td>
-						    	<td><span class="badge badge-warning badge-pill">Uncomplete</span></td>
-						    	<td>
-						    		<div class="btn-group">
 							    		<button class="btn btn-primary" data-toggle="modal" data-target="#detail"><i class="fa fa-check"></i></button>
 							    		<button class="btn btn-info"><i class="fa fa-print"></i></button>
 							    	</div>
 						    	</td>
-						    </tr>
+						    </tr> --}}
+						  
 						  </tbody>
 						</table>
 					</div>
@@ -73,6 +62,41 @@
 
 <script type="text/javascript">
 
+	$('#datatable').DataTable({
+            processing: true,
+            // responsive:true,
+            serverSide: true,
+            ajax: {
+                url:'{{ route('datatable_penerimaan_barang') }}',
+            },
+             columnDefs: [
+
+                  {
+                     targets: 0 ,
+                     className: 'd_id center'
+                  },
+                  {
+                     targets: 1 ,
+                     className: 'center'
+                  }, 
+                  {
+                     targets: 2 ,
+                     className: 'right format_money'
+                  },
+                  {
+                     targets: 3 ,
+                     className: 'center'
+                  },
+                ],
+            "columns": [
+            { "data": "pb_code" },
+            { "data": "pb_ref" },
+            { "data": "s_company" },
+            { "data": "status" },
+            { "data": "aksi" },
+            ]
+      });
+
 	function cari_purchaseorder() {
 		var this_val = $('#cari_purchaseorder').val();
 		console.log(this_val);
@@ -81,10 +105,10 @@
          url: '{{ route('cari_penerimaan_barang') }}',
          data: {this_val},
          success: function(data){
-            iziToast.success({
-              icon: 'fas fa-check-circle',
-              message: 'Data Telah Tersimpan!',
-            });
+          
+         },
+         complete:function(){
+         	window.location.href= this.url;
          },
          error: function(){
           iziToast.warning({
@@ -95,7 +119,78 @@
          async: false
        });	
 	}
+	function edit(parm){
+	    var par   = $(parm).parents('tr');
+	    var id    = $(par).find('.d_id').text();
+	    // window.location.href = (baseUrl +'/master/bundle/edit_bundle/'+id);
+	    $.ajax({
+         type: "get",
+         url: baseUrl+'/inventory/penerimaan_barang/edit_penerimaan_barang',
+         data: {id},
+         success: function(data){
+          
+         },
+         complete:function(){
+         	window.location.href= this.url;
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });	
+	}
+	function hapus(parm){
+	    var par   = $(parm).parents('tr');
+	    var id    = $(par).find('.d_id').text();
+	    
+	    iziToast.show({
+	            overlay: true,
+	            close: false,
+	            timeout: 20000, 
+	            color: 'dark',
+	            icon: 'fas fa-question-circle',
+	            title: 'Important!',
+	            message: 'Apakah Anda Yakin ?!',
+	            position: 'center',
+	            progressBarColor: 'rgb(0, 255, 184)',
+	            buttons: [
+	              [
+	                '<button style="background-color:red;">Delete</button>',
+	                function (instance, toast) {
 
+		               $.ajax({
+					     type: "get",
+					     url: baseUrl+'/inventory/penerimaan_barang/hapus_penerimaan_barang',
+					     data: {id},
+					     success: function(data){
+					      	
+					     },
+					     error: function(){
+					      iziToast.warning({
+					        icon: 'fa fa-times',
+					        message: 'Terjadi Kesalahan!',
+					      });
+					     },
+					     async: false
+					   });	
+	                 
+	                }
+	              ],
+	              [
+	                '<button style="background-color:#44d7c9;">Cancel</button>',
+	                function (instance, toast) {
+	                  instance.hide({
+	                    transitionOut: 'fadeOutUp'
+	                  }, toast);
+	                }
+	              ]
+	            ]
+	      });
+	   
+	}
 
 </script>
 

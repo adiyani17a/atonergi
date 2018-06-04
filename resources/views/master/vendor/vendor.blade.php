@@ -100,6 +100,71 @@
   })
 
   $('#change_function').on("click", "#save_data",function(){
+
+
+    var input =  $('#save_vendor :input').length;
+
+    var validator = [];
+    var validator_name = [];
+    console.log($('.save_vendor :input'));
+
+    for(var i = 0 ; i<input;i++){
+      if ($('.save_vendor :input').eq(i).val() == '' || $('.save_vendor :input').eq(i).val()  == 0) {
+        if (i == 6 || i == 2) {
+          validator.push(1);
+        }else{
+          validator.push(0);
+          $('.valid_'+i).prop('hidden',false);
+          if (i == 1) {
+            $('.valid_u').prop('hidden',true);
+          }
+        }
+      }else{
+        if (i == 1) {
+          var table = $('#table_data').DataTable();
+          $('.user_id').each(function(){
+            validator_name.push($(this).text())
+          })
+
+          if ($('.id').val() != '') {
+
+            var cari = validator_name.indexOf($('.old_name').val());
+
+            if (cari != -1) {
+              validator_name.splice(1,cari);
+            }
+          }
+          console.log(validator_name);
+
+          var nama = validator_name.indexOf($('.save_vendor :input').eq(1).val())
+          if (nama != -1) {
+            validator.push(0);
+            $('.valid_'+i).prop('hidden',true);
+            $('.valid_u').prop('hidden',false);
+
+          }else{
+            validator.push(1);
+            $('.valid_'+i).prop('hidden',true);
+            $('.valid_u').prop('hidden',true);
+          }
+        }else{
+          validator.push(1);
+          $('.valid_'+i).prop('hidden',true);
+        }
+      }
+    }
+    console.log(validator);
+
+    var index = validator.indexOf(0);
+    if (index != -1) {
+      iziToast.warning({
+        icon: 'fa fa-times',
+        message: 'Periksa Kembali Data Anda!',
+      });
+      return false;
+    }
+
+    
     $.ajax({
          type: "get",
          url: baseUrl + '/master/simpanvendor/simpan_vendor',
@@ -242,6 +307,9 @@
 
     
   }
+
+
+
 
 </script>
 @endsection

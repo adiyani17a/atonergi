@@ -19,12 +19,19 @@
 		        <div class="card-body">
 		          <h4 class="card-title">Process Penerimaan Barang</h4>
 					<div class="row">
+
+						{{-- hidden --}}
+
+							<input type="hidden" name="nota" value="{{ $id }}">
+
+						{{-- end --}}
+
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <label>Kode Vendor</label>
 				    </div>
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <div class="form-group">
-				        <input type="text" class="form-control form-control-sm readonly" value="{{ $header_cari->po_vendor }}" name="pb_vendor">
+				        <input type="text" class="form-control form-control-sm readonly" value="{{ $header_penerimaan->pb_vendor }}" name="pb_vendor">
 				      </div>
 				    </div>
 				    <div class="col-md-3 col-sm-6 col-xs-12">
@@ -32,7 +39,7 @@
 				    </div>
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <div class="form-group">
-				        <input type="text" class="form-control form-control-sm readonly" value="{{ $header_cari->s_company }} - {{ $header_cari->s_name }}" name="">
+				        <input type="text" class="form-control form-control-sm readonly" value="{{ $header_penerimaan->s_company }} - {{ $header_penerimaan->s_name }}" name="">
 				      </div>
 				    </div>
 				    
@@ -41,7 +48,7 @@
 				    </div>
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <div class="form-group">
-				        <input type="text" class="form-control form-control-sm" value="" name="pb_delivery_order">
+				        <input type="text" class="form-control form-control-sm" value="" placeholder="Isi Surat Jalan" name="pb_delivery_order">
 				      </div>
 				    </div>
 				    <div class="col-md-3 col-sm-6 col-xs-12">
@@ -49,7 +56,7 @@
 				    </div>
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <div class="form-group">
-				        <input type="text" class="form-control form-control-sm datepicker" value="{{date('d-m-Y',strtotime($header_cari->po_date))}}" name="pb_date">
+				        <input type="text" class="form-control form-control-sm datepicker" value="" placeholder="Isi Tanggal" name="pb_date">
 				      </div>
 				    </div>
 				    
@@ -58,7 +65,7 @@
 				    </div>
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <div class="form-group">
-				        <input type="text" class="form-control form-control-sm readonly" value="{{ $header_cari->po_code }}" name="pb_ref">
+				        <input type="text" class="form-control form-control-sm readonly" value="{{ $header_penerimaan->pb_ref }}" name="pb_ref">
 				      </div>
 				    </div>
 				    <div class="col-md-3 col-sm-6 col-xs-12">
@@ -85,14 +92,14 @@
 				          </tr>
 				        </thead>
 				        <tbody>
-			        	@foreach ($seq_cari as $a)
+			        	@foreach ($seq_penerimaan as $a)
 			        		<tr>
-				            <td>{{ $a->podt_id }}</td>
+				            <td><input type="hidden" class="form-control form-control-sm" value="{{ $a->i_price }}" name="po_harga[]">{{ $a->pbdt_id }}</td>
 				            <td><input type="hidden" class="form-control form-control-sm po_item" value="{{ $a->i_code }}" name="po_item[]">{{ $a->i_name }}</td>
-				            <td><input type="hidden" class="form-control form-control-sm" value="{{ $a->podt_unit_price }}" name="po_harga[]">{{ $a->i_unit }}</td>
-				            <td><input type="text" class="form-control form-control-sm qty_approved right readonly" value="{{ $a->podt_qty_approved }}" name="qty_approved[]"></td>
-				            <td><input type="text" class="form-control form-control-sm qty_received right" onkeyup="qty_received(this);" name="qty_received[]"></td>
-				            <td><input type="text" class="form-control form-control-sm qty_remain right readonly" value="{{ $a->podt_qty_approved }}" name="qty_remain[]"></td>
+				            <td><input type="hidden" class="form-control form-control-sm po_id" value="{{ $a->pbdt_id }}" name="po_id[]">{{ $a->i_unit }}</td>
+				            <td><input type="text" class="form-control form-control-sm qty_approved right readonly" value="{{ $a->pbdt_qty_sent }}" name="qty_approved[]"></td>
+				            <td><input type="text" class="form-control form-control-sm qty_received right format_money_kosongan" value="0" onkeyup="qty_received(this);" name="qty_received[]"></td>
+				            <td><input type="text" class="form-control form-control-sm qty_remain right readonly" value="{{ $a->pbdt_qty_remains }}" name="qty_remain[]"></td>
 				          </tr>
 			        	@endforeach
 				        </tbody>
@@ -137,7 +144,7 @@
 
 		 $.ajax({
            type: "get",
-             url: '{{ route('save_penerimaan_barang') }}',
+             url: '{{ route('update_penerimaan_barang') }}',
              data:$('#form-save').serialize(),
              success: function(data){
 
@@ -146,9 +153,7 @@
                 message: 'Data Telah Tersimpan!',
               });
          	
-         	window.location.href= '{{ route('penerimaan_barang') }}';
-
-             
+         	 // window.location.href= '{{ route('penerimaan_barang') }}';
              },
              error: function(){
               iziToast.warning({

@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
         
-        <form id="save_vendor">
+        <form id="save_vendor" class="save_vendor">
           <div class="row">
           <div class="col-md-3 col-sm-3 col-xs-12">
             <label>Vendor Name</label>
@@ -18,6 +18,7 @@
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
               <input type="text" class="form-control form-control-sm" name="v_name">
+              <label style="color: red" hidden="" class="valid_1"><b>Username Harus Diisi</b></label>
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -26,6 +27,7 @@
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
               <input type="text" class="form-control form-control-sm" name="v_company">
+              <label style="color: red" hidden="" class="valid_2"><b>Company Harus Diisi</b></label>
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">

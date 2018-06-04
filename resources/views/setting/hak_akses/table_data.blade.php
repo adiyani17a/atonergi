@@ -85,18 +85,18 @@
                   </label>
               </td>
               <td align="center">
-                  <label class="label">
-                  @foreach($hak_akses as $c=>$val)
-                    @if($val->ha_menu == $data[$i][$a])
-                      <input @if($val->print == 1) checked="" @endif class="label__checkbox hapus" name="hapus" type="checkbox" />
-                    @endif
-                  @endforeach
-                    <span class="label__text">
-                      <span class="label__check">
-                        <i class="fa fa-check icon"></i>
+                    <label class="label">
+                    @foreach($hak_akses as $c=>$val)
+                      @if($val->ha_menu == $data[$i][$a])
+                        <input @if($val->print == 1) checked="" @endif class="label__checkbox hapus" name="hapus" type="checkbox" />
+                      @endif
+                    @endforeach
+                      <span class="label__text">
+                        <span class="label__check">
+                          <i class="fa fa-check icon"></i>
+                        </span>
                       </span>
-                    </span>
-                  </label>
+                    </label>
               </td>
             </tr>
             @endfor

@@ -22,7 +22,8 @@ class request_orderController extends Controller
         $nota = 'RO-'.$index.'/'.$date;
 
         $vendor = DB::table('m_vendor')->get();
-        $item = DB::table('m_item')->get();
+        $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
+
         return view('purchase/rencanapembelian/rencanapembelian',compact('vendor','item','nota'));
     }
     public function datatable_rencanapembelian(Request $request)
@@ -66,10 +67,7 @@ class request_orderController extends Controller
                 })
                 
                 ->addColumn('detail', function ($data) {
-                    return '<div class="btn-group">'.
-                                   '<button type="button" onclick="detail(this)" style="padding-top: 12px;" class="btn btn-info btn-sm" title="detail">'.
-                                   '<label class="fas fa-arrow-alt-circle-right"></label> Detail</button>'.
-                                  '</div>';
+                    return '<button data-toggle="modal" onclick="detail(this)"  class="btn btn-outline-primary btn-sm">Detail</button>';
                 })
                 ->rawColumns(['aksi','detail','confirmed'])
                 ->make(true);
