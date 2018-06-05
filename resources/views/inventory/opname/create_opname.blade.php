@@ -86,10 +86,10 @@
 				                <th rowspan="2" class="right-border">Description</th>
 				            </tr>
 				            <tr>
-				                <th class="right-border" style="width: 10px;">Stock Sistem</th>
-				                <th class="right-border" style="width: 10px;">Stock Real</th>
-				                <th class="right-border" style="width: 100px;">Status Item</th>
-				                <th class="right-border" style="width: 10px;">Status Total</th>
+				                <th class="right-border" style="width: 15px;">Stock Sistem</th>
+				                <th class="right-border" style="width: 15px;">Stock Real</th>
+				                <th class="right-border" style="width: 80px;">Status Item</th>
+				                <th class="right-border" style="width: 15px;">Status Total</th>
 				            </tr>
 				        </thead>
 				        <tbody id="replace">	
