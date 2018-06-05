@@ -215,7 +215,7 @@
             '<input type="text" id="item_harga[]"   name="ro_price_seq[]"    class="form-control input-sm min-width right readonly total_price " value="'+ accounting.formatMoney(total,"",0,'.',',') +'">',
             '<input type="number" id="jumlah[]"   name="ro_qty_seq[]"    class="form-control input-sm min-width right readonly total_qty " value="'+ accounting.formatMoney(rp_qty.val(),"",0,'.',',') +'">',
 
-            '<input type="text" id="unit_price[]"   name=""    class="form-control input-sm min-width right readonly">',
+            '<input type="text" id="unit_price[]"   name=""    class="form-control input-sm min-width right readonly" readonly  value="'+ rp_kodeitem.find(':selected').data('qty') +'">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
         ] ).draw( false );
       
@@ -276,16 +276,15 @@
          url: '{{ route('simpan_rencanapembelian') }}',
          data: $('#form-save').serialize(),
          success: function(data){
-            $('#tambah').modal('hide');
             var table_history = $('#table_datatable_histori').DataTable();
             var table_rencana = $('#table_datatable_rencana').DataTable();
             table_history.ajax.reload();
             table_rencana.ajax.reload();
-
             iziToast.success({
               icon: 'fas fa-check-circle',
               message: 'Data Telah Tersimpan!',
             });
+            $('#tambah').modal('hide');
          },
          error: function(){
           iziToast.warning({

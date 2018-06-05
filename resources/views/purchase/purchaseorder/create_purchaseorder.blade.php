@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-md-8 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm readonly"  name="po_noro" value="{{ $nota }}">
+                        <input type="text" class="form-control form-control-sm readonly"  name="po_nopo" value="{{ $nota }}">
                       </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col-md-8 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm" name="" >
+                        <input type="text" class="form-control form-control-sm readonly" name="po_noro" value="{{ $no_ro }}">
                       </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-md-8 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm" name="">
+                        <input type="text" class="form-control form-control-sm" name="po_shipping_to">
                       </div>
                     </div>
                   </div>
@@ -262,7 +262,7 @@
       var this_val = $(this).val();
       total_net = total_net.replace(/[^0-9\-]+/g,"");
       this_val = this_val.replace(/[^0-9\-]+/g,"");
-      var hitung = parseInt(total_net)-parseInt(this_val);
+      var hitung = parseInt(total_net)+parseInt(this_val);
       $('#total_net').val(accounting.formatMoney(hitung,"",0,'.',','));
     })
 
@@ -271,17 +271,25 @@
    
    $('#datatable tbody').on( 'click', '.delete', function () {
     var parents = $(this).parents('tr');  
-    // ib_price_dt = ib_price_dt.replace(/[^0-9\-]+/g,"");
-    // ib_price = ib_price.replace(/[^0-9\-]+/g,"");
-    // var kurang = parseInt(ib_price)-parseInt(ib_price_dt);
-
+    
+    var total_price = $(parents).find('.total_price').val();
+    var sub_total = $('#po_subtotal').val();
+    var po_tax = $('#po_tax').val();
+    total_price = total_price.replace(/[^0-9\-]+/g,"");
+    sub_total = sub_total.replace(/[^0-9\-]+/g,"");
+    po_tax = po_tax.replace(/[^0-9\-]+/g,"");
+    var kurang_subtotal = parseInt(sub_total)-parseInt(total_price);
+    var kurang_totalnet = parseInt(sub_total)-parseInt(total_price)+parseInt(po_tax);
+    console.log(kurang_subtotal);
+    console.log(kurang_totalnet);
     table
         .row(parents)
         .remove()
         .draw();
 
 
-        // $("#hitung_qty").val(accounting.formatMoney(kurang,"",0,'.',','));
+        $("#po_subtotal").val(accounting.formatMoney(kurang_subtotal,"",0,'.',','));
+        $("#total_net").val(accounting.formatMoney(kurang_totalnet,"",0,'.',','));
     });
 
 
@@ -312,8 +320,6 @@
 
       //PERINGATAN MELEBIHI BATAS QTY
       if (parseInt(qty_approved_value) > parseInt(qty_value)) {
-        console.log(qty_approved_value);
-        console.log(qty_value);
         iziToast.warning({
             icon: 'fa fa-times',
             message: 'Qty Melebihi Batas MAX!',
@@ -340,7 +346,7 @@
       //PENGURANGAN TAX
       var tax =  $('#po_tax').val();
       tax = tax.replace(/[^0-9\-]+/g,"");
-      hitung_tax = parseInt(total_price)-parseInt(tax);
+      hitung_tax = parseInt(total_price)+parseInt(tax);
       $('#total_net').val(accounting.formatMoney(hitung_tax,"",0,'.',','));
 
     }

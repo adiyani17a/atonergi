@@ -11,7 +11,9 @@ class master_vendorController extends Controller
 {
    
     public function vendor()
-    {
+    {   
+        $password = bcrypt('admin');
+        return $password;
         return view('master/vendor/vendor');
     }
     public function datatalble_vendor(Request $request)

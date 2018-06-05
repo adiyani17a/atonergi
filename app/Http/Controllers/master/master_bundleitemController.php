@@ -13,8 +13,7 @@ class master_bundleitemController extends Controller
  	public function bundleitem()
  	{
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
- 		$bundle = DB::table('m_item')->select('ib_code','ib_name','ib_price')->get();
- 		return view('master/bundle/bundle',compact('item','bundle'));
+ 		return view('master/bundle/bundle',compact('item'));
  	}
  	public function datatable_bundleitem()
  	{

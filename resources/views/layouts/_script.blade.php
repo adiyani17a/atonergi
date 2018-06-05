@@ -122,6 +122,7 @@
 
   //function
   $('.format_money').maskMoney({prefix:' ', allowNegative: false, thousands:'.', decimal:',',precision:false, affixesStay: false});
+  $('.format_money_kosongan').maskMoney({prefix:' ', allowNegative: false, thousands:'', decimal:'',precision:false, affixesStay: false});
   $('.right').css('text-align','right')
   $('.sembuyikan').css('display','none')
   $('.tampilkan').css('display','block')

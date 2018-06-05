@@ -26,14 +26,18 @@ class purchase_orderController extends Controller
       return Datatables::of($data)
         
               ->addColumn('aksi', function ($data) {
-                        return  '<div class="btn-group">'.
-                                 '<button type="button" onclick="print(this)" class="btn btn-primary btn-sm" title="Print">'.
-                                 '<label class="fa fa-print"></label></button>'.
-                                 '<button type="button" onclick="edit(this)" class="btn btn-info btn-sm" title="edit">'.
-                                 '<label class="fa fa-pencil-alt"></label></button>'.
-                                 '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm" title="hapus">'.
-                                 '<label class="fa fa-trash"></label></button>'.
-                                '</div>';
+                        if ($data->po_print == 'T' or $data->po_status == 'T') {
+                            return '<span class="badge badge-pill badge-danger">Disabled</span>';
+                        }else{
+                            return  '<div class="btn-group">'.
+                                   '<button type="button" onclick="print(this)" class="btn btn-primary btn-sm" title="Print">'.
+                                   '<label class="fa fa-print"></label></button>'.
+                                   '<button type="button" onclick="edit(this)" class="btn btn-info btn-sm" title="edit">'.
+                                   '<label class="fa fa-pencil-alt"></label></button>'.
+                                   '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm" title="hapus">'.
+                                   '<label class="fa fa-trash"></label></button>'.
+                                  '</div>';
+                        } 
               })
               ->addColumn('detail', function ($data) {
                             
@@ -115,11 +119,13 @@ class purchase_orderController extends Controller
         $data_header = DB::table('d_purchaseorder')
                         ->insert([
                           'po_id'=>$kode,
-                          'po_code'=>$request->po_noro,
+                          'po_code'=>$request->po_nopo,
+                          'po_nomor_ro'=>$request->po_noro,
                           'po_date'=>date('Y-m-d',strtotime($request->po_date)),
                           'po_shipping_method'=>$request->po_shipping_method,
                           'po_shipping_term'=>$request->po_shipping_term,
                           'po_delivery_date'=>date('Y-m-d',strtotime($request->po_shipping_date)),
+                          'po_shipping_to'=>$request->po_shipping_to,
                           'po_subtotal'=>$po_subtotal,
                           'po_sales_tax'=>$po_tax,
                           'po_total_net'=>$total_net,
@@ -139,13 +145,12 @@ class purchase_orderController extends Controller
         $data_sequence = DB::table('d_purchaseorder_dt')
                         ->insert([
                           'podt_id'=>$kode_seq,
-                          'podt_code'=>$request->po_noro,
+                          'podt_code'=>$request->po_nopo,
                           'podt_item'=>$podt_barang[$i],
                           'podt_price'=>$podt_price[$i],
                           'podt_unit_price'=>$podt_unit_price[$i],
                           'podt_qty_approved'=>$podt_qty[$i],
                           'podt_insert'=>$tanggal,
-                          'podt_status'=>'T',
                         ]);
 
         $request_sequence = DB::table('d_requestorder_dt')
@@ -173,9 +178,15 @@ class purchase_orderController extends Controller
     }
     public function print_purchaseorder(Request $request)
     {
+      // dd($request->all());
+
+      DB::table('d_purchaseorder')->where('po_code','=',$request->id)->update(['po_print'=>'T']);
+
       $print_header = DB::table('d_purchaseorder')->where('po_code','=',$request->id)->join('m_vendor','m_vendor.s_kode','=','d_purchaseorder.po_vendor')->first();
       json_encode($print_header);
       $print_seq = DB::table('d_purchaseorder_dt')->where('podt_code','=',$request->id)->join('m_item','m_item.i_code','=','d_purchaseorder_dt.podt_item')->get();
+
+
 
       return view('purchase/purchaseorder/print_purchaseorder',compact('print_header','print_seq'));
     }

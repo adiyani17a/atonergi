@@ -93,6 +93,10 @@
                      targets: 4 ,
                      className: 'center'
                   },
+                  {
+                     targets: 5 ,
+                     className: 'center'
+                  },
                 ],
             "columns": [
             { "data": "po_code" },
@@ -306,6 +310,7 @@
                    url: '{{ route('print_purchaseorder') }}',
                    data: {id},
                    success: function(data){
+
                       var table = $('#dataTable').DataTable();
                       table.ajax.reload();
                       window.open().document.write(data);
