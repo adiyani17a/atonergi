@@ -37,8 +37,7 @@
 				        <input type="text" class="form-control form-control-sm readonly" value="{{ $nota }}" name="so_code" id="so_code">
 				      </div>
 				    </div>
-				    <div class="col-md-6 col-sm-6 col-xs-12">
-				    </div>
+
 				    	
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <label>Item</label>
@@ -59,8 +58,6 @@
 				      	</select>
 				      </div>
 				    </div>
-				    <div class="col-md-6 col-sm-6 col-xs-12">
-				    </div>
 
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <label>Date of Receipt</label>
@@ -70,11 +67,9 @@
 				        <input type="text" class="form-control form-control-sm datepicker_today" id="so_date" name="so_date">
 				      </div>
 				    </div>
-				    <div class="col-md-6 col-sm-6 col-xs-12">
-				    </div>
 				   
-				    
-				    <div class="table-responsive " style="margin-top: 15px;">
+				    </div>
+				    <div class="table-responsive" style="margin-top: 15px;">
 				      <table class="table table-hover data-table">
 				        <thead class="bg-gradient-info">
 					        <tr>
@@ -98,6 +93,7 @@
 						        <td>{{ $index+1 }}</td>
 						        <td><input type="hidden" name="so_item[]" value="{{ $a->i_code }}">{{ $a->i_name }}</td>
 						        <td>{{ $a->i_unit }}</td>
+		      	
 						        <td><input type="text" name="so_system[]" value="{{ $a->sg_qty }}" class="form-control right stock_system" readonly=""></td>
 						        <td><input type="text" name="so_real[]" class="form-control stock_real format_money_kosongan right" value="0" onkeyup="stock_real(this)"></td>
 						        <td><input type="text" name="so_status_item[]" class="form-control status_item" readonly=""></td>
@@ -111,7 +107,6 @@
 
 					
 
-		      	</div>
 		      <div class="pull-right" style="margin-top: 10px">
 				<button type="button" class="btn btn-info btn-sm" onclick="save_data()" >Save Data</button>
 				<a href="{{url('inventory/penerimaan_barang/penerimaan_barang')}}" class="btn btn-secondary btn-sm">Back</a>
