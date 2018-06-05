@@ -123,16 +123,17 @@ class penerimaan_barangController extends Controller
 
 	 	//-----------STOCK---------//
 
+	 	
+
+        $kode_stockm_seq = 0;
+
+	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
 	 	$kode_stock_g = DB::table('i_stock_gudang')->max('sg_id');
             if ($kode_stock_g == null) {
                 $kode_stock_g = 1;
             }else{
                 $kode_stock_g += 1;
             }
-
-        $kode_stockm_seq = 0;
-
-	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
 	    	$kode_stockm_seq += 1;
 
 		 	$arr_stockm1[$i] =	$request->qty_remain[$i];
