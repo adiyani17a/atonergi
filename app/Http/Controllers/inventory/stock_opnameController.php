@@ -65,14 +65,15 @@ return DB::transaction(function() use ($request) {
     for ($i=0; $i < count($request->so_item); $i++) { 
 		$cari = DB::table('i_stock_mutasi')
 			   ->where('sm_item',$request->so_item[$i])
+			   ->orderBy('sm_insert','ASC')
 			   ->get();
 
 
 		if ($request->so_system[$i] < $request->so_real[$i]) {
 
 			for ($a=0; $a < count($cari); $a++) { 
-				if ($a = 0) {
-					$temp = $cari[$a]->sm_insert;
+				if ($a == 0) {
+					$temp  = $cari[$a]->sm_insert;
 				}
 
 				if ($a != 0) {
@@ -82,8 +83,10 @@ return DB::transaction(function() use ($request) {
 				}
 			}
 
-
-			$kode_sequence = DB::table('i_stock_mutasi')->where('sm_id','=',$cari[$i]->sm_id)->max('sm_iddetail')+1;
+			$kode_sequence = DB::table('i_stock_mutasi')
+								->where('sm_insert',$temp)
+					   			->where('sm_item',$request->so_item[$i])
+								->max('sm_iddetail')+1;
 
 			$hpp =	DB::table('i_stock_mutasi')
 					   ->where('sm_insert',$temp)
@@ -106,7 +109,7 @@ return DB::transaction(function() use ($request) {
 							 		'sm_ref'=>$request->so_code,
 							 		'sm_insert'=>carbon::now(),
 	    						]);
-			
+			// dd($insert);
 		}else if($request->so_system[$i] > $request->so_real[$i]){
 
 			$balance = $request->so_status_total[$i];
@@ -129,20 +132,22 @@ return DB::transaction(function() use ($request) {
 				
 				$update = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
 						  ->update([
 						  	'sm_sisa' => $sisa_kurang,
 						  ]);
 
 				$use = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
 						  ->first();
 
 				$use1 = $use->sm_qty - $use->sm_sisa;
-				dd($use1);
 
 
 				$update = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
 						  ->update([
 						  	'sm_use' => $use1,
 						  ]);
@@ -150,10 +155,11 @@ return DB::transaction(function() use ($request) {
 
 				$upd = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
 						  ->first();
 
 				if ($balance > 0) {
-				$kode_sequence = DB::table('i_stock_mutasi')->where('sm_id','=',$cari[$b]->sm_id)->max('sm_iddetail')+1;
+					$kode_sequence = DB::table('i_stock_mutasi')->where('sm_id','=',$cari[$b]->sm_id)->max('sm_iddetail')+1;
 
 					$insert = DB::table('i_stock_mutasi')
 	    						->insert([
@@ -170,6 +176,15 @@ return DB::transaction(function() use ($request) {
 							 		'sm_ref'=>$request->so_code,
 							 		'sm_insert'=>carbon::now(),
 	    						]);
+	    			$stock = DB::table('i_stock_gudang')
+	    					   ->where('sg_id',$upd->sm_id)
+	    					   ->first();
+
+	    			$update = DB::table('i_stock_gudang')
+	    					   ->where('sg_id',$upd->sm_id)
+	    						->update([
+	    							'sg_qty'=>$stock->sg_qty - $sm_use_new,
+	    						]);
 				}
 
 				$balance = $kurang;
@@ -183,7 +198,7 @@ $cari = DB::table('i_stock_mutasi')
 			   ->where('sm_item',$request->so_item[0])
 			   ->get();
 
-		dd($cari);
+dd($cari);
 
 
 
