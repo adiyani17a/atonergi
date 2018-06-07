@@ -183,6 +183,7 @@ Route::get('/finance/costmanajemen/costmanajemen', 'FinanceController@costmanaje
 // HRD
 Route::get('/hrd/rekruitment/rekruitment', 'HRDController@rekruitment');
 Route::get('/hrd/payroll/payroll', 'HRDController@payroll');
+Route::get('/hrd/payroll/tambah_payroll', 'HRDController@tambah_payroll');
 Route::get('/hrd/freelance/freelance', 'HRDController@freelance');
 Route::get('/hrd/kesejahteraan/kesejahteraan', 'HRDController@kesejahteraan');
 Route::get('/hrd/kpi/kpi', 'HRDController@kpi');
