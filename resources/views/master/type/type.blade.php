@@ -4,44 +4,46 @@
 @include('master/type/tambah_type')
 <!-- partial -->
 <div class="content-wrapper">
-	<div class="col-lg-12">	
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb bg-info">
-				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item">Master</li>
-				<li class="breadcrumb-item active" aria-current="page">Master Data Tipe Barang</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-lg-12 grid-margin stretch-card">
-      	<div class="card">
-	        <div class="card-body">
-	          <h4 class="card-title">Master Data Tipe Barang</h4>
-	          	<div class="row">
-	          		
-					<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-						<button class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-					</div>
-					<div class="table-responsive">
-						<table class="table table-hover" cellspacing="0" id="t80um">
-						  <thead class="bg-gradient-info">
-						    <tr>
-						      <th>No</th>
-						      <th>Type Code</th>
-						      <th>Type Item</th>
-						      <th>Action</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  	
-						  </tbody>
-						</table>
-					</div>
-					
-	        	</div>
-	      	</div>
-    	</div>
-	</div>
+  <div class="row">
+  	<div class="col-lg-12">	
+  		<nav aria-label="breadcrumb" role="navigation">
+  			<ol class="breadcrumb bg-info">
+  				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
+  				<li class="breadcrumb-item">Master</li>
+  				<li class="breadcrumb-item active" aria-current="page">Master Data Tipe Barang</li>
+  			</ol>
+  		</nav>
+  	</div>
+  	<div class="col-lg-12 grid-margin stretch-card">
+        	<div class="card">
+  	        <div class="card-body">
+  	          <h4 class="card-title">Master Data Tipe Barang</h4>
+  	          	<div class="row">
+  	          		
+  					<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+  						<button class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+  					</div>
+  					<div class="table-responsive">
+  						<table class="table table-hover" cellspacing="0" id="t80um">
+  						  <thead class="bg-gradient-info">
+  						    <tr>
+  						      <th>No</th>
+  						      <th>Type Code</th>
+  						      <th>Type Item</th>
+  						      <th>Action</th>
+  						    </tr>
+  						  </thead>
+  						  <tbody>
+  						  	
+  						  </tbody>
+  						</table>
+  					</div>
+  					
+  	        	</div>
+  	      	</div>
+          </div>
+  	</div>
+  </div>
 </div>
 <!-- content-wrapper ends -->
 @endsection

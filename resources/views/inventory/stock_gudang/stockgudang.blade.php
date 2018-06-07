@@ -4,43 +4,45 @@
 @include('inventory/penerimaan_barang/cari_po')
 <!-- partial -->
 <div class="content-wrapper">
-	<div class="col-lg-12">	
-		<nav aria-label="breadcrumb" role="navigation">
-			<ol class="breadcrumb bg-info">
-				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
-				<li class="breadcrumb-item">Inventory</li>
-				<li class="breadcrumb-item active" aria-current="page">Stock Gudang</li>
-			</ol>
-		</nav>
-	</div>
-	<div class="col-lg-12 grid-margin stretch-card">
-      	<div class="card">
-	        <div class="card-body">
-	          <h4 class="card-title">Stock Gudang</h4>
-	          	<div class="row">
-	          		<div class="col-md-12 col-sm-12 col-xs-12" align="right">
-	          			{{-- <button class="btn btn-info btn-sm" type="button" data-target="#cari_po" id="button_add" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Add Data</button> --}}
-	          		</div>
-	          		
-					<div class="table-responsive" style="margin-top: 15px;">
-						<table class="table table-hover" id="datatable" cellspacing="0">
-						  <thead class="bg-gradient-info">
-						    <tr>
-						      <th>Item </th>
-						      <th>Name</th>
-						      <th>QTY</th>
-						      <th>Detail</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  </tbody>
-						</table>
-					</div>
-					
-	        	</div>
-	      	</div>
-    	</div>
-	</div>
+  <div class="row">
+  	<div class="col-lg-12">	
+  		<nav aria-label="breadcrumb" role="navigation">
+  			<ol class="breadcrumb bg-info">
+  				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
+  				<li class="breadcrumb-item">Inventory</li>
+  				<li class="breadcrumb-item active" aria-current="page">Stock Gudang</li>
+  			</ol>
+  		</nav>
+  	</div>
+  	<div class="col-lg-12 grid-margin stretch-card">
+        	<div class="card">
+  	        <div class="card-body">
+  	          <h4 class="card-title">Stock Gudang</h4>
+  	          	<div class="row">
+  	          		<div class="col-md-12 col-sm-12 col-xs-12" align="right">
+  	          			{{-- <button class="btn btn-info btn-sm" type="button" data-target="#cari_po" id="button_add" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Add Data</button> --}}
+  	          		</div>
+  	          		
+        					<div class="table-responsive" style="margin-top: 15px;">
+        						<table class="table table-hover" id="datatable" cellspacing="0">
+        						  <thead class="bg-gradient-info">
+        						    <tr>
+        						      <th>Item </th>
+        						      <th>Name</th>
+        						      <th>QTY</th>
+        						      <th>Detail</th>
+        						    </tr>
+        						  </thead>
+        						  <tbody>
+        						  </tbody>
+        						</table>
+        					</div>
+  					
+  	        	  </div>
+  	      	</div>
+          </div>
+  	</div>
+  </div>
 </div>
 <!-- content-wrapper ends -->
 @endsection

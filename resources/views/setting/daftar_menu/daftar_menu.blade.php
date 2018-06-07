@@ -5,42 +5,44 @@
 
 <!-- partial -->
 <div class="content-wrapper">
-  <div class="col-lg-12"> 
-    <nav aria-label="breadcrumb" role="navigation">
-      <ol class="breadcrumb bg-info">
-        <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
-        <li class="breadcrumb-item">Setting</li>
-        <li class="breadcrumb-item active" aria-current="page">Setting Daftar Menu</li>
-      </ol>
-    </nav>
-  </div>
-	<div class="col-lg-12 grid-margin stretch-card">
-              <div class="card row">
-                <div class="card-body">
-                  <h4 class="card-title">Setting Daftar Menu</h4>
-                  @if(Auth::user()->akses('SETTING DAFTAR MENU','tambah'))
-                  <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                  	<button type="button" class="btn btn-info btn_modal" data-toggle="modal" data-target="#daftar-menu"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-                  </div>
-                  @endif
-                  <div class="table-responsive">
-      				        <table id="table_data" class="table table-striped table-hover" cellspacing="0">
-                          <thead class="bg-gradient-info">
-                            <tr>
-                              <th>No</th>
-                              <th>Nama Menu</th>
-                              <th>Id Group</th>
-                              <th>Grup Menu</th>
-                              <th>Aksi</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                      </table> 
+  <div class="row">
+    <div class="col-lg-12"> 
+      <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb bg-info">
+          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
+          <li class="breadcrumb-item">Setting</li>
+          <li class="breadcrumb-item active" aria-current="page">Setting Daftar Menu</li>
+        </ol>
+      </nav>
+    </div>
+  	<div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Setting Daftar Menu</h4>
+                    @if(Auth::user()->akses('SETTING DAFTAR MENU','tambah'))
+                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+                    	<button type="button" class="btn btn-info btn_modal" data-toggle="modal" data-target="#daftar-menu"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                    </div>
+                    @endif
+                    <div class="table-responsive">
+        				        <table id="table_data" class="table table-striped table-hover" cellspacing="0">
+                            <thead class="bg-gradient-info">
+                              <tr>
+                                <th>No</th>
+                                <th>Nama Menu</th>
+                                <th>Id Group</th>
+                                <th>Grup Menu</th>
+                                <th>Aksi</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table> 
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+    </div>
+  </div>
 </div>
 <!-- content-wrapper ends -->
 @endsection

@@ -26,7 +26,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}" />
+  <link rel="shortcut icon" href="{{asset('assets/atonergi-mini.png')}}" />
   <!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/data-table.min.css')}}"> -->
 
   <!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/datepicker/css/bootstrap-datepicker3.min.css')}}"> -->
