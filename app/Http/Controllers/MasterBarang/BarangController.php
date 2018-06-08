@@ -38,10 +38,6 @@ class BarangController extends Controller
         {
             $id_auto = 'BRG/0'.$index;
         }
-        else if($index<=9999)
-        {
-            $id_auto = 'BRG/'.$index;
-        }
         else {
             $id_auto = 'BRG/'.$index;
         }

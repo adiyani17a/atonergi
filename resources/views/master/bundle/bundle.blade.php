@@ -122,7 +122,7 @@
             '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+ bund_qty.val() +'">',
             '<input type="text" id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money">',
             '<input type="text" id="unit_price[]" name="ib_price_dt[]" class="form-control input-sm min-width right format_money total" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash-o"></i></button>',
+            '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
     
         x++;

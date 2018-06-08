@@ -1,7 +1,6 @@
 @extends('main')
 @section('content')
 
-@include('hrd/payroll/tambah_payroll')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
@@ -21,16 +20,17 @@
 		          	<div class="row">
 		          		
 						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-							<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+							<a class="btn btn-info" href="{{url('hrd/payroll/tambah_payroll')}}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</a>
 						</div>
 						<div class="table-responsive">
 							<table class="table table-hover data-table" cellspacing="0">
 							  <thead class="bg-gradient-info">
 							    <tr>
 							      <th>No</th>
-							      <th>Offer Code</th>
-							      <th>Offer Classification</th>
-							      <th>Information</th>
+							      <th>Payday Date</th>
+							      <th>Number of Employees</th>
+							      <th>Total Employees Salary</th>
+							      <th>Status</th>
 							      <th>Action</th>
 							    </tr>
 							  </thead>
