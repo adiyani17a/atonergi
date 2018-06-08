@@ -108,16 +108,24 @@ class stock_opnameController extends Controller
 							 		'sm_ref'=>$request->so_code,
 							 		'sm_insert'=>carbon::now(),
 	    						]);
-			// dd($insert);
+
+	    	$check_gudang[$i] = DB::table('i_stock_gudang')
+	    						->where('sg_iditem','=',$request->so_item[$i])
+	    						->get();		
+
+	    	$update_gudang = DB::table('i_stock_gudang')
+	    						->where('sg_iditem','=',$request->so_item[$i])
+	    						->update([
+	    							'sg_qty'=>$check_gudang[$i][0]->sg_qty+$request->so_status_total[$i],
+	    						]);
+
 		}else if($request->so_system[$i] > $request->so_real[$i]){
 
 			$balance = $request->so_status_total[$i];
-			// dd($balance);
 			for ($b=0; $b < count($cari); $b++) { 
 
 				$sisa_kurang = $cari[$b]->sm_sisa - $balance;
 				$kurang = $balance - $cari[$b]->sm_sisa;
-				// dd($kurang);
 
 				if($kurang < 0){
 					$kurang = 0;
@@ -128,35 +136,31 @@ class stock_opnameController extends Controller
 				if ($sisa_kurang < 0) {
 					$sisa_kurang = 0;
 				}
-				// dd($sisa_kurang);
 
-				// dd($cari[$b]->sm_id);
 				$update = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
 						  ->update([
 						  	'sm_sisa' => $sisa_kurang,
 						  ]);
-				// dd($update);
 				$use = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
 						  ->first();
 
 				$use1 = $use->sm_qty - $use->sm_sisa;
 
-
 				$update = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
+						  ->orderBy('sm_insert','ASC')
 						  ->update([
 						  	'sm_use' => $use1,
 						  ]);
 
-
 				$upd = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
 						  ->first();
 
 				if ($balance > 0) {
