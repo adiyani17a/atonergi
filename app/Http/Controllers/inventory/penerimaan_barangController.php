@@ -63,9 +63,10 @@ class penerimaan_barangController extends Controller
 	 public function save_penerimaan_barang(Request $request)
 	 {
 	 	// dd($request->all());	
-      	$tanggal = date("Y-m-d h:i:s");
+       return DB::transaction(function() use ($request) {
+       $tanggal = date("Y-m-d h:i:s");
 
-      	$kode = DB::table('d_penerimaan_barang')->max('pb_id');
+       $kode = DB::table('d_penerimaan_barang')->max('pb_id');
             if ($kode == null) {
                 $kode = 1;
             }else{
@@ -122,52 +123,80 @@ class penerimaan_barangController extends Controller
 	 	//----PENERIMAAN BARANG ---//
 
 	 	//-----------STOCK---------//
-
-	 	
-
-        $kode_stockm_seq = 0;
-
+	   	$kode_id = 0;
 	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
+	   	$kode_id += 1;
+	 	$check_stock_gudang = DB::table('i_stock_gudang')
+	 						 ->where('sg_iditem','=',$request->po_item[$i])
+	 						 ->first();
+
+	 	$cari = DB::table('i_stock_gudang')
+    						 ->where('sg_iditem','=',$request->po_item[$i])
+    						 ->first();
+    	
+
+        $kode_stockm_seq = DB::table('i_stock_mutasi')->where('sm_id','=',isset($cari->sg_id))->max('sm_iddetail')+1;	
+
 	 	$kode_stock_g = DB::table('i_stock_gudang')->max('sg_id');
             if ($kode_stock_g == null) {
                 $kode_stock_g = 1;
             }else{
                 $kode_stock_g += 1;
             }
-	    	$kode_stockm_seq += 1;
-
+            
 		 	$arr_stockm1[$i] =	$request->qty_remain[$i];
 		 	$arr_stockm2[$i] = $request->qty_received[$i];
 
-	    	$subtracted = array_map(function ($x, $y) { 
-								return $x-$y;
-								 } , $arr_stockm1, $arr_stockm2);
+	    	$subtracted = array_map(function ($x, $y) { return $x-$y; } , $arr_stockm1, $arr_stockm2);
 			$result_stockm = array_combine(array_keys($arr_stockm1), $subtracted);
 
-		 	$data_stock_mutasi = DB::table('i_stock_mutasi')->insert([
-		 		'sm_id'=>$kode_stock_g,
-		 		'sm_iddetail'=>$kode_stockm_seq,
-		 		'sm_item'=>$request->po_item[$i],
-		 		'sm_hpp'=>$request->po_harga[$i],
-		 		'sm_qty'=>$request->qty_received[$i],
-		 		'sm_use'=>0,
-	   			'sm_deliveryorder'=>$request->pb_delivery_order,
-		 		'sm_sisa'=>$request->qty_received[$i],
-		 		'sm_description'=>'PENERIMAAN BARANG',
-		 		'sm_mutcat'=>1,
-		 		'sm_ref'=>$nota,
-		 		'sm_insert'=>$tanggal,
-		 	]);
+		 	$check_gudang = DB::table('i_stock_gudang')
+	    						->where('sg_iditem','=',$request->po_item[$i])
+	    						->first();
 
-		 	$check_stock_gudang[$i] = DB::table('i_stock_gudang')
-	 						 ->where('sg_iditem','=',$request->po_item[$i])
-	 						 ->get();
+	   		if ($check_gudang == null) {
+	   			$data_stock_mutasi = DB::table('i_stock_mutasi')
+						 		->insert([
+						 		'sm_id'=>$kode_id,
+						 		'sm_iddetail'=>$kode_stockm_seq,
+						 		'sm_item'=>$request->po_item[$i],
+						 		'sm_hpp'=>$request->po_harga[$i],
+						 		'sm_qty'=>$request->qty_received[$i],
+						 		'sm_use'=>0,
+					   			'sm_deliveryorder'=>$request->pb_delivery_order,
+						 		'sm_sisa'=>$request->qty_received[$i],
+						 		'sm_description'=>'PENERIMAAN BARANG',
+						 		'sm_mutcat'=>1,
+						 		'sm_ref'=>$nota,
+						 		'sm_insert'=>$tanggal,
+						 	]);
+	   		}else{
+	   			$data_stock_mutasi = DB::table('i_stock_mutasi')
+						 		->insert([
+						 		'sm_id'=>isset($check_gudang->sg_id),
+						 		'sm_iddetail'=>$kode_stockm_seq,
+						 		'sm_item'=>$request->po_item[$i],
+						 		'sm_hpp'=>$request->po_harga[$i],
+						 		'sm_qty'=>$request->qty_received[$i],
+						 		'sm_use'=>0,
+					   			'sm_deliveryorder'=>$request->pb_delivery_order,
+						 		'sm_sisa'=>$request->qty_received[$i],
+						 		'sm_description'=>'PENERIMAAN BARANG',
+						 		'sm_mutcat'=>1,
+						 		'sm_ref'=>$nota,
+						 		'sm_insert'=>$tanggal,
+						 	]);
+	   		}
+
+			
+
+		 	
 	 	
-	 		if (isset($check_stock_gudang[$i][0]->sg_iditem) != null) {
+	 		if (isset($check_stock_gudang->sg_iditem) != null) {
 	 			$data_stock_gudang = DB::table('i_stock_gudang')
- 									->where('sg_iditem','=',$check_stock_gudang[$i][0]->sg_iditem)
+ 									->where('sg_iditem','=',$check_stock_gudang->sg_iditem)
  									->update([
- 										'sg_qty'=>$check_stock_gudang[$i][0]->sg_qty+$request->qty_received[$i],
+ 										'sg_qty'=>$check_stock_gudang->sg_qty+$request->qty_received[$i],
  										'sg_harga'=>$request->po_harga[$i],
  									]);
 	 		}else{
@@ -181,13 +210,23 @@ class penerimaan_barangController extends Controller
 	 		}
 	 	}
 
-		// return $result;
-
 	 	return response()->json(['status'=>1]);
+	 });
 	 }
+
+
+
+
+
+	 ///BATAS INPUT
+
+
+
+
 	 public function update_penerimaan_barang(Request $request)
 	 {
 
+	 return DB::transaction(function() use ($request) {
 	   // dd($request->all());
 	   $tanggal = date("Y-m-d h:i:s");
 
@@ -203,10 +242,8 @@ class penerimaan_barangController extends Controller
 
 
 	    // sequence
-	    $kode_seq = 0;
 
 	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
-	    	$kode_seq += 1;
 		 	
 	 		$check_data_seq[$i] = DB::table('d_penerimaan_barang_dt')
 									->where('pbdt_code','=',$request->nota)
@@ -241,10 +278,8 @@ class penerimaan_barangController extends Controller
 
 	 	//-----------STOCK---------//
 
-	 	
-
-
 	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
+
 	 		//id gudang
 	 		$kode_stock_g = DB::table('i_stock_gudang')->max('sg_id');
             if ($kode_stock_g == null) {
@@ -252,72 +287,74 @@ class penerimaan_barangController extends Controller
             }else{
                 $kode_stock_g += 1;
             }
-            // return $kode_stock_g;
-            //id mutasi
-	 		$kode_stock_m = DB::table('i_stock_mutasi')->max('sm_iddetail');
-            if ($kode_stock_m == null) {
-                $kode_stock_m = 1;
-            }else{
-                $kode_stock_m += 1;
-            }
 
-	    	$check_gudang[$i] = DB::table('i_stock_gudang')
-	    						->where('sg_iditem','=',$request->po_item[$i])
-	    						->get();
-
-
-		 	$arr_stockm1[$i] =	$request->qty_remain[$i];
+            $arr_stockm1[$i] =	$request->qty_remain[$i];
 		 	$arr_stockm2[$i] = $request->qty_received[$i];
 
 	    	$subtracted = array_map(function ($x, $y) { return $x-$y;} , $arr_stockm1, $arr_stockm2);
 			$result_stockm = array_combine(array_keys($arr_stockm1), $subtracted);
 
-		 	$data_stock_mutasi = DB::table('i_stock_mutasi')->insert([
-		 		'sm_id'=>$check_gudang[$i][0]->sg_id,
-		 		'sm_iddetail'=>$kode_stock_m,
-		 		'sm_item'=>$request->po_item[$i],
-		 		'sm_hpp'=>$request->po_harga[$i],
-		 		'sm_qty'=>$request->qty_received[$i],
-		 		'sm_use'=>0,
-		 		'sm_sisa'=>$request->qty_received[$i],
-		 		'sm_description'=>'PENERIMAAN BARANG',
-		 		'sm_ref'=>$request->nota,
-		 		'sm_deliveryorder'=>$request->pb_delivery_order,
-		 		'sm_mutcat'=>1,
-		 		'sm_insert'=>$tanggal,
-		 		'sm_update'=>$tanggal,
-		 	]);
 
-		 	$check_stock_gudang[$i] = DB::table('i_stock_gudang')
+            $check_stock_gudang = DB::table('i_stock_gudang')
 	 						 ->where('sg_iditem','=',$request->po_item[$i])
-	 						 ->get();
+	 						 ->first();
 	 	
-	 		if (isset($check_stock_gudang[$i][0]->sg_iditem) != null) {
+	 		if (isset($check_stock_gudang->sg_iditem) != null) {
  			$data_stock_gudang = DB::table('i_stock_gudang')
-								->where('sg_iditem','=',$check_stock_gudang[$i][0]->sg_iditem)
+								->where('sg_iditem','=',$check_stock_gudang->sg_iditem)
 								->update([
-									'sg_qty'=>$check_stock_gudang[$i][0]->sg_qty+$request->qty_received[$i],
+									'sg_qty'=>$check_stock_gudang->sg_qty+$request->qty_received[$i],
 									'sg_harga'=>$request->po_harga[$i],
 								]);
 	 		}else{
 			$data_stock_gudang = DB::table('i_stock_gudang')
 								->insert([
-										'sg_qty'=>$request->qty_received[$i],
-										'sg_harga'=>$request->po_harga[$i],
-										'sg_iditem'=>$request->po_item[$i],
-										'sg_id'=>$kode_stock_g,
+									'sg_qty'=>$request->qty_received[$i],
+									'sg_harga'=>$request->po_harga[$i],
+									'sg_iditem'=>$request->po_item[$i],
+									'sg_id'=>$kode_stock_g,
 								]);
 	 		}
 
-	 	}
+            $cari = DB::table('i_stock_gudang')
+	    						->where('sg_iditem','=',$request->po_item[$i])
+	    						->first();
 
-	 	// return [$arr2,$arr1];
-	 	// return $result;
-	 	// dd($request->all());
-	 	// return $check_data_seq;
-	 	// return $data;
+        	$kode_stockm_seq = DB::table('i_stock_mutasi')->where('sm_id','=',$cari->sg_id)->max('sm_iddetail')+1;		        
+
+	    	$check_gudang = DB::table('i_stock_gudang')
+	    						->where('sg_iditem','=',$request->po_item[$i])
+	    						->first();
+
+		 	
+
+		 	$data_stock_mutasi = DB::table('i_stock_mutasi')
+							 		->insert([
+							 		'sm_id'=>$check_gudang->sg_id,
+
+							 		'sm_iddetail'=>$kode_stockm_seq,
+							 		
+							 		'sm_item'=>$request->po_item[$i],
+							 		'sm_hpp'=>$request->po_harga[$i],
+							 		'sm_qty'=>$request->qty_received[$i],
+							 		'sm_use'=>0,
+							 		'sm_sisa'=>$request->qty_received[$i],
+							 		'sm_description'=>'PENERIMAAN BARANG',
+							 		'sm_ref'=>$request->nota,
+							 		'sm_deliveryorder'=>$request->pb_delivery_order,
+							 		'sm_mutcat'=>1,
+							 		'sm_insert'=>$tanggal,
+							 		'sm_update'=>$tanggal,
+							 	]);
+
+		 	
+
+	 	}
+	 	// return $cari;
+	 	// return $kode_stockm_seq;
 
 	 	return response()->json(['status'=>1]);
+	 });
 	 }
 	 public function edit_penerimaan_barang(Request $request)
 	 {

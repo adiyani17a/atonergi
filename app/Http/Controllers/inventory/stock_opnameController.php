@@ -61,13 +61,12 @@ class stock_opnameController extends Controller
    {
    	// dd($request->all());
 
-return DB::transaction(function() use ($request) {
+   return DB::transaction(function() use ($request) {
     for ($i=0; $i < count($request->so_item); $i++) { 
 		$cari = DB::table('i_stock_mutasi')
 			   ->where('sm_item',$request->so_item[$i])
 			   ->orderBy('sm_insert','ASC')
 			   ->get();
-
 
 		if ($request->so_system[$i] < $request->so_real[$i]) {
 
@@ -113,10 +112,12 @@ return DB::transaction(function() use ($request) {
 		}else if($request->so_system[$i] > $request->so_real[$i]){
 
 			$balance = $request->so_status_total[$i];
+			// dd($balance);
 			for ($b=0; $b < count($cari); $b++) { 
 
 				$sisa_kurang = $cari[$b]->sm_sisa - $balance;
 				$kurang = $balance - $cari[$b]->sm_sisa;
+				// dd($kurang);
 
 				if($kurang < 0){
 					$kurang = 0;
@@ -127,16 +128,16 @@ return DB::transaction(function() use ($request) {
 				if ($sisa_kurang < 0) {
 					$sisa_kurang = 0;
 				}
+				// dd($sisa_kurang);
 
-
-				
+				// dd($cari[$b]->sm_id);
 				$update = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
 						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
 						  ->update([
 						  	'sm_sisa' => $sisa_kurang,
 						  ]);
-
+				// dd($update);
 				$use = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
 						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
@@ -194,28 +195,11 @@ return DB::transaction(function() use ($request) {
 	}
 
 
-$cari = DB::table('i_stock_mutasi')
-			   ->where('sm_item',$request->so_item[0])
-			   ->get();
+	$cari = DB::table('i_stock_mutasi')
+				   ->where('sm_item',$request->so_item[0])
+				   ->get();
 
-dd($cari);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	dd($cari);
 
 
 
