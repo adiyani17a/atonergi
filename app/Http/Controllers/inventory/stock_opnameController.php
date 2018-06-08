@@ -199,7 +199,7 @@ class stock_opnameController extends Controller
 				   ->where('sm_item',$request->so_item[0])
 				   ->get();
 
-	dd($cari);
+	// dd($cari);
 
 
 
