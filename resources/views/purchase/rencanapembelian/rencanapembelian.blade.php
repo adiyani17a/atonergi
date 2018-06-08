@@ -327,8 +327,8 @@ function detail(parm) {
               array_nama += '<tr>';
                 array_nama += '<td><input type="hidden" class="form-control right" value="'+data[i].rodt_id+'" name="kode_detail[]">'+data[i].rodt_barang+' - '+data[i].i_name+'</td>';
                 array_nama += '<td align="right"><input type="hidden" class="form-control right" value="'+data[i].rodt_code+'" name="kode[]">'+accounting.formatMoney(data[i].rodt_price,"",0,'.',',')+'</td>';
-                array_nama += '<td align="right" class="qty">'+accounting.formatMoney(data[i].rodt_qty,"",0,'.',',')+'</td>';
-                if (data[i].rodt_qty_approved != 0) {
+                array_nama += '<td align="right" class="qty">'+data[i].rodt_qty+'</td>';
+                if (data[i].rodt_qty_approved != 0) { 
                     array_nama += '<td align="right"><input type="text"  name="approved[]" onkeyup="qty(this)" readonly value="'+data[i].rodt_qty_approved+'" class="form-control right qty_approved_value hanya_angka"></td>';
                 }else{
                     array_nama += '<td align="right"><input type="text"  name="approved[]"  onkeyup="qty(this)" value="'+0+'" class="form-control right qty_approved_value hanya_angka"></td>';
