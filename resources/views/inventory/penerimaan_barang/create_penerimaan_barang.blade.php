@@ -146,7 +146,7 @@
                 message: 'Data Telah Tersimpan!',
               });
          	
-         	window.location.href= '{{ route('penerimaan_barang') }}';
+         	// window.location.href= '{{ route('penerimaan_barang') }}';
 
              
              },

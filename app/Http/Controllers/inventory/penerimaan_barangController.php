@@ -195,9 +195,7 @@ class penerimaan_barangController extends Controller
 	   $data_header = DB::table('d_penerimaan_barang')
 	   			->where('pb_code','=',$request->pb_delivery_order)
 	   			->update([
-		   			'pb_vendor'=>$request->pb_vendor,
 		   			'pb_delivery_order'=>$request->pb_delivery_order,
-		   			'pb_ref'=>$request->pb_ref,
 		   			'pb_date'=>date('Y-m-d',strtotime($request->pb_Date)),
 		   			'pb_update'=>$tanggal,
 			 		'pb_update_by'=>'',
@@ -245,7 +243,6 @@ class penerimaan_barangController extends Controller
 
 	 	
 
-        $kode_stockm_seq = 0;
 
 	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
 	 		//id gudang
@@ -257,13 +254,17 @@ class penerimaan_barangController extends Controller
             }
             // return $kode_stock_g;
             //id mutasi
-	 		$kode_stock_m = DB::table('i_stock_mutasi')->max('sm_id');
+	 		$kode_stock_m = DB::table('i_stock_mutasi')->max('sm_iddetail');
             if ($kode_stock_m == null) {
                 $kode_stock_m = 1;
             }else{
                 $kode_stock_m += 1;
             }
-	    	$kode_stockm_seq += 1;
+
+	    	$check_gudang[$i] = DB::table('i_stock_gudang')
+	    						->where('sg_iditem','=',$request->po_item[$i])
+	    						->get();
+
 
 		 	$arr_stockm1[$i] =	$request->qty_remain[$i];
 		 	$arr_stockm2[$i] = $request->qty_received[$i];
@@ -272,16 +273,18 @@ class penerimaan_barangController extends Controller
 			$result_stockm = array_combine(array_keys($arr_stockm1), $subtracted);
 
 		 	$data_stock_mutasi = DB::table('i_stock_mutasi')->insert([
-		 		'sm_id'=>$kode_stock_m,
-		 		'sm_iddetail'=>$kode_stockm_seq,
+		 		'sm_id'=>$check_gudang[$i][0]->sg_id,
+		 		'sm_iddetail'=>$kode_stock_m,
 		 		'sm_item'=>$request->po_item[$i],
 		 		'sm_hpp'=>$request->po_harga[$i],
 		 		'sm_qty'=>$request->qty_received[$i],
 		 		'sm_use'=>0,
 		 		'sm_sisa'=>$request->qty_received[$i],
 		 		'sm_description'=>'PENERIMAAN BARANG',
-		 		'sm_ref'=>$request->pb_delivery_order,
+		 		'sm_ref'=>$request->nota,
+		 		'sm_deliveryorder'=>$request->pb_delivery_order,
 		 		'sm_mutcat'=>1,
+		 		'sm_insert'=>$tanggal,
 		 		'sm_update'=>$tanggal,
 		 	]);
 
