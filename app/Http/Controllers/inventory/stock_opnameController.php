@@ -62,6 +62,7 @@ class stock_opnameController extends Controller
    	// dd($request->all());
 
    return DB::transaction(function() use ($request) {
+
     for ($i=0; $i < count($request->so_item); $i++) { 
 		$cari = DB::table('i_stock_mutasi')
 			   ->where('sm_item',$request->so_item[$i])
@@ -133,14 +134,14 @@ class stock_opnameController extends Controller
 				// dd($cari[$b]->sm_id);
 				$update = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
 						  ->update([
 						  	'sm_sisa' => $sisa_kurang,
 						  ]);
 				// dd($update);
 				$use = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
 						  ->first();
 
 				$use1 = $use->sm_qty - $use->sm_sisa;
@@ -148,7 +149,7 @@ class stock_opnameController extends Controller
 
 				$update = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
 						  ->update([
 						  	'sm_use' => $use1,
 						  ]);
@@ -156,7 +157,7 @@ class stock_opnameController extends Controller
 
 				$upd = DB::table('i_stock_mutasi')
 						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$i]->sm_id)
+						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
 						  ->first();
 
 				if ($balance > 0) {
@@ -191,15 +192,23 @@ class stock_opnameController extends Controller
 				$balance = $kurang;
 
 			}
+
+			// $cari = DB::table('i_stock_mutasi')
+			// 	   ->where('sm_item',$request->so_item[$i])
+			// 	   ->get();
+			// // dd($cari);
+
+
 		}
+
+		
 	}
 
 
-	$cari = DB::table('i_stock_mutasi')
-				   ->where('sm_item',$request->so_item[0])
-				   ->get();
+	// $cari = DB::table('i_stock_mutasi')
+	// 			   ->where('sm_item',$request->so_item[0])
+	// 			   ->get();
 
-	dd($cari);
 
 
 
@@ -224,7 +233,7 @@ class stock_opnameController extends Controller
 	
 
    // 	$kode_detail = 0;
-  	for ($i=0; $i <count($request->so_item) ; $i++) { 
+  	// for ($i=0; $i <count($request->so_item) ; $i++) { 
   	//    $kode_sequence = DB::table('i_stock_opname_dt')->max('sodt_id');
 	  //  	   if ($kode_sequence == null) {
 	  //  	   	$kode_sequence = 1;
@@ -314,7 +323,7 @@ class stock_opnameController extends Controller
 					// 		 		'sm_insert'=>$tanggal,
 	    // 						]);
 
-  	}
+  	// }
   	// $check_gudang[$i]->sg_qty-$request->so_status_total[$i]
   	// return $request->so_status_total;
   	// return $request->so_item;
