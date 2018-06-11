@@ -23,6 +23,16 @@
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="{{asset('assets/node_modules/font-awesome/css/font-awesome.min.css')}}" />
   <!-- End plugin css for this page -->
+
+  <!-- JP-list -->
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/jp-list/css/jplist.core.min.css')}}">
+  <link href="{{asset('assets/jp-list/css/jplist.textbox-filter.min.css')}}" rel="stylesheet" type="text/css" />
+  <link href="{{asset('assets/jp-list/css/jplist.pagination-bundle.min.css')}}" rel="stylesheet" type="text/css" /> 
+
+  <!-- demo pages styles -->
+  <link rel="stylesheet" href="{{asset('assets/jp-list/css/jplist.bootstrap-demo.min.css')}}" />
+  <!-- <link href="{{asset('assets/jp-list/css/jplist.demo-pages.min.css')}}" rel="stylesheet" type="text/css" /> -->
+
   <!-- inject:css -->
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <!-- endinject -->
@@ -36,6 +46,13 @@
   {{-- validetta --}}
   <link rel="shortcut icon" href="{{asset('assets/validetta/validetta.css')}}" />
   <link rel="shortcut icon" href="{{asset('assets/validetta/validetta.min.css')}}" />
+
+  <!-- Lightgallery -->
+
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/lightgallery/css/lightgallery.min.css')}}">
+
+
+
 
 
 <style type="text/css">
