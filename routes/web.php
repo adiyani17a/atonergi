@@ -37,6 +37,7 @@ Route::get('logout',function(){
     Session::forget('key');
     return Redirect('/');
 });
+Route::get('/tes', 'SettingController@tes');
 
 
 // SETTING

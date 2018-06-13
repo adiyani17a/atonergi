@@ -12,9 +12,22 @@ use carbon\carbon;
 use Session;
 use App\mMember;
 use Illuminate\Support\Facades\Crypt;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\Printer;
+
+// require __DIR__ . '/vendor/autoload.php';
 class SettingController extends Controller
 {
    // JABATAN
+
+  public function tes()
+  {
+      $connector = new FilePrintConnector("POS-58");
+      $printer = new Printer($connector);
+      $printer -> text("Hello World!\n");
+      $printer -> cut();
+      $printer -> close();
+  }
    public function jabatan()
    {
     return view('setting.jabatan.jabatan');
