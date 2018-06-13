@@ -44,6 +44,24 @@
   <script src="{{asset('assets/validetta/validetta.js')}}"></script>
   <script src="{{asset('assets/validetta/validetta.min.js')}}"></script>
 
+  <!-- Light galery -->
+  <script src="{{asset('assets/lightgallery/js/lightgallery-all.min.js')}}"></script>
+
+  <script src="{{asset('assets/jp-list/js/jplist.core.min.js')}}"></script>
+  
+  <!-- jPList textbox filter control -->
+  <script src="{{asset('assets/jp-list/js/jplist.textbox-filter.min.js')}}"></script>
+  
+
+  <!-- jplist pagination bundle -->
+  <!-- <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle.min.js')}}"></script> -->
+
+
+  <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle-costum.min.js')}}"></script>
+
+  
+
+
 
   <script type="text/javascript">
   iziToast.settings({
