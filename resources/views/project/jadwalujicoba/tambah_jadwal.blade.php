@@ -19,11 +19,7 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Form Schedule Jadwal Uji Coba dan Dokumentasi</h4>
-                <div class="row">
                 
-
-
-                </div>
                 <div class="table-responsive">
                   <table class="table table-hover" cellspacing="0" id="dm33">
                     <thead class="bg-gradient-info">
@@ -65,6 +61,11 @@
                       </tr>
                     </tbody>
                   </table>
+                </div>
+                <div align="right" style="margin-top: 15px;">
+                
+                  <button class="btn btn-info btn-sm" type="button">Save Data</button>
+                  <a href="{{url('project/jadwalujicoba/jadwalujicoba')}}" class="btn btn-secondary btn-sm">Back</a>
                 </div>
             
             </div>
