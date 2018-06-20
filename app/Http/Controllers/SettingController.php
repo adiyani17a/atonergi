@@ -14,7 +14,7 @@ use App\mMember;
 use Illuminate\Support\Facades\Crypt;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\Printer;
-
+use Mike42\Escpos\EscposImage;
 // require __DIR__ . '/vendor/autoload.php';
 class SettingController extends Controller
 {
@@ -22,11 +22,32 @@ class SettingController extends Controller
 
   public function tes()
   {
-      $connector = new FilePrintConnector("POS-58");
+       
+      $nama_barang = array('sambelsadasdsadasds','ayam','nasi','es jeruk');
+      $harga       = array('3.000,00','7.000,00','4.000,00','4.000,00');
+      $qty         = array('1','1','1','1');
+      $connector = new FilePrintConnector("\\\desktop-9ije28s\POS-58");
       $printer = new Printer($connector);
-      $printer -> text("Hello World!\n");
+      $logo =  EscposImage::load('assets/tux.png');
+
+
+      // $printer -> setJustification(Escpos::JUSTIFY_CENTER);
+      $printer -> setJustification(Printer::JUSTIFY_CENTER);
+      $printer -> bitImageColumnFormat($logo);
+      // HEAD
+      $printer -> text("Alam Raya Sebar Barokah\n");
+      $printer -> text("Jl. Purimas C3/19\n");
+      $printer -> text("Telp:087878789\n");
+      $printer -> text("********************************\n");
+      //BODY
+      $printer -> text("nama     qty     harga     total\n");
+      $line = sprintf('%-5.5s %5.0f %13.2f %13.2f',$nama_barang[0],$qty[0],$harga[0],$harga[0]);
+      $printer->text($line);
+      $printer->text("\n"); 
+
       $printer -> cut();
       $printer -> close();
+      return 'success';
   }
    public function jabatan()
    {
