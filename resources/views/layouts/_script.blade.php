@@ -57,8 +57,9 @@
   <!-- <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle.min.js')}}"></script> -->
 
 
-  <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle-costum.min.js')}}"></script>
+  <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle-custom.min.js')}}"></script>
 
+  <script src="{{asset('assets/jp-list/js/jplist.bootstrap-pagination-bundle-custom.min.js')}}"></script>
   
 
 
