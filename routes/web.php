@@ -138,6 +138,7 @@ Route::get('/order/s_invoice/print_salesinvoice', 'OrderController@print_salesin
 // Pilih Project Manejmen Pompa | SHS
 Route::get('/project/dokumentasi/dokumentasi', 'ProjectController@dokumentasi');
 Route::get('/project/jadwalujicoba/jadwalujicoba', 'ProjectController@jadwalujicoba');
+Route::get('/project/jadwalujicoba/tambah_jadwal', 'ProjectController@tambah_jadwalujicoba');
 Route::get('/project/pemasangan/pemasangan', 'ProjectController@pemasangan');
 Route::get('/project/pengadaanbarang/pengadaanbarang', 'ProjectController@pengadaanbarang');
 Route::get('/project/pengepakanbarang/pengepakanbarang', 'ProjectController@pengepakanbarang');

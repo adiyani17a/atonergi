@@ -18,7 +18,6 @@
 
 @section('content')
 
-@include('project.jadwalujicoba.tambah_jadwal')
 
 <!-- partial -->
 <div class="content-wrapper">
@@ -37,7 +36,7 @@
 	                <div class="card-body">
 					<h4 class="card-title">Schedule Uji Coba dan Dokumentasi</h4>
 					<div align="right" style="margin-bottom: 15px;">
-						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+						<a href="{{url('project/jadwalujicoba/tambah_jadwal')}}" class="btn btn-info" ><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</a>
 					</div>
 
 						<!-- div demo -->
@@ -132,11 +131,7 @@
 												<p class="date">03/18/2012</p>
 												<p class="title">Architectur</p>
 												<p class="desc">Architectur is both the process and product of planning, designing and construction. Architectural works, in the material form of buildings, are often perceived as cultural symbols and as works of art. Historical civilizations are often identified with their surviving architectural achievements.</p>
-												<p class="theme">
-													<span class="tag">Architectur</span>
-													<span class="tag">Building</span>
-													<span class="tag">Awesome</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -160,9 +155,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="people">People</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -186,9 +179,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">A Thing</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -212,9 +203,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">Architectur</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -238,9 +227,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">People</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -264,9 +251,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">Vehicle</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -290,9 +275,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">People</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -316,9 +299,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">Natural</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -342,9 +323,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">People</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -369,7 +348,7 @@
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 												<p class="theme">
-													<span class="tag">A Thing</span>
+													>
 												</p>
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
@@ -394,9 +373,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">People</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -420,9 +397,7 @@
 												consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 												cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 												proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-												<p class="theme">
-													<span class="tag">Natural</span>
-												</p>
+												
 												<div class="action btn-group">
 													<button title="Edit" class="btn btn-xs btn-primary" type="button"><i class="fa fa-pencil-alt"></i></button>
 													<button title="Delete" class="btn btn-xs btn-danger" type="button"><i class="fa fa-trash"></i></button>
@@ -508,22 +483,27 @@
 
 
 <script>
-	$(document).ready(function () {
 
 
-		// $("#lightgallery").lightGallery();
+$(document).ready(function () {
 
-		$('#demo').jplist({				
-				itemsBox: '.lightGallery' 
-				,itemPath: '.list-item' 
-				,panelPath: '.panel-jplist'	
-                ,debug: true
-                ,deepLinking: true
-			});	
 
-	
+	// $("#lightgallery").lightGallery();
 
-	});
+	$('#demo').jplist({				
+			itemsBox: '.lightGallery' 
+			,itemPath: '.list-item' 
+			,panelPath: '.panel-jplist'	
+            ,debug: true
+            ,deepLinking: true
+		});	
+
+
+
+});
+
+
+
 
 </script>
 

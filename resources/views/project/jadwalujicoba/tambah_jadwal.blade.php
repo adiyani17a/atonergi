@@ -1,94 +1,171 @@
-<!-- Modal -->
-<div id="tambah" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+@extends('main')
+@section('content')
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header bg-gradient-info">
-        <h4 class="modal-title">Form Schedule Uji Coba</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-3 col-sm-3 col-xs-12">
-            <label>Company</label>
-          </div>
-          <div class="col-3 col-sm-3 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control" name="">
-            </div>
-          </div>
-           <div class="col-3 col-sm-3 col-xs-12">
-            <label>Vendor Name</label>
-          </div>
-          <div class="col-3 col-sm-3 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control" name="">
-            </div>
-          </div>
-           <div class="col-3 col-sm-3 col-xs-12">
-            <label>Phone Number</label>
-          </div>
-          <div class="col-3 col-sm-3 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control" name="">
-            </div>
-          </div>
-           <div class="col-3 col-sm-3 col-xs-12">
-            <label>Fax</label>
-          </div>
-          <div class="col-3 col-sm-3 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control" name="">
-            </div>
-          </div>
-           <div class="col-3 col-sm-3 col-xs-12">
-            <label>NPWP</label>
-          </div>
-          <div class="col-3 col-sm-3 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control" name="">
-            </div>
-          </div>
-           <div class="col-3 col-sm-3 col-xs-12">
-            <label>E-mail</label>
-          </div>
-          <div class="col-3 col-sm-3 col-xs-12">
-            <div class="form-group">
-              <input type="email" class="form-control" name="">
-            </div>
-          </div>
-           <div class="col-3 col-sm-3 col-xs-12">
-            <label>Address</label>
-          </div>
-          <div class="col-9 col-sm-9 col-xs-12">
-            <div class="form-group">
-              <textarea class="form-control"></textarea>
-            </div>
-          </div>
-          <div class="col-3 col-sm-3 col-xs-12">
-            <label>Limit</label>
-          </div>
-          <div class="col-9 col-sm-9 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control" name="">
-            </div>
-          </div>
-          <div class="col-3 col-sm-3 col-xs-12">
-            <label>Information</label>
-          </div>
-          <div class="col-9 col-sm-9 col-xs-12">
-            <div class="form-group">
-              <textarea class="form-control"></textarea>
-            </div>
-          </div>
-         </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" type="button">Save Data</button>
-        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-      </div>
+@include('hrd/kpi/tambah_kpi')
+<!-- partial -->
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-lg-12"> 
+      <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb bg-info">
+          <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
+          <li class="breadcrumb-item">Project Manajemen Pompa | SHS</li>
+          <li class="breadcrumb-item"><a href="{{url('project/jadwalujicoba/jadwalujicoba')}}">Schedule Jadwal Uji Coba Dan Dokumentasi</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Form Schedule Jadwal Uji Coba dan Dokumentasi</li>
+        </ol>
+      </nav>
     </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Form Schedule Jadwal Uji Coba dan Dokumentasi</h4>
+                <div class="row">
+                
 
+
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-hover" cellspacing="0" id="dm33">
+                    <thead class="bg-gradient-info">
+                      <tr>
+                        <th>No</th>
+                        <th>Preview</th>
+                        <th>Picture</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="index">1</td>
+                        <td>
+                          <div class="preview_td">
+                              <img style="width: 100px;height: 100px;border:1px solid pink" id="output" >
+                          </div>
+                        </td>
+                        <td>
+                          <div class="file-upload">
+                            <div class="file-select">
+                              <div class="file-select-button" id="fileName">Image</div>
+                              <div class="file-select-name" id="noFile">Choose Image...</div> 
+                              <input type="file" name="image" onchange="loadFile(event)" id="chooseFile" accept="image/*">
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" name="">
+                        </td>
+                        <td>
+                          <textarea class="form-control form-control-sm"></textarea>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            
+            </div>
+        </div>
+    </div>
   </div>
 </div>
+<!-- content-wrapper ends -->
+@endsection
+@section('extra_script')
+<script type="text/javascript">
+  
+  $(document).ready(function() {
+    var t = $('#dm33').DataTable();
+    var counter = 1;
+ 
+    $('.addRow').on('click', function () {
+        t.row.add( [
+            counter,
+            '<tr>'+
+              '<td>'+
+                '<div class="preview_td">'+
+                    '<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >'+
+                '</div>'+
+              '</td>',
+
+              '<td>'+
+                '<div class="file-upload">'+
+                  '<div class="file-select">'+
+                    '<div class="file-select-button" id="fileName">Image</div>'+
+                    '<div class="file-select-name" id="noFile">Choose Image...</div>'+
+                    '<input type="file" name="image" onchange="loadFile(event)" id="chooseFile" accept="image/*">'+
+                  '</div>'+
+                '</div>'+
+              '</td>',
+
+              '<td>'+
+                '<input type="text" class="form-control form-control-sm" name="">'+
+              '</td>',
+
+              '<td>'+
+                '<textarea class="form-control form-control-sm"></textarea>'+
+              '</td>',
+
+              '<td>'+
+                  '<button type="button" class="btn btn-sm btn-danger delete" title="Delete"><i class="fa fa-trash"></i></button>'+
+                '</div>'+
+              '</td>'+
+            '</tr>'
+        ] ).draw( true );
+ 
+        counter++;
+    } );
+
+    $('#dm33 tbody').on( 'click', '.delete', function () {
+    t
+        .row( $(this).parents('tr') )
+        .remove()
+        .draw();
+    } );
+
+
+
+} );
+
+
+
+$('#chooseFile').bind('change', function () {
+  var filename = $("#chooseFile").val();
+  var fsize = $('#chooseFile')[0].files[0].size;
+  if(fsize>2048576) //do something if file size more than 1 mb (1048576)
+  {
+      return false;
+  }
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen..."); 
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+  }
+});
+
+var loadFile = function(event) {
+  var fsize = $('#chooseFile')[0].files[0].size;
+  if(fsize>1048576) //do something if file size more than 1 mb (1048576)
+  {
+      iziToast.warning({
+        icon: 'fa fa-times',
+        message: 'File Is To Big!',
+      });
+      return false;
+  }
+  var reader = new FileReader();
+  reader.onload = function(){
+    var output = document.getElementById('output');
+    output.src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+};
+
+</script>
+@endsection
