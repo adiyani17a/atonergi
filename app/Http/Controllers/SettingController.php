@@ -23,30 +23,39 @@ class SettingController extends Controller
   public function tes()
   {
        
-      $nama_barang = array('sambelsadasdsadasds','ayam','nasi','es jeruk');
+      $nama_barang = array('PSDNT 50gr','ayam','nasi','es jeruk');
       $harga       = array('3.000,00','7.000,00','4.000,00','4.000,00');
       $qty         = array('1','1','1','1');
-      $connector = new FilePrintConnector("\\\desktop-9ije28s\POS-58");
+      $connector = new FilePrintConnector("\\\sani\POS-58");
       $printer = new Printer($connector);
       $logo =  EscposImage::load('assets/tux.png');
 
 
-      // $printer -> setJustification(Escpos::JUSTIFY_CENTER);
-      $printer -> setJustification(Printer::JUSTIFY_CENTER);
-      $printer -> bitImageColumnFormat($logo);
-      // HEAD
-      $printer -> text("Alam Raya Sebar Barokah\n");
-      $printer -> text("Jl. Purimas C3/19\n");
-      $printer -> text("Telp:087878789\n");
-      $printer -> text("********************************\n");
-      //BODY
-      $printer -> text("nama     qty     harga     total\n");
-      $line = sprintf('%-5.5s %5.0f %13.2f %13.2f',$nama_barang[0],$qty[0],$harga[0],$harga[0]);
-      $printer->text($line);
-      $printer->text("\n"); 
+      // // $printer -> setJustification(Escpos::JUSTIFY_CENTER);
+      // $printer -> setJustification(Printer::JUSTIFY_CENTER);
+      // $printer -> bitImageColumnFormat($logo);
+      // // HEAD
+      // $printer -> text("Alam Raya Sebar Barokah\n");
+      // $printer -> text("Jl. Purimas C3/19\n");
+      // $printer -> text("Telp:087878789\n");
+      $printer -> text("*********************************\n");
+      // return strlen ("*********************************");
+      // //BODY
+      // for ($i=0; $i < count($nama_barang); $i++) { 
+      //   $printer -> setJustification(Printer::JUSTIFY_LEFT);
+      //   $printer -> text(sprintf('%-3.30s %-10.30s %-5.30s', $nama_barang[$i]. ' x ', $qty[$i],$harga[$i]));
+      //   $printer -> text("\n");
+      // }
 
-      $printer -> cut();
-      $printer -> close();
+      for ($i = 1; $i <= 8; $i++) {
+          $printer -> setTextSize($i, $i);
+          $printer -> text($i);
+      }
+
+      // $printer->text("\n"); 
+
+      // $printer -> cut();
+      // $printer -> close();
       return 'success';
   }
    public function jabatan()
