@@ -14222,7 +14222,9 @@ input:focus {
     .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link {
       color: #888; }
       .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link.active {
-        color: #888; }
+        color: #000 !important; }
+        .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link:hover {
+        color: #000 !important; }
     .sidebar-light .sidebar .nav.sub-menu .nav-item:hover {
       background: transparent; }
     .sidebar-light .sidebar .sidebar-progress p {
