@@ -23,7 +23,7 @@ class loginController extends Controller
     public function login(Request $req) {
         $username = $req->username;
         $password = $req->password;
-        $user = mMember::whereRaw("m_username  = '$req->username'")->first();
+        $user = mMember::where("m_username", $username)->first();
         if ($user && $user->m_passwd == sha1(md5('passwordAllah') + $req->password)) {
             return response()->json([
                         'success' => 'succes',
@@ -51,8 +51,9 @@ class loginController extends Controller
             $username  = $req->username;
             $password  = $req->password;
            	$pass_benar=sha1(md5('passwordAllah').$password);
+            // $username = str_replace('\'', '', $username);
             
-            $user = mMember::whereRaw("m_username = '$username'")->first();
+            $user = mMember::where("m_username", $username)->first();
 
             $user_valid = [];
             // dd($req->all());
