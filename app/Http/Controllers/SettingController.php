@@ -131,7 +131,7 @@ class SettingController extends Controller
 
 
             
-         }else{
+         }else{ 
             $update = DB::table('d_jabatan')
                         ->where('j_id',$req->id)
                         ->update(['j_nama'=>strtoupper($req->nama),
