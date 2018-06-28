@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text"  class="form-control form-control-sm format_money right" name="ib_price" readonly="">                               
+                  <input type="text"  class="form-control form-control-sm format_money right" name="ib_price" >                               
               </div>
             </div>
 

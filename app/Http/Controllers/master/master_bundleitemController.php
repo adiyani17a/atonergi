@@ -6,6 +6,7 @@ use Illuminate\Http\request;
 use App\Barang;
 use Yajra\Datatables\Datatables;
 use DB;
+use Response;
 class master_bundleitemController extends Controller
 {
  	
@@ -70,6 +71,14 @@ class master_bundleitemController extends Controller
 
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
  		return view('master/bundle/edit_bundle',compact('item','header','sequence'));
+ 	}
+ 	public function cari_item(request $req)
+ 	{
+ 		$data = DB::table('m_item')
+ 				  ->where('i_code',$req->kode)
+ 				  ->first();
+ 		return Response::json(['data'=>$data]);
+
  	}
  	public function simpan_bundleitem(request $req)
  	{

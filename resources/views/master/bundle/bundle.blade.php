@@ -90,6 +90,10 @@
                      targets: 2 ,
                      className: 'right format_money'
                   },
+                  {
+                     targets: 3 ,
+                     className: 'center'
+                  },
                 ],
             "columns": [
             { "data": "ib_detailid" },
@@ -98,46 +102,50 @@
             { "data": "aksi" },
             ]
       });
-    // $('.sembunyikan').css('display','none');
+
         var table             = $("#t72bu").DataTable();
-        var bund_kodeitem     = $('#bund_kodeitem');
-        var bund_item         = $("#bund_item");
-        var bund_qty          = $("#bund_qty");
-
-
         var x = 1;
  
-    bund_qty.keypress(function(e) {
+    $('#bund_qty').keypress(function(e) {
       if(e.which == 13 || e.keyCode == 13){
-        var qty = bund_qty.val();
-        var harga_1 = bund_item.val();
+        var kode = $('#bund_kodeitem').val();
+        var qty = $('#bund_qty').val().replace(/[^0-9\-]+/g,"");
+        // harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
+        $.ajax({
+         type: "get",
+         url: baseUrl + '/master/bundle/cari_item',
+         dataType:'json',
+         data:{kode},
+         success: function(data){
 
-        qty = qty.replace(/[^0-9\-]+/g,"");
-        harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
-
-        var price  = parseInt(qty)*parseInt(harga_1);
-        table.row.add( [
-           '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+ bund_kodeitem.val() +'">',
-            '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+ bund_kodeitem.find(':selected').data('name') +'">',
-            '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+ bund_qty.val() +'">',
-            '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'++'">',
-            '<input type="text" id="unit_price[]" name="ib_price_dt[]" class="form-control input-sm min-width right format_money total" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
-        ] ).draw( false );
+            var price  = parseInt(qty)*parseInt(data.data.i_price);
+            table.row.add( [
+               '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
+                '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
+                '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
+                '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.i_unit+'">',
+                '<input type="text" id="unit_price[]" name="ib_price_dt[]" class="form-control input-sm min-width right format_money total" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
+                '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
+            ]).draw( false );
     
-        x++;
-        var awal = 0;
-        $('.total').each(function(){
-          var total = $(this).val();
-          total = total.replace(/[^0-9\-]+/g,"");
-          awal += parseInt(total);
-        });
-        $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
-
-        bund_item.focus();
-        bund_qty.val('');
-        bund_item.val('');
-        bund_kodeitem.val('').trigger('change');
+            x++;
+            var awal = 0;
+            $('.total').each(function(){
+              var total = $(this).val();
+              total = total.replace(/[^0-9\-]+/g,"");
+              awal += parseInt(total);
+            });
+            $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
+            bund_kodeitem.val('').trigger('change');
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });
       }
     });
     

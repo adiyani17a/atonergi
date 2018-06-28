@@ -251,6 +251,7 @@ Route::get('/master/datatalble_pegawai/datatalble_pegawai', 'master\master_pegaw
 
 //master Bundle Item/barang
 Route::get('/master/bundle/bundle', 'master\master_bundleitemController@bundleitem')->name('bundleitem');
+Route::get('/master/bundle/cari_item', 'master\master_bundleitemController@cari_item');
 Route::get('/master/hapusbundleitem/hapus_bundleitem', 'master\master_bundleitemController@hapus_bundleitem')->name('hapus_bundleitem');
 Route::get('/master/detailbundleitem/detail_bundleitem', 'master\master_bundleitemController@detail_bundleitem')->name('detail_bundleitem');
 Route::get('/master/updatebundleitem/update_bundleitem', 'master\master_bundleitemController@update_bundleitem')->name('update_bundleitem');
