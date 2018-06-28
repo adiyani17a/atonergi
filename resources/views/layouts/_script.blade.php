@@ -156,7 +156,6 @@
 </script>
 <!-- sidebar -->
 <script>
-  console.log(Cookies.getJSON('navbar'));
     // Get Cookie
 var sidebar = Cookies.get('sidebar');
 
