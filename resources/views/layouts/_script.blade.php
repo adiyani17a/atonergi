@@ -217,9 +217,9 @@ if (navbar){
     {
       $('div.tiles.danger').addClass('selected');
     }
-    if(navbar=='navbar-purple')
+    if(navbar=='navbar-pink')
     {
-      $('div.tiles.purple').addClass('selected');
+      $('div.tiles.pink').addClass('selected');
     }
     if(navbar=='navbar-dark')
     {
