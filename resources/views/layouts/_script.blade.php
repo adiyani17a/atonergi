@@ -29,6 +29,8 @@
   <script src="{{asset('assets/js/tabs.js')}}"></script>
   <script src="{{asset('assets/js/select2.js')}}"></script>
   <script src="{{asset('assets/js/file-upload.js')}}"></script>
+  <script src="{{asset('assets/js/jquery.cookie.js')}}"></script>
+
   <!-- <script src="{{asset('assets/datepicker/js/bootstrap-datepicker.min.js')}}"></script> -->
 
   <!-- endinject -->
@@ -150,5 +152,124 @@
   $('.readonly').attr('readonly',true)
 
    
+
+</script>
+<!-- sidebar -->
+<script>
+  
+    // Get Cookie
+var sidebar = $.cookie('sidebar');
+
+// Cookie Sidebar Exists
+if (sidebar){
+    $('body').addClass(sidebar);
+
+    if (sidebar=='sidebar-light') 
+    {
+      $('#sidebar-light-theme').addClass('selected');
+      $('#sidebar-default-theme').removeClass('selected');
+
+    }
+    if (sidebar=='sidebar-default') 
+    {
+      $('#sidebar-default-theme').addClass('selected');
+      $('#sidebar-light-theme').removeClass('selected');
+
+    }
+}
+// Cookie Sidebar Doesn't Exist
+else {
+    $('body').addClass();
+}
+
+// Sidebar Option Cookie
+$('#sidebar-light-theme').on('click', function(){
+    $('body').addClass('sidebar-light');
+    $('#sidebar-light-theme').addClass('sidebar-light selected');
+    $.cookie('sidebar', 'sidebar-light', { path: '{{url("/")}}' });
+});
+
+$('#sidebar-default-theme').on('click', function(){
+    $('body').removeClass('sidebar-light');
+    $.cookie('sidebar', 'sidebar-default', { path: '{{url("/")}}' });
+});
+
+
+
+var navbar  = $.cookie('navbar');
+// Cookie Navbar Exists
+if (navbar){
+    $('.navbar').addClass(navbar);
+}
+// Cookie Navbar Doesn't Exist
+else {
+    $('.navbar').addClass('navbar-light');
+}
+// Navbar Option Cookie
+$('div.tiles.primary').on('click', function(){
+    $('.navbar').addClass('navbar-primary');
+    $.cookie('navbar', 'navbar-primary');
+});
+$('div.tiles.success').on('click', function(){
+    $('.navbar').addClass('navbar-success');
+    $.cookie('navbar', 'navbar-success');
+});
+$('div.tiles.warning').on('click', function(){
+    $('.navbar').addClass('navbar-warning');
+    $.cookie('navbar', 'navbar-warning');
+});
+$('div.tiles.danger').on('click', function(){
+    $('.navbar').addClass('navbar-danger');
+    $.cookie('navbar', 'navbar-danger');
+});
+$('div.tiles.pink').on('click', function(){
+    $('.navbar').addClass('navbar-pink');
+    $.cookie('navbar', 'navbar-pink');
+});
+$('div.tiles.info').on('click', function(){
+    $('.navbar').addClass('navbar-info');
+    $.cookie('navbar', 'navbar-info');
+});
+$('div.tiles.dark').on('click', function(){
+    $('.navbar').addClass('navbar-dark');
+    $.cookie('navbar', 'navbar-dark');
+});
+$('div.tiles.light').on('click', function(){
+    $('.navbar').addClass('navbar-light');
+    $.cookie('navbar', 'navbar-light');
+});
+
+// Filter Search Menu Submenu Sidebar
+  function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("filterInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("ayaysir");
+    li = ul.getElementsByTagName("li");
+    button = document.getElementById('btn-reset');
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+    
+
+    if (input.value != 0 ) {
+      button.classList.remove('d-none');
+    } else {
+      button.classList.add('d-none');
+    }
+    
+}
+  function btnReset() {
+    input = document.getElementById("filterInput");
+    input.value=null;
+    input.focus();
+  }
+
 
 </script>
