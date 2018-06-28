@@ -29,7 +29,7 @@
   <script src="{{asset('assets/js/tabs.js')}}"></script>
   <script src="{{asset('assets/js/select2.js')}}"></script>
   <script src="{{asset('assets/js/file-upload.js')}}"></script>
-  <script src="{{asset('assets/js/jquery.cookie.js')}}"></script>
+  <script src="{{asset('assets/js/js.cookie.js')}}"></script>
 
   <!-- <script src="{{asset('assets/datepicker/js/bootstrap-datepicker.min.js')}}"></script> -->
 
@@ -156,9 +156,8 @@
 </script>
 <!-- sidebar -->
 <script>
-  
     // Get Cookie
-var sidebar = $.cookie('sidebar');
+var sidebar = Cookies.get('sidebar');
 
 // Cookie Sidebar Exists
 if (sidebar){
@@ -186,57 +185,88 @@ else {
 $('#sidebar-light-theme').on('click', function(){
     $('body').addClass('sidebar-light');
     $('#sidebar-light-theme').addClass('sidebar-light selected');
-    $.cookie('sidebar', 'sidebar-light', { path: '{{url("/")}}' });
+    var cookie = Cookies.set('sidebar', 'sidebar-light');
+    console.log(cookie);
+
 });
 
 $('#sidebar-default-theme').on('click', function(){
     $('body').removeClass('sidebar-light');
-    $.cookie('sidebar', 'sidebar-default', { path: '{{url("/")}}' });
+    var cookie = Cookies.set('sidebar', 'sidebar-default');
+    console.log(cookie);
 });
 
-
-
-var navbar  = $.cookie('navbar');
+// Get Cookie
+var navbar  = Cookies.get('navbar');
 // Cookie Navbar Exists
 if (navbar){
     $('.navbar').addClass(navbar);
+    if(navbar=='navbar-primary')
+    {
+      $('div.tiles.primary').addClass('selected');
+    }
+    if(navbar=='navbar-success')
+    {
+      $('div.tiles.success').addClass('selected');
+    }
+    if(navbar=='navbar-warning')
+    {
+      $('div.tiles.warning').addClass('selected');
+    }
+    if(navbar=='navbar-danger')
+    {
+      $('div.tiles.danger').addClass('selected');
+    }
+    if(navbar=='navbar-purple')
+    {
+      $('div.tiles.purple').addClass('selected');
+    }
+    if(navbar=='navbar-dark')
+    {
+      $('div.tiles.dark').addClass('selected');
+    }
+    if(navbar=='navbar-light')
+    {
+      $('div.tiles.light').addClass('selected');
+    }
 }
 // Cookie Navbar Doesn't Exist
 else {
     $('.navbar').addClass('navbar-light');
+    $('div.tiles.light').addClass('selected');
 }
 // Navbar Option Cookie
 $('div.tiles.primary').on('click', function(){
     $('.navbar').addClass('navbar-primary');
-    $.cookie('navbar', 'navbar-primary');
+    Cookies.set('navbar', 'navbar-primary');
 });
 $('div.tiles.success').on('click', function(){
     $('.navbar').addClass('navbar-success');
-    $.cookie('navbar', 'navbar-success');
+    Cookies.set('navbar', 'navbar-success');
 });
 $('div.tiles.warning').on('click', function(){
     $('.navbar').addClass('navbar-warning');
-    $.cookie('navbar', 'navbar-warning');
+    Cookies.set('navbar', 'navbar-warning');
 });
 $('div.tiles.danger').on('click', function(){
     $('.navbar').addClass('navbar-danger');
-    $.cookie('navbar', 'navbar-danger');
+    Cookies.set('navbar', 'navbar-danger');
 });
 $('div.tiles.pink').on('click', function(){
     $('.navbar').addClass('navbar-pink');
-    $.cookie('navbar', 'navbar-pink');
+    Cookies.set('navbar', 'navbar-pink');
 });
 $('div.tiles.info').on('click', function(){
     $('.navbar').addClass('navbar-info');
-    $.cookie('navbar', 'navbar-info');
+    Cookies.set('navbar', 'navbar-info');
 });
 $('div.tiles.dark').on('click', function(){
     $('.navbar').addClass('navbar-dark');
-    $.cookie('navbar', 'navbar-dark');
+    Cookies.set('navbar', 'navbar-dark');
 });
 $('div.tiles.light').on('click', function(){
     $('.navbar').addClass('navbar-light');
-    $.cookie('navbar', 'navbar-light');
+    Cookies.set('navbar', 'navbar-light');
 });
 
 // Filter Search Menu Submenu Sidebar
