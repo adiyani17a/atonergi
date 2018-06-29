@@ -14189,16 +14189,18 @@ input:focus {
       margin-bottom: 13px; }
 
 .sidebar-light {
-  background: #ffffff; }
+  background: -moz-linear-gradient(to bottom, #fff 20%, #e1e6ff 100%);
+    background: -webkit-linear-gradient(to bottom, #fff 20%, #e1e6ff 100%);
+    background: linear-gradient(to bottom, #fff 20%, #e1e6ff 100%); }
   .sidebar-light .sidebar {
-    background: #ffffff; }
+    background: transparent; }
     .sidebar-light .sidebar .nav .nav-item .nav-link {
-      color: rgba(121, 24, 242, 0.9); }
+      color: rgba(0, 0, 0, 0.7); }
       .sidebar-light .sidebar .nav .nav-item .nav-link .menu-title,
       .sidebar-light .sidebar .nav .nav-item .nav-link i {
         color: inherit; }
     .sidebar-light .sidebar .nav .nav-item.active {
-      background: rgba(121, 24, 242, 0.9); }
+      background: rgba(41, 50, 98, 0.9); }
       .sidebar-light .sidebar .nav .nav-item.active > .nav-link {
         color: #ffffff; }
         .sidebar-light .sidebar .nav .nav-item.active > .nav-link .menu-title,
@@ -14207,7 +14209,7 @@ input:focus {
       .sidebar-light .sidebar .nav .nav-item.active .sub-menu .nav-item .nav-link {
         color: #ffffff; }
     .sidebar-light .sidebar .nav .nav-item:hover {
-      background: rgba(108, 13, 228, 0.9); }
+      background: rgba(41, 50, 98, 0.9); }
       .sidebar-light .sidebar .nav .nav-item:hover .sub-menu .nav-item .nav-link {
         color: #ffffff; }
     .sidebar-light .sidebar .nav .nav-item.hover-open .nav-link .menu-title {
@@ -14216,15 +14218,15 @@ input:focus {
       -o-transition-duration: 0s;
       transition-duration: 0s; }
     .sidebar-light .sidebar .nav .nav-item.hover-open:hover {
-      background: rgba(108, 13, 228, 0.9); }
+      background: rgba(41, 50, 98, 0.9); }
       .sidebar-light .sidebar .nav .nav-item.hover-open:hover .sub-menu .nav-item .nav-link {
         color: #888; }
     .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link {
       color: #888; }
       .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link.active {
-        color: #000 !important; }
+        color: #aaaaaa !important; }
         .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link:hover {
-        color: #000 !important; }
+        color: #aaaaaa !important; }
     .sidebar-light .sidebar .nav.sub-menu .nav-item:hover {
       background: transparent; }
     .sidebar-light .sidebar .sidebar-progress p {
@@ -14296,7 +14298,7 @@ input:focus {
     width: 247px;
     height: 59px; }
     .sidebar-light .navbar .navbar-brand-wrapper {
-      background: #ffffff; }
+      background: white; }
     .navbar .navbar-brand-wrapper .navbar-brand {
       color: #27367f;
       font-size: 1.5rem;
@@ -14562,7 +14564,7 @@ input:focus {
     .navbar.navbar-info .navbar-toggler {
       color: #ffffff; }
     .navbar.navbar-info .navbar-menu-wrapper input {
-      color: #ffffff; }
+      color: #d9cec8; }
       .navbar.navbar-info .navbar-menu-wrapper input:-ms-input-placeholder {
         color: inherit; }
       .navbar.navbar-info .navbar-menu-wrapper input:-moz-placeholder {
