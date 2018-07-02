@@ -14202,16 +14202,16 @@ input:focus {
     .sidebar-light .sidebar .nav .nav-item.active {
       background: rgba(41, 50, 98, 0.9); }
       .sidebar-light .sidebar .nav .nav-item.active > .nav-link {
-        color: #ffffff; }
+        color: #aaaaaa; }
         .sidebar-light .sidebar .nav .nav-item.active > .nav-link .menu-title,
         .sidebar-light .sidebar .nav .nav-item.active > .nav-link i {
-          color: inherit; }
+          color: #fff; }
       .sidebar-light .sidebar .nav .nav-item.active .sub-menu .nav-item .nav-link {
-        color: #ffffff; }
+        color: #aaaaaa; }
     .sidebar-light .sidebar .nav .nav-item:hover {
       background: rgba(41, 50, 98, 0.9); }
       .sidebar-light .sidebar .nav .nav-item:hover .sub-menu .nav-item .nav-link {
-        color: #ffffff; }
+        color: #aaaaaa; }
     .sidebar-light .sidebar .nav .nav-item.hover-open .nav-link .menu-title {
       -webkit-transition-duration: 0s;
       -moz-transition-duration: 0s;
@@ -14224,9 +14224,9 @@ input:focus {
     .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link {
       color: #888; }
       .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link.active {
-        color: #aaaaaa !important; }
+        color: #fff !important; }
         .sidebar-light .sidebar .nav.sub-menu .nav-item .nav-link:hover {
-        color: #aaaaaa !important; }
+        color: #fff !important; }
     .sidebar-light .sidebar .nav.sub-menu .nav-item:hover {
       background: transparent; }
     .sidebar-light .sidebar .sidebar-progress p {
