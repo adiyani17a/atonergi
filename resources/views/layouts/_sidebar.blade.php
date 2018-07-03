@@ -204,7 +204,7 @@
                   Setting Daftar Menu
                 </span>
                 <i class="menu-arrow"></i>
-                <i class="mdi mdi-settings menu-icon"></i>
+                <i class="mdi mdi-settings menu-icon mdi-spin"></i>
               </a>
               <div class="collapse {{Request::is('setting') ? 'show' : '' || Request::is('setting/*') ? 'show' : '' }}" id="setting">
                 <ul class="nav flex-column sub-menu">
