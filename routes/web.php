@@ -275,7 +275,7 @@ Route::post('/master/barang/barangproses', 'MasterBarang\BarangController@barang
 Route::get('/master/barang/datatablebarang', 'MasterBarang\BarangController@datatable_barang')->name('datatable_barang');
 Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_edit');
 Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
-Route::get('assets/barang/thumbnail')->name('barang_thumbnail');
+Route::get('storage/uploads/barang/thumbnail')->name('barang_thumbnail');
 Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@barang_update');
 
 

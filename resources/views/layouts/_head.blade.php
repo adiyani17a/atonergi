@@ -6,7 +6,7 @@
   <title>Atonergi</title>
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="{{asset('assets/node_modules/jquery-bar-rating/dist/themes/css-stars.css')}}">
-  <link rel="stylesheet" href="{{asset('node_modules/jquery-ui/jquery-ui.min.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('assets/node_modules/jquery-ui/jquery-ui.min.css')}}"> --}}
   <link rel="stylesheet" href="{{asset('assets/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/node_modules/select2/dist/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css')}}">

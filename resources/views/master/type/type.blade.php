@@ -24,13 +24,13 @@
   						<button class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
   					</div>
   					<div class="table-responsive">
-  						<table class="table table-hover" cellspacing="0" id="t80um">
+  						<table class="table table-hover table-bordered" cellspacing="0" id="t80um">
   						  <thead class="bg-gradient-info">
   						    <tr>
-  						      <th>No</th>
+  						      <th width="20">No</th>
   						      <th>Type Code</th>
   						      <th>Type Item</th>
-  						      <th>Action</th>
+  						      <th width="100">Action</th>
   						    </tr>
   						  </thead>
   						  <tbody>

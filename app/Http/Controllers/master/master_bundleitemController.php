@@ -75,6 +75,7 @@ class master_bundleitemController extends Controller
  	public function cari_item(request $req)
  	{
  		$data = DB::table('m_item')
+          ->join('d_unit','u_id','=','i_unit')
  				  ->where('i_code',$req->kode)
  				  ->first();
  		return Response::json(['data'=>$data]);
@@ -82,9 +83,50 @@ class master_bundleitemController extends Controller
  	}
  	public function simpan_bundleitem(request $req)
  	{
- 		dd($req->all());	
     	return DB::transaction(function() use ($req) {  
+      dd($req->all());  
 
+        $m1 = DB::table('m_item')->max('i_id');
+          
+        $index = $m1+=1;
+                               
+
+        if($index<=9)
+        {
+            $id_auto = 'BND/000'.$index;
+        }
+        else if($index<=99)
+        {
+            $id_auto = 'BND/00'.$index;
+        }
+        else if($index<=999)
+        {
+            $id_auto = 'BND/0'.$index;
+        }
+        else {
+            $id_auto = 'BND/'.$index;
+        }
+
+        $save = DB::table('m_item')->insert([
+                  'i_id'          =>  $index,
+                  'i_code'        =>  $id_auto,
+                  'i_name'        =>  $request->ib_name,
+                  'i_unit'        =>  4,
+                  'i_price'       =>  filter_Var($request->ib_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_sell_price'  =>  filter_Var($request->sell_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_lower_price' =>  filter_Var($request->lower_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_active'      =>  'Y',
+                  'i_jenis'       =>  'BUNDLE',
+                  'i_type'        =>  0,
+                  'i_minstock'    =>  0,
+                  'i_image'       =>  0,
+                  'i_weight'      =>  0,
+                  'i_description' =>  $request->keterangan,
+                  'i_insert_at'   =>  Carbon::now(),
+                  'i_update_at'   =>  Carbon::now(),
+                  'i_insert_by'   =>  $nama,
+                  'i_update_by'   =>  $nama,
+              ]);
     	});
  	}
  	public function update_bundleitem(request $req)

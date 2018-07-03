@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="form-group">
-                <input type="text" class="form-control form-control-sm" name="t_code">
+                <input style="text-transform: uppercase;" type="text" class="form-control form-control-sm" name="t_code">
               </div>
             </div>
           
@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="form-group">
-                <input type="text" class="form-control form-control-sm" name="t_name">
+                <input style="text-transform: uppercase;" type="text" class="form-control form-control-sm" name="t_name">
               </div>
             </div>
             <input type="hidden" name="it_codex">

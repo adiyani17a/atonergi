@@ -77,6 +77,28 @@ $(document).ready(function(){
     thousands:',',
   });
 
+
+  $('.min_stock').maskMoney({
+    precision : 0,
+    thousands:'',
+  });
+
+
+  $('.weight').maskMoney({
+    precision : 0,
+    thousands:'',
+  });
+
+  $('.lower_price').maskMoney({
+    precision : 0,
+    thousands:',',
+  });
+
+
+  $('.sell_price').maskMoney({
+    precision : 0,
+    thousands:',',
+  });
     $('#t55').DataTable({
             processing: true,
             // responsive:true,
@@ -104,6 +126,10 @@ $(document).ready(function(){
                   },
                   {
                     targets: 5,
+                    className: 'center'
+                  },
+                  {
+                    targets: 6,
                     className: 'center'
                   }
                 ],
@@ -146,6 +172,8 @@ $('#tombol_modal_tambah').click(function(){
     $('input[name="min_stock"]').val('');
     $('textarea[name="description"]').val('');
     $('input[name="item_codex"]').val('');
+    $('input[name="lower_price"]').val('');
+    $('input[name="sell_price"]').val('');
 
     $('input[name="item_name"]').removeClass('border-danger');
     $('#chooseFile');
@@ -207,8 +235,9 @@ function simpan(){
     var weight = $('input[name="weight"]');
     var min_stock = $('input[name="min_stock"]');
     var description = $('textarea[name="description"]');
-
-    if(item.val()=='' || img.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='')
+    var sell_price = $('input[name="sell_price"]');
+    var lower_price = $('input[name="lower_price"]');
+    if(item.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='' || sell_price.val()=='' || lower_price.val()=='' || img.val()=='' )
     {
       if(item.val()==''){
         iziToast.error({
@@ -273,6 +302,27 @@ function simpan(){
       } else {
         min_stock.removeClass('border-danger');
       }
+
+
+      if(sell_price.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Sell Price cannot be empty!',
+            });
+        sell_price.addClass('border-danger');
+      } else {
+        sell_price.removeClass('border-danger');
+      }
+
+      if(lower_price.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Lower Price cannot be empty!',
+            });
+        lower_price.addClass('border-danger');
+      } else {
+        lower_price.removeClass('border-danger');
+      }
       return false;
     }
     var formdata = new FormData();  
@@ -313,6 +363,8 @@ function edit(m1a2)
     $('input[name="price"]').removeClass('border-danger');
     $('input[name="weight"]').removeClass('border-danger');
     $('input[name="min_stock"]').removeClass('border-danger');
+    $('input[name="sell_price"]').removeClass('border-danger');
+    $('input[name="lower_price"]').removeClass('border-danger');
 
     var par   = $(m1a2).parents('tr');
     var id    = $(par).find('.i_id').text();
@@ -326,15 +378,17 @@ function edit(m1a2)
           console.log(data[0].i_image);
           
 
-            var i_id      = $("input[name='item_codex']").val(data[0].i_id);
+            var i_id      = $("input[name='kode_barang']").val(data[0].i_id);
             var i_code    = $("input[name='item_name']").val(data[0].i_name);
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
             var i_weight      = $("input[name='weight']").val(data[0].i_weight);
-            var i_price      = $("input[name='price']").val(data[0].i_price);
+            var i_price      = $("input[name='price']").val(accounting.formatMoney(data[0].i_price,"",0,'.',','));
             var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
             var i_description      = $("textarea[name='description']").val(data[0].i_description);
             var i_type      = $("select[name='type_barang']").val(data[0].i_type).trigger('change');
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
+            var i_sell_price      = $("input[name='sell_price']").val(accounting.formatMoney(data[0].i_sell_price,"",0,'.',','));
+            var i_lower_price      = $("input[name='lower_price']").val(accounting.formatMoney(data[0].i_lower_price,"",0,'.',','));
 
             if(data[0].i_image!='' || data[0].i_image!=null){
               $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);
@@ -376,8 +430,10 @@ function update() {
   var weight = $('input[name="weight"]');
   var min_stock = $('input[name="min_stock"]');
   var description = $('textarea[name="description"]');
+  var sell_price = $('input[name="sell_price"]');
+  var lower_price = $('input[name="lower_price"]');
 
-    if(item.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='')
+    if(item.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='' || sell_price.val()=='' || lower_price.val()=='')
     {
       if(item.val()==''){
         iziToast.error({
@@ -424,6 +480,7 @@ function update() {
       } else {
         weight.removeClass('border-danger');
       }
+
       if(min_stock.val()==''){
         iziToast.error({
               icon: 'fa fa-exclamation-circle ',
@@ -432,6 +489,27 @@ function update() {
         min_stock.addClass('border-danger');
       } else {
         min_stock.removeClass('border-danger');
+      }
+
+
+      if(sell_price.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Sell Price cannot be empty!',
+            });
+        sell_price.addClass('border-danger');
+      } else {
+        sell_price.removeClass('border-danger');
+      }
+
+      if(lower_price.val()==''){
+        iziToast.error({
+              icon: 'fa fa-exclamation-circle ',
+              message: 'Lower Price cannot be empty!',
+            });
+        lower_price.addClass('border-danger');
+      } else {
+        lower_price.removeClass('border-danger');
       }
       return false;
     }
@@ -447,14 +525,15 @@ function update() {
           url: baseUrl + '/master/barang/barang_update?'+$('#simpan_barang').serialize(),
           data: formdata,
           success: function(data){
-            $('#tambah').modal('hide');
-            var table = $('#t55').DataTable();
-            table.ajax.reload();
-
-            iziToast.success({
-              icon: 'fas fa-check-circle',
-              message: 'Data Telah Terupdate!',
-            });
+            if (data.status == '1') {
+              $('#tambah').modal('hide');
+              var table = $('#t55').DataTable();
+              table.ajax.reload();
+              iziToast.success({
+                icon: 'fas fa-check-circle',
+                message: 'Data Telah Terupdate!',
+              });
+            } 
           },
           error: function(){
           iziToast.warning({
@@ -491,15 +570,16 @@ function hapus(a) {
                       type:'get',
                       data: {id},
                       dataType:'json',
-                      success:function(data){        
-                        var table = $('#t55').DataTable();
-                        table.ajax.reload();
-                        console.log(data);
-                        iziToast.success({
-                          icon: 'fa fa-check',
-                          message: 'Data Berhasil Dihapus!',
-                        });
-                        
+                      success:function(data){  
+                        if (data.status == '1') {
+                          var table = $('#t55').DataTable();
+                          table.ajax.reload();
+                          console.log(data);
+                          iziToast.success({
+                            icon: 'fa fa-check',
+                            message: 'Data Berhasil Dihapus!',
+                          });
+                        }      
                       },
                       error:function(){
                         iziToast.warning({

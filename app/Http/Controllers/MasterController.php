@@ -121,7 +121,7 @@ class MasterController extends Controller
         $id = DB::table('d_status')->max('s_id')+1;
 
         $cari = DB::table('d_status')
-                  ->where('s_name',$req->name)
+                  ->where('s_name',strtoupper($req->name))
                   ->where('s_color',$req->status)
                   ->first();
 
@@ -134,7 +134,7 @@ class MasterController extends Controller
                 $save = DB::table('d_status')
                       ->where('s_id',$req->id)
                       ->update([
-                        's_name' => $req->name,
+                        's_name' => strtoupper($req->name),
                         's_color'=> $req->status,
                       ]);
                 return response()->json(['status'=>3]);
@@ -145,7 +145,7 @@ class MasterController extends Controller
             $save = DB::table('d_status')
                       ->insert([
                         's_id'   => $id,
-                        's_name' => $req->name,
+                        's_name' => strtoupper($req->name),
                         's_color'=> $req->status,
                       ]);
             return response()->json(['status'=>1]);
