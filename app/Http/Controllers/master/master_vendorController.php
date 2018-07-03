@@ -12,9 +12,10 @@ class master_vendorController extends Controller
    
     public function vendor()
     {   
-        $password = bcrypt('admin');
-        return $password;
-        return view('master/vendor/vendor');
+        // $password = bcrypt('admin');
+        // return $password;
+        $kota = DB::table('regencies')->get();
+        return view('master/vendor/vendor',compact('kota'));
     }
     public function datatalble_vendor(Request $request)
     {

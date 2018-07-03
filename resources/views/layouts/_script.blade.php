@@ -84,6 +84,7 @@
       format:"dd-mm-yyyy",
       autoclose:true
     }).datepicker("setDate", "0");
+    
     $('select').select2({ 
       width: '100%' 
     });

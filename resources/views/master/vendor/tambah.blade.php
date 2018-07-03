@@ -37,9 +37,9 @@
             <div class="form-group">
               <select class="form-control form-control-sm" name="v_hometown">
                 <option selected="" readonly="" value="">- Pilih -</option>
-                <option value="malang">malang</option>
-                <option value="jogja">jogja</option>
-                <option value="surabaya">surabaya</option>
+                @foreach ($kota as $kt)
+                  <option value="{{ $kt->id }}">{{ $kt->id }} - {{ $kt->name }}</option>
+                @endforeach
               </select>
             </div>
           </div>
