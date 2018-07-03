@@ -136,7 +136,6 @@
               validator_name.splice(1,cari);
             }
           }
-          console.log(validator_name);
 
           var nama = validator_name.indexOf($('.save_vendor :input').eq(1).val())
           if (nama != -1) {
@@ -163,7 +162,7 @@
         icon: 'fa fa-times',
         message: 'Periksa Kembali Data Anda!',
       });
-      return false;
+      // return false;
     }
 
     

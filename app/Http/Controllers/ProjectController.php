@@ -15,6 +15,10 @@ class ProjectController extends Controller
     {
     	return view('project/jadwalujicoba/jadwalujicoba');
     }
+    public function tambah_jadwalujicoba()
+    {
+        return view('project/jadwalujicoba/tambah_jadwal');
+    }
     public function pemasangan()
     {
     	return view('project/pemasangan/pemasangan');

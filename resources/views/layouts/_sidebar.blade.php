@@ -204,7 +204,7 @@
                   Setting Daftar Menu
                 </span>
                 <i class="menu-arrow"></i>
-                <i class="mdi mdi-settings menu-icon"></i>
+                <i class="mdi mdi-settings menu-icon mdi-spin"></i>
               </a>
               <div class="collapse {{Request::is('setting') ? 'show' : '' || Request::is('setting/*') ? 'show' : '' }}" id="setting">
                 <ul class="nav flex-column sub-menu">
@@ -482,38 +482,6 @@
         </nav>
 
 
-<script>
-  
-  function myFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("filterInput");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("ayaysir");
-    li = ul.getElementsByTagName("li");
-    button = document.getElementById('btn-reset');
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-
-        }
-    }
-    
-
-    if (input.value != 0 ) {
-      button.classList.remove('d-none');
-    } else {
-      button.classList.add('d-none');
-    }
-    
-}
-  function btnReset() {
-    input = document.getElementById("filterInput");
-    input.value=null;
-    input.focus();
-  }
 
 
-</script>
+

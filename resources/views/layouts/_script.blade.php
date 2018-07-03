@@ -29,6 +29,8 @@
   <script src="{{asset('assets/js/tabs.js')}}"></script>
   <script src="{{asset('assets/js/select2.js')}}"></script>
   <script src="{{asset('assets/js/file-upload.js')}}"></script>
+  <script src="{{asset('assets/js/js.cookie.js')}}"></script>
+
   <!-- <script src="{{asset('assets/datepicker/js/bootstrap-datepicker.min.js')}}"></script> -->
 
   <!-- endinject -->
@@ -43,6 +45,25 @@
   {{-- VALIDATTE --}}
   <script src="{{asset('assets/validetta/validetta.js')}}"></script>
   <script src="{{asset('assets/validetta/validetta.min.js')}}"></script>
+
+  <!-- Light galery -->
+  <script src="{{asset('assets/lightgallery/js/lightgallery-all.min.js')}}"></script>
+
+  <script src="{{asset('assets/jp-list/js/jplist.core.min.js')}}"></script>
+  
+  <!-- jPList textbox filter control -->
+  <script src="{{asset('assets/jp-list/js/jplist.textbox-filter.min.js')}}"></script>
+  
+
+  <!-- jplist pagination bundle -->
+  <!-- <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle.min.js')}}"></script> -->
+
+
+  <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle-custom.min.js')}}"></script>
+
+  <script src="{{asset('assets/jp-list/js/jplist.bootstrap-pagination-bundle-custom.min.js')}}"></script>
+  
+
 
 
   <script type="text/javascript">
@@ -132,5 +153,152 @@
   $('.readonly').attr('readonly',true)
 
    
+
+</script>
+<!-- sidebar -->
+<script>
+    // Get Cookie
+var sidebar = Cookies.get('sidebar');
+
+// Cookie Sidebar Exists
+if (sidebar){
+    $('body').addClass(sidebar);
+
+    if (sidebar=='sidebar-light') 
+    {
+      $('#sidebar-light-theme').addClass('selected');
+      $('#sidebar-default-theme').removeClass('selected');
+
+    }
+    if (sidebar=='sidebar-default') 
+    {
+      $('#sidebar-default-theme').addClass('selected');
+      $('#sidebar-light-theme').removeClass('selected');
+
+    }
+}
+// Cookie Sidebar Doesn't Exist
+else {
+    $('body').addClass();
+}
+
+// Sidebar Option Cookie
+$('#sidebar-light-theme').on('click', function(){
+    $('body').addClass('sidebar-light');
+    $('#sidebar-light-theme').addClass('sidebar-light selected');
+    Cookies.set('sidebar', 'sidebar-light',{ expires : 365});
+
+});
+
+$('#sidebar-default-theme').on('click', function(){
+    $('body').removeClass('sidebar-light');
+    Cookies.set('sidebar', 'sidebar-default',{ expires : 365});
+});
+
+// Get Cookie
+var navbar  = Cookies.get('navbar');
+// Cookie Navbar Exists
+if (navbar){
+    $('.navbar').addClass(navbar);
+    if(navbar=='navbar-primary')
+    {
+      $('div.tiles.primary').addClass('selected');
+    }
+    if(navbar=='navbar-success')
+    {
+      $('div.tiles.success').addClass('selected');
+    }
+    if(navbar=='navbar-warning')
+    {
+      $('div.tiles.warning').addClass('selected');
+    }
+    if(navbar=='navbar-danger')
+    {
+      $('div.tiles.danger').addClass('selected');
+    }
+    if(navbar=='navbar-pink')
+    {
+      $('div.tiles.pink').addClass('selected');
+    }
+    if(navbar=='navbar-dark')
+    {
+      $('div.tiles.dark').addClass('selected');
+    }
+    if(navbar=='navbar-light')
+    {
+      $('div.tiles.light').addClass('selected');
+    }
+}
+// Cookie Navbar Doesn't Exist
+else {
+    $('.navbar').addClass('navbar-light');
+    $('div.tiles.light').addClass('selected');
+}
+// Navbar Option Cookie
+$('div.tiles.primary').on('click', function(){
+    $('.navbar').addClass('navbar-primary');
+    Cookies.set('navbar', 'navbar-primary', {expires : 365});
+});
+$('div.tiles.success').on('click', function(){
+    $('.navbar').addClass('navbar-success');
+    Cookies.set('navbar', 'navbar-success', {expires : 365});
+});
+$('div.tiles.warning').on('click', function(){
+    $('.navbar').addClass('navbar-warning');
+    Cookies.set('navbar', 'navbar-warning', {expires : 365});
+});
+$('div.tiles.danger').on('click', function(){
+    $('.navbar').addClass('navbar-danger');
+    Cookies.set('navbar', 'navbar-danger', {expires : 365});
+});
+$('div.tiles.pink').on('click', function(){
+    $('.navbar').addClass('navbar-pink');
+    Cookies.set('navbar', 'navbar-pink', {expires : 365});
+});
+$('div.tiles.info').on('click', function(){
+    $('.navbar').addClass('navbar-info');
+    Cookies.set('navbar', 'navbar-info', {expires : 365});
+});
+$('div.tiles.dark').on('click', function(){
+    $('.navbar').addClass('navbar-dark');
+    Cookies.set('navbar', 'navbar-dark', {expires : 365});
+});
+$('div.tiles.light').on('click', function(){
+    $('.navbar').addClass('navbar-light');
+    Cookies.set('navbar', 'navbar-light', {expires : 365});
+});
+
+// Filter Search Menu Submenu Sidebar
+  function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("filterInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("ayaysir");
+    li = ul.getElementsByTagName("li");
+    button = document.getElementById('btn-reset');
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+    
+
+    if (input.value != 0 ) {
+      button.classList.remove('d-none');
+    } else {
+      button.classList.add('d-none');
+    }
+    
+}
+  function btnReset() {
+    input = document.getElementById("filterInput");
+    input.value=null;
+    input.focus();
+  }
+
 
 </script>

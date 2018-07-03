@@ -32,6 +32,7 @@ return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Mike42\\' => array($vendorDir . '/mike42/escpos-php/src/Mike42'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\request;
 use App\Barang;
 use Yajra\Datatables\Datatables;
 use DB;
+use Response;
 class master_bundleitemController extends Controller
 {
  	
@@ -13,12 +14,14 @@ class master_bundleitemController extends Controller
  	public function bundleitem()
  	{
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
+
  		return view('master/bundle/bundle',compact('item'));
  	}
  	public function datatable_bundleitem()
  	{
- 		$list = DB::select("SELECT * from m_item_bundling");
-        // return $list;
+ 		$list = DB::table('m_item')
+ 				  ->where('i_jenis','BUNDLE')
+ 				  ->get();
         $data = collect($list);
         
         // return $data;
@@ -26,14 +29,33 @@ class master_bundleitemController extends Controller
         return Datatables::of($data)
         	
                 ->addColumn('aksi', function ($data) {
-                          return  '<div class="btn-group">'.
-                                   '<button type="button" onclick="edit(this)" class="btn btn-info btn-sm" title="edit">'.
-                                   '<label class="fa fa-pencil-alt"></label></button>'.
-                                   '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm" title="hapus">'.
-                                   '<label class="fa fa-trash"></label></button>'.
-                                   '<button type="button" onclick="detail(this)" class="btn btn-primary btn-xs" title="Detail">'.
-                                   '<label class="fas fa-arrow-alt-circle-right"></label></button>'.
-                                  '</div>';
+                          $a =  '<div class="btn-group">';
+
+                            if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','ubah')){
+                             $b = '<button type="button" onclick="edit(\''.$data->i_id.'\')" class="btn btn-primary btn-lg" title="edit">'.'<label class="fa fa-pencil-alt"></label></button>';
+                            }else{
+                              $b = '';
+                            }
+
+                            if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','print')){
+                             $c = 
+                             '<button type="button" onclick="printing(\''.$data->i_id.'\')" class="btn btn-info btn-lg" title="print">'.'<label class="fa fa-print"></label></button>';
+                            }else{
+                              $c = '';
+                            }
+
+                            if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','hapus')){
+                             $d = 
+                                 '<button type="button" onclick="hapus(\''.$data->i_id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
+                                 '<label class="fa fa-trash"></label></button>';
+                            }else{
+                              $d = '';
+                            }
+
+                            
+                            $e = '</div>';
+
+                        return $a . $b .$c . $d .$e ;
                 })
                 ->addColumn('none', function ($data) {
                     return '-';
@@ -44,117 +66,51 @@ class master_bundleitemController extends Controller
  	public function edit_bundle($id)
  	{		
 
- 		$header = DB::table('m_item_bundling')->where('ib_detailid','=',$id)->first();
- 		/*return*/ $sequence = DB::table('m_item_bundling_dt')->select('i_code','i_name','ibd_qty','ibd_unit','ibd_price','ibd_detailid')->where('ibd_id','=',$id)->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->get();
+ 		$header = DB::table('i_item')->where('ib_detailid','=',$id)->first();
+ 		/*return*/ $sequence = DB::table('i_item_dt')->select('i_code','i_name','ibd_qty','ibd_unit','ibd_price','ibd_detailid')->where('ibd_id','=',$id)->join('m_item','m_item.i_code','=','i_item_dt.ibd_barang')->get();
 
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
  		return view('master/bundle/edit_bundle',compact('item','header','sequence'));
  	}
- 	public function simpan_bundleitem(Request $request)
+ 	public function cari_item(request $req)
  	{
- 		// dd($request->all());	
- 		$kode = DB::table('m_item_bundling')->max('ib_detailid');
+ 		$data = DB::table('m_item')
+ 				  ->where('i_code',$req->kode)
+ 				  ->first();
+ 		return Response::json(['data'=>$data]);
 
-	    $tanggal = date("Y-m-d h:i:s");
-
- 			if ($kode == null) {
-    	 		$kode = 1;
-	    	}else{
-	    	 	$kode += 1;
-	    	}
-	    	$price_header = str_replace('.','',$request->ib_price);
-	    	$header = DB::table('m_item_bundling')
-					->insert([
-						'ib_item'	 => $request->ib_name,
-						'ib_detailid' => $kode,
-						'ib_price' =>$price_header,
-						'ib_insert' =>$tanggal,
-			]);
-			$kode_seq = 0;
-			for ($i=0; $i < count($request->ib_kode_dt); $i++) { 
-	    		$price_seq[$i] = str_replace('.','',$request->ib_price_dt[$i]);
-	    		$qty_seq[$i] = str_replace('.','',$request->ib_qty_dt[$i]);
-				
-		    	$kode_seq = $kode_seq + 1;
-
-				$sequence[$i] = DB::table('m_item_bundling_dt')
-					->insert([
-						'ibd_id'	 => $kode,
-						'ibd_detailid' => $kode_seq,
-						'ibd_barang' => $request->ib_kode_dt[$i],
-						'ibd_qty' => $qty_seq[$i],
-						'ibd_unit' => $request->ib_unit_dt[$i],
-						'ibd_price' =>$price_seq[$i],
-						'ibd_insert' =>$tanggal,
-				]);
-			}
-
- 		return response()->json(['status'=>1]);
  	}
- 	public function update_bundleitem(Request $request)
+ 	public function simpan_bundleitem(request $req)
  	{
- 		// dd($request->all());
+ 		dd($req->all());	
+    	return DB::transaction(function() use ($req) {  
 
- 		$data_head = DB::table('m_item_bundling')->where('ib_detailid','=',$request->kode_old)->delete();
- 		$data_seq = DB::table('m_item_bundling_dt')->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->where('ibd_id','=',$request->kode_old)->delete();
-
- 		$sequence = DB::table('m_item_bundling_dt')->select('i_code','i_name','ibd_qty','ibd_unit','ibd_price','ibd_detailid')->where('ibd_id','=',$request->kode_old)->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->get();
-
-	    $tanggal = date("Y-m-d h:i:s");
-
- 		$price_header = str_replace('.','',$request->ib_price);
- 		$kode = DB::table('m_item_bundling')->max('ib_detailid');
-		if ($kode == null) {
-	 		$kode = 1;
-    	}else{
-    	 	$kode += 1;
-    	}
-    	$header = DB::table('m_item_bundling')
-    			
-				->insert([
-					'ib_item'	 => $request->ib_name,
-					'ib_detailid' => $kode,
-					'ib_price' =>$price_header,
-					'ib_update' =>$tanggal,
-		]);
- 		$kode_seq = 0;
-		for ($i=0; $i < count($request->ib_kode_dt); $i++) { 
-    		$price_seq[$i] = str_replace('.','',$request->ib_price_dt[$i]);
-    		$qty_seq[$i] = str_replace('.','',$request->ib_qty_dt[$i]);
-			$kode_seq = $kode_seq + 1;
-			$sequence[$i] = DB::table('m_item_bundling_dt')
-				
-				->insert([
-					'ibd_id'	 => $kode,
-					'ibd_detailid' => $kode_seq,
-					'ibd_barang' => $request->ib_kode_dt[$i],
-					'ibd_qty' => $qty_seq[$i],
-					'ibd_unit' => $request->ib_unit_dt[$i],
-					'ibd_price' =>$price_seq[$i],
-					'ibd_update' =>$tanggal,
-			]);
-		}
- 		
- 		return response()->json(['status'=>1]);
+    	});
  	}
- 	public function dataedit_bundleitem(Request $request)
+ 	public function update_bundleitem(request $req)
  	{
- 		$data_head = DB::table('m_item_bundling')->where('ib_detailid','=',$request->id)->get();
- 		$data_seq = DB::table('m_item_bundling_dt')->where('ibd_id','=',$request->id)->get();
+ 		// dd($req->all());
+ 		return DB::transaction(function() use ($req) {  
+    		
+    	});
+ 	}
+ 	public function dataedit_bundleitem(request $req)
+ 	{
+ 		$data_head = DB::table('i_item')->where('ib_detailid','=',$req->id)->get();
+ 		$data_seq = DB::table('i_item_dt')->where('ibd_id','=',$req->id)->get();
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
  		return response()->json([$data_head,$data_seq]);
     	// return view('master/bundle/ajax_update',compact('item','data_head','data_seq'));
  	}
- 	public function detail_bundleitem(Request $request)
+ 	public function detail_bundleitem(request $req)
  	{
- 		$data = DB::table('m_item_bundling_dt')->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->where('ibd_id','=',$request->id)->get();
+ 		$data = DB::table('i_item_dt')->join('m_item','m_item.i_code','=','i_item_dt.ibd_barang')->where('ibd_id','=',$req->id)->get();
     	return response()->json($data);
  	}
- 	public function hapus_bundleitem(Request $request)
+ 	public function hapus_bundleitem(request $req)
  	{	
- 		// dd($request->all());
- 		$data_head = DB::table('m_item_bundling')->where('ib_detailid','=',$request->id)->delete();
- 		$data_seq = DB::table('m_item_bundling_dt')->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->where('ibd_id','=',$request->id)->delete();
+ 		// dd($req->all());
+ 		$data_head = DB::table('i_item')->where('ib_detailid','=',$req->id)->delete();
     	return response()->json(['status'=>1]);
  	}
 }
