@@ -254,7 +254,7 @@
                 <span class="menu-title">Quotation</span>
                 <span class="d-none">
                   Tim Marketing
-                  Nilai Penawaran
+                  {{-- Nilai Penawaran --}}
                   Klasifikasi Penawaran
                   Penawaran : PDF
                 </span>
@@ -265,7 +265,7 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link {{Request::is('quotation/q_quotation/q_quotation') ? 'active' : '' || Request::is('quotation/q_quotation/*') ? 'active' : '' }}" href="{{url('quotation/q_quotation/q_quotation')}}">Quotation</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('quotation/marketing/marketing') ? 'active' : '' || Request::is('quotation/marketing/*') ? 'active' : '' }}" href="{{url('quotation/marketing/marketing')}}">Tim Marketing<span class="d-none">Quotation</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('quotation/n_penawaran/n_penawaran') ? 'active' : '' || Request::is('quotation/n_penawaran/*') ? 'active' : '' }}" href="{{url('quotation/n_penawaran/n_penawaran')}}">Nilai Penawaran<span class="d-none">Quotation</span></a></li>
+               {{--    <li class="nav-item"> <a class="nav-link {{Request::is('quotation/n_penawaran/n_penawaran') ? 'active' : '' || Request::is('quotation/n_penawaran/*') ? 'active' : '' }}" href="{{url('quotation/n_penawaran/n_penawaran')}}">Nilai Penawaran<span class="d-none">Quotation</span></a></li> --}}
                   <li class="nav-item"> <a class="nav-link {{Request::is('quotation/k_penawaran/k_penawaran') ? 'active' : '' || Request::is('quotation/k_penawaran/*') ? 'active' : '' }}" href="{{url('quotation/k_penawaran/k_penawaran')}}">Klasifikasi Penawaran<span class="d-none">Quotation</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('quotation/pdf_penawaran/pdf_penawaran') ? 'active' : '' || Request::is('quotation/pdf_penawaran/*') ? 'active' : '' }}" href="{{url('quotation/pdf_penawaran/pdf_penawaran')}}">Penawaran : PDF<span class="d-none">Quotation</span></a></li>
                 </ul>

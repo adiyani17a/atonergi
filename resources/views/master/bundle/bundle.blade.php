@@ -31,7 +31,8 @@
                                   <tr>
                                     <th class="wd-15p" width="5%">Bundle Id</th>
                                     <th class="wd-15p" width="20%">Bundle Name</th>
-                                    <th class="wd-15p">Price Bundle</th>
+                                    <th class="wd-15p" >Description</th>
+                                    <th class="wd-15p"width="20%">Price Bundle</th>
                                     <th width="15%">Action</th>
                                   </tr>
                                 </thead>
@@ -106,26 +107,27 @@
                      className: 'd_id center'
                   }, 
                   {
-                     targets: 2 ,
-                     className: 'right format_money'
+                     targets: 4 ,
+                     className: 'center '
                   },
                   {
                      targets: 3 ,
-                     className: 'center'
+                     className: 'right format_money'
                   },
                 ],
             "columns": [
-            { "data": "ib_detailid" },
-            { "data": "ib_item" },
-            { "data": "ib_price" ,render: $.fn.dataTable.render.number( '.', '.', 0, '' )},
-            { "data": "aksi" },
+            {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+            {data: 'i_name', name: 'i_name'},
+            {data: 'i_description', name: 'i_description'},
+            {data: 'i_price', render: $.fn.dataTable.render.number( '.', '.', 0, '' )},
+            {data: 'aksi', name: 'aksi'},
             ]
       });
 
         var table             = $("#bundle_table").DataTable({
                                   columnDefs: [
                                       {
-                                         targets: 5,
+                                         targets: 6,
                                          className: 'center'
                                       }
                                     ],
@@ -147,20 +149,23 @@
          dataType:'json',
          data:{kode},
          success: function(data){
-
+            console.log(qty);
+            console.log(data.data.i_price);
             var price  = parseInt(qty)*parseInt(data.data.i_price);
+            console.log(price);
             table.row.add( [
                '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
                 '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
                 '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
                 '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
-                '<input type="text" id="unit_price[]" name="ib_price_dt[]" class="form-control input-sm min-width right format_money total" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
                 '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
             ]).draw( false );
     
             x++;
             var awal = 0;
-            table.$('.total').each(function(){
+            table.$('.ib_total_price').each(function(){
               var total = $(this).val();
               total = total.replace(/[^0-9\-]+/g,"");
               awal += parseInt(total);
@@ -186,7 +191,7 @@
 
     $('#bundle_table tbody').on( 'click', '.delete', function () {
     var parents = $(this).parents('tr');
-    var ib_price_dt = $(parents).find('.total').val();
+    var ib_price_dt = $(parents).find('.ib_price_dt').val();
     var ib_price = $("input[name='ib_price']").val();
     
     table
@@ -194,12 +199,17 @@
         .remove()
         .draw();
         
+    var awal = 0;
+    table.$('.ib_total_price').each(function(){
+      var total = $(this).val();
+      total = total.replace(/[^0-9\-]+/g,"");
+      awal += parseInt(total);
+    });  
           
-          ib_price_dt = ib_price_dt.replace(/[^0-9\-]+/g,"");
-          ib_price = ib_price.replace(/[^0-9\-]+/g,"");
-          var kurang = parseInt(ib_price)-parseInt(ib_price_dt);
 
-          $("input[name='ib_price']").val(accounting.formatMoney(kurang,"",0,'.',','));
+    $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
+    $(".sell_price").val(accounting.formatMoney(awal,"",0,'.',','));
+    $(".lower_price").val(accounting.formatMoney(awal,"",0,'.',','));
 
     });
 
@@ -326,9 +336,7 @@ function detail(parm) {
        });
 }
 
-function edit(parm){
-    var par   = $(parm).parents('tr');
-    var id    = $(par).find('.d_id').text();
+function edit(id){
     window.location.href = (baseUrl +'/master/bundle/edit_bundle/'+id);
   }
 

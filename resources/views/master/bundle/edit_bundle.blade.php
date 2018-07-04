@@ -23,94 +23,125 @@
                   <div class="row">
                                 
                         <div class="col-md-3 col-sm-4 col-xs-12">
-                         
-                              <label class="tebal">Bundle Name</label>
-                         
-                        </div>
-                        <div class="col-md-3 col-sm-8 col-xs-12">
-                          <div class="form-group">
-                              <input type="text"  class="form-control form-control-sm" name="ib_name" value="{{ $header->ib_item }}">                                    
-                          </div>
-                        </div>
-                        <div class="col-md-3 col-sm-4 col-xs-12">
-                          
-                              <label class="tebal">Bundle Price</label>
-                         
-                        </div>
-                        <div class="col-md-3 col-sm-8 col-xs-12">
-                          <div class="form-group">
-                              <input type="text"  class="form-control form-control-sm format_money right" name="ib_price" readonly="" value="{{ number_format($header->ib_price,0,',','.') }}">                               
-                          </div>
-                        </div>
-
-                    </div> 
-                    <div class="row" style="border-top: 1px solid #98c3d1;padding-top: 15px;margin-top: 15px;margin-bottom: 15px;border-bottom: 1px solid #98c3d1;">
-                      <div class="col-md-2 col-sm-4 col-xs-12">
-                        <label>Item Name</label>
-                      </div>
-                      <div class="col-md-2 col-sm-12 col-xs-12">
-                        <div class="form-group">  
-                          <select class="form-control form-control-sm" name="" id="bund_kodeitem"> 
-                              <option selected="" value="">- Pilih -</option>
-                              @foreach ($item as $e)
-                                <option value="{{ $e->i_code }}" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
-                              @endforeach
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-2 col-sm-12 col-xs-12">
-                        <div class="form-group">  
-                          <input type="text" class="form-control form-control-sm" name="" readonly="" id="bund_item">
-                        </div>
-                      </div>
-                      <div class="col-md-3 col-sm-4 col-xs-12">
-                        <label>Qty</label>
-                      </div>
-                      <div class="col-md-3 col-sm-8 col-xs-12">
-                        <div class="form-group">  
-                          <input type="text" class="form-control form-control-sm format_money right" name="" id="bund_qty">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="table-responsive">
-                      <table class="table table-hover table-bordered gogo"  cellspacing="0" id="t72bu" width="100%">
-
-                        <thead class="bg-gradient-info">
-                          <tr>
-                            <th width="20%">Item Code</th>
-                            <th width="20%">Item Name</th>
-                            <th width="14%">Qty</th>
-                            <th width="14%">Unit</th>
-                            <th width="30%">Item Price</th>
-                            <th width="1%">Action</th>
-
-                          </tr>
-                        </thead>
-                        <tbody id="edit_rep">
-                          @foreach ($sequence as $seq)
-                            <tr>
-                              <td><input type="text" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="{{ $seq->i_code }}"></td></td>
-                              <td><input type="text" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="{{ $seq->i_name }}"></td>
-                              <td><input type="text" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="{{ number_format($seq->ibd_qty,0,',','.') }}"></td>
-                              <td><input type="text" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="{{ $seq->ibd_unit }}"></td>
-                              <td><input type="text" name="ib_price_dt[]" class="form-control input-sm min-width right format_money total" readonly="" value="{{ number_format($seq->ibd_price,0,',','.') }}"></td>
-                              <td><button type='button' class='delete btn btn-outline-danger btn-sm hapus'><i class='fa fa-trash-o'></i></button></td>
-                            </tr>
-                          @endforeach
-                        </tbody>
-                        
-                      </table>
-                    </div>
-                    <input type="hidden" name="kode_old" value="{{ $header->ib_detailid }}">
-                    <div align="right" style="margin-top: 15px;">
-                      <div id="change_function">
-                          <button class="btn btn-info btn-sm" type="button" id="save_data">Update Data</button>
-                          <a class="btn btn-secondary btn-sm" href="{{url('master/bundle/bundle')}}">Back</a>
-                      </div>
-                      
-                    </div>
-                </div>
+             
+                  <label class="tebal">Bundle Name</label>
+             
             </div>
+            <div class="col-md-3 col-sm-8 col-xs-12">
+              <div class="form-group ">
+                  <input type="text" value="{{$data->i_name}}"  class="form-control form-control-sm ib_name" name="ib_name">                                    
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-12">
+              
+                  <label class="tebal">Bundle Price</label>
+             
+            </div>
+            <div class="col-md-3 col-sm-8 col-xs-12">
+              <div class="form-group disabled">
+                  <input type="text" readonly="" value="{{number_format($data->i_price,0,"",".")}}"  class="form-control form-control-sm format_money right ib_price" name="ib_price" >                               
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-4 col-xs-12">
+              
+                  <label class="tebal">Keterangan</label>
+             
+            </div>
+            <div class="col-md-3 col-sm-8 col-xs-12">
+              <div class="form-group">
+                  <input type="text" value="{{$data->i_description}}"  class="form-control form-control-sm   keterangan" name="keterangan" >
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-4 col-xs-12">
+              
+                  <label class="tebal">Sell Price</label>
+             
+            </div>
+            <div class="col-md-3 col-sm-8 col-xs-12">
+              <div class="form-group">
+                  <input type="text" value="{{number_format($data->i_sell_price,0,"",".")}}"  class="form-control form-control-sm format_money right sell_price" name="sell_price" value="0">                               
+              </div>
+            </div>
+
+
+            <div class="col-md-6 col-sm-8 col-xs-12">
+              <div class="form-group">
+              </div>
+            </div>
+
+
+            <div class="col-md-3 col-sm-4 col-xs-12">
+              
+                  <label class="tebal">Lower Price</label>
+             
+            </div>
+            <div class="col-md-3 col-sm-8 col-xs-12">
+              <div class="form-group">
+                  <input type="text" value="{{number_format($data->i_lower_price,0,"",".")}}" class="form-control form-control-sm format_money right lower_price" name="lower_price" value="0">                               
+              </div>
+            </div>
+
+            </div> 
+            <div class="row" style="border-top: 1px solid #98c3d1;padding-top: 15px;margin-top: 15px;margin-bottom: 15px;border-bottom: 1px solid #98c3d1;">
+              <div class="col-md-2 col-sm-4 col-xs-12">
+            <label>Item Name</label>
+          </div>
+          <div class="col-md-2 col-sm-8 col-xs-12">
+            <div class="form-group">  
+              <select class="form-control form-control-sm" name="" id="bund_kodeitem"> 
+                  <option selected="" value="">- Pilih -</option>
+                  @foreach ($item as $e)
+                    <option value="{{ $e->i_code }}" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
+                  @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-8 col-xs-12">
+            <div class="form-group">  
+              <input type="text" class="form-control form-control-sm" name="" readonly="" id="bund_item">
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-4 col-xs-12">
+            <label>Qty</label>
+          </div>
+          <div class="col-md-3 col-sm-8 col-xs-12">
+            <div class="form-group">  
+              <input type="text" class="form-control form-control-sm format_money right" name="bund_qty" id="bund_qty">
+            </div>
+          </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered  gogo"  cellspacing="0" id="bundle_table" width="100%">
+
+            <thead class="bg-gradient-info">
+              <tr>
+                <th width="20%">Item Code</th>
+                <th width="20%">Item Name</th>
+                <th width="5%">Qty</th>
+                <th width="5%">Unit</th>
+                <th width="30%">Price</th>
+                <th width="30%">Total Price</th>
+                <th width="1%">Action</th>
+              </tr>
+            </thead>
+            <tbody id="edit_rep">
+              
+            </tbody>
+            
+          </table>
+            </div>
+            <input type="hidden" name="kode_old" value="">
+            <div align="right" style="margin-top: 15px;">
+              <div id="change_function">
+                  <button class="btn btn-info btn-sm" type="button" id="save_data">Update Data</button>
+                  <a class="btn btn-secondary btn-sm" href="{{url('master/bundle/bundle')}}">Back</a>
+              </div>
+              
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 </form>
@@ -120,15 +151,40 @@
 @section('extra_script')
 
 <script type="text/javascript">
-        var table             = $("#t72bu").DataTable();
-        var bund_kodeitem     = $('#bund_kodeitem');
-        var bund_item         = $("#bund_item");
-        var bund_qty          = $("#bund_qty");
+
+var table  = $("#bundle_table").DataTable({
+                      columnDefs: [
+                          {
+                             targets: 6,
+                             className: 'center'
+                          }
+                        ],
+                    });
+      $(document).ready(function(){
+    $('#bund_qty').maskMoney({
+      precision : 0,
+      thousands:'',
+    });
+
+    $('.sell_price').maskMoney({
+      precision : 0,
+      thousands:'.',
+      allowZero:true,
+      defaultZero: true
+    });
+
+    $('lower_price').maskMoney({
+      precision : 0,
+      thousands:'.',
+      allowZero:true,
+      defaultZero: true
+    });
 
 
-        var x = 1;
-      $('#bund_qty').attr('disabled',true); 
-      $('#bund_kodeitem').change(function(){
+
+
+    $('#bund_qty').attr('disabled',true); 
+    $('#bund_kodeitem').change(function(){
           var ini = $('#bund_kodeitem').find(':selected').val();
 
           if(ini != '') {
@@ -141,45 +197,68 @@
       })
 
 
-    
-    bund_qty.keypress(function(e) {
+
+        
+        var x = 1;
+    // $('#bund_qty').keyup(function(){
+    //   var jumlah = $('#bund_item').val().replace(/[^0-9\-]+/g,"")*1;
+    //   var qty = $(this).val();
+    //   $('.ib_price').val(accounting.formatMoney(jumlah * qty,"",0,'.',','))
+    // })
+    $('#bund_qty').keypress(function(e) {
       if(e.which == 13 || e.keyCode == 13){
-        var qty = bund_qty.val();
-        var harga_1 = bund_item.val();
-
-        qty = qty.replace(/[^0-9\-]+/g,"");
-        harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
-
-        var price  = parseInt(qty)*parseInt(harga_1);
-        table.row.add( [
-            '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+ bund_kodeitem.val() +'">',
-            '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+ bund_kodeitem.find(':selected').data('name') +'">',
-            '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+ bund_qty.val() +'">',
-            '<input type="text" id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money">',
-            '<input type="text" id="unit_price[]" name="ib_price_dt[]" class="form-control input-sm min-width right format_money total" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
-        ] ).draw( false );
-        x++;
-        var awal = 0;
-        $('.total').each(function(){
-          var total = $(this).val();
-          total = total.replace(/[^0-9\-]+/g,"");
-          awal += parseInt(total);
-        });
-        $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
-
-        bund_item.focus();
-        bund_qty.val('');
-        bund_item.val('');
-        bund_kodeitem.val('').trigger('change');
+        var kode = $('#bund_kodeitem').val();
+        var qty = $('#bund_qty').val().replace(/[^0-9\-]+/g,"");
+        // harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
+        $.ajax({
+         type: "get",
+         url: baseUrl + '/master/bundle/cari_item',
+         dataType:'json',
+         data:{kode},
+         success: function(data){
+            console.log(qty);
+            console.log(data.data.i_price);
+            var price  = parseInt(qty)*parseInt(data.data.i_price);
+            console.log(price);
+            table.row.add( [
+               '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
+                '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
+                '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
+                '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
+                '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
+            ]).draw( false );
+    
+            x++;
+            var awal = 0;
+            table.$('.ib_total_price').each(function(){
+              var total = $(this).val();
+              total = total.replace(/[^0-9\-]+/g,"");
+              awal += parseInt(total);
+            });
+            $(".ib_price").val(accounting.formatMoney(awal,"",0,'.',','));
+            $('#bund_kodeitem').val('').trigger('change');
+            $('#bund_qty').val('');
+            $('.lower_price').val(accounting.formatMoney(awal,"",0,'.',','));
+            $('.sell_price').val(accounting.formatMoney(awal,"",0,'.',','));
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });
       }
     });
     
     
 
-    $('#t72bu tbody').on( 'click', '.delete', function () {
+    $('#bundle_table tbody').on( 'click', '.delete', function () {
     var parents = $(this).parents('tr');
-    var ib_price_dt = $(parents).find('.total').val();
+    var ib_price_dt = $(parents).find('.ib_price_dt').val();
     var ib_price = $("input[name='ib_price']").val();
     
     table
@@ -187,26 +266,91 @@
         .remove()
         .draw();
 
-          ib_price_dt = ib_price_dt.replace(/[^0-9\-]+/g,"");
-          ib_price = ib_price.replace(/[^0-9\-]+/g,"");
-          var kurang = parseInt(ib_price)-parseInt(ib_price_dt);
+    var awal = 0;
+    table.$('.ib_total_price').each(function(){
+      var total = $(this).val();
+      total = total.replace(/[^0-9\-]+/g,"");
+      awal += parseInt(total);
+    });  
+          
 
-          $("input[name='ib_price']").val(accounting.formatMoney(kurang,"",0,'.',','));
+    $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
+    $(".sell_price").val(accounting.formatMoney(awal,"",0,'.',','));
+    $(".lower_price").val(accounting.formatMoney(awal,"",0,'.',','));
 
     });
 
+  $('.form-control').keyup(function(){
+    $(this).removeClass('border-danger');
+  });
+    
+
   $('#change_function').on("click", "#save_data",function(){
-    $(this).prop('readonly',true);
+
+    var name = $('.ib_name');
+    var price = $('.ib_price');
+    var sell_price = $('.sell_price');
+    var lower_price = $('.lower_price');
+    var keterangan = $('.keterangan');
+    var valid = [];
+    var id = '{{$id}}';
+    if (name.val() == '') {
+        name.addClass('border-danger');
+        valid.push(0);
+    } else {
+        name.removeClass('border-danger');
+        valid.push(1);
+    }
+
+    if (price.val() == '' || price.val() == '0') {
+        price.addClass('border-danger');
+        valid.push(0);
+    } else {
+        price.removeClass('border-danger');
+        valid.push(1);
+    }
+
+    if (sell_price.val() == '' || sell_price.val() == '0') {
+        sell_price.addClass('border-danger');
+        valid.push(0);
+    } else {
+        sell_price.removeClass('border-danger');
+        valid.push(1);
+    }
+
+    if (lower_price.val() == '' || lower_price.val() == '0') {
+        lower_price.addClass('border-danger');
+        valid.push(0);
+    } else {
+        lower_price.removeClass('border-danger');
+        valid.push(1);
+    }
+
+
+    if (keterangan.val() == '') {
+        keterangan.addClass('border-danger');
+        valid.push(0);
+    } else {
+        keterangan.removeClass('border-danger');
+        valid.push(1);
+    }
+
+    var index = valid.indexOf(0);
+    if (index !=  -1) {
+      iziToast.error({
+        icon: 'fa fa-exclamation-circle ',
+        message: 'Harap Lengkapi Data!',
+      });
+      return false;
+    }
     $.ajax({
          type: "get",
-         url: '{{ route('update_bundleitem') }}',
+         url: baseUrl + '/master/bundleitem/update_bundleitem?id='+id,
          data: $('#form-save').serialize(),
          success: function(data){
-            window.location.href = ('{{ route('bundleitem') }}');
-            iziToast.success({
-              icon: 'fas fa-check-circle',
-              message: 'Data Telah Tersimpan!',
-            });
+            if (data.status == 1) {
+              location.href = "{{url('/master/bundle/bundle')}}";
+            }
          },
          error: function(){
           iziToast.warning({
@@ -217,6 +361,28 @@
          async: false
        });
   })
+
+  });
+
+@foreach ($data_dt as $i=> $val)
+console.log('{{$val->i_code}}');  
+var i_code = '{{$val->i_code}}';
+var i_name = '{{$val->i_name}}';
+var qty    = '{{$val->id_qty}}';
+var u_unit = '{{$val->id_unit}}';
+var i_price = '{{$val->i_price}}';
+var price  = '{{$val->id_total_price}}';
+    table.row.add( [
+       '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+i_code+'">',
+        '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+i_name+'">',
+        '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
+        '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+u_unit+'">',
+        '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(i_price,"",0,'.',',') +'">',
+        '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
+        '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
+    ]).draw( );
+    
+@endforeach
 </script>
 
 @endsection

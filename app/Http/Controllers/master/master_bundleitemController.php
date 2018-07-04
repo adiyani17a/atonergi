@@ -7,6 +7,8 @@ use App\Barang;
 use Yajra\Datatables\Datatables;
 use DB;
 use Response;
+use Carbon\carbon;
+use Auth;
 class master_bundleitemController extends Controller
 {
  	
@@ -37,12 +39,12 @@ class master_bundleitemController extends Controller
                               $b = '';
                             }
 
-                            if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','print')){
-                             $c = 
-                             '<button type="button" onclick="printing(\''.$data->i_id.'\')" class="btn btn-info btn-lg" title="print">'.'<label class="fa fa-print"></label></button>';
-                            }else{
-                              $c = '';
-                            }
+                            // if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','print')){
+                            //  $c = 
+                            //  '<button type="button" onclick="printing(\''.$data->i_id.'\')" class="btn btn-info btn-lg" title="print">'.'<label class="fa fa-print"></label></button>';
+                            // }else{
+                            //   $c = '';
+                            // }
 
                             if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','hapus')){
                              $d = 
@@ -55,22 +57,30 @@ class master_bundleitemController extends Controller
                             
                             $e = '</div>';
 
-                        return $a . $b .$c . $d .$e ;
+                        return $a . $b  . $d .$e ;
                 })
                 ->addColumn('none', function ($data) {
                     return '-';
                 })
-                ->rawColumns(['aksi','confirmed'])
+                ->addIndexColumn()
+                  ->rawColumns(['aksi','confirmed'])
         		->make(true);
  	}
  	public function edit_bundle($id)
- 	{		
+ 	{		 
 
- 		$header = DB::table('i_item')->where('ib_detailid','=',$id)->first();
- 		/*return*/ $sequence = DB::table('i_item_dt')->select('i_code','i_name','ibd_qty','ibd_unit','ibd_price','ibd_detailid')->where('ibd_id','=',$id)->join('m_item','m_item.i_code','=','i_item_dt.ibd_barang')->get();
+ 		$data = DB::table("m_item")
+              ->where('i_id',$id)
+              ->first();
 
- 		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
- 		return view('master/bundle/edit_bundle',compact('item','header','sequence'));
+    $data_dt = DB::table('m_item_dt')
+                  ->join('m_item','i_code','=','id_item')
+                  ->where('id_id',$id)
+                  ->get();
+
+    $item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
+
+ 		return view('master/bundle/edit_bundle',compact('data','data_dt','item','id'));
  	}
  	public function cari_item(request $req)
  	{
@@ -84,12 +94,11 @@ class master_bundleitemController extends Controller
  	public function simpan_bundleitem(request $req)
  	{
     	return DB::transaction(function() use ($req) {  
-      dd($req->all());  
-
-        $m1 = DB::table('m_item')->max('i_id');
-          
-        $index = $m1+=1;
-                               
+        $nama = Auth::user()->m_name;
+        $m1 = DB::table('m_item')->where('i_jenis','BUNDLE')->max('i_id');
+        $index = DB::table('m_item')->max('i_id')+1;
+            
+        // dd($req->all());                               
 
         if($index<=9)
         {
@@ -110,31 +119,89 @@ class master_bundleitemController extends Controller
         $save = DB::table('m_item')->insert([
                   'i_id'          =>  $index,
                   'i_code'        =>  $id_auto,
-                  'i_name'        =>  $request->ib_name,
+                  'i_name'        =>  $req->ib_name,
                   'i_unit'        =>  4,
-                  'i_price'       =>  filter_Var($request->ib_price,FILTER_SANITIZE_NUMBER_INT),
-                  'i_sell_price'  =>  filter_Var($request->sell_price,FILTER_SANITIZE_NUMBER_INT),
-                  'i_lower_price' =>  filter_Var($request->lower_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_price'       =>  filter_Var($req->ib_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_sell_price'  =>  filter_Var($req->sell_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_lower_price' =>  filter_Var($req->lower_price,FILTER_SANITIZE_NUMBER_INT),
                   'i_active'      =>  'Y',
                   'i_jenis'       =>  'BUNDLE',
                   'i_type'        =>  0,
                   'i_minstock'    =>  0,
                   'i_image'       =>  0,
                   'i_weight'      =>  0,
-                  'i_description' =>  $request->keterangan,
+                  'i_description' =>  $req->keterangan,
                   'i_insert_at'   =>  Carbon::now(),
                   'i_update_at'   =>  Carbon::now(),
                   'i_insert_by'   =>  $nama,
                   'i_update_by'   =>  $nama,
               ]);
+
+        for ($i=0; $i < count($req->ib_kode_dt); $i++) { 
+          $dt = DB::table('m_item_dt')->max('id_id')+1;
+
+          $save = DB::table('m_item_dt')->insert([
+                  'id_id'           =>  $index,
+                  'id_detailid'     =>  $dt,
+                  'id_item'         =>  $req->ib_kode_dt[$i],
+                  'id_unit'         =>  $req->ib_unit_dt[$i],
+                  'id_qty'          =>  $req->ib_qty_dt[$i],
+                  'id_price_unit'   =>  filter_Var($req->ib_price_dt[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'id_total_price'  =>  filter_Var($req->ib_total_price[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'id_insert_at'    =>  Carbon::now(),
+                  'id_update_at'    =>  Carbon::now(),
+                  'id_insert_by'    =>  $nama,
+                  'id_update_by'    =>  $nama,
+                ]);
+        }
+        // dd($save);
+        return Response::json(['status'=>1]);
     	});
  	}
  	public function update_bundleitem(request $req)
  	{
- 		// dd($req->all());
  		return DB::transaction(function() use ($req) {  
-    		
-    	});
+    		// dd($req->all());
+
+        $nama = Auth::user()->m_name;
+        $save = DB::table('m_item')->where('i_id',$req->id)->update([
+                  'i_name'        =>  $req->ib_name,
+                  'i_unit'        =>  4,
+                  'i_price'       =>  filter_Var($req->ib_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_sell_price'  =>  filter_Var($req->sell_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_lower_price' =>  filter_Var($req->lower_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_active'      =>  'Y',
+                  'i_jenis'       =>  'BUNDLE',
+                  'i_type'        =>  0,
+                  'i_minstock'    =>  0,
+                  'i_image'       =>  0,
+                  'i_weight'      =>  0,
+                  'i_description' =>  $req->keterangan,
+                  'i_update_at'   =>  Carbon::now(),
+                  'i_update_by'   =>  $nama,
+              ]);
+
+        $dt = DB::table('m_item_dt')->where('id_id',$req->id)->delete();
+
+        for ($i=0; $i < count($req->ib_kode_dt); $i++) { 
+          $dt = DB::table('m_item_dt')->max('id_id')+1;
+
+          $save = DB::table('m_item_dt')->insert([
+                  'id_id'           =>  $req->id,
+                  'id_detailid'     =>  $dt,
+                  'id_item'         =>  $req->ib_kode_dt[$i],
+                  'id_unit'         =>  $req->ib_unit_dt[$i],
+                  'id_qty'          =>  $req->ib_qty_dt[$i],
+                  'id_price_unit'   =>  filter_Var($req->ib_price_dt[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'id_total_price'  =>  filter_Var($req->ib_total_price[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'id_insert_at'    =>  Carbon::now(),
+                  'id_update_at'    =>  Carbon::now(),
+                  'id_insert_by'    =>  $nama,
+                  'id_update_by'    =>  $nama,
+                ]);
+        }
+        return Response::json(['status'=>1]);
+    });
  	}
  	public function dataedit_bundleitem(request $req)
  	{

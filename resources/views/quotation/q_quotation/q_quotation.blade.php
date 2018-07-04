@@ -176,8 +176,9 @@ function edit_item(p) {
       success:function(data){
 
         $(par).find('.description').val(data.data.i_description);
-        $(par).find('.unit_price').val(accounting.formatMoney(data.data.np_price, "", 2, ".",','));
-        $(par).find('.line_total').val(accounting.formatMoney(data.data.np_price * qty, "", 2, ".",','));
+        $(par).find('.unit_item').val(data.data.u_unit);
+        $(par).find('.unit_price').val(accounting.formatMoney(data.data.i_price, "", 2, ".",','));
+        $(par).find('.line_total').val(accounting.formatMoney(data.data.i_price * qty, "", 2, ".",','));
         hitung_dpp();
       }
     });
@@ -209,7 +210,7 @@ var market   	  = $('.marketing').val();
       	var temp;
 
       	for (var i = 0; i < data.item.length; i++) {
-      		var temp1 = '<option value="'+data.item[i].np_kode+'">'+data.item[i].np_kode+' - '+data.item[i].i_name+'</option>';
+      		var temp1 = '<option value="'+data.item[i].i_code+'">'+data.item[i].i_code+' - '+data.item[i].i_name+'</option>';
       		temp += temp1;
       	}
       	var dropdown = '<select onchange="edit_item(this)" name="item_name[]" style="width:200px" class="item_name">'+temp+'</select>'
@@ -217,13 +218,14 @@ var market   	  = $('.marketing').val();
          m_table.row.add( [
             dropdown,
             '<input type="text" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ q_qty.val() +'">',
+            '<input type="text" readonly class="unit_item form-control input-sm min-width" value="'+ data.data.u_unit +'">',
             '<input type="text" name="description[]" class="description form-control input-sm min-width" value="'+data.data.i_description+'">',
-            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.np_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
-            '<input type="text" value="'+accounting.formatMoney(data.data.np_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
+            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.i_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
+            '<input type="text" value="'+accounting.formatMoney(data.data.i_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
 
-        $('.item_name').last().val(data.data.np_kode);
+        $('.item_name').last().val(data.data.i_code);
   		$('.item_name').select2();
         x++;
         q_qty.val('');
@@ -323,17 +325,17 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	      }
 	    });
 	})
-	$('.marketing').change(function(){
-		var market = $(this).val();
-		$.ajax({
-	      url:baseUrl + '/quotation/q_quotation/cari_penawaran',
-	      data:{market},
-	      success:function(data){
-	        $('.item_div').html(data)
-	        $('.item').select2();
-	      }
-	    });
-	});
+	// $('.marketing').change(function(){
+	// 	var market = $(this).val();
+	// 	$.ajax({
+	//       url:baseUrl + '/quotation/q_quotation/cari_penawaran',
+	//       data:{market},
+	//       success:function(data){
+	//         $('.item_div').html(data)
+	//         $('.item').select2();
+	//       }
+	//     });
+	// });
 
 
 	$('.type_p').change(function(){
@@ -352,6 +354,7 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	})
 
 	$('.save').click(function(){
+		console.log('asd');
 		var array_valid = [];
 		var customer = $('.customer').val();
 		var address = $('.address').text();
@@ -464,6 +467,10 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 		var index = array_valid.indexOf(0);
 
 		if (index != -1) {
+			iziToast.warning({
+	            icon: 'fa fa-info',
+	            message: 'Periksa Kembali Data Anda!',
+	        });
 			return false;
 		}
 

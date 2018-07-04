@@ -21,9 +21,9 @@ class BarangController extends Controller
 
         return DB::transaction(function() use ($request) {  
             $nama = Auth::user()->m_name;
-        	$m1 = DB::table('m_item')->max('i_id');
+            $m1 = DB::table('m_item')->where('i_jenis','ITEM')->max('i_id');
+        	$index = DB::table('m_item')->max('i_id')+1;
         	
-     		$index = $m1+=1;
                                
 
             if($index<=9)
