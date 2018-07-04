@@ -312,6 +312,18 @@ class QuotationController extends Controller
               ->where('qd_id',$id)
               ->get();
 
+      $item = DB::table('m_item')
+                ->join('d_unit','u_id','=','i_unit')
+                ->get();
+
+      for ($i=0; $i < count($data); $i++) { 
+        for ($a=0; $a < count($item); $a++) { 
+          if ($item[$a]->i_code == $data[$i]->qd_item) {
+            $data[$i]->u_unit = $item[$a]->u_unit;
+          }
+        }
+      }
+
       $count = count($data);
       $tes = 15 - $count;
       $array = [];
