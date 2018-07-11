@@ -123,8 +123,7 @@ class OrderController extends Controller
                           ->first();
 
             $data = DB::table('d_quotation_dt')
-                       ->join('d_npenawaran','np_kode','=','qd_item')
-                       ->join('m_item','i_code','=','np_kodeitem')
+                       ->join('m_item','i_code','=','qd_item')
                        ->where('qd_id',$head->q_id)
                        ->get();
 
@@ -253,8 +252,7 @@ class OrderController extends Controller
         }
       
         $data_dt = DB::table('d_quotation_dt')
-                       ->join('d_npenawaran','np_kode','=','qd_item')
-                       ->join('m_item','i_code','=','np_kodeitem')
+                       ->join('m_item','i_code','=','qd_item')
                        ->where('qd_id',$id)
                        ->get();
 

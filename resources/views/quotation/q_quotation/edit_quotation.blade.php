@@ -31,7 +31,7 @@
         <div class="row">
           <form class="row form_quote">
           {{ csrf_field() }}
-          <div class="col-md-8 col-sm-8 col-xs-8">
+          <div class="col-md-6 col-sm-8 col-xs-8">
             <div class="row">
               <div class="col-md-3 col-sm-6 col-xs-12">
                 <label>Customer</label>
@@ -49,7 +49,7 @@
                       </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-0 col-xs-0">
+              <div class="col-md-2 col-sm-0 col-xs-0">
                 <!-- empty -->
               </div>
               <div class="col-md-3 col-sm-6 col-xs-12">
@@ -90,11 +90,11 @@
                 <div class="form-group type_p_div disabled">
                   <select style="width: 100%" class="form-control form-control-sm type_p" id="type_p" name="type_p">
                    <option value="0">--Select Type--</option>
-                    <option @if($data->q_type_product == 'SWP') selected="" @endif value="SWP">SWP</option>
-                    <option @if($data->q_type_product == 'WP') selected="" @endif value="WP">WP</option>
-                    <option @if($data->q_type_product == 'ACC') selected="" @endif value="ACC">Accesories</option>
-                    <option @if($data->q_type_product == 'OFD') selected="" @endif value="OFD">Off Grid</option>
-                    <option @if($data->q_type_product == 'ONG') selected="" @endif value="ONG">On Grid</option>
+                   @foreach ($type_product as $val)
+                    <option @if ($val->it_code == $data->q_type_product)
+                     selected="" 
+                    @endif value="{{$val->it_code}}">{{$val->it_code}}</option>
+                   @endforeach
                   </select>
                   <label style="color: red" hidden  class="valid valid_3"><b>Type Product Harus Dipilih</b></label>
                 </div>
@@ -102,9 +102,9 @@
             </div>
           </div>
 
-          <div class="col-md-4 col-sm-12 col-xs-12" >
+          <div class="col-md-6 col-sm-12 col-xs-12" >
             <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="col-md-4 col-sm-6 col-xs-12">
                 <label>Date</label>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -113,7 +113,7 @@
                   <label style="color: red" hidden  class="valid valid_4"><b>Date Harus Diisi</b></label>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="col-md-4 col-sm-6 col-xs-12">
                 <label>Quote#</label>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -122,7 +122,7 @@
                   <label style="color: red" hidden  class="valid valid_5"><b>Quote Harus Diisi</b></label>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="col-md-4 col-sm-6 col-xs-12">
                 <label>Ship to</label>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -131,13 +131,13 @@
                   <label style="color: red" hidden  class="valid valid_6"><b>Ship to Harus Diisi</b></label>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="col-md-4 col-sm-6 col-xs-12">
                 <label>Marketing</label>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group disabled">
                   @if(Auth::user()->akses('QUOTE MARKETING','aktif'))
-                    <select class="marketing " name="marketing">
+                    <select class="marketing form-control" name="marketing">
                       <option value="0">--Select Marketing--</option>
                       @foreach($marketing as $i)
                         <option  @if($data->q_marketing == $i->mk_id) selected="" @endif value="{{$i->mk_id}}">{{$i->mk_code}} - {{$i->mk_name}}</option>
@@ -196,8 +196,11 @@
           </div>
           <div class="col-md-2 col-sm-12 col-xs-12">
             <div class="form-group item_div">
-              <select class="form-control form-control-sm" name="item">
-                <option value="0">--Select Marketing First --</option>
+              <select class="form-control form-control-sm item" name="item">
+                <option value="0">--Select item--</option>
+                @foreach ($item as $val)
+                  <option value="{{$val->i_code}}">{{$val->i_code}} - {{$val->i_name}}</option>
+                @endforeach
               </select>
             </div>
           </div>
@@ -216,6 +219,7 @@
                 <tr>
                   <th width="200">Item</th>
                   <th>Qty</th>
+                  <th>Unit</th>
                   <th>Description</th>
                   <th>Unit Price</th>
                   <th>Line Total</th>
@@ -302,15 +306,15 @@ $(document).ready(function(){
     }
   });
 
-  var market = $('.marketing').val();
-    $.ajax({
-      url:baseUrl + '/quotation/q_quotation/cari_penawaran',
-      data:{market},
-      success:function(data){
-        $('.item_div').html(data)
-        $('.item').select2();
-      }
-    });
+  // var market = $('.marketing').val();
+  //   $.ajax({
+  //     url:baseUrl + '/quotation/q_quotation/cari_penawaran',
+  //     data:{market},
+  //     success:function(data){
+  //       $('.item_div').html(data)
+  //       $('.item').select2();
+  //     }
+  //   });
 })
 
 
@@ -372,8 +376,9 @@ function edit_item(p) {
       success:function(data){
 
         $(par).find('.description').val(data.data.i_description);
-        $(par).find('.unit_price').val(accounting.formatMoney(data.data.np_price, "", 2, ".",','));
-        $(par).find('.line_total').val(accounting.formatMoney(data.data.np_price * qty, "", 2, ".",','));
+        $(par).find('.unit_item').val(data.data.u_unit);
+        $(par).find('.unit_price').val(accounting.formatMoney(data.data.i_price, "", 2, ".",','));
+        $(par).find('.line_total').val(accounting.formatMoney(data.data.i_price * qty, "", 2, ".",','));
         hitung_dpp();
       }
     });
@@ -405,7 +410,7 @@ var market      = $('.marketing').val();
         var temp;
 
         for (var i = 0; i < data.item.length; i++) {
-          var temp1 = '<option value="'+data.item[i].np_kode+'">'+data.item[i].np_kode+' - '+data.item[i].i_name+'</option>';
+          var temp1 = '<option value="'+data.item[i].i_code+'">'+data.item[i].i_code+' - '+data.item[i].i_name+'</option>';
           temp += temp1;
         }
         var dropdown = '<select onchange="edit_item(this)" name="item_name[]" style="width:200px" class="item_name">'+temp+'</select>'
@@ -413,13 +418,14 @@ var market      = $('.marketing').val();
          m_table.row.add( [
             dropdown,
             '<input type="text" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ q_qty.val() +'">',
+            '<input type="text" readonly class="unit_item form-control input-sm min-width" value="'+ data.data.u_unit +'">',
             '<input type="text" name="description[]" class="description form-control input-sm min-width" value="'+data.data.i_description+'">',
-            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.np_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
-            '<input type="text" value="'+accounting.formatMoney(data.data.np_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
+            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.i_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
+            '<input type="text" value="'+accounting.formatMoney(data.data.i_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
 
-        $('.item_name').last().val(data.data.np_kode);
+        $('.item_name').last().val(data.data.i_code);
       $('.item_name').select2();
         x++;
         q_qty.val('');
@@ -438,7 +444,6 @@ var market      = $('.marketing').val();
   }
 
 });
-
   
 $('#apfsds tbody').on( 'click', '.delete', function () {
   var m_table       = $("#apfsds").DataTable();
@@ -475,17 +480,17 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
         }
       });
   })
-  $('.marketing').change(function(){
-    var market = $(this).val();
-    $.ajax({
-        url:baseUrl + '/quotation/q_quotation/cari_penawaran',
-        data:{market},
-        success:function(data){
-          $('.item_div').html(data)
-          $('.item').select2();
-        }
-      });
-  });
+  // $('.marketing').change(function(){
+  //   var market = $(this).val();
+  //   $.ajax({
+  //       url:baseUrl + '/quotation/q_quotation/cari_penawaran',
+  //       data:{market},
+  //       success:function(data){
+  //         $('.item_div').html(data)
+  //         $('.item').select2();
+  //       }
+  //     });
+  // });
 
 
   $('.type_p').change(function(){
@@ -702,7 +707,7 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	var temp;
 
 	@foreach($item as $i)
-  		var temp1 = '<option value="'+'{{ $i->np_kode }}'+'">'+'{{ $i->np_kode }}'+' - '+'{{ $i->i_name }}'+'</option>';
+  		var temp1 = '<option value="'+'{{ $i->i_code }}'+'">'+'{{ $i->i_code }}'+' - '+'{{ $i->i_name }}'+'</option>';
   		temp += temp1;
 	@endforeach
 
@@ -711,10 +716,12 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
   	var unit_price = '{{ $val->qd_price }}';
   	var line_total = '{{ $val->qd_total }}';
   	var jumlah = '{{ $val->qd_qty }}';
-  	var item = '{{ $val->qd_item }}';
+    var item = '{{ $val->qd_item }}';
+  	var u_unit = '{{ $val->u_unit }}';
      m_table.row.add( [
         dropdown,
         '<input type="text" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ jumlah +'">',
+        '<input type="text" readonly class="unit_item form-control input-sm min-width" value="'+ u_unit +'">',
         '<input type="text" name="description[]" class="description form-control input-sm min-width" value="'+deskripsi+'">',
         '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(unit_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
         '<input type="text" value="'+accounting.formatMoney(unit_price*jumlah, "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',

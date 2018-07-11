@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\master;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\request;
 use App\Barang;
 use Yajra\Datatables\Datatables;
 use DB;
+use Response;
+use Carbon\carbon;
+use Auth;
 class master_bundleitemController extends Controller
 {
  	
@@ -13,12 +16,14 @@ class master_bundleitemController extends Controller
  	public function bundleitem()
  	{
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
+
  		return view('master/bundle/bundle',compact('item'));
  	}
  	public function datatable_bundleitem()
  	{
- 		$list = DB::select("SELECT * from m_item_bundling");
-        // return $list;
+ 		$list = DB::table('m_item')
+ 				  ->where('i_jenis','BUNDLE')
+ 				  ->get();
         $data = collect($list);
         
         // return $data;
@@ -26,135 +31,195 @@ class master_bundleitemController extends Controller
         return Datatables::of($data)
         	
                 ->addColumn('aksi', function ($data) {
-                          return  '<div class="btn-group">'.
-                                   '<button type="button" onclick="edit(this)" class="btn btn-info btn-sm" title="edit">'.
-                                   '<label class="fa fa-pencil-alt"></label></button>'.
-                                   '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm" title="hapus">'.
-                                   '<label class="fa fa-trash"></label></button>'.
-                                   '<button type="button" onclick="detail(this)" class="btn btn-primary btn-xs" title="Detail">'.
-                                   '<label class="fas fa-arrow-alt-circle-right"></label></button>'.
-                                  '</div>';
+                          $a =  '<div class="btn-group">';
+
+                            if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','ubah')){
+                             $b = '<button type="button" onclick="edit(\''.$data->i_id.'\')" class="btn btn-primary btn-lg" title="edit">'.'<label class="fa fa-pencil-alt"></label></button>';
+                            }else{
+                              $b = '';
+                            }
+
+                            // if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','print')){
+                            //  $c = 
+                            //  '<button type="button" onclick="printing(\''.$data->i_id.'\')" class="btn btn-info btn-lg" title="print">'.'<label class="fa fa-print"></label></button>';
+                            // }else{
+                            //   $c = '';
+                            // }
+
+                            if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','hapus')){
+                             $d = 
+                                 '<button type="button" onclick="hapus(\''.$data->i_id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
+                                 '<label class="fa fa-trash"></label></button>';
+                            }else{
+                              $d = '';
+                            }
+
+                            
+                            $e = '</div>';
+
+                        return $a . $b  . $d .$e ;
                 })
                 ->addColumn('none', function ($data) {
                     return '-';
                 })
-                ->rawColumns(['aksi','confirmed'])
+                ->addIndexColumn()
+                  ->rawColumns(['aksi','confirmed'])
         		->make(true);
  	}
  	public function edit_bundle($id)
- 	{		
+ 	{		 
 
- 		$header = DB::table('m_item_bundling')->where('ib_detailid','=',$id)->first();
- 		/*return*/ $sequence = DB::table('m_item_bundling_dt')->select('i_code','i_name','ibd_qty','ibd_unit','ibd_price','ibd_detailid')->where('ibd_id','=',$id)->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->get();
+ 		$data = DB::table("m_item")
+              ->where('i_id',$id)
+              ->first();
 
- 		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
- 		return view('master/bundle/edit_bundle',compact('item','header','sequence'));
+    $data_dt = DB::table('m_item_dt')
+                  ->join('m_item','i_code','=','id_item')
+                  ->where('id_id',$id)
+                  ->get();
+
+    $item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
+
+ 		return view('master/bundle/edit_bundle',compact('data','data_dt','item','id'));
  	}
- 	public function simpan_bundleitem(Request $request)
+ 	public function cari_item(request $req)
  	{
- 		// dd($request->all());	
- 		$kode = DB::table('m_item_bundling')->max('ib_detailid');
+ 		$data = DB::table('m_item')
+          ->join('d_unit','u_id','=','i_unit')
+ 				  ->where('i_code',$req->kode)
+ 				  ->first();
+ 		return Response::json(['data'=>$data]);
 
-	    $tanggal = date("Y-m-d h:i:s");
-
- 			if ($kode == null) {
-    	 		$kode = 1;
-	    	}else{
-	    	 	$kode += 1;
-	    	}
-	    	$price_header = str_replace('.','',$request->ib_price);
-	    	$header = DB::table('m_item_bundling')
-					->insert([
-						'ib_item'	 => $request->ib_name,
-						'ib_detailid' => $kode,
-						'ib_price' =>$price_header,
-						'ib_insert' =>$tanggal,
-			]);
-			$kode_seq = 0;
-			for ($i=0; $i < count($request->ib_kode_dt); $i++) { 
-	    		$price_seq[$i] = str_replace('.','',$request->ib_price_dt[$i]);
-	    		$qty_seq[$i] = str_replace('.','',$request->ib_qty_dt[$i]);
-				
-		    	$kode_seq = $kode_seq + 1;
-
-				$sequence[$i] = DB::table('m_item_bundling_dt')
-					->insert([
-						'ibd_id'	 => $kode,
-						'ibd_detailid' => $kode_seq,
-						'ibd_barang' => $request->ib_kode_dt[$i],
-						'ibd_qty' => $qty_seq[$i],
-						'ibd_unit' => $request->ib_unit_dt[$i],
-						'ibd_price' =>$price_seq[$i],
-						'ibd_insert' =>$tanggal,
-				]);
-			}
-
- 		return response()->json(['status'=>1]);
  	}
- 	public function update_bundleitem(Request $request)
+ 	public function simpan_bundleitem(request $req)
  	{
- 		// dd($request->all());
+    	return DB::transaction(function() use ($req) {  
+        $nama = Auth::user()->m_name;
+        $m1 = DB::table('m_item')->where('i_jenis','BUNDLE')->max('i_id');
+        $index = DB::table('m_item')->max('i_id')+1;
+            
+        // dd($req->all());                               
 
- 		$data_head = DB::table('m_item_bundling')->where('ib_detailid','=',$request->kode_old)->delete();
- 		$data_seq = DB::table('m_item_bundling_dt')->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->where('ibd_id','=',$request->kode_old)->delete();
+        if($index<=9)
+        {
+            $id_auto = 'BND/000'.$index;
+        }
+        else if($index<=99)
+        {
+            $id_auto = 'BND/00'.$index;
+        }
+        else if($index<=999)
+        {
+            $id_auto = 'BND/0'.$index;
+        }
+        else {
+            $id_auto = 'BND/'.$index;
+        }
 
- 		$sequence = DB::table('m_item_bundling_dt')->select('i_code','i_name','ibd_qty','ibd_unit','ibd_price','ibd_detailid')->where('ibd_id','=',$request->kode_old)->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->get();
+        $save = DB::table('m_item')->insert([
+                  'i_id'          =>  $index,
+                  'i_code'        =>  $id_auto,
+                  'i_name'        =>  $req->ib_name,
+                  'i_unit'        =>  4,
+                  'i_price'       =>  filter_Var($req->ib_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_sell_price'  =>  filter_Var($req->sell_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_lower_price' =>  filter_Var($req->lower_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_active'      =>  'Y',
+                  'i_jenis'       =>  'BUNDLE',
+                  'i_type'        =>  0,
+                  'i_minstock'    =>  0,
+                  'i_image'       =>  0,
+                  'i_weight'      =>  0,
+                  'i_description' =>  $req->keterangan,
+                  'i_insert_at'   =>  Carbon::now(),
+                  'i_update_at'   =>  Carbon::now(),
+                  'i_insert_by'   =>  $nama,
+                  'i_update_by'   =>  $nama,
+              ]);
 
-	    $tanggal = date("Y-m-d h:i:s");
+        for ($i=0; $i < count($req->ib_kode_dt); $i++) { 
+          $dt = DB::table('m_item_dt')->max('id_id')+1;
 
- 		$price_header = str_replace('.','',$request->ib_price);
- 		$kode = DB::table('m_item_bundling')->max('ib_detailid');
-		if ($kode == null) {
-	 		$kode = 1;
-    	}else{
-    	 	$kode += 1;
-    	}
-    	$header = DB::table('m_item_bundling')
-    			
-				->insert([
-					'ib_item'	 => $request->ib_name,
-					'ib_detailid' => $kode,
-					'ib_price' =>$price_header,
-					'ib_update' =>$tanggal,
-		]);
- 		$kode_seq = 0;
-		for ($i=0; $i < count($request->ib_kode_dt); $i++) { 
-    		$price_seq[$i] = str_replace('.','',$request->ib_price_dt[$i]);
-    		$qty_seq[$i] = str_replace('.','',$request->ib_qty_dt[$i]);
-			$kode_seq = $kode_seq + 1;
-			$sequence[$i] = DB::table('m_item_bundling_dt')
-				
-				->insert([
-					'ibd_id'	 => $kode,
-					'ibd_detailid' => $kode_seq,
-					'ibd_barang' => $request->ib_kode_dt[$i],
-					'ibd_qty' => $qty_seq[$i],
-					'ibd_unit' => $request->ib_unit_dt[$i],
-					'ibd_price' =>$price_seq[$i],
-					'ibd_update' =>$tanggal,
-			]);
-		}
- 		
- 		return response()->json(['status'=>1]);
+          $save = DB::table('m_item_dt')->insert([
+                  'id_id'           =>  $index,
+                  'id_detailid'     =>  $dt,
+                  'id_item'         =>  $req->ib_kode_dt[$i],
+                  'id_unit'         =>  $req->ib_unit_dt[$i],
+                  'id_qty'          =>  $req->ib_qty_dt[$i],
+                  'id_price_unit'   =>  filter_Var($req->ib_price_dt[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'id_total_price'  =>  filter_Var($req->ib_total_price[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'id_insert_at'    =>  Carbon::now(),
+                  'id_update_at'    =>  Carbon::now(),
+                  'id_insert_by'    =>  $nama,
+                  'id_update_by'    =>  $nama,
+                ]);
+        }
+        // dd($save);
+        return Response::json(['status'=>1]);
+    	});
  	}
- 	public function dataedit_bundleitem(Request $request)
+ 	public function update_bundleitem(request $req)
  	{
- 		$data_head = DB::table('m_item_bundling')->where('ib_detailid','=',$request->id)->get();
- 		$data_seq = DB::table('m_item_bundling_dt')->where('ibd_id','=',$request->id)->get();
+ 		return DB::transaction(function() use ($req) {  
+    		// dd($req->all());
+
+        $nama = Auth::user()->m_name;
+        $save = DB::table('m_item')->where('i_id',$req->id)->update([
+                  'i_name'        =>  $req->ib_name,
+                  'i_unit'        =>  4,
+                  'i_price'       =>  filter_Var($req->ib_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_sell_price'  =>  filter_Var($req->sell_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_lower_price' =>  filter_Var($req->lower_price,FILTER_SANITIZE_NUMBER_INT),
+                  'i_active'      =>  'Y',
+                  'i_jenis'       =>  'BUNDLE',
+                  'i_type'        =>  0,
+                  'i_minstock'    =>  0,
+                  'i_image'       =>  0,
+                  'i_weight'      =>  0,
+                  'i_description' =>  $req->keterangan,
+                  'i_update_at'   =>  Carbon::now(),
+                  'i_update_by'   =>  $nama,
+              ]);
+
+        $dt = DB::table('m_item_dt')->where('id_id',$req->id)->delete();
+
+        for ($i=0; $i < count($req->ib_kode_dt); $i++) { 
+          $dt = DB::table('m_item_dt')->max('id_id')+1;
+
+          $save = DB::table('m_item_dt')->insert([
+                  'id_id'           =>  $req->id,
+                  'id_detailid'     =>  $dt,
+                  'id_item'         =>  $req->ib_kode_dt[$i],
+                  'id_unit'         =>  $req->ib_unit_dt[$i],
+                  'id_qty'          =>  $req->ib_qty_dt[$i],
+                  'id_price_unit'   =>  filter_Var($req->ib_price_dt[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'id_total_price'  =>  filter_Var($req->ib_total_price[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'id_insert_at'    =>  Carbon::now(),
+                  'id_update_at'    =>  Carbon::now(),
+                  'id_insert_by'    =>  $nama,
+                  'id_update_by'    =>  $nama,
+                ]);
+        }
+        return Response::json(['status'=>1]);
+    });
+ 	}
+ 	public function dataedit_bundleitem(request $req)
+ 	{
+ 		$data_head = DB::table('i_item')->where('ib_detailid','=',$req->id)->get();
+ 		$data_seq = DB::table('i_item_dt')->where('ibd_id','=',$req->id)->get();
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
  		return response()->json([$data_head,$data_seq]);
     	// return view('master/bundle/ajax_update',compact('item','data_head','data_seq'));
  	}
- 	public function detail_bundleitem(Request $request)
+ 	public function detail_bundleitem(request $req)
  	{
- 		$data = DB::table('m_item_bundling_dt')->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->where('ibd_id','=',$request->id)->get();
+ 		$data = DB::table('i_item_dt')->join('m_item','m_item.i_code','=','i_item_dt.ibd_barang')->where('ibd_id','=',$req->id)->get();
     	return response()->json($data);
  	}
- 	public function hapus_bundleitem(Request $request)
+ 	public function hapus_bundleitem(request $req)
  	{	
- 		// dd($request->all());
- 		$data_head = DB::table('m_item_bundling')->where('ib_detailid','=',$request->id)->delete();
- 		$data_seq = DB::table('m_item_bundling_dt')->join('m_item','m_item.i_code','=','m_item_bundling_dt.ibd_barang')->where('ibd_id','=',$request->id)->delete();
+ 		// dd($req->all());
+ 		$data_head = DB::table('i_item')->where('ib_detailid','=',$req->id)->delete();
     	return response()->json(['status'=>1]);
  	}
 }

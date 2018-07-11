@@ -230,7 +230,7 @@ table, td, th {
 				<td>{{ $i+1 }}</td>
 				<td>{{ $b->i_name }}</td>
 				<td>{{ $b->qd_qty }}</td>
-				<td>{{ $b->i_unit }}</td>
+				<td>{{ $b->u_unit }}</td>
 				<td>{{ $b->qd_description }}</td>
 				<td>
 					<div class="float-left">

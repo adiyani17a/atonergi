@@ -81,12 +81,10 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                   <select style="width: 100%" class="form-control form-control-sm type_p" id="type_p" name="type_p">
-                   <option value="0">--Select Type--</option>
-                    <option value="SWP">SWP</option>
-                    <option value="WP">WP</option>
-                    <option value="ACC">Accesories</option>
-                    <option value="OFD">Off Grid</option>
-                    <option value="ONG">On Grid</option>
+                    <option value="0">--Select Type--</option>
+                      @foreach ($type_product as $val)
+                        <option value="{{$val->it_code}}">{{$val->it_code}}</option>
+                      @endforeach
                   </select>
                   <label style="color: red" hidden  class="valid valid_3"><b>Type Product Harus Dipilih</b></label>
                 </div>
@@ -187,8 +185,11 @@
           </div>
           <div class="col-md-2 col-sm-12 col-xs-12">
             <div class="form-group item_div">
-              <select class="form-control form-control-sm" name="item">
-                <option value="0">--Select Marketing First --</option>
+              <select class="form-control form-control-sm item" name="item">
+                <option value="0">--Select item--</option>
+                @foreach ($item as $val)
+                  <option value="{{$val->i_code}}">{{$val->i_code}} - {{$val->i_name}}</option>
+                @endforeach
               </select>
             </div>
           </div>
@@ -207,6 +208,7 @@
                 <tr>
                   <th>Item</th>
                   <th>Qty</th>
+                  <th>Unit</th>
                   <th>Description</th>
                   <th>Unit Price</th>
                   <th>Line Total</th>

@@ -26,9 +26,9 @@ class TypeController extends Controller
         
         $data = DB::table('m_item_type')
           			->insert([
-          		    'it_name'=>$request->get('t_name'),
-      		        'it_code'=>$upper_code,
-      		        'it_id'=>$m1,
+          		    'it_name' => strtoupper($request->get('t_name')),
+      		        'it_code' => strtoupper($upper_code),
+      		        'it_id'   => $m1,
           			]);
 
         return redirect('master/type/type')->with('success','Data has been  added');
@@ -82,8 +82,8 @@ class TypeController extends Controller
       $data = DB::table('m_item_type')
           ->where('it_id',$request->it_codex)
           ->update([
-          'it_name'=>$request->t_name,
-            'it_code'=>$upper_code
+            'it_name'  => strtoupper($request->t_name),
+            'it_code'  => strtoupper($upper_code)
           ]);
 
 

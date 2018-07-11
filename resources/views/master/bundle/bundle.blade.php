@@ -31,7 +31,8 @@
                                   <tr>
                                     <th class="wd-15p" width="5%">Bundle Id</th>
                                     <th class="wd-15p" width="20%">Bundle Name</th>
-                                    <th class="wd-15p">Price Bundle</th>
+                                    <th class="wd-15p" >Description</th>
+                                    <th class="wd-15p"width="20%">Price Bundle</th>
                                     <th width="15%">Action</th>
                                   </tr>
                                 </thead>
@@ -51,6 +52,25 @@
 @section('extra_script')
 <script type="text/javascript">
   $(document).ready(function(){
+    $('#bund_qty').maskMoney({
+      precision : 0,
+      thousands:'',
+    });
+
+    $('.sell_price').maskMoney({
+      precision : 0,
+      thousands:'.',
+      allowZero:true,
+      defaultZero: true
+    });
+
+    $('lower_price').maskMoney({
+      precision : 0,
+      thousands:'.',
+      allowZero:true,
+      defaultZero: true
+    });
+
 
     $('#button_add').click(function(){
           $("input[name='ib_name']").val('');
@@ -87,65 +107,91 @@
                      className: 'd_id center'
                   }, 
                   {
-                     targets: 2 ,
+                     targets: 4 ,
+                     className: 'center '
+                  },
+                  {
+                     targets: 3 ,
                      className: 'right format_money'
                   },
                 ],
             "columns": [
-            { "data": "ib_detailid" },
-            { "data": "ib_item" },
-            { "data": "ib_price" ,render: $.fn.dataTable.render.number( '.', '.', 0, '' )},
-            { "data": "aksi" },
+            {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+            {data: 'i_name', name: 'i_name'},
+            {data: 'i_description', name: 'i_description'},
+            {data: 'i_price', render: $.fn.dataTable.render.number( '.', '.', 0, '' )},
+            {data: 'aksi', name: 'aksi'},
             ]
       });
-    // $('.sembunyikan').css('display','none');
-        var table             = $("#t72bu").DataTable();
-        var bund_kodeitem     = $('#bund_kodeitem');
-        var bund_item         = $("#bund_item");
-        var bund_qty          = $("#bund_qty");
 
-
+        var table             = $("#bundle_table").DataTable({
+                                  columnDefs: [
+                                      {
+                                         targets: 6,
+                                         className: 'center'
+                                      }
+                                    ],
+                                });
         var x = 1;
- 
-    bund_qty.keypress(function(e) {
+    // $('#bund_qty').keyup(function(){
+    //   var jumlah = $('#bund_item').val().replace(/[^0-9\-]+/g,"")*1;
+    //   var qty = $(this).val();
+    //   $('.ib_price').val(accounting.formatMoney(jumlah * qty,"",0,'.',','))
+    // })
+    $('#bund_qty').keypress(function(e) {
       if(e.which == 13 || e.keyCode == 13){
-        var qty = bund_qty.val();
-        var harga_1 = bund_item.val();
-
-        qty = qty.replace(/[^0-9\-]+/g,"");
-        harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
-
-        var price  = parseInt(qty)*parseInt(harga_1);
-        table.row.add( [
-           '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+ bund_kodeitem.val() +'">',
-            '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+ bund_kodeitem.find(':selected').data('name') +'">',
-            '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+ bund_qty.val() +'">',
-            '<input type="text" id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money">',
-            '<input type="text" id="unit_price[]" name="ib_price_dt[]" class="form-control input-sm min-width right format_money total" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
-        ] ).draw( false );
+        var kode = $('#bund_kodeitem').val();
+        var qty = $('#bund_qty').val().replace(/[^0-9\-]+/g,"");
+        // harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
+        $.ajax({
+         type: "get",
+         url: baseUrl + '/master/bundle/cari_item',
+         dataType:'json',
+         data:{kode},
+         success: function(data){
+            console.log(qty);
+            console.log(data.data.i_price);
+            var price  = parseInt(qty)*parseInt(data.data.i_price);
+            console.log(price);
+            table.row.add( [
+               '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
+                '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
+                '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
+                '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
+                '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
+            ]).draw( false );
     
-        x++;
-        var awal = 0;
-        $('.total').each(function(){
-          var total = $(this).val();
-          total = total.replace(/[^0-9\-]+/g,"");
-          awal += parseInt(total);
-        });
-        $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
-
-        bund_item.focus();
-        bund_qty.val('');
-        bund_item.val('');
-        bund_kodeitem.val('').trigger('change');
+            x++;
+            var awal = 0;
+            table.$('.ib_total_price').each(function(){
+              var total = $(this).val();
+              total = total.replace(/[^0-9\-]+/g,"");
+              awal += parseInt(total);
+            });
+            $(".ib_price").val(accounting.formatMoney(awal,"",0,'.',','));
+            $('#bund_kodeitem').val('').trigger('change');
+            $('#bund_qty').val('');
+            $('.lower_price').val(accounting.formatMoney(awal,"",0,'.',','));
+            $('.sell_price').val(accounting.formatMoney(awal,"",0,'.',','));
+         },
+         error: function(){
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Terjadi Kesalahan!',
+          });
+         },
+         async: false
+       });
       }
     });
     
     
 
-    $('#t72bu tbody').on( 'click', '.delete', function () {
+    $('#bundle_table tbody').on( 'click', '.delete', function () {
     var parents = $(this).parents('tr');
-    var ib_price_dt = $(parents).find('.total').val();
+    var ib_price_dt = $(parents).find('.ib_price_dt').val();
     var ib_price = $("input[name='ib_price']").val();
     
     table
@@ -153,23 +199,90 @@
         .remove()
         .draw();
         
+    var awal = 0;
+    table.$('.ib_total_price').each(function(){
+      var total = $(this).val();
+      total = total.replace(/[^0-9\-]+/g,"");
+      awal += parseInt(total);
+    });  
           
-          ib_price_dt = ib_price_dt.replace(/[^0-9\-]+/g,"");
-          ib_price = ib_price.replace(/[^0-9\-]+/g,"");
-          var kurang = parseInt(ib_price)-parseInt(ib_price_dt);
 
-          $("input[name='ib_price']").val(accounting.formatMoney(kurang,"",0,'.',','));
+    $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
+    $(".sell_price").val(accounting.formatMoney(awal,"",0,'.',','));
+    $(".lower_price").val(accounting.formatMoney(awal,"",0,'.',','));
 
     });
 
+  $('.form-control').keyup(function(){
+    $(this).removeClass('border-danger');
+  });
     
 
   $('#change_function').on("click", "#save_data",function(){
+
+    var name = $('.ib_name');
+    var price = $('.ib_price');
+    var sell_price = $('.sell_price');
+    var lower_price = $('.lower_price');
+    var keterangan = $('.keterangan');
+    var valid = [];
+
+    if (name.val() == '') {
+        name.addClass('border-danger');
+        valid.push(0);
+    } else {
+        name.removeClass('border-danger');
+        valid.push(1);
+    }
+
+    if (price.val() == '' || price.val() == '0') {
+        price.addClass('border-danger');
+        valid.push(0);
+    } else {
+        price.removeClass('border-danger');
+        valid.push(1);
+    }
+
+    if (sell_price.val() == '' || sell_price.val() == '0') {
+        sell_price.addClass('border-danger');
+        valid.push(0);
+    } else {
+        sell_price.removeClass('border-danger');
+        valid.push(1);
+    }
+
+    if (lower_price.val() == '' || lower_price.val() == '0') {
+        lower_price.addClass('border-danger');
+        valid.push(0);
+    } else {
+        lower_price.removeClass('border-danger');
+        valid.push(1);
+    }
+
+
+    if (keterangan.val() == '') {
+        keterangan.addClass('border-danger');
+        valid.push(0);
+    } else {
+        keterangan.removeClass('border-danger');
+        valid.push(1);
+    }
+
+    var index = valid.indexOf(0);
+    if (index !=  -1) {
+      iziToast.error({
+        icon: 'fa fa-exclamation-circle ',
+        message: 'Harap Lengkapi Data!',
+      });
+      return false;
+    }
     $.ajax({
          type: "get",
          url: baseUrl + '/master/bundleitem/simpan_bundleitem',
          data: $('#form-save').serialize(),
          success: function(data){
+
+          if (data.status == 1) {
             $('#tambah').modal('hide');
             var table = $('#table-bundle').DataTable();
             table.ajax.reload();
@@ -178,6 +291,7 @@
               icon: 'fas fa-check-circle',
               message: 'Data Telah Tersimpan!',
             });
+          }
          },
          error: function(){
           iziToast.warning({
@@ -222,9 +336,7 @@ function detail(parm) {
        });
 }
 
-function edit(parm){
-    var par   = $(parm).parents('tr');
-    var id    = $(par).find('.d_id').text();
+function edit(id){
     window.location.href = (baseUrl +'/master/bundle/edit_bundle/'+id);
   }
 

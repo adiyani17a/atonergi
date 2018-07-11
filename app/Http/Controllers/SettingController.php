@@ -23,30 +23,79 @@ class SettingController extends Controller
   public function tes()
   {
        
-      $nama_barang = array('sambelsadasdsadasds','ayam','nasi','es jeruk');
+      $nama_barang = array('PSDNT 50gr','ayam','nasi','es jeruk');
       $harga       = array('3.000,00','7.000,00','4.000,00','4.000,00');
       $qty         = array('1','1','1','1');
-      $connector = new FilePrintConnector("\\\desktop-9ije28s\POS-58");
+      $connector = new FilePrintConnector("\\\sani\POS-58");
       $printer = new Printer($connector);
       $logo =  EscposImage::load('assets/tux.png');
 
+      
+      // // $printer -> setJustification(Escpos::JUSTIFY_CENTER);
+      // $printer -> setJustification(Printer::JUSTIFY_CENTER);
+      // $printer -> bitImageColumnFormat($logo);
+      // // HEAD
+      // $printer -> text("Alam Raya Sebar Barokah\n");
+      // $printer -> text("Jl. Purimas C3/19\n");
+      // $printer -> text("Telp:087878789\n");
+      // $printer -> text("********************************\n");
+      // $sayur1 = 'PEPSODENT 50GR';
+      // $sayur2 = '1.000.000';
+      // $sayur3 = '23';
+      // $tes1 = strlen($sayur1);
+      // $tes2 = strlen($sayur2);
+      // $tes3 = strlen($sayur3);
+      // $temp = $tes1 + $tes2 + $tes3;
+      // $count = 32- $temp;
 
-      // $printer -> setJustification(Escpos::JUSTIFY_CENTER);
-      $printer -> setJustification(Printer::JUSTIFY_CENTER);
-      $printer -> bitImageColumnFormat($logo);
-      // HEAD
-      $printer -> text("Alam Raya Sebar Barokah\n");
-      $printer -> text("Jl. Purimas C3/19\n");
-      $printer -> text("Telp:087878789\n");
-      $printer -> text("********************************\n");
-      //BODY
-      $printer -> text("nama     qty     harga     total\n");
-      $line = sprintf('%-5.5s %5.0f %13.2f %13.2f',$nama_barang[0],$qty[0],$harga[0],$harga[0]);
-      $printer->text($line);
-      $printer->text("\n"); 
+      // $pad1 = 15 - $tes1; 
+      // $pad2 = 4 - $tes3; 
+      // $pad3 = 13 - $tes2; 
+      // $spas1_1;
+      // $spas2_1;
+      // $spas3_1;
+      // for ($i=0; $i < $pad1; $i++) { 
+      //   $spas1_1[$i] = ' ';
+      // }
 
+      // $spas1 = implode("", $spas1_1);
+      // for ($i=0; $i < $pad2; $i++) { 
+      //   $spas2_1[$i] = ' ';
+      // }
+      // $spas2 = implode("", $spas2_1);
+
+      // for ($i=0; $i < $pad3; $i++) { 
+      //   $spas3_1[$i] = ' ';
+      // }
+      // $spas3 = implode("", $spas3_1);
+      // // dd($spas1);
+      // $coba  = $sayur1.$spas1.$spas2.$sayur3.$spas3.$sayur2;
+      // $printer -> setFont(Printer::FONT_B);
+      // $printer -> text($coba."\n");
+
+      $fonts = array(
+        Printer::FONT_A,
+        Printer::FONT_B,
+        Printer::FONT_C);
+      for($i = 0; $i < count($fonts); $i++) {
+        $printer -> setFont($fonts[$i]);
+        $printer -> text("The quick brown fox jumps over the lazy dog\n");
+      }
+      $printer -> setFont(); // Reset
       $printer -> cut();
       $printer -> close();
+      // //BODY
+      // for ($i=0; $i < count($nama_barang); $i++) { 
+      //   $printer -> setJustification(Printer::JUSTIFY_LEFT);
+      //   $printer -> text('x                              x');
+      //   $printer -> text("\n");
+      // }
+
+
+      // $printer->text("\n"); 
+
+      // $printer -> cut();
+      // $printer -> close();
       return 'success';
   }
    public function jabatan()

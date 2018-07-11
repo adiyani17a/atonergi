@@ -21,6 +21,7 @@
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
                     <input type="text"  class="form-control form-control-sm" name="item_name">                               
+                    <input type="hidden"  class="form-control form-control-sm kode_barang" name="kode_barang">                               
                 </div>
               </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
@@ -54,15 +55,15 @@
                 </div>
               </div>
              <div class="col-md-3 col-sm-4 col-xs-12">
-                
                     <label class="tebal">Price</label>
-               
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm" name="price" maxlength="20" required="">                               
+                    <input type="text"  class="form-control form-control-sm price" name="price" maxlength="20" required="">                               
                 </div>
               </div>
+
+             
 
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
@@ -71,10 +72,18 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm" name="weight">                               
+                    <input type="text"  class="form-control form-control-sm weight" name="weight">                               
                 </div>
               </div>
 
+               <div class="col-md-3 col-sm-4 col-xs-12">
+                    <label class="tebal">Sell Price</label>
+              </div>
+              <div class="col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    <input type="text"  class="form-control form-control-sm sell_price" name="sell_price" maxlength="20" required="">                               
+                </div>
+              </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
                     <label class="tebal">Min Stock</label>
@@ -82,9 +91,18 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-sm" name="min_stock">                               
+                    <input type="text" class="form-control form-control-sm min_stock" name="min_stock">                               
                 </div>
-              </div>      
+              </div>    
+
+             <div class="col-md-3 col-sm-4 col-xs-12">
+                    <label class="tebal">Lower Price</label>
+              </div>
+              <div class="col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    <input type="text"  class="form-control form-control-sm lower_price" name="lower_price" maxlength="20" required="">                               
+                </div>
+              </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
                     <label class="tebal">Description</label>

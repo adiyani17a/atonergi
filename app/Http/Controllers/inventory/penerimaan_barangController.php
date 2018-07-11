@@ -32,7 +32,7 @@ class penerimaan_barangController extends Controller
               ->addColumn('aksi', function ($data) {
                         return  '<div class="btn-group">'.
                                  '<button type="button" onclick="edit(this)" class="btn btn-info btn-sm" title="edit">'.
-                                 '<label class="fa fa-arrow-alt-circle-right"></label></button>'.
+                                 '<label class="fa fa-pencil"></label></button>'.
                                 '</div>';
               })
               ->addColumn('detail', function ($data) {
@@ -75,7 +75,6 @@ class penerimaan_barangController extends Controller
 	   $index = str_pad($kode, 3, '0', STR_PAD_LEFT);
 	   $date = date('my');
 	   $nota = 'PB-'.$index.'/'.''.'/'.$date;
-
 
 	   // header
 	   $data_header = DB::table('d_penerimaan_barang')->insert([
