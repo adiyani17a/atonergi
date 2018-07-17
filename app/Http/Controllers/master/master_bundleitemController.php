@@ -48,7 +48,7 @@ class master_bundleitemController extends Controller
 
                             if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','hapus')){
                              $d = 
-                                 '<button type="button" onclick="hapus(\''.$data->i_id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
+                                 '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-lg" title="hapus">'.
                                  '<label class="fa fa-trash"></label></button>';
                             }else{
                               $d = '';
@@ -182,13 +182,12 @@ class master_bundleitemController extends Controller
               ]);
 
         $dt = DB::table('m_item_dt')->where('id_id',$req->id)->delete();
-
+        // dd($dt);
         for ($i=0; $i < count($req->ib_kode_dt); $i++) { 
-          $dt = DB::table('m_item_dt')->max('id_id')+1;
 
           $save = DB::table('m_item_dt')->insert([
                   'id_id'           =>  $req->id,
-                  'id_detailid'     =>  $dt,
+                  'id_detailid'     =>  $i+1,
                   'id_item'         =>  $req->ib_kode_dt[$i],
                   'id_unit'         =>  $req->ib_unit_dt[$i],
                   'id_qty'          =>  $req->ib_qty_dt[$i],
@@ -205,21 +204,21 @@ class master_bundleitemController extends Controller
  	}
  	public function dataedit_bundleitem(request $req)
  	{
- 		$data_head = DB::table('i_item')->where('ib_detailid','=',$req->id)->get();
- 		$data_seq = DB::table('i_item_dt')->where('ibd_id','=',$req->id)->get();
+ 		$data_head = DB::table('m_item')->where('m_id','=',$req->id)->get();
+ 		$data_seq = DB::table('m_item_dt')->where('id_id','=',$req->id)->get();
  		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
  		return response()->json([$data_head,$data_seq]);
     	// return view('master/bundle/ajax_update',compact('item','data_head','data_seq'));
  	}
  	public function detail_bundleitem(request $req)
  	{
- 		$data = DB::table('i_item_dt')->join('m_item','m_item.i_code','=','i_item_dt.ibd_barang')->where('ibd_id','=',$req->id)->get();
+ 		$data = DB::table('m_item_dt')->join('m_item','m_item.i_code','=','m_item_dt.ibd_barang')->where('i_id','=',$req->id)->get();
     	return response()->json($data);
  	}
  	public function hapus_bundleitem(request $req)
  	{	
  		// dd($req->all());
- 		$data_head = DB::table('i_item')->where('ib_detailid','=',$req->id)->delete();
+ 		$data_head = DB::table('m_item')->where('i_code','=',$req->id)->delete();
     	return response()->json(['status'=>1]);
  	}
 }
