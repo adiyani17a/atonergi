@@ -9,4 +9,5 @@ Homestead.yaml
 Homestead.json
 /vendor
 /node_modules
-assets.rar
+/assets
+
