@@ -7,5 +7,5 @@
 .env
 Homestead.yaml
 Homestead.json
-
+/vendor
 assets.rar
