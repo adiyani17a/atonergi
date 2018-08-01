@@ -478,7 +478,7 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 
 
 		var m_table = $("#apfsds").DataTable();
-		iziToast.show({
+	iziToast.show({
             overlay: true,
             close: false,
             timeout: 20000, 

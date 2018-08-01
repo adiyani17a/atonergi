@@ -30,6 +30,7 @@
                               <thead class="bg-gradient-info">
                                   <tr>
                                     <th class="wd-15p" width="5%">Bundle Id</th>
+                                    <th class="wd-15p" width="5%">Bundle Code</th>
                                     <th class="wd-15p" width="20%">Bundle Name</th>
                                     <th class="wd-15p" >Description</th>
                                     <th class="wd-15p"width="20%">Price Bundle</th>
@@ -107,16 +108,21 @@
                      className: 'd_id center'
                   }, 
                   {
-                     targets: 4 ,
+                     targets: 1 ,
+                     className: 'i_code center'
+                  }, 
+                  {
+                     targets: 5 ,
                      className: 'center '
                   },
                   {
-                     targets: 3 ,
+                     targets: 4 ,
                      className: 'right format_money'
                   },
                 ],
             "columns": [
             {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+            {data: 'i_code', name: 'i_code'},
             {data: 'i_name', name: 'i_name'},
             {data: 'i_description', name: 'i_description'},
             {data: 'i_price', render: $.fn.dataTable.render.number( '.', '.', 0, '' )},
@@ -342,8 +348,8 @@ function edit(id){
 
   function hapus(parm){
     var par   = $(parm).parents('tr');
-    var id    = $(par).find('.d_id').text();
-
+    var id    = $(par).find('.i_code').text();
+    console.log(id);
     iziToast.show({
             overlay: true,
             close: false,
@@ -364,7 +370,6 @@ function edit(id){
                      url: '{{ route('hapus_bundleitem') }}',
                      data: {id},
                      success: function(data){
-                      console.log(data);
                       $('#tambah').modal('hide');
                       var table = $('#table-bundle').DataTable();
                       table.ajax.reload();
