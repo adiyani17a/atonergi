@@ -42,11 +42,11 @@
                   </div>
                 </div>
 
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                
-                    <label class="tebal">Nama Transaksi</label>
-                
-              </div>
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                  
+                      <label class="tebal">Nama Transaksi</label>
+                  
+                </div>
 
                 <div class="col-md-4 col-sm-9 col-xs-12">
                   <div class="form-group">
@@ -54,11 +54,11 @@
                   </div>
                 </div>
 
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                
-                    <label class="tebal">Sub Nama</label>
-       
-              </div>
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                  
+                      <label class="tebal">Sub Nama</label>
+         
+                </div>
 
                 <div class="col-md-4 col-sm-9 col-xs-12">
                   <div class="form-group">
@@ -66,11 +66,11 @@
                   </div>
                  </div>
                 
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                
-                    <label class="tebal">Kode Transaksi</label>
-               
-              </div>
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                  
+                      <label class="tebal">Kode Transaksi</label>
+                 
+                </div>
 
                 <div class="col-md-4 col-sm-9 col-xs-12">
                   <div class="form-group">
@@ -78,11 +78,11 @@
                   </div>
                 </div>
 
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                
-                    <label class="tebal">Cash Type</label>
-                
-              </div>
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                  
+                      <label class="tebal">Cash Type</label>
+                  
+                </div>
 
                 <div class="col-md-4 col-sm-9 col-xs-12">
                   <div class="form-group">
@@ -133,26 +133,26 @@
                   </div>                                 
                 </div>
 
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                
-                  <label class="tebal">Debit/Kredit 1</label>
-                
-              </div>
-
-              <div class="col-md-4 col-sm-9 col-xs-12">
-                <div class="form-group">
-                  <select class="form-control input-sm"  id="tr_acc01dk" name="tr_acc01dk" onchange="dk()">
-                          <option  >Kredit</option>                                   
-                          <option  >Debet</option>                                   
-                  </select>
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                  
+                    <label class="tebal">Debit/Kredit 1</label>
+                  
                 </div>
-              </div>
 
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                
-                    <label class="tebal">Akun 2</label>
-                
-              </div>
+                <div class="col-md-4 col-sm-9 col-xs-12">
+                  <div class="form-group">
+                    <select class="form-control input-sm"  id="tr_acc01dk" name="tr_acc01dk" onchange="dk()">
+                            <option  >Kredit</option>                                   
+                            <option  >Debet</option>                                   
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                  
+                      <label class="tebal">Akun 2</label>
+                  
+                </div>
 
                 <div class="col-md-4 col-sm-9 col-xs-12">
                   <div class="form-group">
@@ -187,26 +187,23 @@
                   </div>
                 </div>
 
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                
-                  <label class="tebal">Debit/Kredit 2</label>
-                
-              </div>
-
-              <div class="col-md-4 col-sm-9 col-xs-12">
-                <div class="form-group">
-                  <select class="form-control input-sm"  id="tr_acc01dk" name="tr_acc01dk" onchange="dk()">
-                    <option  >Kredit</option>                                   
-                    <option  >Debet</option>                                   
-                  </select>
+                <div class="col-md-2 col-sm-3 col-xs-12">
+                  
+                    <label class="tebal">Debit/Kredit 2</label>
+                  
                 </div>
-              </div>
+
+                <div class="col-md-4 col-sm-9 col-xs-12">
+                  <div class="form-group">
+                    <select class="form-control input-sm"  id="tr_acc01dk" name="tr_acc01dk" onchange="dk()">
+                      <option  >Kredit</option>                                   
+                      <option  >Debet</option>                                   
+                    </select>
+                  </div>
+                </div>
 
           
 
-          
-            
-           
           </div>
         </form>                                  
       </div>
