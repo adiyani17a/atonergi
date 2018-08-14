@@ -180,10 +180,10 @@
           </div>
         </form><!-- End div row -->
         <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
-          <div class="col-md-2 col-sm-6 col-xs-12">
+          <div class="col-md-3 col-sm-6 col-xs-12">
             <label>Item Name</label>
           </div>
-          <div class="col-md-2 col-sm-12 col-xs-12">
+          <div class="col-md-3 col-sm-12 col-xs-12">
             <div class="form-group item_div">
               <select class="form-control form-control-sm item" name="item">
                 <option value="0">--Select item--</option>
