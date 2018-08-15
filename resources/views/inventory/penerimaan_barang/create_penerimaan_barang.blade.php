@@ -67,7 +67,7 @@
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <div class="form-group">
 				         <label class="label">
-		                   <input class="label_checkbox hapus" name="pb_check" onclick="centang()" type="checkbox">
+		                   <input class="checkbox hapus" name="pb_check" onclick="centang()" type="checkbox">
 		                  </label>
 				      </div>
 				    </div>
@@ -90,9 +90,10 @@
 				            <td>{{ $a->podt_id }}</td>
 				            <td><input type="hidden" class="form-control form-control-sm po_item" value="{{ $a->i_code }}" name="po_item[]">{{ $a->i_name }}</td>
 				            <td><input type="hidden" class="form-control form-control-sm" value="{{ $a->podt_unit_price }}" name="po_harga[]">{{ $a->i_unit }}</td>
-				            <td><input type="text" class="form-control form-control-sm qty_approved right readonly" value="{{ $a->podt_qty_approved }}" name="qty_approved[]"></td>
-				            <td><input type="text" class="form-control form-control-sm qty_received right" onkeyup="qty_received(this);" name="qty_received[]"></td>
-				            <td><input type="text" class="form-control form-control-sm qty_remain right readonly" value="{{ $a->podt_qty_approved }}" name="qty_remain[]"></td>
+				            <td><input type="text" class="format_money_kosongan form-control form-control-sm qty_approved right readonly" value="{{ $a->podt_qty_approved }}" name="qty_approved[]"></td>
+				            <td><input type="text" class="format_money_kosongan form-control form-control-sm qty_received right" onkeyup="qty_received(this);" name="qty_received[]"></td>
+				            <td><input type="hidden" class="format_money_kosongan form-control form-control-sm qty_remain_temp right readonly" value="{{ $a->podt_qty_approved }}" name="">
+				            	<input type="text" class="format_money_kosongan form-control form-control-sm qty_remain right readonly" value="{{ $a->podt_qty_approved }}" name="qty_remain[]"></td>
 				          </tr>
 			        	@endforeach
 				        </tbody>
@@ -117,11 +118,19 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-		
+	
+
 	function qty_received(a) {
     var par   = $(a).parents('tr');
+    var qty_approved = $(par).find('.qty_approved').val();
     var qty_received = $(par).find('.qty_received').val();
     var qty_remain = $(par).find('.qty_remain').val();
+    var qty_remain_temp = $(par).find('.qty_remain_temp').val();
+
+
+    var qty_hitung = parseFloat(qty_approved)-parseFloat(qty_received);
+
+    $(par).find('.qty_remain').val(qty_hitung);
 
 		if (parseFloat(qty_received) > parseFloat(qty_remain) ) {
 			iziToast.warning({
@@ -129,6 +138,7 @@
 	            message: 'Qty Melebihi Batas MAX!',
 	          });
 			$(par).find('.qty_received').val(0);
+			$(par).find('.qty_remain_temp').val(qty_remain_temp);
 		}
 
 	}
@@ -160,15 +170,25 @@
            });
 	}
 	var check = 0;
-	function centang(){
-		// $.each($('.qty_remain'), function (index, value) { 
-		// 	 console.log('index'+$(this).val());
-		//      check = $(this).val();
-		//      $('.qty_received').val(check);	
-	 //     // $('.qty_received').val($(this).val());	
-		// })
+		if ($('.checkbox').is(':checked')) {
+			function centang(){
+				$.each($('.qty_approved'), function (index, value) { 
+					 console.log(index+'_'+$(this).val());
+				     check = $(this).val();
+				     $('.qty_received').val(check);	
+				     qty_received($(this));
+				})
+			}
+		}else{
+			$.each($('.qty_approved'), function (index, value) { 
+    			var qty_received = $('.qty_received').val();
+	    		var qty_approved = $('.qty_approved').val(0);
+   				var qty_remain = $('.qty_remain').val(qty_received);
 
-	}
+			})
+		}
+		
+
 
 </script>
 @endsection
