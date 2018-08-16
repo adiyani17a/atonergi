@@ -616,7 +616,7 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+id+'/detail');
 	}
 
-	function printing_allin(id){
+	function printing_global(id){
 		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+id + '/global');
 	}
 

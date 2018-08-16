@@ -63,7 +63,7 @@ class QuotationController extends Controller
                             if(Auth::user()->akses('QUOTATION','print')){
                              $c = 
                              '<button type="button" onclick="printing(\''.$data->q_id.'\')" class="btn btn-info btn-lg" title="Print Detail">'.'<label class="fa fa-print"></label></button>'.
-                             '<button type="button" onclick="printing_allin(\''.$data->q_id.'\')" class="btn btn-success btn-lg" title="Print All in">'.'<label class="fa fa-print"></label></button>';
+                             '<button type="button" onclick="printing_global(\''.$data->q_id.'\')" class="btn btn-success btn-lg" title="Print Global">'.'<label class="fa fa-print"></label></button>';
                             }else{
                               $c = '';
                             }
