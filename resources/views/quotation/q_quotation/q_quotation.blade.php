@@ -534,7 +534,7 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 							 $('.ship_method').select2();
 
 							 m_table.clear().draw();
-				      		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+data.id);
+				      		{{-- window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+data.id); --}}
 				      	}
 				      },error:function(){
 			      		iziToast.warning({
@@ -617,7 +617,7 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 	}
 
 	function printing_allin(id){
-		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+id + '/allin');
+		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+id + '/global');
 	}
 
 	function edit(id) {

@@ -254,7 +254,7 @@ table, td, th {
 						<td>{{ $b->u_unit }}</td>
 						<td>{{ $b->qd_description }}</td>
 						<td>
-							@if($print === 'allin')
+							@if($print === 'global')
 							<div class="float-left">
 								Rp.
 							</div>
@@ -265,17 +265,20 @@ table, td, th {
 							-
 							@endif
 						</td>
+						@if($print === 'global')
 						<td>
-							@if($print === 'allin')
 							<div class="float-left">
 								Rp.
 							</div>
 							<div class="float-right">
 								{{ number_format($b->qd_total, 2, ",", ".") }}
 							</div>
-							@elseif($print === 'detail')
+						</td>
+						@elseif($print === 'detail')
+						<td>
 							-
-							@endif
+						</td>
+						@endif
 						</td>
 					</tr>
 					@endforeach

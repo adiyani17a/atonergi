@@ -338,7 +338,7 @@ class QuotationController extends Controller
      
      // $pdf = PDF::loadView('quotation/q_quotation/print_quotation', $data);
      // return $pdf->stream("test.pdf");
-      $print = 'allin';
+      $print = 'global';
       return view('quotation/q_quotation/print_quotation',compact('head','data','array','print'));
     }else{
       return redirect()->back();
@@ -381,7 +381,7 @@ class QuotationController extends Controller
         }
       }
       
-
+      // return $item;
      
      // $pdf = PDF::loadView('quotation/q_quotation/print_quotation', $data);
      // return $pdf->stream("test.pdf");

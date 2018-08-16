@@ -93,7 +93,7 @@ Route::get('/quotation/q_quotation/edit_item', 'QuotationController@edit_item');
 Route::get('/quotation/q_quotation/save_quote', 'QuotationController@save_quote');
 Route::get('/quotation/q_quotation/update_quote', 'QuotationController@update_quote');
 Route::get('/quotation/q_quotation/hapus_quote', 'QuotationController@hapus_quote');
-Route::get('/quotation/q_quotation/print_quote/{id}/allin', 'QuotationController@print_quote');
+Route::get('/quotation/q_quotation/print_quote/{id}/global', 'QuotationController@print_quote');
 Route::get('/quotation/q_quotation/print_quote/{id}/detail', 'QuotationController@print_quote_detail');
 
 Route::get('/quotation/q_quotation/detail', 'QuotationController@detail');
