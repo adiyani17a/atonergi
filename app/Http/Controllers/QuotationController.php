@@ -62,7 +62,8 @@ class QuotationController extends Controller
 
                             if(Auth::user()->akses('QUOTATION','print')){
                              $c = 
-                             '<button type="button" onclick="printing(\''.$data->q_id.'\')" class="btn btn-info btn-lg" title="print">'.'<label class="fa fa-print"></label></button>';
+                             '<button type="button" onclick="printing(\''.$data->q_id.'\')" class="btn btn-info btn-lg" title="Print Detail">'.'<label class="fa fa-print"></label></button>'.
+                             '<button type="button" onclick="printing_allin(\''.$data->q_id.'\')" class="btn btn-success btn-lg" title="Print All in">'.'<label class="fa fa-print"></label></button>';
                             }else{
                               $c = '';
                             }
@@ -337,8 +338,55 @@ class QuotationController extends Controller
      
      // $pdf = PDF::loadView('quotation/q_quotation/print_quotation', $data);
      // return $pdf->stream("test.pdf");
+      $print = 'allin';
+      return view('quotation/q_quotation/print_quotation',compact('head','data','array','print'));
+    }else{
+      return redirect()->back();
+    }
+  }
 
-      return view('quotation/q_quotation/print_quotation',compact('head','data','array'));
+  public function print_quote_detail($id)
+  {
+    if (Auth::user()->akses('QUOTATION','print')) {
+      $head = DB::table('d_quotation')
+               ->join('m_customer','c_code','=','q_customer')
+               ->where('q_id',$id)
+               ->first();
+               
+      $data = DB::table('d_quotation_dt')
+
+              ->join('m_item','i_code','=','qd_item')
+              ->where('qd_id',$id)
+              ->get();
+
+      $item = DB::table('m_item')
+                ->join('d_unit','u_id','=','i_unit')
+                ->get();
+
+      for ($i=0; $i < count($data); $i++) { 
+        for ($a=0; $a < count($item); $a++) { 
+          if ($item[$a]->i_code == $data[$i]->qd_item) {
+            $data[$i]->u_unit = $item[$a]->u_unit;
+          }
+        }
+      }
+
+      $count = count($data);
+      $tes = 15 - $count;
+      $array = [];
+
+      if ($tes > 0) {
+        for ($i=0; $i < $tes; $i++) { 
+          array_push($array, 'a');
+        }
+      }
+      
+
+     
+     // $pdf = PDF::loadView('quotation/q_quotation/print_quotation', $data);
+     // return $pdf->stream("test.pdf");
+      $print = 'detail';
+      return view('quotation/q_quotation/print_quotation',compact('head','data','array','print'));
     }else{
       return redirect()->back();
     }

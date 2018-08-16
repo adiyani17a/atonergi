@@ -613,7 +613,11 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
 
 
 	function printing(id) {
-		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+id);
+		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+id+'/detail');
+	}
+
+	function printing_allin(id){
+		window.open("{{ url('quotation/q_quotation/print_quote') }}"+'/'+id + '/allin');
 	}
 
 	function edit(id) {
