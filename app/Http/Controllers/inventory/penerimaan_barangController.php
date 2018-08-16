@@ -133,9 +133,18 @@ class penerimaan_barangController extends Controller
     						 ->where('sg_iditem','=',$request->po_item[$i])
     						 ->first();
     	
-
-        $kode_stockm_seq = DB::table('i_stock_mutasi')->where('sm_id','=',isset($cari->sg_id))->max('sm_iddetail')+1;	
-
+    	if ($cari == null) {
+    		$cari_g = isset($cari->sg_id);
+    	}else{
+    		$cari_g = $cari->sg_id;
+    	}
+        $kode_stockm_seq = DB::table('i_stock_mutasi')->where('sm_id','=',$cari_g)->max('sm_iddetail');	
+        	if ($kode_stockm_seq == null) {
+                $kode_stockm_seq = 1;
+            }else{
+                $kode_stockm_seq += 1;
+            }
+            
 	 	$kode_stock_g = DB::table('i_stock_gudang')->max('sg_id');
             if ($kode_stock_g == null) {
                 $kode_stock_g = 1;
