@@ -253,19 +253,29 @@ table, td, th {
 						<td>{{ $b->qd_qty }}</td>
 						<td>{{ $b->u_unit }}</td>
 						<td>{{ $b->qd_description }}</td>
+						@if($print === 'detail')
 						<td>
-							@if($print === 'global')
 							<div class="float-left">
 								Rp.
 							</div>
 							<div class="float-right">
 								{{ number_format($b->qd_price, 2, ",", ".") }}
 							</div>
-							@elseif($print === 'detail')
-							-
-							@endif
 						</td>
-						@if($print === 'global')
+						@elseif($print === 'global')
+							@if($i===0)
+							<td rowspan="15" class="top">
+								<div class="float-left">
+									Rp.
+								</div>
+								<div class="float-right">
+									{{ number_format($head->q_subtotal, 2, ",", ".") }}
+								</div>
+							</td>
+							@endif
+						@endif
+						
+						@if($print === 'detail')
 						<td>
 							<div class="float-left">
 								Rp.
@@ -274,12 +284,19 @@ table, td, th {
 								{{ number_format($b->qd_total, 2, ",", ".") }}
 							</div>
 						</td>
-						@elseif($print === 'detail')
-						<td>
-							-
-						</td>
+						@elseif($print === 'global')
+							@if($i===0)
+							<td rowspan="15" class="top">
+								<div class="float-left">
+									Rp.
+								</div>
+								<div class="float-right">
+									{{ number_format($head->q_subtotal, 2, ",", ".") }}
+								</div>
+							</td>
+							@endif
 						@endif
-						</td>
+						
 					</tr>
 					@endforeach
 					@foreach($array as $a)
@@ -289,6 +306,7 @@ table, td, th {
 						<td></td>
 						<td></td>
 						<td></td>
+						@if($print==='detail')
 						<td>
 							<div class="float-left">
 								
@@ -305,6 +323,7 @@ table, td, th {
 								
 							</div>
 						</td>
+						@endif
 					</tr>
 					@endforeach
 					<tr>
