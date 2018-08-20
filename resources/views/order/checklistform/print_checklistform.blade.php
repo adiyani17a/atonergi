@@ -50,8 +50,9 @@ table, td, th {
 	border-style: hidden;
 }
 .div-width{
-	width: 900px;
+	width: 90vw;
 	position: relative;
+	margin: auto;
 }
 .div-width:before{
 	content: "";
@@ -127,196 +128,217 @@ table, td, th {
 
 	float: right;
 }
-
+@page{
+	size: portrait;
+	margin: 0;
+	-webkit-print-color-adjust:exact;
+	color-adjust:exact;
+}
+@media print{
+	.btn-print{
+		display: none;
+	}
+}
+.btn-print button, .btn-print a{
+	float: right;
+}
+.page-break{
+	page-break-after: always;
+}
 
 	</style>
 </head>
 <body>
-<div class="div-width">
-	
-	<div class="header-left">
-		<img width="300px" height="80px" src="{{asset('assets/atonergi.png')}}">
+	<div class="btn-print">
+		<button onclick="javascript:window.print();">Print</button>
 	</div>
-	<div class="header-right border-left">
-		<h3 style="text-align: right;">PT. REJA ATON ATONERGI</h3>
-		<p>62-31-99682814 | www.atonergi.com | Juanda Regency F-9, Sedati - Pabean, Surabaya</p>
-	</div>
-	<div class="header-left" style="margin-bottom: 15px;">
-		<h1>Checklist Form</h1>
-		<table class="border-none" width="50%">
-			<tbody>
-				<tr >
-					<td class="text-left border-none">Order By :</td>
-					<td class="text-left border-none">Alpha</td>
+	<div class="page-break">
+		<div class="div-width">
+			
+			<div class="header-left">
+				<img width="300px" height="80px" src="{{asset('assets/atonergi.png')}}">
+			</div>
+			<div class="header-right border-left">
+				<h3 style="text-align: right;">PT. REJA ATON ATONERGI</h3>
+				<p>62-31-99682814 | www.atonergi.com | Juanda Regency F-9, Sedati - Pabean, Surabaya</p>
+			</div>
+			<div class="header-left" style="margin-bottom: 15px;">
+				<h1>Checklist Form</h1>
+				<table class="border-none" width="50%">
+					<tbody>
+						<tr >
+							<td class="text-left border-none">Order By :</td>
+							<td class="text-left border-none">Alpha</td>
 
-				</tr>
+						</tr>
+						
+					</tbody>
+				</table>
 				
-			</tbody>
-		</table>
-		
-	</div>
-	
-	<div class="header-right" style="margin-top: 15px;margin-bottom: 55px;">
-		<table class="border-none" width="100%">
-			<tbody>
-				<tr >
-					<td class="text-left border-none">Date : </td>
-					<td class="text-left border-none">April 14, 2018</td>
+			</div>
+			
+			<div class="header-right" style="margin-top: 15px;margin-bottom: 55px;">
+				<table class="border-none" width="100%">
+					<tbody>
+						<tr >
+							<td class="text-left border-none">Date : </td>
+							<td class="text-left border-none">April 14, 2018</td>
 
-				</tr>
-				<tr>
-					<td class="text-left border-none">S.O#</td>
-					<td class="text-left border-none">A001</td>
-				</tr>
-				<tr>
-					<td class="text-left border-none">Customer ID</td>
-					<td class="text-left border-none">CUS/001</td>
-				</tr>
-				<tr>
-					<td class="text-left border-none">Checker</td>
-					<td class="text-left border-none">{{Auth::user()->name}}</td>
-				</tr>
-			</tbody>
-		</table>
+						</tr>
+						<tr>
+							<td class="text-left border-none">S.O#</td>
+							<td class="text-left border-none">A001</td>
+						</tr>
+						<tr>
+							<td class="text-left border-none">Customer ID</td>
+							<td class="text-left border-none">CUS/001</td>
+						</tr>
+						<tr>
+							<td class="text-left border-none">Checker</td>
+							<td class="text-left border-none">{{Auth::user()->name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<table class="border-none" width="100%"">
+				<thead>
+					<tr>
+						<th class="border-none" width="1%">No.</th>
+						<th class="border-none" width="15%">Item Name #</th>
+						<th class="border-none" width="5%">Qty</th>
+						<th class="border-none">Description</th>
+						<th class="border-none">Checklist</th>
+						<th class="border-none">Remarks</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Cable</td>
+						<td>30</td>
+						<td>Kabel Hitam</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Pompa Air</td>
+						<td>1</td>
+						<td>Pompa Merk Sanyo</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="blank"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="float-right text-left" style="width: 100%;font-size: 12px;margin-top: 55px;">
+				<table class="border-none" width="100%">
+					<thead>
+						<tr>
+							<th class="border-none"></th>
+							<th class="border-none"></th>
+							<th class="border-none">{{date('d M Y')}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="border-top: 1px solid black;">
+							<td class="border-none">Warehouse</td>
+							<td class="border-none">Authorized By</td>
+							<td class="border-none">Date</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
-	
-	<table class="border-none" width="100%"">
-		<thead>
-			<tr>
-				<th class="border-none" width="1%">No.</th>
-				<th class="border-none" width="15%">Item Name #</th>
-				<th class="border-none" width="5%">Qty</th>
-				<th class="border-none">Description</th>
-				<th class="border-none">Checklist</th>
-				<th class="border-none">Remarks</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>Cable</td>
-				<td>30</td>
-				<td>Kabel Hitam</td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Pompa Air</td>
-				<td>1</td>
-				<td>Pompa Merk Sanyo</td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="blank"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="float-right text-left" style="width: 100%;font-size: 12px;margin-top: 55px;">
-		<table class="border-none" width="100%">
-			<thead>
-				<tr>
-					<th class="border-none"></th>
-					<th class="border-none"></th>
-					<th class="border-none">{{date('d M Y')}}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr style="border-top: 1px solid black;">
-					<td class="border-none">Warehouse</td>
-					<td class="border-none">Authorized By</td>
-					<td class="border-none">Date</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
 </body>
 <script type="text/javascript">
 	window.print();

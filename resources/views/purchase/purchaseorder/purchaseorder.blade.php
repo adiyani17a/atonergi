@@ -22,9 +22,32 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Purchase Order</h4>
-                    <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cari" id="cari"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#cari" id="cari"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                      </div>
                     </div>
+
+                    <div class="row">
+                      <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Notice!</strong> <br>
+                            <label class="badge badge-pill badge-primary">1</label>
+                            Inprocess
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Notice!</strong> <br>
+                            <label class="badge badge-pill badge-warning">1</label>
+                            Unprocess
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="table-responsive">
                       <table class="table table-bordered table-hover " id="datatable" cellspacing="0">
                         <thead class="bg-gradient-info">

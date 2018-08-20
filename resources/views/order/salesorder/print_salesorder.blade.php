@@ -50,7 +50,8 @@ table, td, th {
 	border-style: hidden;
 }
 .div-width{
-	width: 900px;
+	width: 90vw;
+	margin: auto;
 	position: relative;
 	background: transparent;
 }
@@ -66,7 +67,7 @@ table, td, th {
 	bottom: 0;
 	right: 0;
 	opacity: 0.1; 
-	width: 900px;
+	width: 90vw;
 }
 .top
 {
@@ -128,11 +129,30 @@ table, td, th {
 
 	float: right;
 }
+.btn-print button, .btn-print a{
+	float: right;
+}
+@media print{
 
+	.btn-print{
+		display: none;
+	}
+	.div-width-background{
+		-webkit-print-color-adjust: exact;
+		margin: auto;
+	}
+}
+@page{
+	size: portrait;
+	margin: 0;
+}
 
 	</style>
 </head>
 <body>
+	<div class="btn-print">
+		<button onclick="javascript:window.print();">Print</button>
+	</div>
 <div class="div-width-background">
 	
 </div>

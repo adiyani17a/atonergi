@@ -133,6 +133,9 @@ table, td, th {
 	.btn-print{
 		display: none;
 	}
+	.div-width-background{
+		margin: auto;
+	}
 }
 
 @page{

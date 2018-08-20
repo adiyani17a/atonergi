@@ -77,7 +77,7 @@ Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
     Route::get('/master/status/hapus_status', 'MasterController@hapus_status');
     // 
 Route::get('/master/type/type', 'MasterController@type');
-
+Route::get('/master/ttd/ttd', 'MasterController@ttd');
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
 Route::get('/quotation/q_quotation/datatable', 'QuotationController@quote_datatable')->name('quote_datatable');
