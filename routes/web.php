@@ -105,7 +105,8 @@ Route::get('/quotation/k_penawaran/k_penawaran', 'QuotationController@k_penawara
 Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_penawaran');
 
 // Purchase
-Route::get('/purchase/belanjalangsung/belanjalangsung', 'PurchaseController@belanjalangsung');
+Route::get('/purchase/belanjalangsung/belanjalangsung', 'PurchaseController@belanjalangsung')->name('belanjalangsung');
+Route::get('/purchase/belanjalangsung/tambah_belanjalangsung', 'PurchaseController@tambah_belanjalangsung');
 Route::get('/purchase/hub_suplier/hub_suplier', 'PurchaseController@hub_suplier');
 
 // Order

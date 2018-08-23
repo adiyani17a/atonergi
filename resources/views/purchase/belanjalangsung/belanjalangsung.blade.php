@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('purchase/belanjalangsung/tambah')
+
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
@@ -21,15 +21,37 @@
 		          	<div class="row">
 		          		
 						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-							<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Sales Order</button>
+							<a class="btn btn-info" href="{{url('purchase/belanjalangsung/tambah_belanjalangsung')}}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Belanja Langsung</a>
 						</div>
+
+
+		        	</div>
+		        	<div class="row">
+		                 	<div class="col-md-6 col-sm-12 col-xs-12">
+			                    <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+			                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+			                        <strong>Notice!</strong> <br>
+			                        <label class="badge badge-pill badge-primary">1</label>
+			                        Inprocess
+			                    </div>
+		                  	</div>
+		                  	<div class="col-md-6 col-sm-12 col-xs-12">
+			                    <div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
+			                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+			                        <strong>Notice!</strong> <br>
+			                        <label class="badge badge-pill badge-warning">1</label>
+			                        Unprocess
+			                    </div>
+                      		</div>
+                    </div>
 						<div class="table-responsive">
 							<table class="table table-hover data-table" cellspacing="0">
 							  <thead class="bg-gradient-info">
 							    <tr>
 							      <th>No</th>
-							      <th>S.O.#</th>
-							      <th>Vendor Item</th>
+							      <th>P.O.#</th>
+							      <th>Vendor</th>
+							      <th>Item</th>
 							      <th>Total</th>
 							      <th>Status</th>
 							      <th>Action</th>
@@ -41,7 +63,6 @@
 							</table>
 						</div>
 						
-		        	</div>
 		      	</div>
 	    	</div>
 		</div>
