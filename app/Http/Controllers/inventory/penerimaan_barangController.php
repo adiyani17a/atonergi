@@ -32,7 +32,7 @@ class penerimaan_barangController extends Controller
               ->addColumn('aksi', function ($data) {
                         return  '<div class="btn-group">'.
                                  '<button type="button" onclick="edit(this)" class="btn btn-info btn-sm" title="edit">'.
-                                 '<label class="fa fa-pencil"></label></button>'.
+                                 '<label class="fa fa-pencil-alt"></label></button>'.
                                 '</div>';
               })
               ->addColumn('detail', function ($data) {
