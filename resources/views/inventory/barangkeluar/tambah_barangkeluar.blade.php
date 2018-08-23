@@ -68,6 +68,17 @@
                 <input type="text" class="form-control form-control-sm" name="">
               </div>
             </div>
+            <div class="col-md-6 col-sm-0 col-xs-0">
+              <!-- Empty -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <label title="Nama Peminta">Expiration Date</label>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <input type="text" class="form-control form-control-sm" name="" readonly="" value="{{date('d-m-Y', strtotime('+2 week'))}}">
+              </div>
+            </div>
             
           
         </div>

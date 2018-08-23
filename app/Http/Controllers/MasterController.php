@@ -173,5 +173,8 @@ class MasterController extends Controller
     {
         return view('master/rencanapembelian/edit_purchaseorder');
     }
-       
+    public function ttd()
+    {
+        return view('master.ttd.ttd');
+    }      
 }

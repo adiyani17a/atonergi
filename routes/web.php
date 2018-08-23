@@ -77,7 +77,7 @@ Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
     Route::get('/master/status/hapus_status', 'MasterController@hapus_status');
     // 
 Route::get('/master/type/type', 'MasterController@type');
-
+Route::get('/master/ttd/ttd', 'MasterController@ttd');
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
 Route::get('/quotation/q_quotation/datatable', 'QuotationController@quote_datatable')->name('quote_datatable');
@@ -93,7 +93,8 @@ Route::get('/quotation/q_quotation/edit_item', 'QuotationController@edit_item');
 Route::get('/quotation/q_quotation/save_quote', 'QuotationController@save_quote');
 Route::get('/quotation/q_quotation/update_quote', 'QuotationController@update_quote');
 Route::get('/quotation/q_quotation/hapus_quote', 'QuotationController@hapus_quote');
-Route::get('/quotation/q_quotation/print_quote/{id}', 'QuotationController@print_quote');
+Route::get('/quotation/q_quotation/print_quote/{id}/global', 'QuotationController@print_quote');
+Route::get('/quotation/q_quotation/print_quote/{id}/detail', 'QuotationController@print_quote_detail');
 
 Route::get('/quotation/q_quotation/detail', 'QuotationController@detail');
 Route::get('/quotation/q_quotation/histori', 'QuotationController@histori');
