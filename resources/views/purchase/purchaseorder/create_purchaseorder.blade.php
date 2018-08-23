@@ -162,32 +162,44 @@
                   </div>
                 </div>
 
-               {{-- <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
-                  <div class="col-md-2 col-sm-6 col-xs-12">
-                    <label>Item Name</label>
-                  </div>
-                  <div class="col-md-2 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-sm" readonly="" name="" id="po_kodeitem">
-                    </div>
-                  </div>
-                  <div class="col-md-2 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-sm" name="" id="po_item">
-                    </div>
+                <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+
+                    <label>Item</label>
                   </div>
                   <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <select class="form-control form-control-sm" id="rp_kodeitem">
+                        <option selected="" value="">- Pilih -</option>
+                        @foreach ($item as $i)
+                          <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}" 
+                            @if ($i->sg_qty != null)
+                              data-qty="{{ $i->sg_qty }}"
+                            @else
+                              data-qty='0'
+                            @endif
+                          >{{ $i->i_code }} - {{ $i->i_name }} </option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-sm right readonly" name="" id="rp_item">
+                    </div>
+                  </div>
+                  <div class="col-md-1 col-sm-12 col-xs-12">
                     <label>Qty</label>
                   </div>
-                  <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="form-group">
-                      <input type="number" class="form-control form-control-sm" name="" id="po_qty">
+                      <input type="text" class="form-control form-control-sm right hanya_angka"  name="" id="rp_qty" >
                     </div>
                   </div>
                 </div>
-                --}}
+               
                <div class="table-responsive" style="margin-bottom: 15px;">
-                 <table class="table table-bordered table-hover" cellspacing="0" id="datatable">
+                 <table class="table table-bordered table-hover" cellspacing="0" id="t72a">
                    <thead class="bg-gradient-info">
                      <tr>
                        <th>Item Code</th>
@@ -211,7 +223,7 @@
                           <td><input type="text" class="form-control form-control-sm min-width2 readonly" name="podt_unit[]" value="{{ $seq->i_unit }}"></td>
                           <td><input type="text" class="form-control form-control-sm min-width right format_money readonly unit_price" name="podt_unit_price[]" value="{{ number_format($seq->rodt_unit_price,0,',','.') }}"></td>
                           <td><input type="text" class="form-control form-control-sm min-width right format_money total_price readonly" name="podt_price[]" onchange="hitung_total(this)" value="{{ number_format($seq->rodt_price,0,',','.') }}"></td>
-                          <td><input type="checkbox" name=""></td>
+                          <td><input type="checkbox" name="podt_ppn[]" class="ppn" onchange="ppn_10(this)">10%</td>
                           <td><button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button></td>
                        </tr>
                      @endforeach
@@ -267,8 +279,113 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-  var table = $('#datatable').DataTable({});
+
+
+
+  $('#rp_kodeitem').change(function(){
+      var this_val = $(this).find(':selected').data('price');   
+          if($(this).val() != '') {
+            $('#rp_qty').attr('disabled',false);
+          }else{
+            $('#rp_qty').attr('disabled',true);          
+          }    
+      var price = $('#rp_item').val(accounting.formatMoney(this_val,"",0,'.',','));
+  });
   
+
+    var table           = $("#t72a").DataTable();
+    var rp_qty         = $("#rp_qty");
+    var rp_item          = $("#rp_item");
+    var rp_kodeitem       = $("#rp_kodeitem");
+
+    var x = 1;
+ 
+    $('#rp_qty').attr('disabled',true); 
+    $('#rp_kodeitem').change(function(){
+      var this_val = $(this).find(':selected').data('price');   
+          if($(this).val() != '') {
+            $('#rp_qty').attr('disabled',false);
+          }else{
+            $('#rp_qty').attr('disabled',true);          
+          }    
+      var price = $('#rp_item').val(accounting.formatMoney(this_val,"",0,'.',','));
+    });
+
+
+    rp_qty.keypress(function(e) {
+      if(e.which == 13 || e.keyCode == 13){
+        var qty = rp_qty.val();
+        var harga_1 = rp_item.val();
+
+        qty = qty.replace(/[^0-9\-]+/g,"");
+        harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
+
+        var total = parseInt(harga_1)*parseInt(qty);
+        table.row.add( [
+            '<input type="text" id="item_kode[]"    name="podt_barang[]"    class="form-control input-sm min-width readonly" readonly value="'+ rp_kodeitem.val() +'">',
+            '<input type="text" id="podt_name[]"    name="podt_name[]"   class="form-control input-sm min-width readonly" value="'+ rp_kodeitem.find(':selected').data('name') +'">',  
+            '<input type="text" id="podt_qty_requested[]"   class="form-control input-sm min-width right readonly " value="'+rp_qty.val()+'">',
+            '<input type="text" id="podt_qty[]"     name="podt_qty[]"    class="form-control input-sm min-width right readonly qty_approved_value qty" onkeyup="hitung_qty(this)" value="'+rp_qty.val()+'">',
+            '<input type="number" id="jumlah[]"     name="ro_qty_seq[]"    class="form-control input-sm min-width right readonly total_qty "  value="'+ accounting.formatMoney(rp_qty.val(),"",0,'.',',') +'">',
+            '<input type="text" id="podt_unit_price[]"   name="podt_unit_price[]"    class="form-control input-sm min-width right readonly unit_price" value="'+ accounting.formatMoney(rp_kodeitem.find(':selected').data('price'),"",0,'.',',') +'">',
+            '<input type="text" id="podt_price[]"   name="podt_price[]"    class="form-control input-sm min-width right readonly total_price " value="'+ accounting.formatMoney(total,"",0,'.',',') +'">',
+            '<td><input type="checkbox" name="podt_ppn[]" class="ppn" onchange="ppn_10(this)">10%</td>',
+            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
+        ] ).draw( false );
+      
+        x++;
+
+        var total_price = 0;
+        $('.total_price').each(function(){
+          var total = $(this).val();
+          total = total.replace(/[^0-9\-]+/g,"");
+          total_price += parseInt(total);
+        });
+        $("input[name='ro_total_header']").val(accounting.formatMoney(total_price,"",0,'.',','));
+
+        var total_qty = 0;
+        $('.total_qty').each(function(){
+          var total = $(this).val();
+          total = total.replace(/[^0-9\-]+/g,"");
+          total_qty += parseInt(total);
+        });
+        $("input[name='ro_qty_header']").val(accounting.formatMoney(total_qty,"",0,'.',','));
+
+        rp_item.focus();
+        rp_item.val('');
+        rp_kodeitem.val('').trigger('change');
+        rp_qty.val('');
+      }
+    });
+ 
+    
+
+    $('#t72a tbody').on( 'click', '.delete', function () {
+        table
+            .row($(this).parents('tr'))
+            .remove()
+            .draw();
+
+        var parents = $(this).parents('tr');
+        var total_price_seq = $(parents).find('.total_price').val();
+        var total_qty_seq = $(parents).find('.total_qty').val();
+        var total_price_header = $("input[name='ro_total_header']").val();
+        var total_qty_header = $("input[name='ro_qty_header']").val();
+
+        total_price_header = total_price_header.replace(/[^0-9\-]+/g,"");
+        total_qty_header = total_qty_header.replace(/[^0-9\-]+/g,"");
+        total_price_seq = total_price_seq.replace(/[^0-9\-]+/g,"");
+        total_qty_seq = total_qty_seq.replace(/[^0-9\-]+/g,"");
+
+        var kurang_total = parseInt(total_price_header)-parseInt(total_price_seq);
+        var kurang_qty = parseInt(total_qty_header)-parseInt(total_qty_seq);
+        $("input[name='ro_total_header']").val(accounting.formatMoney(kurang_total,"",0,'.',','));
+        $("input[name='ro_qty_header']").val(accounting.formatMoney(kurang_qty,"",0,'.',','));
+
+    });
+
+
+    
   
     //HITUNG SALES TAX
     $('#po_tax').keyup(function(){
@@ -365,6 +482,32 @@
 
     }
 
+
+    function ppn_10 (a) {
+      var parents_ppn = $(a).parents('tr');    
+      var ppn_value = $(parents_ppn).find('.ppn').val();
+      var total_price = $(parents_ppn).find('.total_price').val();
+      total_price = total_price.replace(/[^0-9\-]+/g,"");
+
+      if ($('.ppn').prop('checked') == true) {
+        var hitung = parseInt(total_price)*(10/parseInt(100));
+        var total  = $('#po_tax').val();
+        var hitung = parseInt(total)+parseInt(hitung);
+
+        $('#po_tax').val(hitung);
+        alert('if');
+      }else if($('.ppn').prop('checked') == false){
+        var hitung = parseInt(total_price)*(10/parseInt(100));
+        var total  = $('#po_tax').val();
+        var hitung = parseInt(total)-parseInt(hitung);
+
+        $('#po_tax').val(hitung);
+        alert('else');
+      }
+      
+      
+
+    }
 
    
 

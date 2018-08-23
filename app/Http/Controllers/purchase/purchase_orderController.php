@@ -89,7 +89,9 @@ class purchase_orderController extends Controller
       $date = date('my');
       $nota = 'PO-'.$index.'/'.$request->cari_vendor.'/'.$date;
 
-   		return view('purchase/purchaseorder/create_purchaseorder',compact('data_header','data_seq','vendor','nota','no_ro','no_vendor'));
+      $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
+      
+   		return view('purchase/purchaseorder/create_purchaseorder',compact('data_header','data_seq','vendor','nota','no_ro','no_vendor','item'));
    	}
     public function detail_purchaseorder(Request $request)
     {
