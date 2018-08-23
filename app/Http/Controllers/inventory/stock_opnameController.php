@@ -60,14 +60,15 @@ class stock_opnameController extends Controller
    public function save_stockopname(Request $request)
    {
    	// dd($request->all());
-
+   	// count($request->so_item);
    return DB::transaction(function() use ($request) {
 
-    for ($i=0; $i < count($request->so_item); $i++) { 
+    for ($i=0; $i < 2; $i++) { 
 		$cari = DB::table('i_stock_mutasi')
 			   ->where('sm_item',$request->so_item[$i])
 			   ->orderBy('sm_insert','ASC')
 			   ->get();
+		// return $cari;
 
 		if ($request->so_system[$i] < $request->so_real[$i]) {
 

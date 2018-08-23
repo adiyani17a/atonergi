@@ -120,28 +120,28 @@
 <script type="text/javascript">
 	
 
-	function qty_received(a) {
-    var par   = $(a).parents('tr');
-    var qty_approved = $(par).find('.qty_approved').val();
-    var qty_received = $(par).find('.qty_received').val();
-    var qty_remain = $(par).find('.qty_remain').val();
-    var qty_remain_temp = $(par).find('.qty_remain_temp').val();
+	// function qty_received(a) {
+ //    var par   = $(a).parents('tr');
+ //    var qty_approved = $(par).find('.qty_approved').val();
+ //    var qty_received = $(par).find('.qty_received').val();
+ //    var qty_remain = $(par).find('.qty_remain').val();
+ //    var qty_remain_temp = $(par).find('.qty_remain_temp').val();
 
 
-    var qty_hitung = parseFloat(qty_approved)-parseFloat(qty_received);
+ //    var qty_hitung = parseFloat(qty_approved)-parseFloat(qty_received);
 
-    $(par).find('.qty_remain').val(qty_hitung);
+ //    $(par).find('.qty_remain').val(qty_hitung);
 
-		if (parseFloat(qty_received) > parseFloat(qty_remain) ) {
-			iziToast.warning({
-	            icon: 'fa fa-times',
-	            message: 'Qty Melebihi Batas MAX!',
-	          });
-			$(par).find('.qty_received').val(0);
-			$(par).find('.qty_remain_temp').val(qty_remain_temp);
-		}
+	// 	if (parseFloat(qty_received) > parseFloat(qty_remain) ) {
+	// 		iziToast.warning({
+	//             icon: 'fa fa-times',
+	//             message: 'Qty Melebihi Batas MAX!',
+	//           });
+	// 		$(par).find('.qty_received').val(0);
+	// 		$(par).find('.qty_remain_temp').val(qty_remain_temp);
+	// 	}
 
-	}
+	// }
 
 	function save_data(){
 
