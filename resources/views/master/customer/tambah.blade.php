@@ -32,12 +32,12 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-             {{--  <select class="form-control form-control-sm" name="c_hometown">
+              <select class="form-control form-control-sm" name="c_hometown">
                 <option selected="" readonly="" value="">- Pilih -</option>
                 @foreach ($kota as $kt)
                   <option value="{{ $kt->id }}">{{ $kt->id }} - {{ $kt->name }}</option>
                 @endforeach
-              </select> --}}
+              </select>
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -104,11 +104,11 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>Bank Name</label>
+            <label>NPWP</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm " style="text-transform: uppercase;" name="c_bankname">
+              <input type="text" class="form-control" name="c_npwp">
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -120,12 +120,12 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>NPWP / KTP</label>
+            {{-- <label>NPWP</label> --}}
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control" name="c_npwp">
-            </div>
+            {{-- <div class="form-group"> --}}
+              {{-- <input type="text" class="form-control" name="c_npwp"> --}}
+            {{-- </div> --}}
           </div>
           <div class="col-md-6 col-sm-0 col-xs-0">
             <!-- Empty -->
