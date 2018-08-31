@@ -3,7 +3,7 @@
 
 @include('quotation/q_quotation/tambah')
 
-@include('master/customer/tambah')
+{{-- @include('master/customer/tambah') --}}
 
 @include('quotation/q_quotation/detail')
 

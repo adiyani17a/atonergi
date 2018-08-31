@@ -264,6 +264,7 @@ Route::get('/master/bundle/edit_bundle/{id}', 'master\master_bundleitemControlle
 
 // MASTER CURRENCY
 Route::get('/master/currency/index', 'master\currency_controller@index');
+Route::get('/master/currency/auto_complete', 'master\currency_controller@auto_complete');
 
 
 // ------------------------------ view edit bundle ari -------------------------------------------//
