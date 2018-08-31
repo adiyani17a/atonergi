@@ -127,17 +127,17 @@
     $('.hide_1').hide();
     $('.rubah').html('<button type="button" class="btn btn-primary btn-xs" onclick="tambah_bank()"><i class="fa fa-plus"></i></button>');
     $('.rubah_1').html('<button type="button" class="btn btn-primary btn-xs" onclick="tambah_bank_1()"><i class="fa fa-plus"></i></button>');
-    
+
     //
-    var v_namabank    = $("input[name='v_namabank']").val(''); 
+    var v_namabank    = $("input[name='v_namabank']").val('').trigger('change'); 
     var v_noakun    = $("input[name='v_accountnumber']").val(''); 
-    var v_bank_town    = $("input[name='v_bank_town']").val(''); 
+    var v_bank_town    = $("input[name='v_bank_town']").val('').trigger('change'); 
     var v_bank_pic    = $("input[name='v_bank_pic']").val('');
 
     //
-    var v_namabank_1    = $("input[name='v_namabank_1']").val(''); 
+    var v_namabank_1    = $("input[name='v_namabank_1']").val('').trigger('change'); 
     var v_noakun_1    = $("input[name='v_accountnumber_1']").val(''); 
-    var v_bank_town_1    = $("input[name='v_bank_town_1']").val(''); 
+    var v_bank_town_1    = $("input[name='v_bank_town_1']").val('').trigger('change'); 
     var v_bank_pic_1    = $("input[name='v_bank_pic_1']").val(''); 
 
     $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
@@ -214,11 +214,37 @@
             var v_tipe      = $("select[name='v_tipe']").val(data[0].s_type).trigger('change'); 
             var v_plafon    = $("input[name='v_plafon']").val(data[0].s_limit); 
             var v_credit    = $("input[name='v_credit']").val(data[0].s_termin); 
-            var v_namabank  = $("input[name='v_namabank']").val(data[0].s_bankname); 
-            var v_noakun    = $("input[name='v_noakun']").val(data[0].s_accountnumber); 
             var v_npwp      = $("input[name='v_npwp']").val(data[0].s_npwp); 
             var v_informasi = $("textarea#v_informasi").val(data[0].s_information);
             var v_kode_old  = $("input[name='v_kode_old']").val(data[0].s_kode);
+
+            if (data[0].s_bank_town != null) {
+              $('.hide').show();
+            }else{
+              $('.hide').hide();
+            }
+
+            if (data[0].s_bank_town_1 != null) {
+              $('.hide_1').show();
+            }else{
+              $('.hide').hide();
+            }
+            
+
+            $('.rubah').html('<button type="button" class="btn btn-primary btn-xs" onclick="tambah_bank()"><i class="fa fa-plus"></i></button>');
+            $('.rubah_1').html('<button type="button" class="btn btn-primary btn-xs" onclick="tambah_bank_1()"><i class="fa fa-plus"></i></button>');
+            
+            //
+            var v_namabank    = $("input[name='v_namabank']").val(data[0].s_bankname).trigger('change'); 
+            var v_noakun    = $("input[name='v_accountnumber']").val(data[0].s_accountnumber); 
+            var v_bank_town    = $("input[name='v_bank_town']").val(data[0].s_bank_town).trigger('change'); 
+            var v_bank_pic    = $("input[name='v_bank_pic']").val(data[0].s_bank_pic);
+
+            //
+            var v_namabank_1    = $("input[name='v_namabank_1']").val(data[0].s_bankname_1).trigger('change'); 
+            var v_noakun_1    = $("input[name='v_accountnumber_1']").val(data[0].s_accountnumber_1); 
+            var v_bank_town_1    = $("input[name='v_bank_town_1']").val(data[0].s_bank_town_1).trigger('change'); 
+            var v_bank_pic_1    = $("input[name='v_bank_pic_1']").val(data[0].s_bank_pic_1); 
 
             $('#change_function').html('<button class="btn btn-primary" type="button" onclick="update()">Update Data</button>')
          },
