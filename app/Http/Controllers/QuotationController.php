@@ -19,6 +19,12 @@ class QuotationController extends Controller
  	public function q_quotation()
  	{
 
+
+    $kota_0 = DB::table('provinces')->get()->toArray();
+    $kota_1 = DB::table('regencies')->get()->toArray();
+
+    $kota = array_merge($kota_0,$kota_1);
+
     $customer = DB::table('m_customer')
                   ->get();
 
@@ -37,7 +43,7 @@ class QuotationController extends Controller
                 ->get();
 
 
- 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing','now','item','status','type_product'));
+ 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing','now','item','status','type_product','kota'));
  	}
 
  	public function quote_datatable()
