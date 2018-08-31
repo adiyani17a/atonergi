@@ -19,6 +19,12 @@ class QuotationController extends Controller
  	public function q_quotation()
  	{
 
+
+    $kota_0 = DB::table('provinces')->get()->toArray();
+    $kota_1 = DB::table('regencies')->get()->toArray();
+
+    $kota = array_merge($kota_0,$kota_1);
+
     $customer = DB::table('m_customer')
                   ->get();
 
