@@ -227,7 +227,7 @@ Route::get('/quotation/dataeditmarketing/dataedit_marketing', 'master\master_mar
 Route::get('/quotation/datatalble_marketing/datatalble_marketing', 'master\master_marketingController@datatalble_marketing')->name('datatalble_marketing');
 
 //master customer
-Route::get('/master/customer/cust', 'MasterController@customer');
+Route::get('/master/customer/cust', 'master\master_customerController@customer');
 Route::get('/master/simpancustomer/simpan_customer', 'master\master_customerController@simpan_customer');
 Route::get('/master/hapuscustomer/hapus_customer', 'master\master_customerController@hapus_customer');
 Route::get('/master/updatecustomer/update_customer', 'master\master_customerController@update_customer');
