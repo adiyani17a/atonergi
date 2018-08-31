@@ -71,7 +71,7 @@ $('#t55').DataTable();
 $('.currency').change(function(){
   var id = $(this).val();
   $.ajax({
-    url: {{ url('master/currency/auto_complete') }},
+    url: '{{ url('master/currency/auto_complete') }}',
     data: {id},
     type:'get',
     dataType:'json',
