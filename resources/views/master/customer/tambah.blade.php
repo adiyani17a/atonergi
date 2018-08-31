@@ -32,12 +32,12 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <select class="form-control form-control-sm" name="c_hometown"> 
-                  <option selected="" disabled="" value="">- Pilih -</option>
-                  <option value="spg">spg</option>
-                  <option value="spb">spb</option>
-                  <option value="sales">sales</option>
-              </select>
+             {{--  <select class="form-control form-control-sm" name="c_hometown">
+                <option selected="" readonly="" value="">- Pilih -</option>
+                @foreach ($kota as $kt)
+                  <option value="{{ $kt->id }}">{{ $kt->id }} - {{ $kt->name }}</option>
+                @endforeach
+              </select> --}}
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -120,7 +120,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>NPWP</label>
+            <label>NPWP / KTP</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">

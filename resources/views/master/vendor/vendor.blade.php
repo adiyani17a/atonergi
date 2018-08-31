@@ -28,6 +28,7 @@
                               <tr>
                                 <th>Vendor kode</th>
                                 <th>Vendor Name</th>
+                                <th>PIC Name</th>
                                 <th>HomeTown</th>
                                 <th>Birth Date</th>
                                 <th>Vendor Type</th>
@@ -73,6 +74,7 @@
                 ],
             "columns": [
             { "data": "s_kode" },
+            { "data": "s_company" },
             { "data": "s_name" },
             { "data": "s_hometown" },
             { "data": "s_date" },

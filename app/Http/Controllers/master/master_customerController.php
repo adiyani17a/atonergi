@@ -12,7 +12,12 @@ class master_customerController extends Controller
    
     public function customer()
     {
-        return view('quotation/customer/customer');
+        return 'a';
+        $kota_0 = DB::table('provinces')->get()->toArray();
+        $kota_1 = DB::table('regencies')->get()->toArray();
+
+        $kota = array_merge($kota_0,$kota_1);
+        return view('master/customer/cust',compact('kota'));
     }
     public function datatalble_customer(Request $request)
     { 

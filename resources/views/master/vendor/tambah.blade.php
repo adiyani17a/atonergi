@@ -62,11 +62,11 @@
           </div>
 
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>Birth Date</label>
+            <label>Phone Number 1</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" maxlength="10" class="form-control form-control-sm datepicker" name="v_tgl">
+              <input type="text" class="form-control form-control-sm" name="v_tlp1">
             </div>
           </div>
           

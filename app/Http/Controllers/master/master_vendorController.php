@@ -15,7 +15,10 @@ class master_vendorController extends Controller
         // $password = bcrypt('admin');
         // return $password;
 
-        $kota = DB::table('regencies')->get();
+        $kota_0 = DB::table('provinces')->get()->toArray();
+        $kota_1 = DB::table('regencies')->get()->toArray();
+
+        $kota = array_merge($kota_0,$kota_1);
         return view('master/vendor/vendor',compact('kota'));
 
     }
@@ -64,7 +67,8 @@ class master_vendorController extends Controller
     			's_name'=>$request->v_name,
     			's_address'=>$request->v_alamat,
     			's_email'=>$request->v_email,
-    			's_phone'=>$request->v_tlp,
+                's_phone'=>$request->v_tlp,
+    			's_phone_1'=>$request->v_tlp1,
     			// 's_fax'=>$request->v_tgl,
     			's_termin'=>$request->v_credit,
     			's_limit'=>$request->v_plafon,
@@ -101,6 +105,7 @@ class master_vendorController extends Controller
     			's_address'=>$request->v_alamat,
     			's_email'=>$request->v_email,
     			's_phone'=>$request->v_tlp,
+                's_phone_1'=>$request->v_tlp1,
     			// 's_fax'=>$request->v_tgl,
     			's_termin'=>$request->v_credit,
     			's_limit'=>$request->v_plafon,
