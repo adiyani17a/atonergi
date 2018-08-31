@@ -43,7 +43,7 @@ class QuotationController extends Controller
                 ->get();
 
 
- 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing','now','item','status','type_product'));
+ 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing','now','item','status','type_product','kota'));
  	}
 
  	public function quote_datatable()
