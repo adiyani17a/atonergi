@@ -293,6 +293,9 @@
   });
   
 
+  
+
+
     var table           = $("#t72a").DataTable();
     var rp_qty         = $("#rp_qty");
     var rp_item          = $("#rp_item");
@@ -504,9 +507,6 @@
         $('#po_tax').val(hitung);
         alert('else');
       }
-      
-      
-
     }
 
    

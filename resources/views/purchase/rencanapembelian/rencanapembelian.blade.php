@@ -427,8 +427,6 @@ function hapus(parm){
 
 
   $('#change_detail').on("click", "#approve_data",function(){
-
-
     iziToast.show({
             overlay: true,
             close: false,

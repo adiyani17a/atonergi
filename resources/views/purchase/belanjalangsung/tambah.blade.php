@@ -45,8 +45,11 @@
                             <div class="col-md-10 col-sm-6 col-xs-12">
                               <div class="form-group">
                                   <div class="form-group">
-                                    <select class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" id="dbl_vendor">
                                       <option>--Select Vendor--</option>
+                                      @foreach ($vendor as $el)
+                                        <option value="{{ $el->s_kode }}" data-alamat="{{ $el->s_address }}" data-name="{{ $el->s_name }}">{{ $el->s_kode }} - {{ $el->s_name }}</option>
+                                      @endforeach
                                     </select>
                                   </div>
                               </div>
@@ -59,7 +62,7 @@
                             <div class="col-md-10 col-sm-6 col-xs-12">
                               <div class="form-group">
                                   <div class="form-group">
-                                    <input type="text" class="form-control form-control-sm readonly" name="po_name" value="{{-- {{ $data_header->s_name }} - {{ $data_header->s_company }} --}}">
+                                    <input type="text" class="form-control form-control-sm readonly" name="dbl_name" id="dbl_name" value="{{-- {{ $data_header->s_name }} - {{ $data_header->s_company }} --}}">
                                   </div>
                               </div>
                             </div>
@@ -70,7 +73,7 @@
 
                             <div class="col-md-10 col-sm-6 col-xs-12">
                               <div class="form-group">
-                                <textarea class="form-control readonly" name="po_address">{{-- {{ $data_header->s_address }} --}}</textarea>
+                                <textarea class="form-control readonly" name="dbl_address" id="dbl_address">{{-- {{ $data_header->s_address }} --}}</textarea>
                               </div>
                             </div>
 
@@ -87,7 +90,7 @@
                           </div>
                           <div class="col-md-8 col-sm-6 col-xs-12">
                             <div class="form-group">
-                              <input type="text" class="form-control form-control-sm datepicker_today" name="po_date">
+                              <input type="text" class="form-control form-control-sm datepicker_today" name="dbl_date">
                             </div>
                           </div>
                           <div class="col-md-4 col-sm-6 col-xs-12">
@@ -95,7 +98,7 @@
                           </div>
                           <div class="col-md-8 col-sm-6 col-xs-12">
                             <div class="form-group">
-                              <input type="text" class="form-control form-control-sm readonly"  name="po_nopo" value="{{-- {{ $nota }} --}}">
+                              <input type="text" class="form-control form-control-sm readonly"  name="dbl_code" value="{{ $nota }}">
                             </div>
                           </div>
                           <div class="col-md-4 col-sm-6 col-xs-12">
@@ -103,7 +106,7 @@
                           </div>
                           <div class="col-md-8 col-sm-6 col-xs-12">
                             <div class="form-group">
-                              <input type="text" class="form-control form-control-sm" name="po_shipping_to">
+                              <input type="text" class="form-control form-control-sm" name="dbl_ship_to">
                             </div>
                           </div>
                         </div>
@@ -120,7 +123,7 @@
                       </div>
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <div class="form-group" >
-                          <select name="po_shipping_method">
+                          <select name="dbl_shippinethod">
                             <option selected="" value="">- Pilih -</option>
                             <option value="DARAT">DARAT</option>
                             <option value="LAUT">LAUT</option>
@@ -136,7 +139,7 @@
                       </div>
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-sm" name="po_shipping_term">
+                          <input type="text" class="form-control form-control-sm" name="dbl_shipp_term">
                         </div>
                       </div>
 
@@ -147,7 +150,7 @@
                       </div>
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-sm datepicker" name="po_shipping_date">
+                          <input type="text" class="form-control form-control-sm datepicker" name="dbl_shipp_date">
                         </div>
                       </div>
                     </div>
@@ -157,28 +160,27 @@
                 <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
                   <div class="col-md-3 col-sm-6 col-xs-12">
 
-                    <label>Item</label>
+                  <label>Item</label>
                   </div>
                   <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                      <select class="form-control form-control-sm" id="rp_kodeitem">
+                      <select class="form-control form-control-sm" id="dbldt_kodeitem">
                         <option selected="" value="">- Pilih -</option>
-                        <option value="T-80U">T-80U</option>
-                        {{-- @foreach ($item as $i)
-                          <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}" 
+                        @foreach ($item as $i)
+                          <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}" data-jenis="{{ $i->i_jenis }}" 
                             @if ($i->sg_qty != null)
                               data-qty="{{ $i->sg_qty }}"
                             @else
                               data-qty='0'
                             @endif
                           >{{ $i->i_code }} - {{ $i->i_name }} </option>
-                        @endforeach --}}
+                        @endforeach
                       </select>
                     </div>
                   </div>
                   <div class="col-md-2 col-sm-12 col-xs-12">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-sm right readonly" name="" id="rp_item">
+                      <input type="text" class="form-control form-control-sm right readonly" name="" id="dbldt_item">
                     </div>
                   </div>
                   <div class="col-md-1 col-sm-12 col-xs-12">
@@ -186,7 +188,7 @@
                   </div>
                   <div class="col-md-3 col-sm-12 col-xs-12">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-sm right hanya_angka"  name="" id="rp_qty" >
+                      <input type="text" class="form-control form-control-sm right hanya_angka"  name="" id="dbldt_qty" >
                     </div>
                   </div>
                 </div>
@@ -206,19 +208,7 @@
                      </tr>
                    </thead>
                    <tbody>
-                     {{-- @foreach ($data_seq as $seq)
-                       <tr>
-                          <td><input type="text" class="form-control form-control-sm min-width readonly" name="podt_barang[]" value="{{ $seq->rodt_barang }}"></td>
-                          <td><input type="text" class="form-control form-control-sm min-width readonly" name="podt_name[]" value="{{ $seq->i_name }}"></td>
-                          <td><input type="text" class="form-control form-control-sm min-width2 right format_money readonly qty" value="{{ $seq->rodt_qty }}"></td>
-                          <td><input type="text" class="form-control form-control-sm min-width2 right format_money qty_approved_value"  onkeyup="hitung_qty(this)" name="podt_qty[]" value="{{ $seq->rodt_qty_approved }}"></td>
-                          <td><input type="text" class="form-control form-control-sm min-width2 readonly" name="podt_unit[]" value="{{ $seq->i_unit }}"></td>
-                          <td><input type="text" class="form-control form-control-sm min-width right format_money readonly unit_price" name="podt_unit_price[]" value="{{ number_format($seq->rodt_unit_price,0,',','.') }}"></td>
-                          <td><input type="text" class="form-control form-control-sm min-width right format_money total_price readonly" name="podt_price[]" onchange="hitung_total(this)" value="{{ number_format($seq->rodt_price,0,',','.') }}"></td>
-                          <td><input type="checkbox" name="podt_ppn[]" class="ppn" onchange="ppn_10(this)">10%</td>
-                          <td><button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button></td>
-                       </tr>
-                     @endforeach --}}
+                   
                    </tbody>
                  </table>
                </div>
@@ -231,7 +221,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm right" readonly="" name="po_subtotal" id="po_subtotal">
+                        <input type="text" class="form-control form-control-sm right dbldt_subtotal" readonly="" name="po_subtotal" id="dbldt_subtotal">
                       </div>
                     </div>
                     <div class="offset-md-8 col-md-2 col-sm-12 col-xs-12">
@@ -239,7 +229,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm right format_money" name="po_tax" value="0" id="po_tax">
+                        <input type="text" class="form-control form-control-sm right format_money dbldt_tax" name="dbldt_tax" value="0" id="dbldt_tax">
                       </div>
                     </div>
                     <div class="offset-md-8 col-md-2 col-sm-12 col-xs-12">
@@ -247,7 +237,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm right format_money" readonly="po_total_net" name="total_net" id="total_net">
+                        <input type="text" class="form-control form-control-sm right format_money total_net" readonly="dbldt_total_net" name="total_net" id="total_net">
                       </div>
                     </div>
                   </div>
@@ -273,41 +263,164 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
-    var t = $('#t80b').DataTable();
+
+   $('#dbl_vendor').change(function(){
+
+    var name = $(this).find(':selected').data('name');
+    var address = $(this).find(':selected').data('alamat');
+
+    $('#dbl_name').val(name);
+    $('#dbl_address').val(address);
+
+   }); 
+
     var counter = 1;
- 
-    $('#rp_qty').keypress(function(e){
+    var table           = $("#t80b").DataTable();
+    var dbldt_qty         = $("#dbldt_qty");
+    var dbldt_item          = $("#dbldt_item");
+    var dbldt_kodeitem       = $("#dbldt_kodeitem");
+
+
+    $('#dbldt_qty').attr('disabled',true); 
+    $('#dbldt_kodeitem').change(function(){
+      var this_val = $(this).find(':selected').data('price');   
+          if($(this).val() != '') { 
+            $('#dbldt_qty').attr('disabled',false);
+          }else{
+            $('#dbldt_qty').attr('disabled',true);          
+          }    
+      var price = dbldt_item.val(accounting.formatMoney(this_val,"",0,'.',','));
+    });
+
+    $('#dbldt_qty').keypress(function(e){
       if (e.which == 13 || e.keyCode == 13) {
 
-      var i_name = $('#rp_kodeitem').val();
-      var i_qty = $('#rp_qty').val();
-        t.row.add( [
-            '<input type="text" class="form-control form-control-sm">',
-            '<input type="text" class="form-control form-control-sm" value="'+i_name+'">',
+      var qty = dbldt_qty.val();
+      var harga_1 = dbldt_item.val();
+
+      qty = qty.replace(/[^0-9\-]+/g,"");
+      harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
+
+      var total = parseInt(harga_1)*parseInt(qty);
+
+      var i_kode  = $('#dbldt_kodeitem').val();
+      var i_name  = $('#dbldt_kodeitem').find(':selected').data('name');
+      var i_price = $('#dbldt_kodeitem').find(':selected').data('price');
+      var i_qty   = $('#dbldt_qty').val();
+      var i_satuan = $('#dbldt_kodeitem').find(':selected').data('jenis');
+
+        table.row.add( [
+            '<input type="text" class="form-control form-control-sm" value="'+i_kode+'" readonly>',
+            '<input type="text" class="form-control form-control-sm" value="'+i_name+'" readonly>',
             '<input type="text" class="form-control form-control-sm" value="'+i_qty+'">',
-            '<input type="text" class="form-control form-control-sm">',
-            '<input type="text" class="form-control form-control-sm">',
-            '<input type="text" class="form-control form-control-sm">',
-            '<input type="checkbox" class="form-control form-control-sm">',
+            '<input type="text" class="form-control form-control-sm" value="'+i_satuan+'" readonly>',
+            '<input type="text" class="form-control form-control-sm" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'" readonly>',
+            '<input type="text" class="form-control form-control-sm total_price" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
+            '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>'
             
         ] ).draw( false );
  
         counter++;
-        $('#rp_qty').val('');
-        $('#rp_kodeitem').val('');
+        $('#dbldt_qty').val('');
+        $('#dbldt_item').val('');
+        dbldt_kodeitem.val('').trigger('change');
+
+
+        var total_price = 0;
+        $('.total_price').each(function(){
+          var total = $(this).val();
+          total = total.replace(/[^0-9\-]+/g,"");
+          total_price += parseInt(total);
+        });
+        $("#dbldt_subtotal").val(accounting.formatMoney(total_price,"",0,'.',','));
+
+        tax = $('#dbldt_tax').val();
+        tax = tax.replace(/[^0-9\-]+/g,"");
+
+        total_net = total_price + parseInt(tax);
+
+        $("#total_net").val(accounting.formatMoney(total_net,"",0,'.',','));
+
       }
     });
 
  
     $('#t80b tbody').on( 'click', '.delete', function () {
-    t
+    table
         .row( $(this).parents('tr') )
         .remove()
         .draw();
-    } );
-} );
 
+
+        var parents = $(this).parents('tr');
+        
+        var total_price_seq = $(parents).find('.total_price').val();
+        var total = $("#dbldt_subtotal").val();
+        var total_net = $("#total_net").val();
+
+        total_price_seq = total_price_seq.replace(/[^0-9\-]+/g,"");
+        total = total.replace(/[^0-9\-]+/g,"");
+        total_net = total_net.replace(/[^0-9\-]+/g,"");
+        
+
+        var kurang_total = parseInt(total)-parseInt(total_price_seq);
+        var total_net = parseInt(total)-parseInt(total_price_seq);
+
+        $("#dbldt_subtotal").val(accounting.formatMoney(kurang_total,"",0,'.',','));
+        $("#total_net").val(accounting.formatMoney(total_net,"",0,'.',','));
+
+
+
+    } );
+
+
+    //HITUNG SALES TAX
+    $('#dbldt_tax').keyup(function(){
+      var total_net = $("#dbldt_subtotal").val();
+      var this_val = $(this).val();
+      total_net = total_net.replace(/[^0-9\-]+/g,"");
+      this_val = this_val.replace(/[^0-9\-]+/g,"");
+      var hitung = parseInt(total_net)+parseInt(this_val);
+      $('#total_net').val(accounting.formatMoney(hitung,"",0,'.',','));
+    })
+
+
+    
+
+
+});
+
+    function ppn_10 (a) {
+      var total_sub   = $('.dbldt_subtotal').val();
+      total_sub       = total_sub.replace(/[^0-9\-]+/g,"")*1;
+      
+      var hitung_tax = 0;
+      var total_net_hitung = 0;
+      $('.ppn').each(function(){
+          if ($(this).is(':checked') == true) {
+            var par = $(this).parents('tr');
+            var total_price = $(par).find('.total_price').val()
+            total_price     = total_price.replace(/[^0-9\-]+/g,"")*1;
+            total_price     *= 10/100;
+            hitung_tax    += parseInt(total_price);
+          }
+      });
+
+      $('#dbldt_tax').val(accounting.formatMoney(hitung_tax,"",0,'.',','));
+      $('#total_net').val(accounting.formatMoney(total_sub+hitung_tax,"",0,'.',','));
+          
+      
+    }
+
+    $('#save_data').click(function(){
+
+      
+
+    })
+
+
+  
 </script>
 @endsection
 

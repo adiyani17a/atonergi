@@ -59,12 +59,12 @@
           </div>
 
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>Birth Date</label>
+            {{-- <label>Birth Date</label> --}}
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <div class="form-group">
+            {{-- <div class="form-group">
               <input type="text" maxlength="10" class="form-control form-control-sm datepicker" name="c_birthday">
-            </div>
+            </div> --}}
           </div>
           
            <div class="col-md-3 col-sm-3 col-xs-12">
@@ -108,7 +108,7 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="c_bankname">
+              <input type="text" class="form-control form-control-sm " style="text-transform: uppercase;" name="c_bankname">
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
