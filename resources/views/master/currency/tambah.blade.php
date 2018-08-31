@@ -36,7 +36,7 @@
         </div>
         <div class="modal-footer">
           <div id="ganti_tombol">
-            <button class="btn btn-primary" type="button" onclick="simpan()">Save Data</button>
+            <button class="btn btn-primary simpan" type="button" >Save Data</button>
           </div>
           <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
         </div>

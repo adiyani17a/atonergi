@@ -72,9 +72,44 @@ $(".value").maskMoney({
       allowZero:true,
       defaultZero:true,
   });
-$('#t55').DataTable({
-  
-});
+
+$(document).ready(function(){
+  $('#t55').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+        url:'{{ route('datatable_currency') }}',
+    },
+     columnDefs: [
+
+          {
+             targets: 0 ,
+             className: 'd_id center'
+          }, 
+          {
+             targets: 1 ,
+             className: 'i_code center'
+          }, 
+          {
+             targets: 5 ,
+             className: 'center '
+          },
+          {
+             targets: 4 ,
+             className: 'right format_money'
+          },
+        ],
+    "columns": [
+    {data: 'DT_Row_Index', name: 'DT_Row_Index'},
+    {data: 'cu_code', name: 'cu_code'},
+    {data: 'cu_symbol', name: 'cu_symbol'},
+    {data: 'cu_name', name: 'cu_name'},
+    {data: 'total', name: 'total'},
+    {data: 'aksi', name: 'aksi'},
+    ]
+  });
+})
+
 
 
 $('#tombol_modal_tambah').click(function(){
@@ -95,6 +130,31 @@ $('.currency').change(function(){
         $('.country').val(data.data.cu_name);
       }catch(err){
         
+      }
+    },
+    error:function(){
+      iziToast.warning({
+        icon: 'fa fa-times',
+        message: 'Terjadi Kesalahan!',
+      });
+    }
+  })
+})
+
+$('.simpan').click(function(){
+  var id = $('.currency').val();
+  var value = $('.value').val();
+  $.ajax({
+    url: '{{ url('master/currency/save') }}',
+    data: {id,value},
+    type:'get',
+    dataType:'json',
+    success:function(data){
+      if (data.status == 1) {
+        iziToast.success({
+          icon: 'fa fa-check',
+          message: 'Data Berhasil Disimpan!',
+        });
       }
     },
     error:function(){
