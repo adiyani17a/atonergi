@@ -232,6 +232,7 @@
                   Master Data Tipe Barang
                   Master Data Status Q.O.#
                   Master Data TTD
+                  Master Currency
                 </span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
@@ -248,6 +249,7 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/bundle/bundle') ? 'active' : '' || Request::is('master/bundle/*') ? 'active' : '' }}" href="{{url('master/bundle/bundle')}}">Master Data Bundle Item</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/status/*') ? 'active' : '' }}" href="{{url('master/status/status')}}">Master Data Status Q.O.#</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/ttd/*') ? 'active' : '' }}" href="{{url('master/ttd/ttd')}}">Master Data TTD</a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('master/currency/*') ? 'active' : '' }}" href="{{url('master/currency/index')}}">Master Currency</a></li>
                   
                 </ul>
                 </div>

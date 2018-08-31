@@ -262,6 +262,10 @@ Route::get('/master/bundleitem/simpan_bundleitem', 'master\master_bundleitemCont
 Route::get('/master/datatable_bundleitem/datatable_bundleitem', 'master\master_bundleitemController@datatable_bundleitem')->name('datatable_bundleitem');
 Route::get('/master/bundle/edit_bundle/{id}', 'master\master_bundleitemController@edit_bundle')->name('edit_bundle');
 
+// MASTER CURRENCY
+Route::get('/master/currency/index', 'master\currency_controller@index');
+
+
 // ------------------------------ view edit bundle ari -------------------------------------------//
 //------------------------------------------------------------------------------------------------//
 

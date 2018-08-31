@@ -142,7 +142,7 @@ class master_bundleitemController extends Controller
 
           $save = DB::table('m_item_dt')->insert([
                   'id_id'           =>  $index,
-                  'id_detailid'     =>  $dt,
+                  'id_detailid'     =>  $i+1,
                   'id_item'         =>  $req->ib_kode_dt[$i],
                   'id_unit'         =>  $req->ib_unit_dt[$i],
                   'id_qty'          =>  $req->ib_qty_dt[$i],
