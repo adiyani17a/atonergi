@@ -27,8 +27,10 @@ class master_vendorController extends Controller
     }
     public function datatalble_vendor(Request $request)
     {
-    	$list = DB::select("SELECT * from m_vendor");
-        // return $data;
+
+    	$list = DB::table("m_vendor")->get();
+
+        // return $list;
         $data = collect($list);
         return Datatables::of($data)
         		->addColumn('aksi', function ($data) {
@@ -132,7 +134,7 @@ class master_vendorController extends Controller
                 's_bankname_1'=>$request->v_namabank_1,
                 's_bank_town_1'=>$request->v_bank_town_1,
                 's_bank_pic_1'=>$request->v_bank_pic_1,
-                
+
     			's_information'=>$request->v_informasi,
     			's_update'=>$tanggal,
     			's_date'=>$date,
