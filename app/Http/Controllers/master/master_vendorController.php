@@ -19,7 +19,10 @@ class master_vendorController extends Controller
         $kota_1 = DB::table('regencies')->get()->toArray();
 
         $kota = array_merge($kota_0,$kota_1);
-        return view('master/vendor/vendor',compact('kota'));
+
+        $bank = DB::table('m_bank')->get();
+
+        return view('master/vendor/vendor',compact('kota','bank'));
 
     }
     public function datatalble_vendor(Request $request)
@@ -73,9 +76,18 @@ class master_vendorController extends Controller
     			's_termin'=>$request->v_credit,
     			's_limit'=>$request->v_plafon,
     			's_npwp'=>$request->v_npwp,
-    			's_accountnumber'=>$request->v_noakun,
-    			's_bankname'=>$request->v_namabank,
-    			's_information'=>$request->v_informasi,
+
+    			's_accountnumber'=>$request->v_accountnumber,
+                's_bankname'=>$request->v_namabank,
+                's_bank_town'=>$request->v_bank_town,
+    			's_bank_pic'=>$request->v_bank_pic,
+
+                's_accountnumber_1'=>$request->v_accountnumber_1,
+                's_bankname_1'=>$request->v_namabank_1,
+                's_bank_town_1'=>$request->v_bank_town_1,
+                's_bank_pic_1'=>$request->v_bank_pic_1,
+    			
+                's_information'=>$request->v_informasi,
     			's_insert'=>$tanggal,
     			's_date'=>$date,
     			's_type'=>$request->v_tipe,
@@ -110,8 +122,17 @@ class master_vendorController extends Controller
     			's_termin'=>$request->v_credit,
     			's_limit'=>$request->v_plafon,
     			's_npwp'=>$request->v_npwp,
-    			's_accountnumber'=>$request->v_noakun,
-    			's_bankname'=>$request->v_namabank,
+    			
+                's_accountnumber'=>$request->v_accountnumber,
+                's_bankname'=>$request->v_namabank,
+                's_bank_town'=>$request->v_bank_town,
+                's_bank_pic'=>$request->v_bank_pic,
+
+                's_accountnumber_1'=>$request->v_accountnumber_1,
+                's_bankname_1'=>$request->v_namabank_1,
+                's_bank_town_1'=>$request->v_bank_town_1,
+                's_bank_pic_1'=>$request->v_bank_pic_1,
+                
     			's_information'=>$request->v_informasi,
     			's_update'=>$tanggal,
     			's_date'=>$date,

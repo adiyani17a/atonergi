@@ -52,7 +52,9 @@
 @section('extra_script')
 
   <script type="text/javascript">
+
     
+
     $('#table-cust').DataTable({
             processing: true,
             // responsive:true,
