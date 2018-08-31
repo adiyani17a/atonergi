@@ -19,14 +19,41 @@
               <input type="text" class="form-control form-control-sm" name="c_name">
             </div>
           </div>
+          
           <div class="col-md-3 col-sm-3 col-xs-12">
+            <label>Customer ID</label>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="form-group">
+              <input type="text" class="form-control form-control-sm" readonly="" value="{{ $nota }}">
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <label>Company Name</label>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="form-group">
+              <input type="text" class="form-control form-control-sm" name="c_company_name">
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <label>Phone Number</label>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="form-group">
+              <input type="text" class="form-control form-control-sm" name="c_phone">
+            </div>
+          </div>
+          {{-- <div class="col-md-3 col-sm-3 col-xs-12">
             <label>Customer ID</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
               <input type="text" class="form-control form-control-sm" name="c_id" readonly="">
             </div>
-          </div>
+          </div> --}}
           <div class="col-md-3 col-sm-3 col-xs-12">
             <label>Hometown</label>
           </div>
@@ -41,11 +68,11 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>Phone Number</label>
+            <label>Phone Number 1</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="c_phone">
+              <input type="text" class="form-control form-control-sm" name="c_phone_1">
             </div>
           </div>
            
@@ -59,12 +86,12 @@
           </div>
 
           <div class="col-md-3 col-sm-3 col-xs-12">
-            {{-- <label>Birth Date</label> --}}
+            <label>Birth Date</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            {{-- <div class="form-group">
+            <div class="form-group">
               <input type="text" maxlength="10" class="form-control form-control-sm datepicker" name="c_birthday">
-            </div> --}}
+            </div>
           </div>
           
            <div class="col-md-3 col-sm-3 col-xs-12">
@@ -104,21 +131,22 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>NPWP</label>
+            <label>NPWP / KTP</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
               <input type="text" class="form-control" name="c_npwp">
             </div>
           </div>
-          <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>Account Number</label>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+            {{-- <label>NPWP</label> --}}
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="c_accountnumber">
-            </div>
+            {{-- <div class="form-group"> --}}
+              {{-- <input type="text" class="form-control" name="c_npwp"> --}}
+            {{-- </div> --}}
           </div>
+
           <div class="col-md-3 col-sm-3 col-xs-12">
             {{-- <label>NPWP</label> --}}
           </div>

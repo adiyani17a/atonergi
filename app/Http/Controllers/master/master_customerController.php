@@ -12,12 +12,21 @@ class master_customerController extends Controller
    
     public function customer()
     {
-        return 'a';
+        $kode = DB::table('m_customer')->max('c_id');
+    
+            if ($kode == null) {
+                $kode = 1;
+            }else{
+                $kode += 1;
+            }
+        $index = str_pad($kode, 5, '0', STR_PAD_LEFT);
+        $nota = 'MKT/'.$index;
+
         $kota_0 = DB::table('provinces')->get()->toArray();
         $kota_1 = DB::table('regencies')->get()->toArray();
 
         $kota = array_merge($kota_0,$kota_1);
-        return view('master/customer/cust',compact('kota'));
+        return view('master/customer/cust',compact('kota','nota'));
     }
     public function datatalble_customer(Request $request)
     { 
@@ -60,9 +69,11 @@ class master_customerController extends Controller
                 'c_id'=>$kode,
                 'c_code'=>$nota,
                 'c_name'=>$request->c_name,
+                'c_company_name'=>$request->c_company_name,
                 'c_address'=>$request->c_address,
                 'c_email'=>$request->c_email,
                 'c_phone'=>$request->c_phone,
+                'c_phone_1'=>$request->c_phone_1,
                 'c_type'=>$request->c_type,
                 'c_creditterms'=>$request->c_creditterms,
                 'c_plafon'=>$request->c_plafon,
@@ -95,6 +106,8 @@ class master_customerController extends Controller
     			->update([
                 'c_name'=>$request->c_name,
                 'c_address'=>$request->c_address,
+                'c_company_name'=>$request->c_company_name,
+                'c_phone_1'=>$request->c_phone_1,
                 'c_email'=>$request->c_email,
                 'c_phone'=>$request->c_phone,
                 'c_type'=>$request->c_type,

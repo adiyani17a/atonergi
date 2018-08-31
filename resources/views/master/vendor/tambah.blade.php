@@ -13,7 +13,7 @@
         <form id="save_vendor" class="save_vendor">
           <div class="row">
           <div class="col-md-3 col-sm-3 col-xs-12">
-            <label>Vendor Name</label>
+            <label>Name PIC</label>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
@@ -111,17 +111,99 @@
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="v_namabank">
+              <select class="form-control form-control-sm" name="v_namabank">
+                <option selected="" readonly="" value="">- Pilih -</option>
+                @foreach ($bank as $bn)
+                  <option value="{{ $bn->id }}">{{ $bn->id }} - {{ $bn->name }}</option>
+                @endforeach
+              </select>
             </div>
           </div>
           <div class="col-md-3 col-sm-3 col-xs-12">
             <label>Account Number</label>
           </div>
-          <div class="col-md-3 col-sm-3 col-xs-12">
+          <div class="col-md-2 col-sm-2 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control form-control-sm" name="v_noakun">
+              <input type="text" class="form-control form-control-sm" name="v_accountnumber">
             </div>
           </div>
+          <div class="col-md-1 col-sm-1 col-xs-12">
+            <div class="form-group rubah">
+              <button type="button" class="btn btn-primary btn-xs" onclick="tambah_bank()"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12 hide">
+              <label>Bank town</label>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 hide">
+              <div class="form-group">
+              <select class="form-control form-control-sm" name="v_bank_town">
+                <option selected="" readonly="" value="">- Pilih -</option>
+                @foreach ($kota as $kt)
+                  <option value="{{ $kt->id }}">{{ $kt->id }} - {{ $kt->name }}</option>
+                @endforeach
+              </select>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 hide">
+              <label>Account Name </label>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 hide">
+              <div class="form-group">
+                <input type="text" class="form-control" name="v_bank_pic">
+              </div>
+            </div>
+
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <label>Bank name 1</label>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <div class="form-group">
+              <select class="form-control form-control-sm" name="v_namabank_1">
+                <option selected="" readonly="" value="">- Pilih -</option>
+                @foreach ($bank as $bn)
+                  <option value="{{ $bn->id }}">{{ $bn->id }} - {{ $bn->name }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <label>Account Number 1</label>
+          </div>
+          <div class="col-md-2 col-sm-2 col-xs-12">
+            <div class="form-group">
+              <input type="text" class="form-control form-control-sm" name="v_accountnumber_1">
+            </div>
+          </div>
+          <div class="col-md-1 col-sm-1 col-xs-12">
+            <div class="form-group rubah_1">
+              <button type="button" class="btn btn-primary btn-xs" onclick="tambah_bank_1()"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12 hide_1">
+              <label>Bank town 1</label>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 hide_1">
+              <div class="form-group">
+              <select class="form-control form-control-sm" name="v_bank_town_1">
+                <option selected="" readonly="" value="">- Pilih -</option>
+                @foreach ($kota as $kt)
+                  <option value="{{ $kt->id }}">{{ $kt->id }} - {{ $kt->name }}</option>
+                @endforeach
+              </select>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 hide_1">
+              <label>Account Name 1</label>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 hide_1">
+              <div class="form-group">
+                <input type="text" class="form-control" name="v_bank_pic_1">
+              </div>
+            </div>
+
           <div class="col-md-3 col-sm-3 col-xs-12">
             <label>NPWP</label>
           </div>
