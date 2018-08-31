@@ -3,7 +3,7 @@
 
 @include('order/proforma/tambah')
 
-@include('master/customer/tambah')
+{{-- @include('master/customer/tambah') --}}
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">

@@ -9,11 +9,12 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
         <div class="modal-body">
-          <table class="table">
+          <table class="table table_form">
             <tr>
               <td><h5>CODE</h5></td>
               <td width="250">
-                <select class="form-control currency" name="currency">
+                <select class="form-control currency" style="width: 250px" name="currency">
+                    <option value="0">Select - Currency</option>
                   @foreach ($currency as $val)
                     <option value="{{ $val->cu_code }}">{{ $val->cu_code }}</option>
                   @endforeach

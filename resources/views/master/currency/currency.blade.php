@@ -45,7 +45,7 @@
                       <th class="wd-15p" width="5%">No</th>
                       <th class="wd-15p">Code</th>
                       <th>Symbol</th>
-                      <th>Country</th>
+                      <th>Currency Name</th>
                       <th class="wd-15p">Value</th>
                       <th width="15%">Action</th>
                     </tr>
@@ -66,8 +66,22 @@
 @section('extra_script')
 <script>
 
-$('#t55').DataTable();
+$(".value").maskMoney({
+      precision:0,
+      thousands:'.',
+      allowZero:true,
+      defaultZero:true,
+  });
+$('#t55').DataTable({
+  
+});
 
+
+$('#tombol_modal_tambah').click(function(){
+  $('input').val('');
+  $('.currency').val('0');
+  $('.currency').select2();
+})
 $('.currency').change(function(){
   var id = $(this).val();
   $.ajax({
@@ -76,8 +90,12 @@ $('.currency').change(function(){
     type:'get',
     dataType:'json',
     success:function(data){
-      $('.symbol').val(data.data.cu_symbol);
-      $('.country').val(data.data.cu_name);
+      try{
+        $('.symbol').val(data.data.cu_symbol);
+        $('.country').val(data.data.cu_name);
+      }catch(err){
+        
+      }
     },
     error:function(){
       iziToast.warning({
