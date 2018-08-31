@@ -21,10 +21,9 @@ class currency_controller extends Controller
 
     public function auto_complete(request $req)
     {
-    	$currency = DB::table('m_currency')
-    				  ->select('cu_code')
+    	$data = DB::table('m_currency')
     				  ->where('cu_code',$req->id)
-    				  ->get();
+    				  ->first();
     	return Response::json(['data'=>$data]);
     }
 }

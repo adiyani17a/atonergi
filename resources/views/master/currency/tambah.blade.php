@@ -20,16 +20,16 @@
                 </select>
               </td>
               <td>
-                <input type="text" readonly="" class="form-control symbol" name="">
+                <input style="font-size: 15px" type="text" readonly="" class="form-control symbol" name="">
               </td>
             </tr>
             <tr>
               <td ><h5>Currency Name</h5></td>
-              <td colspan="2"><input type="text" readonly="" name="country" class="country form-control"></td>
+              <td style="font-size: 15px" colspan="2"><input type="text" readonly="" name="country" class="country form-control"></td>
             </tr>
             <tr>
               <td ><h5>Value</h5></td>
-              <td colspan="2"><input type="text" name="value" class="value form-control"></td>
+              <td style="font-size: 15px" colspan="2"><input type="text" name="value" class="value form-control"></td>
             </tr>
           </table>
         </div>
