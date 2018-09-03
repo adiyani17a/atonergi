@@ -91,7 +91,9 @@
             $('#bund_qty').attr('disabled',true);          
           }
           var h_price = $(this).find(':selected').data('harga');
+          var currency = $(this).find(':selected').data('currency');
           $('#bund_item').val(accounting.formatMoney(h_price,"",0,'.',','));
+          $('#currency').val(currency);
       })
 
     $('#table-bundle').DataTable({
@@ -155,16 +157,20 @@
          dataType:'json',
          data:{kode},
          success: function(data){
-            console.log(qty);
-            console.log(data.data.i_price);
-            var price  = parseInt(qty)*parseInt(data.data.i_price);
-            console.log(price);
+
+            if (data.data.cu_value == null) {
+              currency = 1;
+            } else{
+              var currency = parseInt(data.data.cu_value);
+            }
+
+            var price  = parseInt(qty)*parseFloat(data.data.i_price)*currency;
             table.row.add( [
                '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
                 '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
                 '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
                 '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
-                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price*currency,"",0,'.',',') +'">',
                 '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
                 '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
             ]).draw( false );

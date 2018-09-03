@@ -273,6 +273,7 @@ Route::get('/master/currency/index', 'master\currency_controller@index');
 Route::get('/master/currency/auto_complete', 'master\currency_controller@auto_complete');
 Route::get('/master/currency/save', 'master\currency_controller@save');
 Route::get('/master/currency/datatable_currency', 'master\currency_controller@datatable_currency')->name('datatable_currency');
+Route::get('/master/currency/edit_detail', 'master\currency_controller@edit_detail');
 
 
 // ------------------------------ view edit bundle ari -------------------------------------------//

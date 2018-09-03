@@ -15,7 +15,7 @@ class master_bundleitemController extends Controller
 
  	public function bundleitem()
  	{
- 		$item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
+ 		$item = DB::table('m_item')->get();
 
  		return view('master/bundle/bundle',compact('item'));
  	}
@@ -78,7 +78,7 @@ class master_bundleitemController extends Controller
                   ->where('id_id',$id)
                   ->get();
 
-    $item = DB::table('m_item')->select('i_code','i_name','i_price')->get();
+    $item = DB::table('m_item')->get();
 
  		return view('master/bundle/edit_bundle',compact('data','data_dt','item','id'));
  	}
@@ -86,8 +86,10 @@ class master_bundleitemController extends Controller
  	{
  		$data = DB::table('m_item')
           ->join('d_unit','u_id','=','i_unit')
+          ->leftjoin('m_currency','cu_code','=','i_currency_id')
  				  ->where('i_code',$req->kode)
  				  ->first();
+
  		return Response::json(['data'=>$data]);
 
  	}

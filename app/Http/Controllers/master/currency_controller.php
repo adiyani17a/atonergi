@@ -39,16 +39,7 @@ class currency_controller extends Controller
                               $b = '';
                             }
 
-                            if(Auth::user()->akses('QUOTATION','tambah')){
-                             $e = 
-                                 '<button type="button" onclick="status(\''.$data->cu_code.'\')" class="btn btn-warning btn-lg" title="update status">'.
-                                 '<label class="fa fa-cog"></label></button>'. '</div>';
-                                 
-                            }else{
-                              $e = '</div>';
-                            }
-
-                        	return $a . $b .$e ;
+                        	return $a . $b ;
                             
 
                                    
@@ -77,5 +68,12 @@ class currency_controller extends Controller
     				]);
 
     	return Response::json(['status'=>1]);
+    }
+    public function edit_detail(request $req)
+    {
+        $data = DB::table('m_currency')
+                      ->where('cu_code',$req->id)
+                      ->first();
+        return Response::json(['data'=>$data]);
     }
 }

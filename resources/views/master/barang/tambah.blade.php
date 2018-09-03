@@ -1,7 +1,6 @@
 <!-- Modal -->
 <div id="tambah" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-gradient-info">
@@ -18,14 +17,14 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm" name="item_name">                               
-                    <input type="hidden"  class="form-control form-control-sm kode_barang" name="kode_barang">                               
+                    <input type="text"  class="form-control form-control-sm huruf_besar" name="item_name">                               
+                    <input type="hidden"  class="form-control form-control-sm kode_barang huruf_besar" name="kode_barang">                               
                 </div>
               </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
                   <label class="tebal">Currency</label>
               </div>
-              <div class="col-md-3 col-sm-8 col-xs-12">
+              <div class="col-md-3 col-sm-8 col-xs-12" style="width: 100%">
                 <div class="form-group">
                     <select class="form-control currency" name="currency">
                       <option value="">--Select Currency--</option>
@@ -56,17 +55,15 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm sell_price" name="sell_price" maxlength="20" required="">                               
+                    <input type="text"  class="form-control hanya_angka form-control-sm sell_price" name="sell_price" maxlength="20" required="">                               
                 </div>
               </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
-                
                     <label class="tebal">Weight</label>
-               
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm weight" name="weight">                               
+                    <input type="text"  class="form-control hanya_angka form-control-sm weight" name="weight">                               
                 </div>
               </div>
               
@@ -75,7 +72,7 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm price" name="price" maxlength="20" required="">
+                    <input type="text"  class="form-control hanya_angka form-control-sm price" name="price" maxlength="20" required="">
                 </div>
               </div>   
               
@@ -86,7 +83,7 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-sm min_stock" name="min_stock">                               
+                    <input type="text" class="form-control hanya_angka form-control-sm min_stock" name="min_stock">                               
                 </div>
               </div> 
 
@@ -97,7 +94,7 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm lower_price" name="lower_price" maxlength="20" required="">                               
+                    <input type="text"  class="form-control hanya_angka form-control-sm lower_price" name="lower_price" maxlength="20" required="">                               
                 </div>
               </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
@@ -167,3 +164,5 @@
 
   </div>
 </div>
+
+

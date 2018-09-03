@@ -88,25 +88,33 @@
               <div class="col-md-2 col-sm-4 col-xs-12">
             <label>Item Name</label>
           </div>
-          <div class="col-md-2 col-sm-8 col-xs-12">
+          <div class="col-md-2 col-sm-8 col-xs-10">
             <div class="form-group">  
               <select class="form-control form-control-sm" name="" id="bund_kodeitem"> 
                   <option selected="" value="">- Pilih -</option>
                   @foreach ($item as $e)
-                    <option value="{{ $e->i_code }}" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
+                    <option value="{{ $e->i_code }}" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}" data-currency="{{ $e->i_currency_id }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
                   @endforeach
               </select>
             </div>
           </div>
-          <div class="col-md-2 col-sm-8 col-xs-12">
+          <div class="col-md-1 col-sm-6 col-xs-2">
+            <div class="form-group">  
+              <input style="text-align: center; width: 70%" type="text" readonly="" class="form-control form-control-sm  right"  id="currency">
+            </div>
+          </div>
+          <div class="col-md-1 col-sm-1 col-xs-1">
+            <label>Harga</label>
+          </div>
+          <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="form-group">  
               <input type="text" class="form-control form-control-sm" name="" readonly="" id="bund_item">
             </div>
           </div>
-          <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="col-md-1 col-sm-1 col-xs-1">
             <label>Qty</label>
           </div>
-          <div class="col-md-3 col-sm-8 col-xs-12">
+          <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">  
               <input type="text" class="form-control form-control-sm format_money right" name="bund_qty" id="bund_qty">
             </div>
@@ -119,8 +127,8 @@
               <tr>
                 <th width="20%">Item Code</th>
                 <th width="20%">Item Name</th>
-                <th width="5%">Qty</th>
-                <th width="5%">Unit</th>
+                <th width="7%">Qty</th>
+                <th width="7%">Unit</th>
                 <th width="30%">Price</th>
                 <th width="30%">Total Price</th>
                 <th width="1%">Action</th>
@@ -193,7 +201,9 @@ var table  = $("#bundle_table").DataTable({
             $('#bund_qty').attr('disabled',true);          
           }
           var h_price = $(this).find(':selected').data('harga');
+          var currency = $(this).find(':selected').data('currency');
           $('#bund_item').val(accounting.formatMoney(h_price,"",0,'.',','));
+          $('#currency').val(currency);
       })
 
 
@@ -216,16 +226,20 @@ var table  = $("#bundle_table").DataTable({
          dataType:'json',
          data:{kode},
          success: function(data){
-            console.log(qty);
-            console.log(data.data.i_price);
-            var price  = parseInt(qty)*parseInt(data.data.i_price);
-            console.log(price);
+
+            if (data.data.cu_value == null) {
+              currency = 1;
+            } else{
+              var currency = parseInt(data.data.cu_value);
+            }
+
+            var price  = parseInt(qty)*parseFloat(data.data.i_price)*currency;
             table.row.add( [
                '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
                 '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
                 '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
                 '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
-                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price*currency,"",0,'.',',') +'">',
                 '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
                 '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
             ]).draw( false );
@@ -253,6 +267,7 @@ var table  = $("#bundle_table").DataTable({
        });
       }
     });
+
     
     
 
