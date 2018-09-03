@@ -5,7 +5,6 @@
 
 @include('order.checklistform.checklist')
 
-@include('master.customer.tambah')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">

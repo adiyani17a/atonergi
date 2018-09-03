@@ -146,7 +146,15 @@ table, td, th {
 	size: portrait;
 	margin: 0;
 }
-
+#print_workorder tr:nth-child(even) {
+    background-color: #f2f2f2bb;
+}
+.none-background-color{
+	background-color: inherit !important;
+}
+.italic{
+	font-style: italic;
+}
 	</style>
 </head>
 <body>
@@ -242,7 +250,7 @@ table, td, th {
 				
 			</table>
 
-			<table class="border-none" width="100%">
+			<table class="border-none" id="print_workorder" width="100%">
 				<thead>
 					<tr>
 						<th class="border-none">No.</th>
@@ -577,7 +585,7 @@ table, td, th {
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr class="none-background-color">
 						<td class="border-none" colspan="5"></td>
 						<td class="border-none text-right">Subtotal</td>
 						<td>
@@ -589,7 +597,7 @@ table, td, th {
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr class="none-background-color">
 						<td class="border-none" colspan="5"></td>
 						<td class="border-none text-right">Sales Tax</td>
 						<td>
@@ -601,7 +609,7 @@ table, td, th {
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr class="none-background-color">
 						<td class="border-none" colspan="5"></td>
 						<td class="border-none text-right">Total</td>
 						<td>
@@ -640,6 +648,10 @@ table, td, th {
 						<tr style="border-top: 1px solid black;">
 							<td class="border-none">Authorized By</td>
 							<td class="border-none">Date</td>
+						</tr>
+						<tr>
+							<td class="border-none"><img width="100" height="50" src="{{asset('assets/checked.jpg')}}"></td>
+							<td class="border-none"></td>
 						</tr>
 					</tbody>
 				</table>
