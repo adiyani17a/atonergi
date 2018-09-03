@@ -75,7 +75,13 @@ Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
     Route::get('/master/status/edit_status', 'MasterController@edit_status');
     Route::get('/master/status/simpan_status', 'MasterController@simpan_status');
     Route::get('/master/status/hapus_status', 'MasterController@hapus_status');
-    // 
+    // Master Data Bank
+    Route::get('/master/bank/bank', 'MasterController@bank')->name('master_bank');
+    Route::get('/master/bank/datatable_bank', 'MasterController@datatable_bank')->name('datatable_bank');
+    Route::get('/master/bank/edit_bank', 'MasterController@edit_bank');
+    Route::get('/master/bank/simpan_bank', 'MasterController@simpan_bank');
+    Route::get('/master/bank/hapus_bank', 'MasterController@hapus_bank');
+    //
 Route::get('/master/type/type', 'MasterController@type');
 Route::get('/master/ttd/ttd', 'MasterController@ttd');
 // Quotation

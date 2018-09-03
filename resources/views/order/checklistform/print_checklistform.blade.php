@@ -145,7 +145,15 @@ table, td, th {
 .page-break{
 	page-break-after: always;
 }
-
+#print_checklistform tr:nth-child(even) {
+    background-color: #f2f2f2bb;
+}
+.none-background-color{
+	background-color: inherit !important;
+}
+.italic{
+	font-style: italic;
+}
 	</style>
 </head>
 <body>
@@ -201,7 +209,7 @@ table, td, th {
 				</table>
 			</div>
 			
-			<table class="border-none" width="100%"">
+			<table class="border-none" id="print_checklistform" width="100%"">
 				<thead>
 					<tr>
 						<th class="border-none" width="1%">No.</th>
@@ -333,6 +341,11 @@ table, td, th {
 							<td class="border-none">Warehouse</td>
 							<td class="border-none">Authorized By</td>
 							<td class="border-none">Date</td>
+						</tr>
+						<tr>
+							<td class="border-none"></td>
+							<td class="border-none"><img width="100" height="50" src="{{asset('assets/checked.jpg')}}"></td>
+							<td class="border-none"></td>
 						</tr>
 					</tbody>
 				</table>
