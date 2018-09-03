@@ -84,6 +84,7 @@ class BarangController extends Controller
                 'i_minstock'    =>  $request->min_stock,
                 'i_image'       =>  $file_name,
                 'i_weight'      =>  $request->weight,
+                'i_currency_id' =>  $request->weight,
                 'i_description' =>  $request->description,
                 'i_insert_at'   =>  Carbon::now(),
                 'i_update_at'   =>  Carbon::now(),
