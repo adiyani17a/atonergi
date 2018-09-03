@@ -43,8 +43,11 @@ class MasterController extends Controller
         $unit        = DB::table('d_unit')
                          ->get();
 
+        $currency    = DB::table('m_currency')
+                         ->where('cu_value','!=',null)
+                         ->get();
 
-    	return view('master/barang/barang', compact('type_barang','unit'));
+    	return view('master/barang/barang', compact('type_barang','unit','currency'));
     }
     public function vendor()
     {

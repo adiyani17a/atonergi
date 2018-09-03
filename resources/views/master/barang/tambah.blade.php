@@ -14,9 +14,7 @@
             <input type="hidden" value="{{csrf_token()}}" name="_token">
             <div class="row">
               <div class="col-md-3 col-sm-4 col-xs-12">
-                
                     <label class="tebal">Item Name</label>
-               
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
@@ -25,9 +23,22 @@
                 </div>
               </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
-               
+                  <label class="tebal">Currency</label>
+              </div>
+              <div class="col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    <select class="form-control currency" name="currency">
+                      <option value="">--Select Currency--</option>
+                      @foreach($currency as $val)
+                        <option value="{{$val->cu_code}}">{{$val->cu_code}} || {{$val->cu_name}}</option>
+                      @endforeach
+
+                    </select>
+                </div>
+              </div>
+             
+              <div class="col-md-3 col-sm-4 col-xs-12">
                   <label class="tebal">Type</label>
-               
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
@@ -41,30 +52,13 @@
                 </div>
               </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
-               
-                  <label class="tebal">Unit#</label>
-               
+                    <label class="tebal">Sell Price</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <select class="unit" name="unit">
-                      @foreach($unit as $i)
-                        <option value="{{$i->u_id}}">{{$i->u_unit}}</option>
-                      @endforeach
-                    </select>
+                    <input type="text"  class="form-control form-control-sm sell_price" name="sell_price" maxlength="20" required="">                               
                 </div>
               </div>
-             <div class="col-md-3 col-sm-4 col-xs-12">
-                    <label class="tebal">Price</label>
-              </div>
-              <div class="col-md-3 col-sm-8 col-xs-12">
-                <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm price" name="price" maxlength="20" required="">                               
-                </div>
-              </div>
-
-             
-
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
                     <label class="tebal">Weight</label>
@@ -75,15 +69,16 @@
                     <input type="text"  class="form-control form-control-sm weight" name="weight">                               
                 </div>
               </div>
-
-               <div class="col-md-3 col-sm-4 col-xs-12">
-                    <label class="tebal">Sell Price</label>
+              
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                    <label class="tebal">Price</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm sell_price" name="sell_price" maxlength="20" required="">                               
+                    <input type="text"  class="form-control form-control-sm price" name="price" maxlength="20" required="">
                 </div>
-              </div>
+              </div>   
+              
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
                     <label class="tebal">Min Stock</label>
@@ -93,8 +88,10 @@
                 <div class="form-group">
                     <input type="text" class="form-control form-control-sm min_stock" name="min_stock">                               
                 </div>
-              </div>    
+              </div> 
 
+              
+              
              <div class="col-md-3 col-sm-4 col-xs-12">
                     <label class="tebal">Lower Price</label>
               </div>
@@ -103,6 +100,19 @@
                     <input type="text"  class="form-control form-control-sm lower_price" name="lower_price" maxlength="20" required="">                               
                 </div>
               </div>
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                  <label class="tebal">Unit#</label>
+              </div>
+              <div class="col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    <select class="unit" name="unit">
+                      @foreach($unit as $i)
+                        <option value="{{$i->u_id}}">{{$i->u_unit}}</option>
+                      @endforeach
+                    </select>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-0 col-xs-0"></div>
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
                     <label class="tebal">Description</label>

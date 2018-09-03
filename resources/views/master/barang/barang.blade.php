@@ -75,29 +75,39 @@ $(document).ready(function(){
   $('input[name="price"]').maskMoney({
     precision : 0,
     thousands:',',
+    defaultZero:true,
+    allowZero:true
   });
 
 
   $('.min_stock').maskMoney({
     precision : 0,
     thousands:'',
+    defaultZero:true,
+    allowZero:true
   });
 
 
   $('.weight').maskMoney({
     precision : 0,
     thousands:'',
+    defaultZero:true,
+    allowZero:true
   });
 
   $('.lower_price').maskMoney({
     precision : 0,
     thousands:',',
+    defaultZero:true,
+    allowZero:true
   });
 
 
   $('.sell_price').maskMoney({
     precision : 0,
     thousands:',',
+    defaultZero:true,
+    allowZero:true
   });
     $('#t55').DataTable({
             processing: true,
@@ -167,13 +177,14 @@ $('#tombol_modal_tambah').click(function(){
     $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
     $('select[name="type_barang"]').val('').trigger('change');
     $('input[name="unit"]').val('');
-    $('input[name="price"]').val('');
-    $('input[name="weight"]').val('');
-    $('input[name="min_stock"]').val('');
+    $('input[name="price"]').val('0');
+    $('input[name="weight"]').val('0');
+    $('input[name="min_stock"]').val('0');
     $('textarea[name="description"]').val('');
     $('input[name="item_codex"]').val('');
-    $('input[name="lower_price"]').val('');
-    $('input[name="sell_price"]').val('');
+    $('input[name="lower_price"]').val('0');
+    $('input[name="sell_price"]').val('0');
+    $('input[name="currency"]').val('');
 
     $('input[name="item_name"]').removeClass('border-danger');
     $('#chooseFile');
