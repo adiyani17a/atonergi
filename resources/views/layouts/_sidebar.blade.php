@@ -233,6 +233,7 @@
                   Master Data Status Q.O.#
                   Master Data TTD
                   Master Currency
+                  Master Data Bank
                 </span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
@@ -250,7 +251,11 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/status/*') ? 'active' : '' }}" href="{{url('master/status/status')}}">Master Data Status Q.O.#</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/ttd/*') ? 'active' : '' }}" href="{{url('master/ttd/ttd')}}">Master Data TTD</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/currency/*') ? 'active' : '' }}" href="{{url('master/currency/index')}}">Master Currency</a></li>
-                  
+                  <li class="nav-item">
+                    <a class="{{Request::is('master/bank/*') ? 'active' : ''}} nav-link" href="{{route('master_bank')}}">
+                      Master Data Bank
+                    </a>
+                  </li>
                 </ul>
                 </div>
             </li>

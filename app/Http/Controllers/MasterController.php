@@ -177,4 +177,99 @@ class MasterController extends Controller
     {
         return view('master.ttd.ttd');
     }      
+    public function bank()
+    {
+        return view('master.bank.bank');
+    }
+    public function datatable_bank(request $req)
+    {
+        $data = DB::table('m_bank')
+                  ->orderBy('id','DESC')
+                  ->get();
+        
+        
+        // return $data;
+        $data = collect($data);
+        // return $data;
+        return Datatables::of($data)
+                ->addColumn('aksi', function ($data) {
+                    $a =  '<div class="btn-group">';
+
+                    if(Auth::user()->akses('MASTER DATA BANK','ubah')){
+                     $b = '<button type="button" onclick="edit(\''.$data->id.'\')" class="btn btn-primary btn-lg" title="edit">'.'<label class="fa fa-pencil-alt"></label></button>';
+                    }else{
+                      $b = '';
+                    }
+
+                    if(Auth::user()->akses('MASTER DATA BANK','hapus')){
+                     $d = 
+                         '<button type="button" onclick="hapus(\''.$data->id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
+                         '<label class="fa fa-trash"></label></button>'.
+                         '</div>';
+                    }else{
+                      $d = '</div>';
+                    }
+
+                    return $a . $b . $d;
+                    
+                })
+                ->addColumn('none', function ($data) {
+                    return '-';
+                })
+                
+                ->rawColumns(['aksi', 'none'])
+                ->addIndexColumn()
+                ->make(true);
+    }
+public function edit_bank(request $req)
+    {
+        $data = DB::table('m_bank')
+                  ->where('id',$req->id)
+                  ->first();
+
+        return response()->json(['bank'=>$data]);
+    }
+
+    public function simpan_bank(request $req)
+    {
+        $id = DB::table('m_bank')->max('id')+1;
+
+        $cari = DB::table('m_bank')
+                  ->where('name',strtoupper($req->name))
+                  ->first();
+
+        if ($cari != null) {
+            return response()->json(['bank'=>2]);
+        }
+
+        if ($req->id != '') {
+            if($req->id != 1){
+                $save = DB::table('m_bank')
+                      ->where('id',$req->id)
+                      ->update([
+                        'name' => strtoupper($req->name)
+                      ]);
+                return response()->json(['bank'=>3]);
+            }else{
+                return response()->json(['bank'=>3]);
+            }
+        }else{
+            $save = DB::table('m_bank')
+                      ->insert([
+                        'id'   => $id,
+                        'name' => strtoupper($req->name)
+                      ]);
+            return response()->json(['bank'=>1]);
+        }
+        
+    }
+
+    public function hapus_bank(request $req)
+    {
+        $delete = DB::table('m_bank')
+                    ->where('id',$req->id)
+                    ->delete();
+        return response()->json(['bank'=>1]);
+
+    }
 }
