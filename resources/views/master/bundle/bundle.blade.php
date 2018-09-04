@@ -92,7 +92,7 @@
           }
           var h_price = $(this).find(':selected').data('harga');
           var currency = $(this).find(':selected').data('currency');
-          $('#bund_item').val(accounting.formatMoney(h_price,"",0,'.',','));
+          $('#bund_item').val(accounting.formatMoney(h_price,"",2,'.',','));
           $('#currency').val(currency);
       })
 
