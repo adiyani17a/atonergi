@@ -15,7 +15,7 @@ class master_bundleitemController extends Controller
 
  	public function bundleitem()
  	{
- 		$item = DB::table('m_item')->get();
+ 		$item = DB::table('m_item')->where('i_jenis','=','ITEM')->get();
 
  		return view('master/bundle/bundle',compact('item'));
  	}
@@ -75,10 +75,12 @@ class master_bundleitemController extends Controller
 
     $data_dt = DB::table('m_item_dt')
                   ->join('m_item','i_code','=','id_item')
+                  ->leftjoin('m_currency','i_currency_id','=','cu_code')
                   ->where('id_id',$id)
                   ->get();
 
-    $item = DB::table('m_item')->get();
+
+    $item = DB::table('m_item')->where('i_jenis','=','ITEM')->get();
 
  		return view('master/bundle/edit_bundle',compact('data','data_dt','item','id'));
  	}

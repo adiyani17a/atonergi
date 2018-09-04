@@ -38,6 +38,15 @@
   		                <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
   		                  	<button type="button" class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
   		                </div>
+                      <div class="row">
+                      <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>Notice!</strong> <br>
+                            Untuk Koma Menggunakan titik ( . )
+                        </div>
+                      </div>
+                    </div>
                     <div class="table-responsive">
                             <table id="t55" class="table table-hover table-bordered" cellspacing="0">
                               <thead class="bg-gradient-info">
@@ -386,13 +395,13 @@ function edit(m1a2)
             var i_weight      = $("input[name='weight']").val(data[0].i_weight);
             var i_currency      = $(".currency").val(data[0].i_currency_id);
             var i_currency      = $(".currency").trigger('change');
-            var i_price      = $("input[name='price']").val(accounting.formatMoney(data[0].i_price,"",2,'.',','));
+            var i_price      = $("input[name='price']").val(data[0].i_price.replace(/[^0-9\-]+/g,"")/100);
             var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
             var i_description      = $("textarea[name='description']").val(data[0].i_description);
             var i_type      = $("select[name='type_barang']").val(data[0].i_type).trigger('change');
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
-            var i_sell_price      = $("input[name='sell_price']").val(accounting.formatMoney(data[0].i_sell_price,"",2,'.',','));
-            var i_lower_price      = $("input[name='lower_price']").val(accounting.formatMoney(data[0].i_lower_price,"",2,'.',','));
+            var i_sell_price      = $("input[name='sell_price']").val(data[0].i_sell_price.replace(/[^0-9\-]+/g,"")/100);
+            var i_lower_price      = $("input[name='lower_price']").val(data[0].i_lower_price.replace(/[^0-9\-]+/g,"")/100);
 
             if(data[0].i_image!='' || data[0].i_image!=null){
               $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);

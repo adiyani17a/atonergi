@@ -181,7 +181,7 @@ var table  = $("#bundle_table").DataTable({
       defaultZero: true
     });
 
-    $('lower_price').maskMoney({
+    $('.lower_price').maskMoney({
       precision : 0,
       thousands:'.',
       allowZero:true,
@@ -202,24 +202,24 @@ var table  = $("#bundle_table").DataTable({
           }
           var h_price = $(this).find(':selected').data('harga');
           var currency = $(this).find(':selected').data('currency');
-          $('#bund_item').val(accounting.formatMoney(h_price,"",0,'.',','));
+          $('#bund_item').val(h_price*100/100);
           $('#currency').val(currency);
-      })
+    })
 
 
 
         
         var x = 1;
     // $('#bund_qty').keyup(function(){
-    //   var jumlah = $('#bund_item').val().replace(/[^0-9.\-]+/g,"")*1;
+    //   var jumlah = $('#bund_item').val().replace(/[^0-9\-]+/g,"")*1;
     //   var qty = $(this).val();
     //   $('.ib_price').val(accounting.formatMoney(jumlah * qty,"",0,'.',','))
     // })
     $('#bund_qty').keypress(function(e) {
       if(e.which == 13 || e.keyCode == 13){
         var kode = $('#bund_kodeitem').val();
-        var qty = $('#bund_qty').val().replace(/[^0-9.\-]+/g,"");
-        // harga_1 = harga_1.replace(/[^0-9.\-]+/g,"");
+        var qty = $('#bund_qty').val().replace(/[^0-9\-]+/g,"");
+        // harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
         $.ajax({
          type: "get",
          url: baseUrl + '/master/bundle/cari_item',
@@ -239,7 +239,7 @@ var table  = $("#bundle_table").DataTable({
                 '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
                 '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
                 '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
-                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price*currency,"",0,'.',',') +'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+accounting.formatMoney(data.data.i_price*currency,"",0,'.',',')  +'">',
                 '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
                 '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
             ]).draw( false );
@@ -248,12 +248,13 @@ var table  = $("#bundle_table").DataTable({
             var awal = 0;
             table.$('.ib_total_price').each(function(){
               var total = $(this).val();
-              total = total.replace(/[^0-9.\-]+/g,"");
-              awal += parseInt(total);
+              total = total.replace(/[^0-9\-]+/g,"");
+              awal += parseFloat(total);
             });
             $(".ib_price").val(accounting.formatMoney(awal,"",0,'.',','));
             $('#bund_kodeitem').val('').trigger('change');
             $('#bund_qty').val('');
+            $('#bund_item').val('');
             $('.lower_price').val(accounting.formatMoney(awal,"",0,'.',','));
             $('.sell_price').val(accounting.formatMoney(awal,"",0,'.',','));
          },
@@ -284,7 +285,7 @@ var table  = $("#bundle_table").DataTable({
     var awal = 0;
     table.$('.ib_total_price').each(function(){
       var total = $(this).val();
-      total = total.replace(/[^0-9.\-]+/g,"");
+      total = total.replace(/[^0-9\-]+/g,"");
       awal += parseInt(total);
     });  
           
@@ -385,7 +386,7 @@ var i_code = '{{$val->i_code}}';
 var i_name = '{{$val->i_name}}';
 var qty    = '{{$val->id_qty}}';
 var u_unit = '{{$val->id_unit}}';
-var i_price = '{{$val->i_price}}';
+var i_price = '{{$val->id_price_unit}}';
 var price  = '{{$val->id_total_price}}';
     table.row.add( [
        '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+i_code+'">',
