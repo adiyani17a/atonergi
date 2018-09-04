@@ -386,13 +386,13 @@ function edit(m1a2)
             var i_weight      = $("input[name='weight']").val(data[0].i_weight);
             var i_currency      = $(".currency").val(data[0].i_currency_id);
             var i_currency      = $(".currency").trigger('change');
-            var i_price      = $("input[name='price']").val(accounting.formatMoney(data[0].i_price,"",0,'.',','));
+            var i_price      = $("input[name='price']").val(accounting.formatMoney(data[0].i_price,"",2,'.',','));
             var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
             var i_description      = $("textarea[name='description']").val(data[0].i_description);
             var i_type      = $("select[name='type_barang']").val(data[0].i_type).trigger('change');
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
-            var i_sell_price      = $("input[name='sell_price']").val(accounting.formatMoney(data[0].i_sell_price,"",0,'.',','));
-            var i_lower_price      = $("input[name='lower_price']").val(accounting.formatMoney(data[0].i_lower_price,"",0,'.',','));
+            var i_sell_price      = $("input[name='sell_price']").val(accounting.formatMoney(data[0].i_sell_price,"",2,'.',','));
+            var i_lower_price      = $("input[name='lower_price']").val(accounting.formatMoney(data[0].i_lower_price,"",2,'.',','));
 
             if(data[0].i_image!='' || data[0].i_image!=null){
               $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);

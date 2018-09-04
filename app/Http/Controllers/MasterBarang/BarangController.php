@@ -150,7 +150,7 @@ class BarangController extends Controller
 							return '<div class="float-left">'. 
 							'Rp. '.
 							'</div>'.
-							'<div class="float-right">'. number_format($barang->i_price,0,"",".") .'</div>';
+							'<div class="float-right">'. number_format($barang->i_price,2,"",".") .'</div>';
 						})
                         ->addColumn('none', function ($barang) {
                           return '-';

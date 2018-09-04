@@ -149,8 +149,8 @@
     $('#bund_qty').keypress(function(e) {
       if(e.which == 13 || e.keyCode == 13){
         var kode = $('#bund_kodeitem').val();
-        var qty = $('#bund_qty').val().replace(/[^0-9.\-]+/g,"");
-        // harga_1 = harga_1.replace(/[^0-9.\-]+/g,"");
+        var qty = $('#bund_qty').val().replace(/[^0-9\-]+/g,"");
+        // harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
         $.ajax({
          type: "get",
          url: baseUrl + '/master/bundle/cari_item',
@@ -179,7 +179,7 @@
             var awal = 0;
             table.$('.ib_total_price').each(function(){
               var total = $(this).val();
-              total = total.replace(/[^0-9.\-]+/g,"");
+              total = total.replace(/[^0-9\-]+/g,"");
               awal += parseFloat(total);
             });
             $(".ib_price").val(accounting.formatMoney(awal,"",0,'.',','));
@@ -214,7 +214,7 @@
     var awal = 0;
     table.$('.ib_total_price').each(function(){
       var total = $(this).val();
-      total = total.replace(/[^0-9.\-]+/g,"");
+      total = total.replace(/[^0-9\-]+/g,"");
       awal += parseInt(total);
     });  
           

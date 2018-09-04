@@ -211,15 +211,15 @@ var table  = $("#bundle_table").DataTable({
         
         var x = 1;
     // $('#bund_qty').keyup(function(){
-    //   var jumlah = $('#bund_item').val().replace(/[^0-9\-]+/g,"")*1;
+    //   var jumlah = $('#bund_item').val().replace(/[^0-9.\-]+/g,"")*1;
     //   var qty = $(this).val();
     //   $('.ib_price').val(accounting.formatMoney(jumlah * qty,"",0,'.',','))
     // })
     $('#bund_qty').keypress(function(e) {
       if(e.which == 13 || e.keyCode == 13){
         var kode = $('#bund_kodeitem').val();
-        var qty = $('#bund_qty').val().replace(/[^0-9\-]+/g,"");
-        // harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
+        var qty = $('#bund_qty').val().replace(/[^0-9.\-]+/g,"");
+        // harga_1 = harga_1.replace(/[^0-9.\-]+/g,"");
         $.ajax({
          type: "get",
          url: baseUrl + '/master/bundle/cari_item',
@@ -248,7 +248,7 @@ var table  = $("#bundle_table").DataTable({
             var awal = 0;
             table.$('.ib_total_price').each(function(){
               var total = $(this).val();
-              total = total.replace(/[^0-9\-]+/g,"");
+              total = total.replace(/[^0-9.\-]+/g,"");
               awal += parseInt(total);
             });
             $(".ib_price").val(accounting.formatMoney(awal,"",0,'.',','));
@@ -284,7 +284,7 @@ var table  = $("#bundle_table").DataTable({
     var awal = 0;
     table.$('.ib_total_price').each(function(){
       var total = $(this).val();
-      total = total.replace(/[^0-9\-]+/g,"");
+      total = total.replace(/[^0-9.\-]+/g,"");
       awal += parseInt(total);
     });  
           
