@@ -121,7 +121,10 @@ class BarangController extends Controller
     public function datatable_barang()
    {
         
-        $data= DB::table('m_item')->where('i_jenis','ITEM')->orderBy('i_insert_at','DESC')->get();
+        $data= DB::table('m_item')
+                ->leftjoin('m_currency','cu_code','=','i_currency_id')
+                ->where('i_jenis','ITEM')
+                ->orderBy('i_insert_at','DESC')->get();
         
         
         // return $data;
@@ -147,9 +150,7 @@ class BarangController extends Controller
 
 						})
 						->addColumn('harga', function ($barang){
-							return '<div class="float-left">'. 
-							'Rp. '.
-							'</div>'.
+							return '<div class="float-left">'.$barang->cu_symbol.'. '.'</div>'.
 							'<div class="float-right">'.$barang->i_price.'</div>';
 						})
                         ->addColumn('none', function ($barang) {
