@@ -24,7 +24,7 @@ class BarangController extends Controller
             $m1 = DB::table('m_item')->where('i_jenis','ITEM')->max('i_id');
         	$index = DB::table('m_item')->max('i_id')+1;
         	
-                               
+            dd($req->all());            
 
             if($index<=9)
             {
