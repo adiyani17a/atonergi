@@ -43,9 +43,11 @@
                         <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
                             <button type="button" class="close" data-dismiss="alert">×</button>
                             <strong>Notice!</strong> <br>
-                            Untuk Koma Menggunakan titik ( . )
+                            1.  Untuk Koma Menggunakan titik ( . )<br>
+                            2.  Jangan Lupa Memilih Currency nya
                         </div>
                       </div>
+
                     </div>
                     <div class="table-responsive">
                             <table id="t55" class="table table-hover table-bordered" cellspacing="0">
@@ -184,7 +186,7 @@ $('#tombol_modal_tambah').click(function(){
     $('input[name="item_codex"]').val('');
     $('input[name="lower_price"]').val('0');
     $('input[name="sell_price"]').val('0');
-    $('input[name="currency"]').val('');
+    $('input[name="currency"]').val('IDR');
 
     $('input[name="item_name"]').removeClass('border-danger');
     $('#chooseFile');

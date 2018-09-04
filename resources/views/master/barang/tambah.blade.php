@@ -27,9 +27,10 @@
               <div class="col-md-3 col-sm-8 col-xs-12" style="width: 100%">
                 <div class="form-group">
                     <select class="form-control currency" name="currency">
-                      <option value="">--Select Currency--</option>
                       @foreach($currency as $val)
-                        <option value="{{$val->cu_code}}">{{$val->cu_code}} || {{$val->cu_name}}</option>
+                        <option @if ($val->cu_code == 'IDR')
+                          selected="" 
+                        @endif value="{{$val->cu_code}}">{{$val->cu_code}} || {{$val->cu_name}}</option>
                       @endforeach
 
                     </select>
