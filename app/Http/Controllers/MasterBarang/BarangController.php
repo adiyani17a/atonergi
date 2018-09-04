@@ -200,7 +200,6 @@ class BarangController extends Controller
                     'i_image'       =>  $file_name,
                 ]);
             }
-            dd(filter_Var($request->price,FILTER_SANITIZE_NUMBER_FLOAT));            
 
 
         	$save = DB::table('m_item')->where('i_id',$request->kode_barang)->update([
