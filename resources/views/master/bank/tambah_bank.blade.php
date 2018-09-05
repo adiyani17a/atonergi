@@ -17,7 +17,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="form-group">
                 <input type="hidden" name="id" id="id">
-                <input type="text" class="form-control form-control-sm" name="name" id="name">
+                <input type="text" class="form-control form-control-sm huruf_besar" name="name" id="name">
               </div>
             </div>
           </div>
