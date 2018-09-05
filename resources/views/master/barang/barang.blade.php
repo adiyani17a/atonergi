@@ -45,7 +45,7 @@
                             <strong>Notice!</strong> <br>
                             1.  Untuk Koma Menggunakan titik ( . )<br>
                             2.  Jangan Lupa Memilih Currency nya
-                            
+
                         </div>
                       </div>
 
@@ -58,6 +58,7 @@
                                     <th class="wd-15p" width="5%">Item Code</th>
                                     <th class="wd-15p">Item Name</th>
                                     <th width="15%">Item Price</th>
+                                    <th width="15%">Price (Rp)</th>
                                     <th class="wd-15p" width="3%">Unit</th>
                                     <th width="25%">Description Item</th>
                                     <th>Image</th>
@@ -134,14 +135,18 @@ $(document).ready(function(){
                   },
                   {
                      targets: 4,
+                     className: 'i_price'
+                  },
+                  {
+                     targets: 5,
                      className: 'center'
                   },
                   {
-                    targets: 6,
+                    targets: 7,
                     className: 'center'
                   },
                   {
-                    targets: 7,
+                    targets: 8,
                     className: 'center'
                   }
                 ],
@@ -150,6 +155,7 @@ $(document).ready(function(){
             { "data": "i_code" },
             { "data": "i_name" },
             { "data": "harga"},
+            { "data": "harga_rp"},
             { "data": "i_unit" },
             { "data": "i_description" },
             { "data": "gambar"},

@@ -153,6 +153,12 @@ class BarangController extends Controller
 							return '<div class="float-left">'.$barang->cu_symbol.'. '.'</div>'.
 							'<div class="float-right">'.$barang->i_price.'</div>';
 						})
+
+                        ->addColumn('harga_rp', function ($barang){
+                            $harga = $barang->i_price *$barang->cu_value;
+                            return '<div class="float-left">'.'Rp .'.'</div>'.
+                            '<div class="float-right">'.$harga.'</div>';
+                        })
                         ->addColumn('none', function ($barang) {
                           return '-';
                       	})
