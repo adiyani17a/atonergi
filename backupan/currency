@@ -1,0 +1,141 @@
+-- --------------------------------------------------------
+-- Host:                         sql151.main-hosting.eu
+-- Server version:               10.2.16-MariaDB - MariaDB Server
+-- Server OS:                    Linux
+-- HeidiSQL Version:             9.4.0.5125
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Dumping structure for table u949072907_aton.m_currency
+CREATE TABLE IF NOT EXISTS `m_currency` (
+  `cu_name` varchar(100) DEFAULT NULL,
+  `cu_code` varchar(100) DEFAULT NULL,
+  `cu_symbol` varchar(100) DEFAULT NULL,
+  `cu_value` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table u949072907_aton.m_currency: ~112 rows (approximately)
+/*!40000 ALTER TABLE `m_currency` DISABLE KEYS */;
+REPLACE INTO `m_currency` (`cu_name`, `cu_code`, `cu_symbol`, `cu_value`) VALUES
+	('Leke', 'ALL', 'Lek', NULL),
+	('Dollars', 'USD', '$', 14800),
+	('Afghanis', 'AFN', '?', NULL),
+	('Pesos', 'ARS', '$', NULL),
+	('Guilders', 'AWG', 'ƒ', NULL),
+	('Dollars', 'AUD', '$', NULL),
+	('New Manats', 'AZN', '???', NULL),
+	('Dollars', 'BSD', '$', NULL),
+	('Dollars', 'BBD', '$', NULL),
+	('Rubles', 'BYR', 'p.', NULL),
+	('Euro', 'EUR', '€', NULL),
+	('Dollars', 'BZD', 'BZ$', NULL),
+	('Dollars', 'BMD', '$', NULL),
+	('Bolivianos', 'BOB', '$b', NULL),
+	('Convertible Marka', 'BAM', 'KM', NULL),
+	('Pula', 'BWP', 'P', NULL),
+	('Leva', 'BGN', '??', NULL),
+	('Reais', 'BRL', 'R$', NULL),
+	('Pounds', 'GBP', '£', NULL),
+	('Dollars', 'BND', '$', NULL),
+	('Riels', 'KHR', '?', NULL),
+	('Dollars', 'CAD', '$', NULL),
+	('Dollars', 'KYD', '$', NULL),
+	('Pesos', 'CLP', '$', NULL),
+	('Yuan Renminbi', 'CNY', '¥', NULL),
+	('Pesos', 'COP', '$', NULL),
+	('Colón', 'CRC', '?', NULL),
+	('Kuna', 'HRK', 'kn', NULL),
+	('Pesos', 'CUP', '?', NULL),
+	('Koruny', 'CZK', 'K?', NULL),
+	('Kroner', 'DKK', 'kr', NULL),
+	('Pesos', 'DOP ', 'RD$', NULL),
+	('Dollars', 'XCD', '$', NULL),
+	('Pounds', 'EGP', '£', NULL),
+	('Colones', 'SVC', '$', NULL),
+	('Pounds', 'FKP', '£', NULL),
+	('Dollars', 'FJD', '$', NULL),
+	('Cedis', 'GHC', '¢', NULL),
+	('Pounds', 'GIP', '£', NULL),
+	('Quetzales', 'GTQ', 'Q', NULL),
+	('Pounds', 'GGP', '£', NULL),
+	('Dollars', 'GYD', '$', NULL),
+	('Lempiras', 'HNL', 'L', NULL),
+	('Dollars', 'HKD', '$', NULL),
+	('Forint', 'HUF', 'Ft', NULL),
+	('Kronur', 'ISK', 'kr', NULL),
+	('Rupees', 'INR', 'Rp', NULL),
+	('Rupiahs', 'IDR', 'Rp', NULL),
+	('Rials', 'IRR', '?', NULL),
+	('Pounds', 'IMP', '£', NULL),
+	('New Shekels', 'ILS', '?', NULL),
+	('Dollars', 'JMD', 'J$', NULL),
+	('Yen', 'JPY', '¥', NULL),
+	('Pounds', 'JEP', '£', NULL),
+	('Tenge', 'KZT', '??', NULL),
+	('Won', 'KPW', '?', NULL),
+	('Won', 'KRW', '?', NULL),
+	('Soms', 'KGS', '??', NULL),
+	('Kips', 'LAK', '?', NULL),
+	('Lati', 'LVL', 'Ls', NULL),
+	('Pounds', 'LBP', '£', NULL),
+	('Dollars', 'LRD', '$', NULL),
+	('Switzerland Francs', 'CHF', 'CHF', NULL),
+	('Litai', 'LTL', 'Lt', NULL),
+	('Denars', 'MKD', '???', NULL),
+	('Ringgits', 'MYR', 'RM', NULL),
+	('Rupees', 'MUR', '?', NULL),
+	('Pesos', 'MXN', '$', NULL),
+	('Tugriks', 'MNT', '?', NULL),
+	('Meticais', 'MZN', 'MT', NULL),
+	('Dollars', 'NAD', '$', NULL),
+	('Rupees', 'NPR', '?', NULL),
+	('Guilders', 'ANG', 'ƒ', NULL),
+	('Dollars', 'NZD', '$', NULL),
+	('Cordobas', 'NIO', 'C$', NULL),
+	('Nairas', 'NGN', '?', NULL),
+	('Krone', 'NOK', 'kr', NULL),
+	('Rials', 'OMR', '?', NULL),
+	('Rupees', 'PKR', '?', NULL),
+	('Balboa', 'PAB', 'B/.', NULL),
+	('Guarani', 'PYG', 'Gs', NULL),
+	('Nuevos Soles', 'PEN', 'S/.', NULL),
+	('Pesos', 'PHP', 'Php', NULL),
+	('Zlotych', 'PLN', 'z?', NULL),
+	('Rials', 'QAR', '?', NULL),
+	('New Lei', 'RON', 'lei', NULL),
+	('Rubles', 'RUB', '???', NULL),
+	('Pounds', 'SHP', '£', NULL),
+	('Riyals', 'SAR', '?', NULL),
+	('Dinars', 'RSD', '???.', NULL),
+	('Rupees', 'SCR', '?', NULL),
+	('Dollars', 'SGD', '$', NULL),
+	('Dollars', 'SBD', '$', NULL),
+	('Shillings', 'SOS', 'S', NULL),
+	('Rand', 'ZAR', 'R', NULL),
+	('Rupees', 'LKR', '?', NULL),
+	('Kronor', 'SEK', 'kr', NULL),
+	('Dollars', 'SRD', '$', NULL),
+	('Pounds', 'SYP', '£', NULL),
+	('New Dollars', 'TWD', 'NT$', NULL),
+	('Baht', 'THB', '?', NULL),
+	('Dollars', 'TTD', 'TT$', NULL),
+	('Lira', 'TRY', 'TL', NULL),
+	('Liras', 'TRL', '£', NULL),
+	('Dollars', 'TVD', '$', NULL),
+	('Hryvnia', 'UAH', '?', NULL),
+	('Pesos', 'UYU', '$U', NULL),
+	('Sums', 'UZS', '??', NULL),
+	('Bolivares Fuertes', 'VEF', 'Bs', NULL),
+	('Dong', 'VND', '?', NULL),
+	('Rials', 'YER', '?', NULL),
+	('Zimbabwe Dollars', 'ZWD', 'Z$', NULL);
+/*!40000 ALTER TABLE `m_currency` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

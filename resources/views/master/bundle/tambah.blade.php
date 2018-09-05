@@ -14,13 +14,11 @@
         <div class="row">
                                 
             <div class="col-md-3 col-sm-4 col-xs-12">
-             
                   <label class="tebal">Bundle Name</label>
-             
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group ">
-                  <input type="text"  class="form-control form-control-sm ib_name" name="ib_name">                                    
+                  <input type="text"  class="form-control huruf_besar form-control-sm ib_name" name="ib_name">                                    
               </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12">
@@ -41,7 +39,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text"  class="form-control form-control-sm   keterangan" name="keterangan" >
+                  <input type="text"  class="form-control form-control-sm huruf_besar  keterangan" name="keterangan" >
               </div>
             </div>
 
@@ -79,25 +77,33 @@
           <div class="col-md-2 col-sm-4 col-xs-12">
             <label>Item Name</label>
           </div>
-          <div class="col-md-2 col-sm-8 col-xs-12">
+          <div class="col-md-2 col-sm-8 col-xs-10">
             <div class="form-group">  
               <select class="form-control form-control-sm" name="" id="bund_kodeitem"> 
                   <option selected="" value="">- Pilih -</option>
                   @foreach ($item as $e)
-                    <option value="{{ $e->i_code }}" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
+                    <option value="{{ $e->i_code }}" data-harga="{{ $e->i_price }}" data-name="{{ $e->i_name }}" data-currency="{{ $e->i_currency_id }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
                   @endforeach
               </select>
             </div>
           </div>
-          <div class="col-md-2 col-sm-8 col-xs-12">
+          <div class="col-md-1 col-sm-6 col-xs-2">
+            <div class="form-group">  
+              <input style="text-align: center; width: 60%" type="text" readonly="" class="form-control form-control-sm  right"  id="currency">
+            </div>
+          </div>
+          <div class="col-md-1 col-sm-1 col-xs-1">
+            <label>Harga</label>
+          </div>
+          <div class="col-md-2 col-sm-6 col-xs-12">
             <div class="form-group">  
               <input type="text" class="form-control form-control-sm" name="" readonly="" id="bund_item">
             </div>
           </div>
-          <div class="col-md-3 col-sm-4 col-xs-12">
+          <div class="col-md-1 col-sm-1 col-xs-1">
             <label>Qty</label>
           </div>
-          <div class="col-md-3 col-sm-8 col-xs-12">
+          <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">  
               <input type="text" class="form-control form-control-sm format_money right" name="bund_qty" id="bund_qty">
             </div>
@@ -112,7 +118,7 @@
                 <th width="20%">Item Name</th>
                 <th width="5%">Qty</th>
                 <th width="5%">Unit</th>
-                <th width="30%">Price</th>
+                <th width="30%">Price (Rp)</th>
                 <th width="30%">Total Price</th>
                 <th width="1%">Action</th>
               </tr>

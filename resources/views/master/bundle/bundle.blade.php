@@ -65,7 +65,7 @@
       defaultZero: true
     });
 
-    $('lower_price').maskMoney({
+    $('.lower_price').maskMoney({
       precision : 0,
       thousands:'.',
       allowZero:true,
@@ -76,6 +76,9 @@
     $('#button_add').click(function(){
           $("input[name='ib_name']").val('');
           $("input[name='ib_price']").val('');
+          $("input[name='ib_price']").val('');
+          $(".sell_price").val('');
+          $(".lower_price").val('');
             var table = $('#object_906').DataTable();
             table.clear().draw();
             $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
@@ -91,8 +94,10 @@
             $('#bund_qty').attr('disabled',true);          
           }
           var h_price = $(this).find(':selected').data('harga');
-          $('#bund_item').val(accounting.formatMoney(h_price,"",0,'.',','));
-      })
+          var currency = $(this).find(':selected').data('currency');
+          $('#bund_item').val(h_price*100/100);
+          $('#currency').val(currency);
+    })
 
     $('#table-bundle').DataTable({
             processing: true,
@@ -140,7 +145,7 @@
                                 });
         var x = 1;
     // $('#bund_qty').keyup(function(){
-    //   var jumlah = $('#bund_item').val().replace(/[^0-9\-]+/g,"")*1;
+    //   var jumlah = $('#bund_item').val().replace(/[^0-9.\-]+/g,"")*1;
     //   var qty = $(this).val();
     //   $('.ib_price').val(accounting.formatMoney(jumlah * qty,"",0,'.',','))
     // })
@@ -155,16 +160,20 @@
          dataType:'json',
          data:{kode},
          success: function(data){
-            console.log(qty);
-            console.log(data.data.i_price);
-            var price  = parseInt(qty)*parseInt(data.data.i_price);
-            console.log(price);
+
+            if (data.data.cu_value == null) {
+              currency = 1;
+            } else{
+              var currency = parseInt(data.data.cu_value);
+            }
+
+            var price  = parseInt(qty)*parseFloat(data.data.i_price)*currency;
             table.row.add( [
                '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
                 '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
                 '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
                 '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
-                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(data.data.i_price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+accounting.formatMoney(data.data.i_price*currency,"",0,'.',',')  +'">',
                 '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
                 '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
             ]).draw( false );
@@ -174,11 +183,12 @@
             table.$('.ib_total_price').each(function(){
               var total = $(this).val();
               total = total.replace(/[^0-9\-]+/g,"");
-              awal += parseInt(total);
+              awal += parseFloat(total);
             });
             $(".ib_price").val(accounting.formatMoney(awal,"",0,'.',','));
             $('#bund_kodeitem').val('').trigger('change');
             $('#bund_qty').val('');
+            $('#bund_item').val('');
             $('.lower_price').val(accounting.formatMoney(awal,"",0,'.',','));
             $('.sell_price').val(accounting.formatMoney(awal,"",0,'.',','));
          },

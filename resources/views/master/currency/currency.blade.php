@@ -117,6 +117,7 @@ $('#tombol_modal_tambah').click(function(){
   $('.currency').val('0');
   $('.currency').select2();
 })
+
 $('.currency').change(function(){
   var id = $(this).val();
   $.ajax({
@@ -141,6 +142,30 @@ $('.currency').change(function(){
   })
 })
 
+function edit(id) {
+  $.ajax({
+    url: '{{ url('master/currency/edit_detail') }}',
+    data: {id},
+    type:'get',
+    dataType:'json',
+    success:function(data){
+      $('.currency').val(id);
+      $('.currency').select2();
+      $('.currency').change();
+      $('.value').val(accounting.formatMoney(data.data.cu_value, "", 0, ".",','));
+      $('#tambah').modal('show');
+      
+    },
+    error:function(){
+      iziToast.warning({
+        icon: 'fa fa-times',
+        message: 'Terjadi Kesalahan!',
+      });
+    }
+  })
+
+}
+
 $('.simpan').click(function(){
   var id = $('.currency').val();
   var value = $('.value').val();
@@ -155,6 +180,8 @@ $('.simpan').click(function(){
           icon: 'fa fa-check',
           message: 'Data Berhasil Disimpan!',
         });
+        var table = $('#t55').DataTable();
+        table.ajax.reload();
       }
     },
     error:function(){

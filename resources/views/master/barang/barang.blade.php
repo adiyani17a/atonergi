@@ -38,17 +38,29 @@
   		                <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
   		                  	<button type="button" class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
   		                </div>
+                      <div class="row">
+                      <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>Notice!</strong> <br>
+                            1.  Untuk Koma Menggunakan titik ( . )<br>
+                            2.  Jangan Lupa Memilih Currency nya
+                        </div>
+                      </div>
+
+                    </div>
                     <div class="table-responsive">
                             <table id="t55" class="table table-hover table-bordered" cellspacing="0">
                               <thead class="bg-gradient-info">
                                   <tr>
+                                    <th class="wd-15p" width="3%">No</th>
                                     <th class="wd-15p" width="5%">Item Code</th>
                                     <th class="wd-15p">Item Name</th>
-                                    <th>Item Price</th>
-                                    <th class="wd-15p" width="5%">Unit</th>
-                                    <th class="wd-15p">Description Item</th>
+                                    <th width="15%">Item Price</th>
+                                    <th class="wd-15p" width="3%">Unit</th>
+                                    <th width="25%">Description Item</th>
                                     <th>Image</th>
-                                    <th width="15%">Action</th>
+                                    <th width="5%">Action</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -72,43 +84,29 @@
 
 $(document).ready(function(){
 
-  $('input[name="price"]').maskMoney({
-    precision : 0,
-    thousands:',',
-    defaultZero:true,
-    allowZero:true
-  });
+  // $('input[name="price"]').maskMoney({
+  //   defaultZero:true,
+  //   allowZero:true
+  // });
 
 
-  $('.min_stock').maskMoney({
-    precision : 0,
-    thousands:'',
-    defaultZero:true,
-    allowZero:true
-  });
+  // $('.min_stock').maskMoney({
+  //   defaultZero:true,
+  //   allowZero:true
+  // });
 
 
-  $('.weight').maskMoney({
-    precision : 0,
-    thousands:'',
-    defaultZero:true,
-    allowZero:true
-  });
 
-  $('.lower_price').maskMoney({
-    precision : 0,
-    thousands:',',
-    defaultZero:true,
-    allowZero:true
-  });
+  // $('.lower_price').maskMoney({
+  //   defaultZero:true,
+  //   allowZero:true
+  // });
 
 
-  $('.sell_price').maskMoney({
-    precision : 0,
-    thousands:',',
-    defaultZero:true,
-    allowZero:true
-  });
+  // $('.sell_price').maskMoney({
+  //   defaultZero:true,
+  //   allowZero:true
+  // });
     $('#t55').DataTable({
             processing: true,
             // responsive:true,
@@ -117,17 +115,20 @@ $(document).ready(function(){
                 url:'{{ route("datatable_barang") }}',
             },
             columnDefs: [
-
                   {
                      targets: 0 ,
+                     className: 'center '
+                  },
+                  {
+                     targets: 1 ,
                      className: 'center i_id'
                   },
                   {
-                     targets: 1,
+                     targets: 2,
                      className: 'i_nama'
                   },
                   {
-                     targets: 2,
+                     targets: 3,
                      className: 'i_price'
                   },
                   {
@@ -135,15 +136,16 @@ $(document).ready(function(){
                      className: 'center'
                   },
                   {
-                    targets: 5,
+                    targets: 6,
                     className: 'center'
                   },
                   {
-                    targets: 6,
+                    targets: 7,
                     className: 'center'
                   }
                 ],
             "columns": [
+            {data: 'DT_Row_Index',      name: 'DT_Row_Index'},
             { "data": "i_code" },
             { "data": "i_name" },
             { "data": "harga"},
@@ -184,7 +186,7 @@ $('#tombol_modal_tambah').click(function(){
     $('input[name="item_codex"]').val('');
     $('input[name="lower_price"]').val('0');
     $('input[name="sell_price"]').val('0');
-    $('input[name="currency"]').val('');
+    $('input[name="currency"]').val('IDR');
 
     $('input[name="item_name"]').removeClass('border-danger');
     $('#chooseFile');
@@ -393,13 +395,15 @@ function edit(m1a2)
             var i_code    = $("input[name='item_name']").val(data[0].i_name);
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
             var i_weight      = $("input[name='weight']").val(data[0].i_weight);
-            var i_price      = $("input[name='price']").val(accounting.formatMoney(data[0].i_price,"",0,'.',','));
+            var i_currency      = $(".currency").val(data[0].i_currency_id);
+            var i_currency      = $(".currency").trigger('change');
+            var i_price      = $("input[name='price']").val(data[0].i_price.replace(/[^0-9\-]+/g,"")/100);
             var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
             var i_description      = $("textarea[name='description']").val(data[0].i_description);
             var i_type      = $("select[name='type_barang']").val(data[0].i_type).trigger('change');
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
-            var i_sell_price      = $("input[name='sell_price']").val(accounting.formatMoney(data[0].i_sell_price,"",0,'.',','));
-            var i_lower_price      = $("input[name='lower_price']").val(accounting.formatMoney(data[0].i_lower_price,"",0,'.',','));
+            var i_sell_price      = $("input[name='sell_price']").val(data[0].i_sell_price.replace(/[^0-9\-]+/g,"")/100);
+            var i_lower_price      = $("input[name='lower_price']").val(data[0].i_lower_price.replace(/[^0-9\-]+/g,"")/100);
 
             if(data[0].i_image!='' || data[0].i_image!=null){
               $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);

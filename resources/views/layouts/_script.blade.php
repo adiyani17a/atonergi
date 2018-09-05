@@ -132,7 +132,7 @@
      //if the letter is not digit then display error and don't type anything
      if (e.which != 8 && e.which != 0 && e.which != 46 && (e.which < 48 || e.which > 57)) {
         //display error message
-        
+        return false;
     }
    });
 
@@ -143,8 +143,8 @@
   // var regex_angka = replace(/[^0-9\-]+/g,"");
 
   //function
-  $('.format_money').maskMoney({prefix:' ', allowNegative: false, thousands:'.', decimal:',',precision:false, affixesStay: false});
-  $('.format_money_kosongan').maskMoney({prefix:' ', allowNegative: false, thousands:'', decimal:'',precision:false, affixesStay: false});
+  // $('.format_money').maskMoney({prefix:' ', allowNegative: false, thousands:'.', decimal:',',precision:false, affixesStay: false});
+  // $('.format_money_kosongan').maskMoney({prefix:' ', allowNegative: false, thousands:'', decimal:'',precision:false, affixesStay: false});
   $('.right').css('text-align','right')
   $('.sembuyikan').css('display','none')
   $('.tampilkan').css('display','block')

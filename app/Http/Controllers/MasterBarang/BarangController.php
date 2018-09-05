@@ -24,7 +24,6 @@ class BarangController extends Controller
             $m1 = DB::table('m_item')->where('i_jenis','ITEM')->max('i_id');
         	$index = DB::table('m_item')->max('i_id')+1;
         	
-                               
 
             if($index<=9)
             {
@@ -73,18 +72,18 @@ class BarangController extends Controller
             $save = DB::table('m_item')->insert([
                 'i_id'          =>  $index,
                 'i_code'        =>  $id_auto,
-                'i_name'        =>  $request->item_name,
+                'i_name'        =>  strtoupper($request->item_name),
                 'i_unit'        =>  $request->unit,
-                'i_price'       =>  filter_Var($request->price,FILTER_SANITIZE_NUMBER_INT),
-                'i_sell_price'  =>  filter_Var($request->sell_price,FILTER_SANITIZE_NUMBER_INT),
-                'i_lower_price' =>  filter_Var($request->lower_price,FILTER_SANITIZE_NUMBER_INT),
+                'i_price'       =>  (float)$request->price,
+                'i_sell_price'  =>  (float)$request->sell_price,
+                'i_lower_price' =>  (float)$request->lower_price,
                 'i_active'      =>  'Y',
                 'i_jenis'       =>  'ITEM',
                 'i_type'        =>  $request->type_barang,
                 'i_minstock'    =>  $request->min_stock,
                 'i_image'       =>  $file_name,
                 'i_weight'      =>  $request->weight,
-                'i_currency_id' =>  $request->weight,
+                'i_currency_id' =>  $request->currency,
                 'i_description' =>  $request->description,
                 'i_insert_at'   =>  Carbon::now(),
                 'i_update_at'   =>  Carbon::now(),
@@ -122,7 +121,10 @@ class BarangController extends Controller
     public function datatable_barang()
    {
         
-        $data= DB::table('m_item')->get();
+        $data= DB::table('m_item')
+                ->leftjoin('m_currency','cu_code','=','i_currency_id')
+                ->where('i_jenis','ITEM')
+                ->orderBy('i_insert_at','DESC')->get();
         
         
         // return $data;
@@ -148,16 +150,15 @@ class BarangController extends Controller
 
 						})
 						->addColumn('harga', function ($barang){
-							return '<div class="float-left">'. 
-							'Rp. '.
-							'</div>'.
-							'<div class="float-right">'. number_format($barang->i_price,0,"",".") .'</div>';
+							return '<div class="float-left">'.$barang->cu_symbol.'. '.'</div>'.
+							'<div class="float-right">'.$barang->i_price.'</div>';
 						})
                         ->addColumn('none', function ($barang) {
                           return '-';
                       	})
 
                       ->rawColumns(['aksi','gambar', 'harga'])
+                      ->addIndexColumn()
                         ->make(true);
     }
     public function barang_edit(Request $request)
@@ -204,16 +205,17 @@ class BarangController extends Controller
 
         	$save = DB::table('m_item')->where('i_id',$request->kode_barang)->update([
                 'i_id'          =>  $request->kode_barang,
-                'i_name'        =>  $request->item_name,
+                'i_name'        =>  strtoupper($request->item_name),
                 'i_unit'        =>  $request->unit,
-                'i_price'       =>  filter_Var($request->price,FILTER_SANITIZE_NUMBER_INT),
-                'i_sell_price'  =>  filter_Var($request->sell_price,FILTER_SANITIZE_NUMBER_INT),
-                'i_lower_price' =>  filter_Var($request->lower_price,FILTER_SANITIZE_NUMBER_INT),
+                'i_price'       =>  (float)$request->price,
+                'i_sell_price'  =>  (float)$request->sell_price,
+                'i_lower_price' =>  (float)$request->lower_price,
                 'i_active'      =>  'Y',
                 'i_jenis'       =>  'ITEM',
                 'i_type'        =>  $request->type_barang,
                 'i_minstock'    =>  $request->min_stock,
                 'i_weight'      =>  $request->weight,
+                'i_currency_id' =>  $request->currency,
                 'i_description' =>  $request->description,
                 'i_insert_at'   =>  Carbon::now(),
                 'i_update_at'   =>  Carbon::now(),
