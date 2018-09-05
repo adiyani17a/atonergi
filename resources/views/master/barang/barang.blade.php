@@ -45,6 +45,7 @@
                             <strong>Notice!</strong> <br>
                             1.  Untuk Koma Menggunakan titik ( . )<br>
                             2.  Jangan Lupa Memilih Currency nya
+                            
                         </div>
                       </div>
 
