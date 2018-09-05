@@ -140,7 +140,7 @@ class BarangController extends Controller
                         })
 						->addColumn('gambar', function ($barang) { 
 							if($barang->i_image!=''){
-                                $url = route('barang_thumbnail').'/'.$barang->i_image;
+                                $url = route('barang_thumbnail').'/'.$barang->i_image.'?'.time();
 								return '<img src="'.$url.'" border="0" width="60" class="img-rounded" align="center" />'; 
 							}else{
 								return '<i class="fa fa-minus-square"></i>';
