@@ -163,7 +163,7 @@ class BarangController extends Controller
                           return '-';
                       	})
 
-                      ->rawColumns(['aksi','gambar', 'harga'])
+                      ->rawColumns(['aksi','gambar', 'harga','harga_rp'])
                       ->addIndexColumn()
                         ->make(true);
     }
