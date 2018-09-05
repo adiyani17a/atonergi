@@ -413,7 +413,7 @@ function edit(m1a2)
             var i_lower_price      = $("input[name='lower_price']").val(data[0].i_lower_price.replace(/[^0-9\-]+/g,"")/100);
 
             if(data[0].i_image!='' || data[0].i_image!=null){
-              $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image);
+              $('#output').attr("src", '{{ route('barang_thumbnail') }}'+'/'+data[0].i_image+'?'+'{{ time() }}');
               $('.file-upload').addClass('active');
               $("#noFile").text(data[0].i_image); 
             } else {
