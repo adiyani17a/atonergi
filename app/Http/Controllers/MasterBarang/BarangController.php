@@ -157,7 +157,7 @@ class BarangController extends Controller
                         ->addColumn('harga_rp', function ($barang){
                             $harga = $barang->i_price *$barang->cu_value;
                             return '<div class="float-left">'.'Rp .'.'</div>'.
-                            '<div class="float-right">'.number_format($harga,0,',','.').'</div>';
+                            '<div class="float-right">'.number_format($harga,2,',','.').'</div>';
                         })
                         ->addColumn('none', function ($barang) {
                           return '-';
