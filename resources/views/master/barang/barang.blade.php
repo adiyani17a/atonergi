@@ -186,13 +186,13 @@ $('#tombol_modal_tambah').click(function(){
     $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
     $('select[name="type_barang"]').val('').trigger('change');
     $('input[name="unit"]').val('');
-    $('input[name="price"]').val('0');
-    $('input[name="weight"]').val('0');
-    $('input[name="min_stock"]').val('0');
+    $('input[name="price"]').val('');
+    $('input[name="weight"]').val('');
+    $('input[name="min_stock"]').val('');
     $('textarea[name="description"]').val('');
     $('input[name="item_codex"]').val('');
-    $('input[name="lower_price"]').val('0');
-    $('input[name="sell_price"]').val('0');
+    $('input[name="lower_price"]').val('');
+    $('input[name="sell_price"]').val('');
     $('input[name="currency"]').val('IDR');
 
     $('input[name="item_name"]').removeClass('border-danger');
