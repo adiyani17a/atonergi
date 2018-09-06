@@ -400,7 +400,7 @@ function edit(m1a2)
 
             var i_id      = $("input[name='kode_barang']").val(data[0].i_id);
             var i_code    = $("input[name='item_name']").val(data[0].i_name);
-            var i_unit      = $("input[name='unit']").val(data[0].i_unit);
+            var i_unit      = $("input[name='unit']").val(data[0].i_unit).trigger('change');
             var i_weight      = $("input[name='weight']").val(data[0].i_weight);
             var i_currency      = $(".currency").val(data[0].i_currency_id);
             var i_currency      = $(".currency").trigger('change');
