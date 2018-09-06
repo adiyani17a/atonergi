@@ -188,7 +188,7 @@ $('#tombol_modal_tambah').click(function(){
     $('input[name="unit"]').val('');
     $('input[name="price"]').val('');
     $('input[name="weight"]').val('');
-    $('input[name="min_stock"]').val('');
+    $('input[name="min_stock"]').val('0');
     $('textarea[name="description"]').val('');
     $('input[name="item_codex"]').val('');
     $('input[name="lower_price"]').val('');
