@@ -152,6 +152,7 @@ $(document).ready(function(){
       });
   });
 
+
 function change_image()
 {
   if($('#cbcheck:checkbox:checked').length > 0)
