@@ -38,7 +38,7 @@
   		                <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
   		                  	<button type="button" class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
   		                </div>
-                      <div class="row">
+                      <div class="row"  style="margin-bottom: 20px">
                       <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
                             <button type="button" class="close" data-dismiss="alert">×</button>
@@ -47,6 +47,13 @@
                             2.  Jangan Lupa Memilih Currency nya
 
                         </div>
+                      </div>
+                      <div class="col-md-2 col-sm-4 col-xs-4" >
+                        <label>Cari Barang</label>
+                      </div>
+                      <div class="col-md-4 col-sm-8 col-xs-12">
+                        <input type="text" class="form-control cari_barang" name="cari_barang" style="margin-bottom: 20px">
+                        <button class="btn btn-primary pull-right cari"><i class="fa fa-search"> Cari</i></button>
                       </div>
 
                     </div>
@@ -71,8 +78,6 @@
                             </table> 
                           </div>
                   </div>
-
-
               </div>
     </div>
   </div>
@@ -86,35 +91,17 @@
 
 $(document).ready(function(){
 
-  // $('input[name="price"]').maskMoney({
-  //   defaultZero:true,
-  //   allowZero:true
-  // });
-
-
-  // $('.min_stock').maskMoney({
-  //   defaultZero:true,
-  //   allowZero:true
-  // });
-
-
-
-  // $('.lower_price').maskMoney({
-  //   defaultZero:true,
-  //   allowZero:true
-  // });
-
-
-  // $('.sell_price').maskMoney({
-  //   defaultZero:true,
-  //   allowZero:true
-  // });
     $('#t55').DataTable({
             processing: true,
             // responsive:true,
             serverSide: true,
+            searching:false,
             ajax: {
                 url:'{{ route("datatable_barang") }}',
+                data:{nota: function() { return $('.cari_barang').val() }},
+                error:function(){
+                  location.reload();
+                }
             },
             columnDefs: [
                   {
@@ -175,6 +162,11 @@ function change_image()
 
   }
 }
+
+$('.cari').click(function(){
+  var table = $('#t55').DataTable();
+  table.ajax.reload();
+})
 
 $('#tombol_modal_tambah').click(function(){
 
