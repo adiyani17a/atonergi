@@ -156,7 +156,7 @@ $(document).ready(function(){
             { "data": "i_name" },
             { "data": "harga"},
             { "data": "harga_rp"},
-            { "data": "i_unit" },
+            { "data": "u_unit" },
             { "data": "i_description" },
             { "data": "gambar"},
             { "data": "aksi" },

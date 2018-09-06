@@ -123,6 +123,7 @@ class BarangController extends Controller
         
         $data= DB::table('m_item')
                 ->leftjoin('m_currency','cu_code','=','i_currency_id')
+                ->join('d_unit','u_id','=','i_unit')
                 ->where('i_jenis','ITEM')
                 ->orderBy('i_insert_at','DESC')->get();
         
