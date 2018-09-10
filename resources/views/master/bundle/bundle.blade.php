@@ -163,9 +163,9 @@
          success: function(data){
 
             if (data.data.cu_value == null) {
-              currency = 1;
+              var currency = 1;
             } else{
-              var currency = parseInt(data.data.cu_value);
+              var currency = 1;
             }
 
             var price  = parseInt(qty)*parseFloat(data.data.i_price)*currency;
