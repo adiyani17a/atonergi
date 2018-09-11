@@ -18,28 +18,28 @@
     </div>
 
     <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="col-md-12 col-xs-12 col-xs-12">
-                      <table class="table">
-                       <tr>
-                        <td width="50">Level</td>
-                         <td>
-                            <select name="level" class="level form-control" >
-                              <option value="0">Pilih - Level</option>
-                              @foreach($hak_akses as $i)
-                              <option value="{{ $i->ha_level }}">{{ $i->ha_level }}</option>
-                              @endforeach
-                            </select>
-                         </td>
-                       </tr>
-                      </table>
-                      <div class="content_hak_akses">
-                       
-                      </div>
-                    </div>
-                  </div>
-                </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-12 col-xs-12 col-xs-12">
+            <table class="table">
+             <tr>
+              <td width="50">Level</td>
+               <td>
+                  <select name="level" class="level form-control" >
+                    <option value="0">Pilih - Level</option>
+                    @foreach($hak_akses as $i)
+                    <option value="{{ $i->ha_level }}">{{ $i->ha_level }}</option>
+                    @endforeach
+                  </select>
+               </td>
+             </tr>
+            </table>
+            <div class="content_hak_akses">
+             
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

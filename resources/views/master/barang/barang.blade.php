@@ -39,17 +39,16 @@
   		                  	<button type="button" class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
   		                </div>
                       <div class="row">
-                      <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Notice!</strong> <br>
-                            1.  Untuk Koma Menggunakan titik ( . )<br>
-                            2.  Jangan Lupa Memilih Currency nya
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                          <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <strong>Notice!</strong> <br>
+                              1.  Untuk Koma Menggunakan titik ( . )<br>
+                              2.  Jangan Lupa Memilih Currency nya
 
+                          </div>
                         </div>
                       </div>
-
-                    </div>
                     <div class="table-responsive">
                             <table id="t55" class="table table-hover table-bordered" cellspacing="0">
                               <thead class="bg-gradient-info">
