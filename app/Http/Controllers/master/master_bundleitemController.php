@@ -12,7 +12,8 @@ use Auth;
 class master_bundleitemController extends Controller
 {
  	
-
+ 
+ 
  	public function bundleitem()
  	{
  		$item = DB::table('m_item')->where('i_jenis','=','ITEM')->get();
@@ -28,6 +29,7 @@ class master_bundleitemController extends Controller
         
         // return $data;
 
+
         return Datatables::of($data)
         	
                 ->addColumn('aksi', function ($data) {
@@ -38,6 +40,7 @@ class master_bundleitemController extends Controller
                             }else{
                               $b = '';
                             }
+
 
                             // if(Auth::user()->akses('MASTER DATA BUNDLE ITEM','print')){
                             //  $c = 

@@ -45,10 +45,17 @@
                               <strong>Notice!</strong> <br>
                               1.  Untuk Koma Menggunakan titik ( . )<br>
                               2.  Jangan Lupa Memilih Currency nya
-
                           </div>
                         </div>
                       </div>
+                      <div class="col-md-2 col-sm-4 col-xs-4" >
+                        <label>Cari Barang</label>
+                      </div>
+                      <div class="col-md-4 col-sm-8 col-xs-12">
+                        <input type="text" class="form-control cari_barang" name="cari_barang" style="margin-bottom: 20px">
+                        <button class="btn btn-primary pull-right cari"><i class="fa fa-search"> Cari</i></button>
+                      </div>
+                    </div>
                     <div class="table-responsive">
                             <table id="t55" class="table table-hover table-bordered" cellspacing="0">
                               <thead class="bg-gradient-info">
@@ -70,8 +77,6 @@
                             </table> 
                           </div>
                   </div>
-
-
               </div>
     </div>
   </div>
@@ -85,35 +90,17 @@
 
 $(document).ready(function(){
 
-  // $('input[name="price"]').maskMoney({
-  //   defaultZero:true,
-  //   allowZero:true
-  // });
-
-
-  // $('.min_stock').maskMoney({
-  //   defaultZero:true,
-  //   allowZero:true
-  // });
-
-
-
-  // $('.lower_price').maskMoney({
-  //   defaultZero:true,
-  //   allowZero:true
-  // });
-
-
-  // $('.sell_price').maskMoney({
-  //   defaultZero:true,
-  //   allowZero:true
-  // });
     $('#t55').DataTable({
             processing: true,
             // responsive:true,
             serverSide: true,
+            searching:false,
             ajax: {
                 url:'{{ route("datatable_barang") }}',
+                data:{nota: function() { return $('.cari_barang').val() }},
+                error:function(){
+                  location.reload();
+                }
             },
             columnDefs: [
                   {
@@ -155,7 +142,7 @@ $(document).ready(function(){
             { "data": "i_name" },
             { "data": "harga"},
             { "data": "harga_rp"},
-            { "data": "i_unit" },
+            { "data": "u_unit" },
             { "data": "i_description" },
             { "data": "gambar"},
             { "data": "aksi" },
@@ -163,6 +150,7 @@ $(document).ready(function(){
             ]
       });
   });
+
 
 function change_image()
 {
@@ -175,6 +163,11 @@ function change_image()
   }
 }
 
+$('.cari').click(function(){
+  var table = $('#t55').DataTable();
+  table.ajax.reload();
+})
+
 $('#tombol_modal_tambah').click(function(){
 
     $('.122mm').removeClass('d-none');
@@ -185,13 +178,13 @@ $('#tombol_modal_tambah').click(function(){
     $('.preview_td').html('<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >');
     $('select[name="type_barang"]').val('').trigger('change');
     $('input[name="unit"]').val('');
-    $('input[name="price"]').val('0');
-    $('input[name="weight"]').val('0');
+    $('input[name="price"]').val('');
+    $('input[name="weight"]').val('');
     $('input[name="min_stock"]').val('0');
     $('textarea[name="description"]').val('');
     $('input[name="item_codex"]').val('');
-    $('input[name="lower_price"]').val('0');
-    $('input[name="sell_price"]').val('0');
+    $('input[name="lower_price"]').val('');
+    $('input[name="sell_price"]').val('');
     $('input[name="currency"]').val('IDR');
 
     $('input[name="item_name"]').removeClass('border-danger');
@@ -399,7 +392,7 @@ function edit(m1a2)
 
             var i_id      = $("input[name='kode_barang']").val(data[0].i_id);
             var i_code    = $("input[name='item_name']").val(data[0].i_name);
-            var i_unit      = $("input[name='unit']").val(data[0].i_unit);
+            var i_unit      = $("input[name='unit']").val(data[0].i_unit).trigger('change');
             var i_weight      = $("input[name='weight']").val(data[0].i_weight);
             var i_currency      = $(".currency").val(data[0].i_currency_id);
             var i_currency      = $(".currency").trigger('change');

@@ -77,9 +77,10 @@
           $("input[name='ib_name']").val('');
           $("input[name='ib_price']").val('');
           $("input[name='ib_price']").val('');
+          $("input[name='keterangan']").val('');
           $(".sell_price").val('');
           $(".lower_price").val('');
-            var table = $('#object_906').DataTable();
+            var table = $('#bundle_table').DataTable();
             table.clear().draw();
             $('#change_function').html('<button class="btn btn-primary" type="button" id="save_data" >Save Data</button>')
     })  
@@ -162,9 +163,9 @@
          success: function(data){
 
             if (data.data.cu_value == null) {
-              currency = 1;
+              var currency = 1;
             } else{
-              var currency = parseInt(data.data.cu_value);
+              var currency = 1;
             }
 
             var price  = parseInt(qty)*parseFloat(data.data.i_price)*currency;

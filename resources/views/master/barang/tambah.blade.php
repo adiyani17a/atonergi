@@ -51,6 +51,10 @@
                     </select>
                 </div>
               </div>
+
+
+
+              
               <div class="col-md-3 col-sm-4 col-xs-12">
                     <label class="tebal">Sell Price</label>
               </div>
@@ -59,6 +63,11 @@
                     <input type="text"  class="form-control hanya_angka form-control-sm sell_price" name="sell_price" maxlength="20" required="">                               
                 </div>
               </div>
+
+
+          
+
+            
               <div class="col-md-3 col-sm-4 col-xs-12">
                     <label class="tebal">Weight</label>
               </div>
@@ -68,14 +77,17 @@
                 </div>
               </div>
               
-              <div class="col-md-3 col-sm-4 col-xs-12">
-                    <label class="tebal">Price</label>
+              
+             <div class="col-md-3 col-sm-4 col-xs-12">
+                    <label class="tebal">Lower Price</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control hanya_angka form-control-sm price" name="price" maxlength="20" required="">
+                    <input type="text"  class="form-control hanya_angka form-control-sm lower_price" name="lower_price" maxlength="20" required="">                               
                 </div>
-              </div>   
+              </div>
+
+
               
               <div class="col-md-3 col-sm-4 col-xs-12">
                 
@@ -89,16 +101,16 @@
               </div> 
 
               
-              
-              
-             <div class="col-md-3 col-sm-4 col-xs-12">
-                    <label class="tebal">Lower Price</label>
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                <label class="tebal">Price</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control hanya_angka form-control-sm lower_price" name="lower_price" maxlength="20" required="">                               
+                    <input type="text"  class="form-control hanya_angka form-control-sm price" name="price" maxlength="20" required="">
                 </div>
-              </div>
+              </div> 
+              
+             {{-- PRICE --}}
               <div class="col-md-3 col-sm-4 col-xs-12">
                   <label class="tebal">Unit#</label>
               </div>

@@ -118,13 +118,25 @@ class BarangController extends Controller
         // return redirect('master/barang/barang')->with('success','Data has been  deleted');
     }
 
-    public function datatable_barang()
-   {
-        
-        $data= DB::table('m_item')
+    public function datatable_barang(Request $req)
+    {
+
+        if ($req->nota != null) {
+           $data= DB::table('m_item')
                 ->leftjoin('m_currency','cu_code','=','i_currency_id')
+                ->join('d_unit','u_id','=','i_unit')
+                ->where('i_jenis','ITEM')
+                ->where('i_name','like','%'.strtoupper($req->nota).'%')
+                ->orderBy('i_insert_at','DESC')
+                ->get();
+        }else{
+            $data= DB::table('m_item')
+                ->leftjoin('m_currency','cu_code','=','i_currency_id')
+                ->join('d_unit','u_id','=','i_unit')
                 ->where('i_jenis','ITEM')
                 ->orderBy('i_insert_at','DESC')->get();
+        }
+        
         
         
         // return $data;
