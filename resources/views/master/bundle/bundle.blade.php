@@ -203,6 +203,7 @@
             $('#bund_item').val('');
             $('.lower_price').val(awal);
             $('.sell_price').val(awal);
+            $('.cur_div').addClass('disabled');
          },
          error: function(){
           iziToast.warning({
@@ -233,7 +234,10 @@
       awal += parseFloat(total);
     });  
           
+    if (awal == 0) {
+      $('.cur_div').removeClass('disabled');
 
+    }
     $("input[name='ib_price']").val(awal);
     $(".sell_price").val(awal);
     $(".lower_price").val(awal);

@@ -65,22 +65,15 @@ class master_bundleitemController extends Controller
                     return '-';
                 })
                 ->addColumn('convert', function ($data) {
-                    $currenncy = DB::table('m_item_dt')
-                                   ->join('m_item','i_code','=','id_item')
-                                   ->where('id_id',$data->i_id)
-                                   ->get();
+                    
                     $harga = 0;
-                    for ($i=0; $i < count($currenncy); $i++) { 
-                      $cur = DB::table('m_currency')
-                               ->where('cu_code',$currenncy[$i]->i_currency_id)
-                               ->first();
-                      if ($cur == null) {
-                         $kali = 1;
-                      }else{
-                        $kali = $cur->cu_value;
-                      }
-                      $harga = $harga + ($currenncy[$i]->i_price * $kali);
-
+                    if ($data->i_currency_id == 'IDR') {
+                      return $total = $data->i_price * 1;
+                    }else{
+                      $currenncy = DB::table('m_currency')
+                                   ->where('cu_code',$data->i_currency_id)
+                                   ->first();
+                      return $total = $data->i_price * $currenncy->cu_value;
                     }
 
                     
@@ -96,6 +89,7 @@ class master_bundleitemController extends Controller
  		$data = DB::table("m_item")
               ->where('i_id',$id)
               ->first();
+    $currency = DB::table('m_currency')->where('cu_value','!=',null)->get();
 
     $data_dt = DB::table('m_item_dt')
                   ->join('m_item','i_code','=','id_item')
@@ -106,7 +100,7 @@ class master_bundleitemController extends Controller
 
     $item = DB::table('m_item')->where('i_jenis','=','ITEM')->get();
 
- 		return view('master/bundle/edit_bundle',compact('data','data_dt','item','id'));
+ 		return view('master/bundle/edit_bundle',compact('data','data_dt','item','id','currency'));
  	}
  	public function cari_item(request $req)
  	{
@@ -159,6 +153,7 @@ class master_bundleitemController extends Controller
                   'i_image'       =>  0,
                   'i_weight'      =>  0,
                   'i_description' =>  $req->keterangan,
+                  'i_currency_id' =>  $req->m_currency,
                   'i_insert_at'   =>  Carbon::now(),
                   'i_update_at'   =>  Carbon::now(),
                   'i_insert_by'   =>  $nama,
@@ -205,6 +200,7 @@ class master_bundleitemController extends Controller
                   'i_image'       =>  0,
                   'i_weight'      =>  0,
                   'i_description' =>  $req->keterangan,
+                  'i_currency_id' =>  $req->m_currency,
                   'i_update_at'   =>  Carbon::now(),
                   'i_update_by'   =>  $nama,
               ]);

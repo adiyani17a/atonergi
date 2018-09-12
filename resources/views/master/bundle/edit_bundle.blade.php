@@ -34,12 +34,12 @@
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12">
               
-                  <label class="tebal">Bundle Price</label>
+                  <label class="tebal">Price (Factory)</label>
              
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group disabled">
-                  <input type="text" readonly="" value="{{number_format($data->i_price,0,"",".")}}"  class="form-control form-control-sm format_money right ib_price" name="ib_price" >                               
+                  <input type="text" readonly="" value="{{$data->i_price}}"  class="form-control form-control-sm format_money right ib_price" name="ib_price" >                               
               </div>
             </div>
 
@@ -56,22 +56,29 @@
 
             <div class="col-md-3 col-sm-4 col-xs-12">
               
-                  <label class="tebal">Sell Price</label>
+                  <label class="tebal">Sell Price List</label>
              
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text" value="{{number_format($data->i_sell_price,0,"",".")}}"  class="form-control form-control-sm format_money right sell_price" name="sell_price" value="0">                               
+                  <input type="text" value="{{ $data->i_sell_price }}"  class="form-control form-control-sm format_money right sell_price" name="sell_price" value="0">                               
               </div>
             </div>
 
-
-            <div class="col-md-6 col-sm-8 col-xs-12">
+            <div class="col-md-3 col-sm-4 col-xs-12">
+                <label class="tebal">Currency</label>
+            </div>
+            <div class="col-md-3 col-sm-8 col-xs-12 cur_div disabled">
               <div class="form-group">
+                  <select class="form-control m_currency" name="m_currency">
+                    @foreach($currency as $val)
+                      <option @if ($data->i_currency_id == $val->cu_code)
+                        selected="" 
+                      @endif value="{{$val->cu_code}}" data-nilai="{{ $val->cu_value }}">{{$val->cu_code}} || {{$val->cu_name}}</option>
+                    @endforeach
+                  </select>                              
               </div>
             </div>
-
-
             <div class="col-md-3 col-sm-4 col-xs-12">
               
                   <label class="tebal">Lower Price</label>
@@ -84,11 +91,11 @@
             </div>
 
             </div> 
-            <div class="row" style="border-top: 1px solid #98c3d1;padding-top: 15px;margin-top: 15px;margin-bottom: 15px;border-bottom: 1px solid #98c3d1;">
-              <div class="col-md-2 col-sm-4 col-xs-12">
+          <div class="row" style="border-top: 1px solid #98c3d1;padding-top: 15px;margin-top: 15px;margin-bottom: 15px;border-bottom: 1px solid #98c3d1;">
+          <div class="col-md-1 col-sm-2 col-xs-12">
             <label>Item Name</label>
           </div>
-          <div class="col-md-2 col-sm-8 col-xs-10">
+          <div class="col-md-4 col-sm-10 col-xs-10">
             <div class="form-group">  
               <select class="form-control form-control-sm" name="" id="bund_kodeitem"> 
                   <option selected="" value="">- Pilih -</option>
@@ -98,29 +105,29 @@
               </select>
             </div>
           </div>
-          <div class="col-md-1 col-sm-6 col-xs-2">
+          <div class="col-md-2 col-sm-8 col-xs-2 center" style="width: 20%!important">
             <div class="form-group">  
-              <input style="text-align: center; width: 70%" type="text" readonly="" class="form-control form-control-sm  right"  id="currency">
+              <input style="text-align: center !important; width: 60%" type="text" readonly="" class="form-control form-control-sm  right"  id="currency">
             </div>
           </div>
           <div class="col-md-1 col-sm-1 col-xs-1">
             <label>Harga</label>
           </div>
-          <div class="col-md-2 col-sm-6 col-xs-12">
+          <div class="col-md-2 col-sm-4 col-xs-12">
             <div class="form-group">  
-              <input type="text" class="form-control form-control-sm" name="" readonly="" id="bund_item">
+              <input type="text" class="form-control form-control-sm right" name="" readonly="" placeholder="harga" id="bund_item">
             </div>
           </div>
           <div class="col-md-1 col-sm-1 col-xs-1">
             <label>Qty</label>
           </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="col-md-1 col-sm-2 col-xs-12">
             <div class="form-group">  
               <input type="text" class="form-control form-control-sm format_money right" name="bund_qty" id="bund_qty">
             </div>
           </div>
-          </div>
-          <div class="table-responsive">
+        </div>          
+        <div class="table-responsive">
             <table class="table table-hover table-bordered  gogo"  cellspacing="0" id="bundle_table" width="100%">
 
             <thead class="bg-gradient-info">
@@ -168,33 +175,32 @@ var table  = $("#bundle_table").DataTable({
                           }
                         ],
                     });
-      $(document).ready(function(){
-    $('#bund_qty').maskMoney({
-      precision : 0,
-      thousands:'',
-    });
+   $(document).ready(function(){
+        $('#bund_qty').maskMoney({
+          precision : 0,
+          thousands:'',
+        });
 
-    $('.sell_price').maskMoney({
-      precision : 0,
-      thousands:'.',
-      allowZero:true,
-      defaultZero: true
-    });
+        $('.sell_price').maskMoney({
+          precision : 0,
+          thousands:'.',
+          allowZero:true,
+          defaultZero: true
+        });
 
-    $('.lower_price').maskMoney({
-      precision : 0,
-      thousands:'.',
-      allowZero:true,
-      defaultZero: true
-    });
+        $('.lower_price').maskMoney({
+          precision : 0,
+          thousands:'.',
+          allowZero:true,
+          defaultZero: true
+        });
 
-
+  });
 
 
     $('#bund_qty').attr('disabled',true); 
     $('#bund_kodeitem').change(function(){
           var ini = $('#bund_kodeitem').find(':selected').val();
-
           if(ini != '') {
             $('#bund_qty').attr('disabled',false);
           }else{
@@ -218,6 +224,7 @@ var table  = $("#bundle_table").DataTable({
     $('#bund_qty').keypress(function(e) {
       if(e.which == 13 || e.keyCode == 13){
         var kode = $('#bund_kodeitem').val();
+        var cur = $('.m_currency').val();
         var qty = $('#bund_qty').val().replace(/[^0-9\-]+/g,"");
         // harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
         $.ajax({
@@ -229,10 +236,11 @@ var table  = $("#bundle_table").DataTable({
 
             if (data.data.cu_value == null) {
               var currency = 1;
-            } else{
+            } else if(data.data.cu_code != cur){
+              var currency = data.data.cu_value;
+            }else if(data.data.cu_code == cur){
               var currency = 1;
             }
-
             var price  = parseInt(qty)*parseFloat(data.data.i_price)*currency;
             table.row.add( [
                '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
@@ -257,6 +265,7 @@ var table  = $("#bundle_table").DataTable({
             $('#bund_item').val('');
             $('.lower_price').val(awal);
             $('.sell_price').val(awal);
+            $('.cur_div').addClass('disabled');
          },
          error: function(){
           iziToast.warning({
@@ -289,7 +298,10 @@ $('#bundle_table tbody').on( 'click', '.delete', function () {
       awal += parseFloat(total);
     });  
           
+    if (awal == 0) {
+      $('.cur_div').removeClass('disabled');
 
+    }
     $("input[name='ib_price']").val(awal);
     $(".sell_price").val(awal);
     $(".lower_price").val(awal);
@@ -301,7 +313,7 @@ $('#bundle_table tbody').on( 'click', '.delete', function () {
   });
     
 
-  $('#change_function').on("click", "#save_data",function(){
+$('#change_function').on("click", "#save_data",function(){
 
     var name = $('.ib_name');
     var price = $('.ib_price');
@@ -376,9 +388,7 @@ $('#bundle_table tbody').on( 'click', '.delete', function () {
          },
          async: false
        });
-  })
-
-  });
+});
 
 @foreach ($data_dt as $i=> $val)
 var i_code = '{{$val->i_code}}';

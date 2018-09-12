@@ -81,7 +81,7 @@
 
         </div> 
         <div class="row" style="border-top: 1px solid #98c3d1;padding-top: 15px;margin-top: 15px;margin-bottom: 15px;border-bottom: 1px solid #98c3d1;">
-          <div class="col-md-2 col-sm-2 col-xs-12">
+          <div class="col-md-1 col-sm-2 col-xs-12">
             <label>Item Name</label>
           </div>
           <div class="col-md-4 col-sm-10 col-xs-10">
@@ -94,7 +94,7 @@
               </select>
             </div>
           </div>
-          <div class="col-md-1 col-sm-8 col-xs-2">
+          <div class="col-md-1 col-sm-8 col-xs-2" style="width: 20%!important">
             <div class="form-group">  
               <input style="text-align: center; width: 60%" type="text" readonly="" class="form-control form-control-sm  right"  id="currency">
             </div>
