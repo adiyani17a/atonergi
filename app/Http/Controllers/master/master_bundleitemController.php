@@ -9,6 +9,7 @@ use DB;
 use Response;
 use Carbon\carbon;
 use Auth;
+set_time_limit(60000);
 class master_bundleitemController extends Controller
 {
  	
@@ -228,4 +229,35 @@ class master_bundleitemController extends Controller
  		$data_head = DB::table('m_item')->where('i_code','=',$req->id)->delete();
     	return response()->json(['status'=>1]);
  	}
+
+  public function sinkron_bundle()
+  {
+    $data = DB::table('m_item')
+              ->join('m_item_dt','id_id','=','i_id')
+              ->where('i_jenis','BUNDLE')
+              ->get();
+
+    $dt = DB::table('m_item')
+              ->where('i_jenis','ITEM')
+              ->get();
+
+    for ($i=0; $i < count($data); $i++) { 
+      
+      for ($a=0; $a < count($dt); $a++) { 
+        if ($dt[$a]->i_code == $data[$i]->id_item) {
+          $harga_item = $dt[$a]->i_price;
+        }
+      }
+      $total = $data[$i]->id_qty * $harga_item;
+      $tes = DB::table('m_item_dt')
+              ->where('id_id',$data[$i]->i_id)
+              ->where('id_detailid',$data[$i]->id_detailid)
+              ->update([
+                'id_price_unit' => $harga_item,
+                'id_total_price' => $total,
+              ]);
+
+
+    }
+  }
 }

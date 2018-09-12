@@ -28,6 +28,7 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
 
+Route::get('/sinkron_bundle', 'master\master_bundleitemController@sinkron_bundle');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
