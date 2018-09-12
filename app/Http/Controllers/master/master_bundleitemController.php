@@ -232,32 +232,32 @@ class master_bundleitemController extends Controller
 
   public function sinkron_bundle()
   {
-    $data = DB::table('m_item')
-              ->where('i_jenis','BUNDLE')
-              ->orderBy('i_id','ASC')
-              ->get();
+    // $data = DB::table('m_item')
+    //           ->where('i_jenis','BUNDLE')
+    //           ->orderBy('i_id','ASC')
+    //           ->get();
 
-    $dt = DB::table('m_item')
-              ->join('m_item_dt','id_id','=','i_id')
-              ->where('i_jenis','BUNDLE')
-              ->get();
+    // $dt = DB::table('m_item')
+    //           ->join('m_item_dt','id_id','=','i_id')
+    //           ->where('i_jenis','BUNDLE')
+    //           ->get();
 
-    for ($i=0; $i < count($data); $i++) { 
-      $harga = 0;
-      for ($a=0; $a < count($dt); $a++) { 
-        if ($dt[$a]->i_id == $data[$i]->i_id) {
-          $harga += $dt[$a]->id_total_price;
-        }
-      }
-      $tes = DB::table('m_item')
-              ->where('i_id',$data[$i]->i_id)
-              ->update([
-                'i_price' => $harga,
-                'i_sell_price' => $harga,
-                'i_lower_price' => $harga,
-              ]);
+    // for ($i=0; $i < count($data); $i++) { 
+    //   $harga = 0;
+    //   for ($a=0; $a < count($dt); $a++) { 
+    //     if ($dt[$a]->i_id == $data[$i]->i_id) {
+    //       $harga += $dt[$a]->id_total_price;
+    //     }
+    //   }
+    //   $tes = DB::table('m_item')
+    //           ->where('i_id',$data[$i]->i_id)
+    //           ->update([
+    //             'i_price' => $harga,
+    //             'i_sell_price' => $harga,
+    //             'i_lower_price' => $harga,
+    //           ]);
 
 
-    }
+    // }
   }
 }
