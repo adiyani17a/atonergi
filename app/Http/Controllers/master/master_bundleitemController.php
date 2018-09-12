@@ -66,9 +66,31 @@ class master_bundleitemController extends Controller
                 ->addColumn('none', function ($data) {
                     return '-';
                 })
+                ->addColumn('convert', function ($data) {
+                    $currenncy = DB::table('m_item_dt')
+                                   ->join('m_item','i_code','=','id_item')
+                                   ->where('id_id',$data->i_id)
+                                   ->get();
+                    $harga = 0;
+                    for ($i=0; $i < count($currenncy); $i++) { 
+                      $cur = DB::table('m_currency')
+                               ->where('cu_code',$currenncy[$i]->i_currency_id)
+                               ->first();
+                      if ($cur == null) {
+                         $kali = 1;
+                      }else{
+                        $kali = $cur->cu_value;
+                      }
+                      $harga = $harga + ($currenncy[$i]->i_price * $kali);
+
+                    }
+
+                    
+                    return $harga;
+                })
                 ->addIndexColumn()
-                  ->rawColumns(['aksi','confirmed'])
-        		->make(true);
+                ->rawColumns(['aksi','confirmed','convert'])
+        		    ->make(true);
  	}
  	public function edit_bundle($id)
  	{		 

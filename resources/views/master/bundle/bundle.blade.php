@@ -34,6 +34,7 @@
                                     <th class="wd-15p" width="20%">Bundle Name</th>
                                     <th class="wd-15p" >Description</th>
                                     <th class="wd-15p"width="20%">Price Bundle</th>
+                                    <th class="wd-15p"width="20%">Price Bundle (Rp)</th>
                                     <th width="15%">Action</th>
                                   </tr>
                                 </thead>
@@ -118,11 +119,15 @@
                      className: 'i_code center'
                   }, 
                   {
-                     targets: 5 ,
+                     targets: 6 ,
                      className: 'center '
                   },
                   {
-                     targets: 4 ,
+                     targets: 5,
+                     className: 'right format_money'
+                  },
+                  {
+                     targets: 4,
                      className: 'right format_money'
                   },
                 ],
@@ -132,6 +137,7 @@
             {data: 'i_name', name: 'i_name'},
             {data: 'i_description', name: 'i_description'},
             {data: 'i_price'},
+            {data: 'convert',render: $.fn.dataTable.render.number( ',', '.', 0, '' )},
             {data: 'aksi', name: 'aksi'},
             ]
       });
