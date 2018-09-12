@@ -40,7 +40,7 @@
 							@endif
 						</div>
 						<div class="table-responsive">
-							<table class="table table-hover" id="table_quote" cellspacing="0">
+							<table class="table table-hover" id="table_quote" cellspacing="0" width="100%">
 							  <thead class="bg-gradient-info">
 							    <tr>
 							      <th>No</th>
@@ -115,6 +115,7 @@ $(document).ready(function(){
 		    allowZero:true,
 		    defaultZero: true
 		});
+
 })
 
 
@@ -132,9 +133,9 @@ function hitung_total() {
 	var sub = $('#subtotal').val();
 
 	tax = tax.replace(/[^0-9\-]+/g,"")/1;
-	sub = sub.replace(/[^0-9\-]+/g,"")/100;
+	sub = sub.replace(/[^0-9\-]+/g,"")*1;
 
-	$('#total').val(accounting.formatMoney(tax + sub, "", 2, ".",','))
+	$('#total').val(accounting.formatMoney(tax + sub, "", 0, ".",','))
 }
 
 $('#tax').keyup(function(){
@@ -145,10 +146,10 @@ function hitung_dpp() {
 	var total = 0;
 	$('.line_total').each(function(){
 		var temp = $(this).val();
-		temp 	 = temp.replace(/[^0-9\-]+/g,"")/100;
+		temp 	 = temp.replace(/[^0-9\-]+/g,"")*1;
 		total += temp;
 	})
-	$('#subtotal').val(accounting.formatMoney(total, "", 2, ".",','));
+	$('#subtotal').val(accounting.formatMoney(total, "", 0, ".",','));
 	hitung_total();
 }
 
@@ -156,10 +157,10 @@ function hitung_dpp() {
 function qty(p) {
 	var par  		= $(p).parents('tr');
 	var unit_price  = $(par).find('.unit_price').val();
-	unit_price 	    = unit_price.replace(/[^0-9\-]+/g,"")/100;
+	unit_price 	    = unit_price.replace(/[^0-9\-]+/g,"")*1;
 	var qty 	    = $(par).find('.jumlah').val();
 
-    $(par).find('.line_total').val(accounting.formatMoney(unit_price * qty, "", 2, ".",','));
+    $(par).find('.line_total').val(accounting.formatMoney(unit_price * qty, "", 0, ".",','));
     hitung_dpp();
 }
 
@@ -177,20 +178,59 @@ function edit_item(p) {
 
         $(par).find('.description').val(data.data.i_description);
         $(par).find('.unit_item').val(data.data.u_unit);
-        $(par).find('.unit_price').val(accounting.formatMoney(data.data.i_price, "", 2, ".",','));
-        $(par).find('.line_total').val(accounting.formatMoney(data.data.i_price * qty, "", 2, ".",','));
+        $(par).find('.unit_price').val(accounting.formatMoney(data.data.i_sell_price, "", 0, ".",','));
+        $(par).find('.lower_price').val(data.data.i_lower_price);
+        $(par).find('.line_total').val(accounting.formatMoney(data.data.i_sell_price * qty, "", 0, ".",','));
         hitung_dpp();
       }
     });
 }
 
 
+$(document).on('blur','.unit_price',function(){
+	@if (Auth::user()->akses('LOWER PRICE','aktif'))
+		var ini = $(this);
+		var par = ini.parents('tr');
+		var low = par.find('.lower_price').val()*1;
+		var qty = par.find('.jumlah').val()*1;
+		var harga = ini.val().replace(/[^0-9\-]+/g,"")*1;
+		if (harga < low) {
+			ini.val('');
+			iziToast.warning({
+	            icon: 'fa fa-info',
+	            message: 'Harga Jual Kurang Dari Harga Terendah Item Ini Yaitu'+accounting.formatMoney(low, "", 0, ".",','),
+	        });
+		}
+		ini.val(accounting.formatMoney(harga, "", 0, ".",','))
+		par.find('.line_total').val(accounting.formatMoney(harga*qty, "", 0, ".",','))
+	@else
+		var ini = $(this);
+		var par = ini.parents('tr');
+		var low = par.find('.lower_price').val()*1;
+		var qty = par.find('.jumlah').val()*1;
+		var harga = ini.val().replace(/[^0-9\-]+/g,"")*1;
+
+		if (harga < low) {
+			ini.val('');
+			iziToast.warning({
+	            icon: 'fa fa-info',
+	            message: 'Tidak Boleh Kurang Dari Harga Terendah, Harga Terendah Item Ini Adalah '+accounting.formatMoney(low, "", 0, ".",','),
+	        });
+		}else{
+			ini.val(accounting.formatMoney(harga, "", 0, ".",','))
+			par.find('.line_total').val(accounting.formatMoney(harga*qty, "", 0, ".",','))
+		}
+		
+	@endif
+	hitung_dpp();
+})
+
 var q_qty         = $("#q_qty");
 
 var x = 1;
 q_qty.keypress(function(e) {
-var m_table       = $("#apfsds").DataTable();
-var market   	  = $('.marketing').val();
+	var m_table       = $("#apfsds").DataTable();
+	var market   	  = $('.marketing').val();
   if(e.which == 13 || e.keyCode == 13){
 
   	var item = $('.item').val();
@@ -218,10 +258,14 @@ var market   	  = $('.marketing').val();
          m_table.row.add( [
             dropdown,
             '<input type="text" onkeyup="qty(this)" name="jumlah[]" class="jumlah form-control input-sm min-width" value="'+ q_qty.val() +'">',
+
             '<input type="text" readonly class="unit_item form-control input-sm min-width" value="'+ data.data.u_unit +'">',
             '<input type="text" name="description[]" class="description form-control input-sm min-width" value="'+data.data.i_description+'">',
-            '<input type="text" name="unit_price[]" readonly value="'+accounting.formatMoney(data.data.i_price, "", 2, ".",',')+'" class="unit_price form-control input-sm min-width">',
-            '<input type="text" value="'+accounting.formatMoney(data.data.i_price*q_qty.val(), "", 2, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
+
+            '<input type="text" name="unit_price[]"  value="'+accounting.formatMoney(data.data.i_sell_price, "", 0, ".",',')+'" class="unit_price form-control input-sm min-width">'+
+            '<input type="hidden" readonly value="'+data.data.i_lower_price+'" class="lower_price form-control input-sm min-width">',
+
+            '<input type="text" value="'+accounting.formatMoney(data.data.i_sell_price*q_qty.val(), "", 0, ".",',')+'" name="line_total[]" readonly class="line_total form-control input-sm min-width">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
 
@@ -242,53 +286,9 @@ var market   	  = $('.marketing').val();
     });
    
   }
-
 });
 
 	
-
-
-
-	// $(".ship_method").select2({
-	//     tags: true,
-	//     multiple: true,
-	//     tokenSeparators: [',', ' '],
-	//     minimumInputLength: 2,
-	//     minimumResultsForSearch: 10,
-	//     ajax: {
-	//         url: URL,
-	//         dataType: "json",
-	//         type: "GET",
-	//         data: function (params) {
-
-	//             var queryParameters = {
-	//                 term: params.term
-	//             }
-	//             return queryParameters;
-	//         },
-	//         processResults: function (data) {
-	//             return {
-	//                 results: $.map(data, function (item) {
-	//                     return {
-	//                         text: item.tag_value,
-	//                         id: item.tag_id
-	//                     }
-	//                 })
-	//             };
-	//         }
-	//     }
-	// });
-
-
-
-	
-
-
-
-
-	
-
-	    
 
 $('#apfsds tbody').on( 'click', '.delete', function () {
 	var m_table       = $("#apfsds").DataTable();
@@ -297,7 +297,8 @@ $('#apfsds tbody').on( 'click', '.delete', function () {
         .row( $(this).parents('tr') )
         .remove()
         .draw();
-    });
+        hitung_dpp();
+});
 
 	$('.customer').change(function(){
 		var customer = $(this).val();

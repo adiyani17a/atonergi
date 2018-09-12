@@ -180,10 +180,10 @@
           </div>
         </form><!-- End div row -->
         <div class="row" style="margin-top: 15px;border-top: 1px solid #98c3d1;padding-top:15px;border-bottom: 1px solid #98c3d1; margin-bottom: 15px;">
-          <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="col-md-2 col-sm-6 col-xs-12">
             <label>Item Name</label>
           </div>
-          <div class="col-md-3 col-sm-12 col-xs-12">
+          <div class="col-md-5 col-sm-12 col-xs-12">
             <div class="form-group item_div">
               <select class="form-control form-control-sm item" name="item">
                 <option value="0">--Select item--</option>
@@ -193,10 +193,10 @@
               </select>
             </div>
           </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="col-md-2 col-sm-6 col-xs-12">
             <label>Qty</label>
           </div>
-          <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="col-md-2 col-sm-8 col-xs-12">
             <div class="form-group">
               <input type="text" class="form-control form-control-sm q_qty" name="" id="q_qty" title="Press Enter">
             </div>
@@ -211,7 +211,7 @@
                   <th>Unit</th>
                   <th>Description</th>
                   <th>Unit Price</th>
-                  <th>Line Total</th>
+                  <th>Total (Rp)</th>
                   <th>Action</th>
                 </tr>
               </thead>

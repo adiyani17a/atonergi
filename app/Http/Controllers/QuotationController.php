@@ -28,6 +28,9 @@ class QuotationController extends Controller
     $customer = DB::table('m_customer')
                   ->get();
 
+    $currency = DB::table('m_currency')
+                  ->get();
+
     $marketing = DB::table('d_marketing')
                   ->get();
 
@@ -43,7 +46,7 @@ class QuotationController extends Controller
                 ->get();
 
 
- 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing','now','item','status','type_product','kota'));
+ 		return view('quotation/q_quotation/q_quotation',compact('customer','marketing','now','item','status','type_product','kota','currency'));
  	}
 
  	public function quote_datatable()
@@ -186,12 +189,20 @@ class QuotationController extends Controller
       $item = DB::table('m_item')
                 ->get();
 
+      $currency = DB::table('m_currency')
+                  ->get();
+
       $data = DB::table('m_item')
                 ->join('d_unit','u_id','=','i_unit')
                 ->where('i_code',$req->item)
                 ->first();
 
-
+      for ($i=0; $i < count($currency); $i++) { 
+        if ($data->i_currency_id == $currency[$i]->cu_code) {
+          $data->i_sell_price = $data->i_sell_price * $currency[$i]->cu_value;
+          $data->i_lower_price = $data->i_lower_price * $currency[$i]->cu_value;
+        }
+      }
       return response()->json(['data'=>$data,'item'=>$item]);
               
   }
@@ -203,6 +214,16 @@ class QuotationController extends Controller
                 ->join('d_unit','u_id','=','i_unit')
                 ->where('i_code',$req->item)
                 ->first();
+
+      $currency = DB::table('m_currency')
+                  ->get();
+
+      for ($i=0; $i < count($currency); $i++) { 
+        if ($data->i_currency_id == $currency[$i]->cu_code) {
+          $data->i_sell_price = $data->i_sell_price * $currency[$i]->cu_value;
+          $data->i_lower_price = $data->i_lower_price * $currency[$i]->cu_value;
+        }
+      }
 
       return response()->json(['data'=>$data]);
   }
@@ -244,9 +265,9 @@ class QuotationController extends Controller
                 ->insert([
                   'q_id'              => $id,
                   'q_nota'            => $quote,
-                  'q_subtotal'        => filter_var($req->subtotal,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_subtotal'        => filter_var($req->subtotal,FILTER_SANITIZE_NUMBER_INT),
                   'q_tax'             => filter_var($req->tax,FILTER_SANITIZE_NUMBER_INT),
-                  'q_total'           => filter_var($req->total,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_total'           => filter_var($req->total,FILTER_SANITIZE_NUMBER_INT),
                   'q_customer'        => $req->customer,
                   'q_address'         => $req->address,
                   'q_type'            => $req->type_qo,
@@ -283,8 +304,8 @@ class QuotationController extends Controller
                   'qd_item'        => $req->item_name[$i],
                   'qd_qty'         => $req->jumlah[$i],
                   'qd_description' => $req->description[$i],
-                  'qd_price'       => filter_var($req->unit_price[$i],FILTER_SANITIZE_NUMBER_INT)/100,
-                  'qd_total'       => filter_var($req->line_total[$i],FILTER_SANITIZE_NUMBER_INT)/100,
+                  'qd_price'       => filter_var($req->unit_price[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'qd_total'       => filter_var($req->line_total[$i],FILTER_SANITIZE_NUMBER_INT),
                   'qd_update_by'   => Auth::user()->m_name,
              
                 ]);
@@ -413,6 +434,7 @@ class QuotationController extends Controller
                 ->first();
 
       $data_dt = DB::table('d_quotation_dt')
+                ->join('m_item','i_code','=','qd_item')
                 ->where('qd_id',$id)
                 ->get();
 
@@ -446,9 +468,9 @@ class QuotationController extends Controller
                 ->update([
                   'q_id'              => $req->id,
                   'q_nota'            => $req->quote,
-                  'q_subtotal'        => filter_var($req->subtotal,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_subtotal'        => filter_var($req->subtotal,FILTER_SANITIZE_NUMBER_INT),
                   'q_tax'             => filter_var($req->tax,FILTER_SANITIZE_NUMBER_INT),
-                  'q_total'           => filter_var($req->total,FILTER_SANITIZE_NUMBER_INT)/100,
+                  'q_total'           => filter_var($req->total,FILTER_SANITIZE_NUMBER_INT),
                   'q_customer'        => $req->customer,
                   'q_address'         => $req->address,
                   'q_type'            => $req->type_qo,
@@ -476,8 +498,8 @@ class QuotationController extends Controller
                   'qd_item'        => $req->item_name[$i],
                   'qd_qty'         => $req->jumlah[$i],
                   'qd_description' => $req->description[$i],
-                  'qd_price'       => filter_var($req->unit_price[$i],FILTER_SANITIZE_NUMBER_INT)/100,
-                  'qd_total'       => filter_var($req->line_total[$i],FILTER_SANITIZE_NUMBER_INT)/100,
+                  'qd_price'       => filter_var($req->unit_price[$i],FILTER_SANITIZE_NUMBER_INT),
+                  'qd_total'       => filter_var($req->line_total[$i],FILTER_SANITIZE_NUMBER_INT),
                   'qd_update_by'   => Auth::user()->m_name,
              
                 ]);
