@@ -53,24 +53,24 @@
 @section('extra_script')
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#bund_qty').maskMoney({
-      precision : 0,
-      thousands:'',
-    });
+    // $('#bund_qty').maskMoney({
+    //   precision : 0,
+    //   thousands:'',
+    // });
 
-    $('.sell_price').maskMoney({
-      precision : 0,
-      thousands:'.',
-      allowZero:true,
-      defaultZero: true
-    });
+    // $('.sell_price').maskMoney({
+    //   precision : 0,
+    //   thousands:'.',
+    //   allowZero:true,
+    //   defaultZero: true
+    // });
 
-    $('.lower_price').maskMoney({
-      precision : 0,
-      thousands:'.',
-      allowZero:true,
-      defaultZero: true
-    });
+    // $('.lower_price').maskMoney({
+    //   precision : 0,
+    //   thousands:'.',
+    //   allowZero:true,
+    //   defaultZero: true
+    // });
 
 
     $('#button_add').click(function(){
@@ -174,8 +174,8 @@
                 '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
                 '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
                 '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
-                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+accounting.formatMoney(data.data.i_price*currency,"",0,'.',',')  +'">',
-                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+data.data.i_price*currency  +'">',
+                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ price +'">',
                 '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
             ]).draw( false );
     
@@ -183,15 +183,15 @@
             var awal = 0;
             table.$('.ib_total_price').each(function(){
               var total = $(this).val();
-              total = total.replace(/[^0-9\-]+/g,"");
               awal += parseFloat(total);
             });
-            $(".ib_price").val(accounting.formatMoney(awal,"",0,'.',','));
+            console.log(awal);
+            $(".ib_price").val(awal);
             $('#bund_kodeitem').val('').trigger('change');
             $('#bund_qty').val('');
             $('#bund_item').val('');
-            $('.lower_price').val(accounting.formatMoney(awal,"",0,'.',','));
-            $('.sell_price').val(accounting.formatMoney(awal,"",0,'.',','));
+            $('.lower_price').val(awal);
+            $('.sell_price').val(awal);
          },
          error: function(){
           iziToast.warning({
@@ -219,14 +219,13 @@
     var awal = 0;
     table.$('.ib_total_price').each(function(){
       var total = $(this).val();
-      total = total.replace(/[^0-9\-]+/g,"");
-      awal += parseInt(total);
+      awal += parseFloat(total);
     });  
           
 
-    $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
-    $(".sell_price").val(accounting.formatMoney(awal,"",0,'.',','));
-    $(".lower_price").val(accounting.formatMoney(awal,"",0,'.',','));
+    $("input[name='ib_price']").val(awal);
+    $(".sell_price").val(awal);
+    $(".lower_price").val(awal);
 
     });
 

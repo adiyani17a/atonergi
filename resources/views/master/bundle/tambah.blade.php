@@ -118,7 +118,7 @@
                 <th width="20%">Item Name</th>
                 <th width="5%">Qty</th>
                 <th width="5%">Unit</th>
-                <th width="30%">Price (Rp)</th>
+                <th width="30%">Price</th>
                 <th width="30%">Total Price</th>
                 <th width="1%">Action</th>
               </tr>
