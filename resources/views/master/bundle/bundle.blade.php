@@ -159,6 +159,7 @@
     $('#bund_qty').keypress(function(e) {
       if(e.which == 13 || e.keyCode == 13){
         var kode = $('#bund_kodeitem').val();
+        var cur = $('.m_currency').val();
         var qty = $('#bund_qty').val().replace(/[^0-9\-]+/g,"");
         // harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
         $.ajax({
@@ -170,10 +171,14 @@
 
             if (data.data.cu_value == null) {
               var currency = 1;
-            } else{
+            } else if(data.data.cu_code != cur){
+              var currency = data.data.cu_value;
+            }else if(data.data.cu_code == cur){
               var currency = 1;
             }
-
+            console.log(data.data.cu_code);
+            console.log(cur);
+            console.log(currency);
             var price  = parseInt(qty)*parseFloat(data.data.i_price)*currency;
             table.row.add( [
                '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',

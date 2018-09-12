@@ -17,9 +17,10 @@ class master_bundleitemController extends Controller
  
  	public function bundleitem()
  	{
- 		$item = DB::table('m_item')->where('i_jenis','=','ITEM')->get();
+    $item = DB::table('m_item')->where('i_jenis','=','ITEM')->get();
+ 		$currency = DB::table('m_currency')->where('cu_value','!=',null)->get();
 
- 		return view('master/bundle/bundle',compact('item'));
+ 		return view('master/bundle/bundle',compact('item','currency'));
  	}
  	public function datatable_bundleitem()
  	{
@@ -27,10 +28,7 @@ class master_bundleitemController extends Controller
  				  ->where('i_jenis','BUNDLE')
  				  ->get();
         $data = collect($list);
-        
         // return $data;
-
-
         return Datatables::of($data)
         	
                 ->addColumn('aksi', function ($data) {
