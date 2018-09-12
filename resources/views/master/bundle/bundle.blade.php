@@ -206,7 +206,7 @@
     
     
 
-    $('#bundle_table tbody').on( 'click', '.delete', function () {
+  $('#bundle_table tbody').on( 'click', '.delete', function () {
     var parents = $(this).parents('tr');
     var ib_price_dt = $(parents).find('.ib_price_dt').val();
     var ib_price = $("input[name='ib_price']").val();
@@ -227,7 +227,7 @@
     $(".sell_price").val(awal);
     $(".lower_price").val(awal);
 
-    });
+  });
 
   $('.form-control').keyup(function(){
     $(this).removeClass('border-danger');

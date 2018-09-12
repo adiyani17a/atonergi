@@ -239,8 +239,8 @@ var table  = $("#bundle_table").DataTable({
                 '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
                 '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
                 '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
-                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+accounting.formatMoney(data.data.i_price*currency,"",0,'.',',')  +'">',
-                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+data.data.i_price*currency  +'">',
+                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ price +'">',
                 '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
             ]).draw( false );
     
@@ -248,15 +248,15 @@ var table  = $("#bundle_table").DataTable({
             var awal = 0;
             table.$('.ib_total_price').each(function(){
               var total = $(this).val();
-              total = total.replace(/[^0-9\-]+/g,"");
               awal += parseFloat(total);
             });
-            $(".ib_price").val(accounting.formatMoney(awal,"",0,'.',','));
+            console.log(awal);
+            $(".ib_price").val(awal);
             $('#bund_kodeitem').val('').trigger('change');
             $('#bund_qty').val('');
             $('#bund_item').val('');
-            $('.lower_price').val(accounting.formatMoney(awal,"",0,'.',','));
-            $('.sell_price').val(accounting.formatMoney(awal,"",0,'.',','));
+            $('.lower_price').val(awal);
+            $('.sell_price').val(awal);
          },
          error: function(){
           iziToast.warning({
@@ -268,11 +268,12 @@ var table  = $("#bundle_table").DataTable({
        });
       }
     });
+    
 
     
     
 
-    $('#bundle_table tbody').on( 'click', '.delete', function () {
+$('#bundle_table tbody').on( 'click', '.delete', function () {
     var parents = $(this).parents('tr');
     var ib_price_dt = $(parents).find('.ib_price_dt').val();
     var ib_price = $("input[name='ib_price']").val();
@@ -281,20 +282,19 @@ var table  = $("#bundle_table").DataTable({
         .row(parents)
         .remove()
         .draw();
-
+        
     var awal = 0;
     table.$('.ib_total_price').each(function(){
       var total = $(this).val();
-      total = total.replace(/[^0-9\-]+/g,"");
-      awal += parseInt(total);
+      awal += parseFloat(total);
     });  
           
 
-    $("input[name='ib_price']").val(accounting.formatMoney(awal,"",0,'.',','));
-    $(".sell_price").val(accounting.formatMoney(awal,"",0,'.',','));
-    $(".lower_price").val(accounting.formatMoney(awal,"",0,'.',','));
+    $("input[name='ib_price']").val(awal);
+    $(".sell_price").val(awal);
+    $(".lower_price").val(awal);
 
-    });
+});
 
   $('.form-control').keyup(function(){
     $(this).removeClass('border-danger');
@@ -381,20 +381,21 @@ var table  = $("#bundle_table").DataTable({
   });
 
 @foreach ($data_dt as $i=> $val)
-console.log('{{$val->i_code}}');  
 var i_code = '{{$val->i_code}}';
 var i_name = '{{$val->i_name}}';
 var qty    = '{{$val->id_qty}}';
 var u_unit = '{{$val->id_unit}}';
 var i_price = '{{$val->id_price_unit}}';
 var price  = '{{$val->id_total_price}}';
+i_price = i_price.replace(/[^0-9\-]+/g,"")/100;
+price = price.replace(/[^0-9\-]+/g,"")/100;
     table.row.add( [
        '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+i_code+'">',
         '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+i_name+'">',
         '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
         '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+u_unit+'">',
-        '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(i_price,"",0,'.',',') +'">',
-        '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ accounting.formatMoney(price,"",0,'.',',') +'">',
+        '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+i_price +'">',
+        '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+price +'">',
         '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
     ]).draw( );
     
