@@ -177,9 +177,6 @@ class SettingController extends Controller
             }else{
                return response()->json(['status' => 0]);
             }
-
-
-            
          }else{ 
             $update = DB::table('d_jabatan')
                         ->where('j_id',$req->id)
@@ -394,8 +391,6 @@ class SettingController extends Controller
                  ->delete();
          return response()->json(['status' => 1]);
       }
-
-      
    }
    public function edit_akun(request $req)
    {
@@ -409,7 +404,6 @@ class SettingController extends Controller
         }
       }
       return response()->json(['data' => $data]);
-
    }
    // END
    // DAFTAR MENU

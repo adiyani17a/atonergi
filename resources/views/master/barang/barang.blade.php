@@ -38,14 +38,14 @@
   		                <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
   		                  	<button type="button" class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
   		                </div>
-                      <div class="row"  style="margin-bottom: 20px">
-                      <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Notice!</strong> <br>
-                            1.  Untuk Koma Menggunakan titik ( . )<br>
-                            2.  Jangan Lupa Memilih Currency nya
-
+                      <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                          <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <strong>Notice!</strong> <br>
+                              1.  Untuk Koma Menggunakan titik ( . )<br>
+                              2.  Jangan Lupa Memilih Currency nya
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-2 col-sm-4 col-xs-4" >
@@ -55,7 +55,6 @@
                         <input type="text" class="form-control cari_barang" name="cari_barang" style="margin-bottom: 20px">
                         <button class="btn btn-primary pull-right cari"><i class="fa fa-search"> Cari</i></button>
                       </div>
-
                     </div>
                     <div class="table-responsive">
                             <table id="t55" class="table table-hover table-bordered" cellspacing="0">
