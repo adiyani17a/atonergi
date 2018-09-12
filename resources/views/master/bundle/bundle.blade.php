@@ -131,7 +131,7 @@
             {data: 'i_code', name: 'i_code'},
             {data: 'i_name', name: 'i_name'},
             {data: 'i_description', name: 'i_description'},
-            {data: 'i_price', render: $.fn.dataTable.render.number( '.', '.', 0, '' )},
+            {data: 'i_price'},
             {data: 'aksi', name: 'aksi'},
             ]
       });
