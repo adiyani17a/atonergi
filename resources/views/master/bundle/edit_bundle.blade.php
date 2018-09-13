@@ -176,24 +176,24 @@ var table  = $("#bundle_table").DataTable({
                         ],
                     });
    $(document).ready(function(){
-        $('#bund_qty').maskMoney({
-          precision : 0,
-          thousands:'',
-        });
+        // $('#bund_qty').maskMoney({
+        //   precision : 0,
+        //   thousands:'',
+        // });
 
-        $('.sell_price').maskMoney({
-          precision : 0,
-          thousands:'.',
-          allowZero:true,
-          defaultZero: true
-        });
+        // $('.sell_price').maskMoney({
+        //   precision : 0,
+        //   thousands:'.',
+        //   allowZero:true,
+        //   defaultZero: true
+        // });
 
-        $('.lower_price').maskMoney({
-          precision : 0,
-          thousands:'.',
-          allowZero:true,
-          defaultZero: true
-        });
+        // $('.lower_price').maskMoney({
+        //   precision : 0,
+        //   thousands:'.',
+        //   allowZero:true,
+        //   defaultZero: true
+        // });
 
   });
 
