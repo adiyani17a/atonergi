@@ -39,7 +39,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group disabled">
-                  <input type="text" readonly="" value="{{$data->i_price}}"  class="form-control form-control-sm format_money right ib_price" name="ib_price" >                               
+                  <input type="text" readonly="" value="{{$data->i_price}}"  class="form-control form-control-sm right ib_price" name="ib_price" >                               
               </div>
             </div>
 
@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text" value="{{ $data->i_sell_price }}"  class="form-control form-control-sm format_money right sell_price" name="sell_price" value="0">                               
+                  <input type="text" value="{{ $data->i_sell_price }}"  class="form-control form-control-sm right sell_price" name="sell_price" value="0">                               
               </div>
             </div>
 
@@ -86,7 +86,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text" value="{{number_format($data->i_lower_price,0,"",".")}}" class="form-control form-control-sm format_money right lower_price" name="lower_price" value="0">                               
+                  <input type="text" value="{{number_format($data->i_lower_price,0,"",".")}}" class="form-control form-control-sm right lower_price" name="lower_price" value="0">                               
               </div>
             </div>
 
@@ -123,7 +123,7 @@
           </div>
           <div class="col-md-1 col-sm-2 col-xs-12">
             <div class="form-group">  
-              <input type="text" class="form-control form-control-sm format_money right" name="bund_qty" id="bund_qty">
+              <input type="text" class="form-control form-control-sm right" name="bund_qty" id="bund_qty">
             </div>
           </div>
         </div>          
@@ -245,10 +245,10 @@ var table  = $("#bundle_table").DataTable({
             table.row.add( [
                '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_code+'">',
                 '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+data.data.i_name+'">',
-                '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
-                '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+data.data.u_unit+'">',
-                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+data.data.i_price*currency  +'">',
-                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+ price +'">',
+                '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right" readonly="" value="'+qty+'">',
+                '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right" value="'+data.data.u_unit+'">',
+                '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right" readonly="" value="'+data.data.i_price*currency  +'">',
+                '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right" readonly="" value="'+ price +'">',
                 '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
             ]).draw( false );
     
@@ -402,10 +402,10 @@ price = price.replace(/[^0-9\-]+/g,"")/100;
     table.row.add( [
        '<input type="text" id="item_kode[]" name="ib_kode_dt[]" class="form-control input-sm min-width" readonly="" value="'+i_code+'">',
         '<input type="text" id="item_name[]" name="ib_name_dt[]" class="form-control input-sm min-width" readonly="" value="'+i_name+'">',
-        '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right format_money" readonly="" value="'+qty+'">',
-        '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right format_money" value="'+u_unit+'">',
-        '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right format_money" readonly="" value="'+i_price +'">',
-        '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right format_money" readonly="" value="'+price +'">',
+        '<input type="text" id="jumlah[]" name="ib_qty_dt[]" class="form-control input-sm min-width right" readonly="" value="'+qty+'">',
+        '<input type="text" readonly id="[]" name="ib_unit_dt[]" class="form-control input-sm min-width right" value="'+u_unit+'">',
+        '<input type="text" name="ib_price_dt[]" class="ib_price_dt form-control input-sm min-width right" readonly="" value="'+i_price +'">',
+        '<input type="text" name="ib_total_price[]" class="ib_total_price form-control input-sm min-width right" readonly="" value="'+price +'">',
         '<button type="button" class="delete btn btn-outline-danger btn-sm hapus"><i class="fa fa-trash"></i></button>',
     ]).draw( );
     

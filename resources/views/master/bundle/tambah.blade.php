@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group disabled">
-                  <input type="text" readonly=""  class="form-control form-control-sm format_money right ib_price" name="ib_price" >                               
+                  <input type="text" readonly=""  class="form-control form-control-sm right ib_price" name="ib_price" >                               
               </div>
             </div>
 
@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text"  class="form-control form-control-sm format_money right sell_price" name="sell_price" value="0">                               
+                  <input type="text"  class="form-control form-control-sm right sell_price" name="sell_price" value="0">                               
               </div>
             </div>
 
@@ -75,7 +75,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text"  class="form-control form-control-sm format_money right lower_price" name="lower_price" value="0">                               
+                  <input type="text"  class="form-control form-control-sm right lower_price" name="lower_price" value="0">                               
               </div>
             </div>
 
@@ -112,7 +112,7 @@
           </div>
           <div class="col-md-1 col-sm-2 col-xs-12">
             <div class="form-group">  
-              <input type="text" class="form-control form-control-sm format_money right" name="bund_qty" id="bund_qty">
+              <input type="text" class="form-control form-control-sm right" name="bund_qty" id="bund_qty">
             </div>
           </div>
         </div>
