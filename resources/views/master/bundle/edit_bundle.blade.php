@@ -39,7 +39,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group disabled">
-                  <input type="text" readonly="" value="{{$data->i_price}}"  class="form-control form-control-sm right ib_price" name="ib_price" >                               
+                  <input type="text" readonly="" value="{{round($data->i_price,2)}}"  class="form-control form-control-sm right ib_price" name="ib_price" >                               
               </div>
             </div>
 
@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text" value="{{ $data->i_sell_price }}"  class="form-control form-control-sm right sell_price" name="sell_price" value="0">                               
+                  <input type="text" value="{{  round($data->i_sell_price,2) }}"  class="form-control form-control-sm right sell_price" name="sell_price" value="0">                               
               </div>
             </div>
 
@@ -86,7 +86,7 @@
             </div>
             <div class="col-md-3 col-sm-8 col-xs-12">
               <div class="form-group">
-                  <input type="text" value="{{number_format($data->i_lower_price,0,"",".")}}" class="form-control form-control-sm right lower_price" name="lower_price" value="0">                               
+                  <input type="text" value="{{ round($data->i_lower_price,2) }}" class="form-control form-control-sm right lower_price" name="lower_price" value="0">                               
               </div>
             </div>
 
