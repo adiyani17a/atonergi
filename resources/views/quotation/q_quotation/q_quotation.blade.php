@@ -46,6 +46,8 @@
 							      <th>No</th>
 							      <th>Quote#</th>
 							      <th>Customer Item</th>
+							      <th>Customer</th>
+							      <th>Kota</th>
 							      <th>Total</th>
 							      <th>Status</th>
 							      <th>History Status</th>
@@ -99,6 +101,8 @@ $(document).ready(function(){
             {data: 'DT_Row_Index', name: 'DT_Row_Index'},
             {data: 'q_nota', name: 'q_nota'},
             {data: 'detail', name: 'detail'},
+            {data: 'customer', name: 'customer'},
+            {data: 'q_ship_to', name: 'q_ship_to'},
             {data: 'total', name: 'total'},
             {data: 'status', name: 'status'},
             {data: 'histori', name: 'histori'},

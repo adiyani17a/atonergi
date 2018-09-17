@@ -119,7 +119,14 @@ class QuotationController extends Controller
                            	return  '<span class="badge badge-pill badge-'.$s->s_color.'">'.$s->s_name.'</span>'.
                                     '<input type="hidden" class="q_id" value="'.$data->q_id.'">';
                         })
-                        ->rawColumns(['aksi', 'detail','histori','total','status'])
+                        ->addColumn('customer', function ($data) {
+                            $cus = DB::table('m_customer')
+                                  ->where('c_code',$data->q_customer)
+                                  ->first();
+
+                            return  $cus->c_name;
+                        })
+                        ->rawColumns(['aksi', 'detail','histori','total','status','customer'])
                         ->addIndexColumn()
                         ->make(true);
  	}
