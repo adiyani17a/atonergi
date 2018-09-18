@@ -25,7 +25,15 @@
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="form-group">
-                <input type="text" class="form-control hanya_angka form-control-sm" name="i_price" id="i_price">
+                <input type="text" class="form-control hanya_angka form-control-sm" min="1" name="i_price" id="i_price">
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <label>Unit</label>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <input type="text" class="form-control form-control-sm" name="i_unit" id="i_unit">
               </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
