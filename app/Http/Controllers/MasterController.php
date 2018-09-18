@@ -275,106 +275,106 @@ public function edit_bank(request $req)
         return response()->json(['bank'=>1]);
 
     }
-    public function jasa()
-    {
-        return view('master.jasa.jasa');
-    }
-    public function datatable_jasa(request $req)
-    {
-        $data = DB::table('m_item')
-                    ->where('i_jenis', 'JASA')
-                    ->orderBy('i_id','DESC')
-                    ->get();
-        
-        
-        // return $data;
-        $data = collect($data);
-        // return $data;
-        return Datatables::of($data)
-                ->addColumn('aksi', function ($data) {
-                    $a =  '<div class="btn-group">';
+        public function jasa()
+        {
+            return view('master.jasa.jasa');
+        }
+        public function datatable_jasa(request $req)
+        {
+            $data = DB::table('m_item')
+                        ->where('i_jenis', 'JASA')
+                        ->orderBy('i_id','DESC')
+                        ->get();
+            
+            
+            // return $data;
+            $data = collect($data);
+            // return $data;
+            return Datatables::of($data)
+                    ->addColumn('aksi', function ($data) {
+                        $a =  '<div class="btn-group">';
 
-                    if(Auth::user()->akses('MASTER DATA JASA','ubah')){
-                     $b = '<button type="button" onclick="edit(\''.$data->i_id.'\')" class="btn btn-primary btn-lg" title="edit">'.'<label class="fa fa-pencil-alt"></label></button>';
-                    }else{
-                      $b = '';
-                    }
+                        if(Auth::user()->akses('MASTER DATA JASA','ubah')){
+                         $b = '<button type="button" onclick="edit(\''.$data->i_id.'\')" class="btn btn-primary btn-lg" title="edit">'.'<label class="fa fa-pencil-alt"></label></button>';
+                        }else{
+                          $b = '';
+                        }
 
-                    if(Auth::user()->akses('MASTER DATA JASA','hapus')){
-                     $d = 
-                         '<button type="button" onclick="hapus(\''.$data->i_id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
-                         '<label class="fa fa-trash"></label></button>'.
-                         '</div>';
-                    }else{
-                      $d = '</div>';
-                    }
+                        if(Auth::user()->akses('MASTER DATA JASA','hapus')){
+                         $d = 
+                             '<button type="button" onclick="hapus(\''.$data->i_id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
+                             '<label class="fa fa-trash"></label></button>'.
+                             '</div>';
+                        }else{
+                          $d = '</div>';
+                        }
 
-                    return $a . $b . $d;
+                        return $a . $b . $d;
+                        
+                    })
+                    ->addColumn('none', function ($data) {
+                        return '-';
+                    })
                     
-                })
-                ->addColumn('none', function ($data) {
-                    return '-';
-                })
-                
-                ->rawColumns(['aksi', 'none'])
-                ->addIndexColumn()
-                ->make(true);
-    }
-    public function edit_jasa(request $req)
-    {
-        $data = DB::table('m_item')
-                  ->where('i_id',$req->i_id)
-                  ->first();
-
-        return response()->json(['jasa'=>$data]);
-    }
-
-    public function simpan_jasa(request $req)
-    {
-        $i_id = DB::table('m_item')->max('i_id')+1;
-
-        $cari = DB::table('m_item')
-                  ->where('i_name',strtoupper($req->i_name))
-                  ->first();
-
-        if ($cari != null) {
-            return response()->json(['jasa'=>2]);
+                    ->rawColumns(['aksi', 'none'])
+                    ->addIndexColumn()
+                    ->make(true);
         }
-
-        if ($req->i_id != '') {
-            if($req->i_id != 1){
-                $save = DB::table('m_item')
+        public function edit_jasa(request $req)
+        {
+            $data = DB::table('m_item')
                       ->where('i_id',$req->i_id)
-                      ->update([
-                        'i_name' => strtoupper($req->i_name),
-                        'i_price' => $req->i_price,
-                        'i_description' => $req->i_description
-                      ]);
-                return response()->json(['jasa'=>3]);
-            }else{
-                return response()->json(['jasa'=>3]);
-            }
-        }else{
-            $save = DB::table('m_item')
-                      ->insert([
-                        'i_id'   => $i_id,
-                        'i_name' => strtoupper($req->i_name),
-                        'i_price' => $req->i_price,
-                        'i_description' => $req->i_description,
-                        'i_jenis' => 'JASA'
-                      ]);
-            return response()->json(['jasa'=>1]);
+                      ->first();
+
+            return response()->json(['jasa'=>$data]);
         }
-        
-    }
 
-    public function hapus_jasa(request $req)
-    {
-        $delete = DB::table('m_item')
-                    ->where('i_id',$req->i_id)
-                    ->delete();
-        return response()->json(['jasa'=>1]);
+        public function simpan_jasa(request $req)
+        {
+            $i_id = DB::table('m_item')->max('i_id')+1;
 
-    }
+            $cari = DB::table('m_item')
+                      ->where('i_name',strtoupper($req->i_name))
+                      ->first();
+
+            if ($cari != null) {
+                return response()->json(['jasa'=>2]);
+            }
+
+            if ($req->i_id != '') {
+                if($req->i_id != 1){
+                    $save = DB::table('m_item')
+                          ->where('i_id',$req->i_id)
+                          ->update([
+                            'i_name' => strtoupper($req->i_name),
+                            'i_price' => $req->i_price,
+                            'i_description' => $req->i_description
+                          ]);
+                    return response()->json(['jasa'=>3]);
+                }else{
+                    return response()->json(['jasa'=>3]);
+                }
+            }else{
+                $save = DB::table('m_item')
+                          ->insert([
+                            'i_id'   => $i_id,
+                            'i_name' => strtoupper($req->i_name),
+                            'i_price' => $req->i_price,
+                            'i_description' => $req->i_description,
+                            'i_jenis' => 'JASA'
+                          ]);
+                return response()->json(['jasa'=>1]);
+            }
+            
+        }
+
+        public function hapus_jasa(request $req)
+        {
+            $delete = DB::table('m_item')
+                        ->where('i_id',$req->i_id)
+                        ->delete();
+            return response()->json(['jasa'=>1]);
+
+        }
 
 }

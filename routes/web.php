@@ -82,12 +82,12 @@ Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
     Route::get('/master/bank/edit_bank', 'MasterController@edit_bank');
     Route::get('/master/bank/simpan_bank', 'MasterController@simpan_bank');
     Route::get('/master/bank/hapus_bank', 'MasterController@hapus_bank');
-    // Master Data JAsa
-    Route::get('/master/jasa/jasa', 'MasterController@jasa')->name('master_jasa');
-    Route::get('/master/jasa/datatable_jasa', 'MasterController@datatable_jasa')->name('datatable_jasa');
-    Route::get('/master/jasa/edit_jasa', 'MasterController@edit_jasa');
-    Route::get('/master/jasa/simpan_jasa', 'MasterController@simpan_jasa');
-    Route::get('/master/jasa/hapus_jasa', 'MasterController@hapus_jasa');
+        // Master Data JAsa
+        Route::get('/master/jasa/jasa', 'MasterController@jasa')->name('master_jasa');
+        Route::get('/master/jasa/datatable_jasa', 'MasterController@datatable_jasa')->name('datatable_jasa');
+        Route::get('/master/jasa/edit_jasa', 'MasterController@edit_jasa');
+        Route::get('/master/jasa/simpan_jasa', 'MasterController@simpan_jasa');
+        Route::get('/master/jasa/hapus_jasa', 'MasterController@hapus_jasa');
     //
 Route::get('/master/type/type', 'MasterController@type');
 Route::get('/master/ttd/ttd', 'MasterController@ttd');
