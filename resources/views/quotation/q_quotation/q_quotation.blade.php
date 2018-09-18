@@ -39,6 +39,7 @@
 							<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Quotation</button>
 							@endif
 						</div>
+						
 						<div class="table-responsive">
 							<table class="table table-hover" id="table_quote" cellspacing="0" width="100%">
 							  <thead class="bg-gradient-info">
