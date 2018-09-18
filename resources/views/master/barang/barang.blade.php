@@ -17,7 +17,7 @@
 
 @include('master.barang.tambah')
 
-
+ 
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
@@ -337,6 +337,7 @@ function simpan(){
       }
       return false;
     }
+    
     var formdata = new FormData();  
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
     $.ajax({
