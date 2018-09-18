@@ -23,6 +23,7 @@
               <td>
                 <input style="font-size: 15px" type="text" readonly="" class="form-control symbol" name="">
               </td>
+              
             </tr>
             <tr>
               <td ><h5>Currency Name</h5></td>
