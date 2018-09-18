@@ -221,21 +221,21 @@
             <li class="nav-item {{Request::is('master') ? 'active' : '' || Request::is('master/*') ? 'active' : '' }}">
               <a class="nav-link" data-toggle="collapse" href="#master" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Master</span>
-                <span class="d-none">
-                  Master Data Customer
-                  Master Data Vendor
-                  Master Data Pegawai
-                  Master Data Akun Keuangan
-                  Master Data Transaksi Keuangan
-                  Master Data Barang
-                  Master Data Bundle Item
-                  Master Data Tipe Barang
-                  Master Data Status Q.O.#
-                  Master Data TTD
-                  Master Currency
-                  Master Data Bank
-                  Master Data Jasa
-                </span>
+                  <span class="d-none">
+                    Master Data Customer
+                    Master Data Vendor
+                    Master Data Pegawai
+                    Master Data Akun Keuangan
+                    Master Data Transaksi Keuangan
+                    Master Data Barang
+                    Master Data Bundle Item
+                    Master Data Tipe Barang
+                    Master Data Status Q.O.#
+                    Master Data TTD
+                    Master Currency
+                    Master Data Bank
+                    Master Data Jasa
+                  </span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
               </a>
@@ -247,11 +247,13 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/akun/a_keuangan') ? 'active' : '' || Request::is('master/akun/*') ? 'active' : '' }}" href="{{url('master/akun/a_keuangan')}}">Master Data Akun Keuangan</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/transaksi/t_keuangan') ? 'active' : '' || Request::is('master/transaksi/*') ? 'active' : '' }}" href="{{url('master/transaksi/t_keuangan')}}">Master Data Transaksi<br> Keuangan</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/barang/barang') ? 'active' : '' || Request::is('master/barang/*') ? 'active' : '' }}" href="{{url('master/barang/barang')}}">Master Data Barang</a></li>
-                  <li class="nav-item">
-                    <a class="{{Request::is('master/jasa/*') ? 'active' : ''}} nav-link" href="{{route('master_jasa')}}">
-                      Master Data Jasa
-                    </a>
-                  </li>
+
+                    <li class="nav-item">
+                      <a class="{{Request::is('master/jasa/*') ? 'active' : ''}} nav-link" href="{{route('master_jasa')}}">
+                        Master Data Jasa
+                      </a>
+                    </li>
+                  
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/type/type') ? 'active' : '' || Request::is('master/type/*') ? 'active' : '' }}" href="{{url('master/type/type')}}">Master Data Tipe Barang</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/bundle/bundle') ? 'active' : '' || Request::is('master/bundle/*') ? 'active' : '' }}" href="{{url('master/bundle/bundle')}}">Master Data Bundle Item</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/status/*') ? 'active' : '' }}" href="{{url('master/status/status')}}">Master Data Status Q.O.#</a></li>
