@@ -19,6 +19,7 @@ class BarangController extends Controller
     public function barangproses(Request $request)
     {
 
+
         return DB::transaction(function() use ($request) {  
             $nama = Auth::user()->m_name;
             $m1 = DB::table('m_item')->where('i_jenis','ITEM')->max('i_id');
