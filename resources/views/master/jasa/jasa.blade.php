@@ -33,6 +33,7 @@
                                 <th>No</th>
                                 <th>Services Name</th>
                                 <th>Price</th>
+                                <th>Unit</th>
                                 <th>Description</th>
                                 <th>Action</th>
                               </tr>
@@ -80,6 +81,7 @@
           {data: 'DT_Row_Index', name: 'DT_Row_Index'},
           {data: 'i_name', name: 'i_name'},
           {data: 'i_price', name: 'i_price'},
+          {data: 'u_unit', name: 'u_unit'},
           {data: 'i_description', name: 'i_description'},
           {data: 'aksi', name: 'aksi'}
           
@@ -100,6 +102,7 @@
         $('#i_id').val(data.jasa.i_id);
         $('#i_name').val(data.jasa.i_name);
         $('#i_price').val(data.jasa.i_price);
+        $('#i_unit').val(data.jasa.u_unit);
         $('#i_description').val(data.jasa.i_description);
         $('#tambah_jasa').modal('show');
       }

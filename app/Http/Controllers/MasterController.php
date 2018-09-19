@@ -282,6 +282,8 @@ public function edit_bank(request $req)
         public function datatable_jasa(request $req)
         {
             $data = DB::table('m_item')
+                        ->select('i_id', 'i_name', 'i_price', 'u_unit', 'i_description')
+                        ->join('d_unit', 'u_id' ,'=', 'm_item.i_unit')
                         ->where('i_jenis', 'JASA')
                         ->orderBy('i_id','DESC')
                         ->get();
@@ -323,6 +325,8 @@ public function edit_bank(request $req)
         public function edit_jasa(request $req)
         {
             $data = DB::table('m_item')
+                      ->select('i_name', 'i_price', 'i_description', 'i_id', 'u_unit')
+                      ->join('d_unit', 'u_id' ,'=', 'i_unit')
                       ->where('i_id',$req->i_id)
                       ->first();
 
@@ -343,11 +347,26 @@ public function edit_bank(request $req)
 
             if ($req->i_id != '') {
                 if($req->i_id != 1){
+                    $cari_sat = DB::table('d_unit')->where('u_unit', $req->i_unit)->get()->toArray();
+                    // return $cari_sat;
+                    if(count($cari_sat) === 1)
+                    {
+                        // return 'a';
+                        $id_satuan = $cari_sat[0]->u_id;
+                    } else {
+                        $id_satuan = DB::table('d_unit')->max('u_id')+1;
+
+                        $simpan_unit = DB::table('d_unit')->insert([
+                            'u_id' => $id_satuan,
+                            'u_unit' => $req->i_unit
+                        ]);
+                    }
                     $save = DB::table('m_item')
                           ->where('i_id',$req->i_id)
                           ->update([
                             'i_name' => strtoupper($req->i_name),
-                            'i_price' => $req->i_price,
+                            'i_price' => floatval($req->i_price) ,
+                            'i_unit' => $id_satuan,
                             'i_description' => $req->i_description
                           ]);
                     return response()->json(['jasa'=>3]);
@@ -355,11 +374,26 @@ public function edit_bank(request $req)
                     return response()->json(['jasa'=>3]);
                 }
             }else{
+                $cari_sat = DB::table('d_unit')->where('u_unit', $req->i_unit)->get()->toArray();
+                // return $cari_sat;
+                if(count($cari_sat) === 1)
+                {
+                    $id_satuan = $cari_sat[0]->u_id;
+                    // return $id_satuan;
+                } else {
+                    $id_satuan = DB::table('d_unit')->max('u_id')+1;
+
+                    $simpan_unit = DB::table('d_unit')->insert([
+                        'u_id' => $id_satuan,
+                        'u_unit' => $req->i_unit
+                    ]);
+                }
                 $save = DB::table('m_item')
                           ->insert([
                             'i_id'   => $i_id,
                             'i_name' => strtoupper($req->i_name),
                             'i_price' => $req->i_price,
+                            'i_unit' => $id_satuan,
                             'i_description' => $req->i_description,
                             'i_jenis' => 'JASA'
                           ]);
