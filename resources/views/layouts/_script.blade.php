@@ -40,7 +40,7 @@
 
   <script src="{{asset('assets/js/data-table.js')}}"></script>
   {{-- toastr --}}
-  <script rel="stylesheet" src="{{asset('node_modules/izitoast/dist/js/iziToast.min.js')}}"></script>
+  <script rel="stylesheet" src="{{asset('assets/node_modules/izitoast/dist/js/iziToast.min.js')}}"></script>
 
   {{-- VALIDATTE --}}
   <script src="{{asset('assets/validetta/validetta.js')}}"></script>

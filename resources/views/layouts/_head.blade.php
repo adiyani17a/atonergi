@@ -41,8 +41,8 @@
 
   <!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/datepicker/css/bootstrap-datepicker3.min.css')}}"> -->
   {{-- TOASTR --}}
-  <link rel="stylesheet" href="{{asset('node_modules/izitoast/dist/css/iziToast.min.css')}}">
-  <link rel="stylesheet" href="{{asset('node_modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css')}}" />
+  <link rel="stylesheet" href="{{asset('assets/node_modules/izitoast/dist/css/iziToast.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/node_modules/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css')}}" />
   {{-- validetta --}}
   <link rel="stylesheet" href="{{asset('assets/validetta/validetta.css')}}" />
   <link rel="stylesheet" href="{{asset('assets/validetta/validetta.min.css')}}" />
