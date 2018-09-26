@@ -240,7 +240,7 @@ class OrderController extends Controller
 
 
         $nota = 'SO-'. $index . '/' . $data->q_type . '/' . $data->q_type_product .'/'. $bulan . $tahun;
-
+        $market = '';
         $marketing = DB::table('d_marketing')
                         ->get();
 
