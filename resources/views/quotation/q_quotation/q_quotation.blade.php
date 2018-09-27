@@ -125,7 +125,7 @@ $(document).ready(function(){
 
 $('.open_modal').click(function(){
 	var m_table       = $("#apfsds").DataTable();
-	m_table.clear();
+	m_table.clear().draw();
 });
 
 $('.q_qty').keyup(function(){
