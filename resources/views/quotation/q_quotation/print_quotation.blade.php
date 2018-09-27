@@ -157,6 +157,10 @@ table, td, th {
 	font-style: italic;
 }
 
+.blue{
+	color: blue;
+}
+
 
 	</style>
 
@@ -316,14 +320,14 @@ table, td, th {
 					</tr>
 					@endforeach
 					@foreach($jasa as $i=> $b)
-					<tr>
-						<td>{{ $i+1 }}</td>
-						<td>{{ $b->i_name }}</td>
-						<td>{{ $b->qd_qty }}</td>
-						<td>{{ $b->u_unit }}</td>
-						<td>{{ $b->qd_description }}</td>
+					<tr >
+						<td class="blue">{{ $i+1 }}</td>
+						<td class="blue">{{ $b->i_name }}</td>
+						<td class="blue">{{ $b->qd_qty }}</td>
+						<td class="blue">{{ $b->u_unit }}</td>
+						<td class="blue">{{ $b->qd_description }}</td>
 						@if($print === 'detail')
-						<td>
+						<td  class="blue">
 							<div class="float-left">
 								Rp.
 							</div>
@@ -333,7 +337,7 @@ table, td, th {
 						</td>
 						@elseif($print === 'global')
 							@if($i===0)
-							<td rowspan="15" class="top">
+							<td rowspan="15" class="top blue" >
 								<div class="float-left">
 									Rp.
 								</div>
@@ -347,7 +351,7 @@ table, td, th {
 						@endif
 						
 						@if($print === 'detail')
-						<td>
+						<td class="blue">
 							<div class="float-left">
 								Rp.
 							</div>
@@ -357,7 +361,7 @@ table, td, th {
 						</td>
 						@elseif($print === 'global')
 							@if($i===0)
-							<td rowspan="15" class="top">
+							<td rowspan="15" class="top blue">
 								<div class="float-left">
 									Rp.
 								</div>
