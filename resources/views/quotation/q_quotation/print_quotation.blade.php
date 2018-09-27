@@ -315,6 +315,63 @@ table, td, th {
 						
 					</tr>
 					@endforeach
+					@foreach($jasa as $i=> $b)
+					<tr>
+						<td>{{ $i+1 }}</td>
+						<td>{{ $b->i_name }}</td>
+						<td>{{ $b->qd_qty }}</td>
+						<td>{{ $b->u_unit }}</td>
+						<td>{{ $b->qd_description }}</td>
+						@if($print === 'detail')
+						<td>
+							<div class="float-left">
+								Rp.
+							</div>
+							<div class="float-right">
+								{{ number_format($b->qd_price, 2, ",", ".") }}
+							</div>
+						</td>
+						@elseif($print === 'global')
+							@if($i===0)
+							<td rowspan="15" class="top">
+								<div class="float-left">
+									Rp.
+								</div>
+								<div class="float-right">
+									{{ number_format($head->q_subtotal, 2, ",", ".") }}
+								</div>
+							</td>
+							@endif
+						@else
+							<td></td>
+						@endif
+						
+						@if($print === 'detail')
+						<td>
+							<div class="float-left">
+								Rp.
+							</div>
+							<div class="float-right">
+								{{ number_format($b->qd_total, 2, ",", ".") }}
+							</div>
+						</td>
+						@elseif($print === 'global')
+							@if($i===0)
+							<td rowspan="15" class="top">
+								<div class="float-left">
+									Rp.
+								</div>
+								<div class="float-right">
+									{{ number_format($head->q_subtotal, 2, ",", ".") }}
+								</div>
+							</td>
+							@endif
+						@else
+							<td></td>
+						@endif
+						
+					</tr>
+					@endforeach
 					@foreach($array as $a)
 					<tr>
 						<td class="blank"></td>

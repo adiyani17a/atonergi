@@ -342,8 +342,14 @@ class QuotationController extends Controller
                ->first();
                
       $data = DB::table('d_quotation_dt')
-
               ->join('m_item','i_code','=','qd_item')
+              ->where('i_jenis','!=','JASA')
+              ->where('qd_id',$id)
+              ->get();
+
+      $jasa = DB::table('d_quotation_dt')
+              ->join('m_item','i_code','=','qd_item')
+              ->where('i_jenis','=','JASA')
               ->where('qd_id',$id)
               ->get();
 
@@ -359,7 +365,15 @@ class QuotationController extends Controller
         }
       }
 
-      $count = count($data);
+      for ($i=0; $i < count($jasa); $i++) { 
+        for ($a=0; $a < count($item); $a++) { 
+          if ($item[$a]->i_code == $jasa[$i]->qd_item) {
+            $jasa[$i]->u_unit = $item[$a]->u_unit;
+          }
+        }
+      }
+
+      $count = count($data)+count($jasa);
       $tes = 15 - $count;
       $array = [];
 
@@ -373,7 +387,7 @@ class QuotationController extends Controller
      // $pdf = PDF::loadView('quotation/q_quotation/print_quotation', $data);
      // return $pdf->stream("test.pdf");
       $print = 'global';
-      return view('quotation/q_quotation/print_quotation',compact('head','data','array','print'));
+      return view('quotation/q_quotation/print_quotation',compact('head','data','array','print','jasa'));
     }else{
       return redirect()->back();
     }
@@ -388,8 +402,14 @@ class QuotationController extends Controller
                ->first();
                
       $data = DB::table('d_quotation_dt')
-
               ->join('m_item','i_code','=','qd_item')
+              ->where('i_jenis','!=','JASA')
+              ->where('qd_id',$id)
+              ->get();
+
+      $jasa = DB::table('d_quotation_dt')
+              ->join('m_item','i_code','=','qd_item')
+              ->where('i_jenis','=','JASA')
               ->where('qd_id',$id)
               ->get();
 
@@ -405,7 +425,15 @@ class QuotationController extends Controller
         }
       }
 
-      $count = count($data);
+      for ($i=0; $i < count($jasa); $i++) { 
+        for ($a=0; $a < count($item); $a++) { 
+          if ($item[$a]->i_code == $jasa[$i]->qd_item) {
+            $jasa[$i]->u_unit = $item[$a]->u_unit;
+          }
+        }
+      }
+
+      $count = count($data)+count($jasa);
       $tes = 15 - $count;
       $array = [];
 
@@ -420,7 +448,7 @@ class QuotationController extends Controller
      // $pdf = PDF::loadView('quotation/q_quotation/print_quotation', $data);
      // return $pdf->stream("test.pdf");
       $print = 'detail';
-      return view('quotation/q_quotation/print_quotation',compact('head','data','array','print'));
+      return view('quotation/q_quotation/print_quotation',compact('head','data','array','print','jasa'));
     }else{
       return redirect()->back();
     }
