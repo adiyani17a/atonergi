@@ -267,7 +267,7 @@ table, td, th {
 					@endphp
 					@foreach($data as $i=> $b)
 					<tr>
-						<td>{{ {{ $indexs + 1 }} }}</td>
+						<td>{{ {{ $indexs + 1 }} </td>
 						<td>{{ $b->i_name }}</td>
 						<td>{{ $b->qd_qty }}</td>
 						<td>{{ $b->u_unit }}</td>
