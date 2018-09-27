@@ -337,8 +337,24 @@ public function edit_bank(request $req)
         {
             $i_id = DB::table('m_item')->max('i_id')+1;
 
+            if($index<=9)
+            {
+                $id_auto = 'BJS/000'.$index;
+            }
+            else if($index<=99)
+            {
+                $id_auto = 'BJS/00'.$index;
+            }
+            else if($index<=999)
+            {
+                $id_auto = 'BJS/0'.$index;
+            }
+            else {
+                $id_auto = 'BJS/'.$index;
+            }
+
             $cari = DB::table('m_item')
-                      ->where('i_name',strtoupper($req->i_name))
+                      ->where('i_code',$id_auto)
                       ->first();
 
             if ($cari != null) {
@@ -390,6 +406,7 @@ public function edit_bank(request $req)
                 }
                 $save = DB::table('m_item')
                           ->insert([
+                            'i_code' => $id_auto,
                             'i_id'   => $i_id,
                             'i_name' => strtoupper($req->i_name),
                             'i_price' => $req->i_price,
