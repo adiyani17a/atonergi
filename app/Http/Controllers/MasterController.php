@@ -337,20 +337,20 @@ public function edit_bank(request $req)
         {
             $i_id = DB::table('m_item')->max('i_id')+1;
 
-            if($index<=9)
+            if($i_id<=9)
             {
-                $id_auto = 'BJS/000'.$index;
+                $id_auto = 'BJS/000'.$i_id;
             }
-            else if($index<=99)
+            else if($i_id<=99)
             {
-                $id_auto = 'BJS/00'.$index;
+                $id_auto = 'BJS/00'.$i_id;
             }
-            else if($index<=999)
+            else if($i_id<=999)
             {
-                $id_auto = 'BJS/0'.$index;
+                $id_auto = 'BJS/0'.$i_id;
             }
             else {
-                $id_auto = 'BJS/'.$index;
+                $id_auto = 'BJS/'.$i_id;
             }
 
             $cari = DB::table('m_item')
