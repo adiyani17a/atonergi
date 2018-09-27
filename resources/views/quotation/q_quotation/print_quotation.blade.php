@@ -263,7 +263,7 @@ table, td, th {
 				</thead>
 				<tbody>
 					@php
-						$indexs = 0;
+						$indexs = 1;
 					@endphp
 					@foreach($data as $i=> $b)
 					<tr>
