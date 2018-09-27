@@ -36,7 +36,7 @@
 		          		
 						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
 							@if(Auth::user()->akses('QUOTATION','tambah'))
-							<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Quotation</button>
+							<button class="btn btn-info open_modal" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Quotation</button>
 							@endif
 						</div>
 						
@@ -123,6 +123,10 @@ $(document).ready(function(){
 
 })
 
+$('.open_modal').click(function(){
+	var m_table       = $("#apfsds").DataTable();
+	m_table.clear();
+});
 
 $('.q_qty').keyup(function(){
 
