@@ -383,7 +383,7 @@ public function edit_bank(request $req)
                             'i_name' => strtoupper($req->i_name),
                             'i_price' => floatval($req->i_price) ,
                             'i_sell_price' => floatval($req->i_price) ,
-                            'i_lower_price' => floatval($req->i_price) ,
+                            'i_lower_price' => 999999999 ,
                             'i_unit' => $id_satuan,
                             'i_description' => $req->i_description
                           ]);
@@ -413,7 +413,7 @@ public function edit_bank(request $req)
                             'i_name' => strtoupper($req->i_name),
                             'i_price' => $req->i_price,
                             'i_sell_price' => $req->i_price,
-                            'i_lower_price' => $req->i_price,
+                            'i_lower_price' => 999999999,
                             'i_unit' => $id_satuan,
                             'i_description' => $req->i_description,
                             'i_jenis' => 'JASA'
