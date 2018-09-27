@@ -382,6 +382,8 @@ public function edit_bank(request $req)
                           ->update([
                             'i_name' => strtoupper($req->i_name),
                             'i_price' => floatval($req->i_price) ,
+                            'i_sell_price' => floatval($req->i_price) ,
+                            'i_lower_price' => floatval($req->i_price) ,
                             'i_unit' => $id_satuan,
                             'i_description' => $req->i_description
                           ]);
