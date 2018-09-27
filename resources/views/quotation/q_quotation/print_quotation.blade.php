@@ -262,9 +262,12 @@ table, td, th {
 					</tr>
 				</thead>
 				<tbody>
+					@php
+						$indexs = 0;
+					@endphp
 					@foreach($data as $i=> $b)
 					<tr>
-						<td>{{ $i+1 }}</td>
+						<td>{{ {{ $indexs + 1 }} }}</td>
 						<td>{{ $b->i_name }}</td>
 						<td>{{ $b->qd_qty }}</td>
 						<td>{{ $b->u_unit }}</td>
@@ -321,7 +324,7 @@ table, td, th {
 					@endforeach
 					@foreach($jasa as $i=> $b)
 					<tr >
-						<td class="blue">{{ $i+1 }}</td>
+						<td class="blue">{{ $indexs + 1 }}</td>
 						<td class="blue">{{ $b->i_name }}</td>
 						<td class="blue">{{ $b->qd_qty }}</td>
 						<td class="blue">{{ $b->u_unit }}</td>
