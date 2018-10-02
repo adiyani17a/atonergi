@@ -2,7 +2,7 @@
 
 @section('extra_style')
 <style type="text/css">
-  
+
   .float-left{
     float:left;
   }
@@ -17,11 +17,11 @@
 
 @include('master.barang.tambah')
 
- 
+
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
-  	<div class="col-lg-12">	
+  	<div class="col-lg-12">
   		<nav aria-label="breadcrumb" role="navigation">
   			<ol class="breadcrumb bg-info">
   				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -73,8 +73,8 @@
                                 </thead>
                                 <tbody>
                                 </tbody>
-                            
-                            </table> 
+
+                            </table>
                           </div>
                   </div>
               </div>
@@ -146,7 +146,7 @@ $(document).ready(function(){
             { "data": "i_description" },
             { "data": "gambar"},
             { "data": "aksi" },
-            
+
             ]
       });
   });
@@ -211,11 +211,11 @@ $('#chooseFile').bind('change', function () {
   }
   if (/^\s*$/.test(filename)) {
     $(".file-upload").removeClass('active');
-    $("#noFile").text("No file chosen..."); 
+    $("#noFile").text("No file chosen...");
   }
   else {
     $(".file-upload").addClass('active');
-    $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
   }
 });
 
@@ -337,8 +337,8 @@ function simpan(){
       }
       return false;
     }
-    
-    var formdata = new FormData();  
+
+    var formdata = new FormData();
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
     $.ajax({
          type: "post",
@@ -387,9 +387,6 @@ function edit(m1a2)
          data: {id},
          success: function(data){
           $('#tambah').modal('show');
-          
-          console.log(data[0].i_image);
-          
 
             var i_id      = $("input[name='kode_barang']").val(data[0].i_id);
             var i_code    = $("input[name='item_name']").val(data[0].i_name);
@@ -531,7 +528,7 @@ function update() {
       return false;
     }
 
-    var formdata = new FormData();  
+    var formdata = new FormData();
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
 
       $.ajax({
@@ -550,7 +547,7 @@ function update() {
                 icon: 'fas fa-check-circle',
                 message: 'Data Telah Terupdate!',
               });
-            } 
+            }
           },
           error: function(){
           iziToast.warning({
@@ -566,11 +563,11 @@ function update() {
 function hapus(a) {
     var par   = $(a).parents('tr');
     var id    = $(par).find('.i_id').text();
-    
+
     iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
@@ -587,7 +584,7 @@ function hapus(a) {
                       type:'get',
                       data: {id},
                       dataType:'json',
-                      success:function(data){  
+                      success:function(data){
                         if (data.status == '1') {
                           var table = $('#t55').DataTable();
                           table.ajax.reload();
@@ -596,7 +593,7 @@ function hapus(a) {
                             icon: 'fa fa-check',
                             message: 'Data Berhasil Dihapus!',
                           });
-                        }      
+                        }
                       },
                       error:function(){
                         iziToast.warning({
@@ -605,7 +602,7 @@ function hapus(a) {
                         });
                       }
                   });
-                 
+
                 }
               ],
               [
@@ -618,7 +615,7 @@ function hapus(a) {
               ]
             ]
           });
-    
+
   }
 
 </script>

@@ -131,7 +131,7 @@ Route::get('/order/checklistform/checklistform', 'OrderController@checklist');
 Route::get('/order/pelunasanorder/pelunasanorder', 'OrderController@pelunasanorder');
 Route::get('/order/f_penjualan/f_penjualan', 'OrderController@f_penjualan');
 Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
-    
+
     // PEMBAYARAN DEPOSIT
     Route::get('/order/pembayarandeposit/pembayarandeposit', 'OrderController@pembayarandeposit');
     Route::get('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit/{id}', 'OrderController@detail_pembayarandeposit');
@@ -144,7 +144,7 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
     Route::get('/order/salesorder/datatable_so', 'OrderController@datatable_so')->name('datatable_so');
     Route::get('/order/salesorder/s_order/detail_salesorder/{id}', 'OrderController@detail_salesorder');
     Route::get('/order/salesorder/print_salesorder/{id}', 'OrderController@print_salesorder');
-    // 
+    //
 Route::get('/order/proforma/proforma', 'OrderController@proforma');
 Route::get('/order/pelunasanorder/pelunasanorder/detail_pelunasanorder', 'OrderController@detail_pelunasanorder');
 Route::get('/order/workorder/print_workorder', 'OrderController@print_workorder');
@@ -220,8 +220,8 @@ Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');
 
 
-            //---------------------- MASTER ------------Own: Deny------------\\            
-//master vendor 
+            //---------------------- MASTER ------------Own: Deny------------\\
+//master vendor
 Route::get('/master/vendor/vendor', 'master\master_vendorController@vendor');
 Route::get('/master/simpanvendor/simpan_vendor', 'master\master_vendorController@simpan_vendor');
 Route::get('/master/hapusvendor/hapus_vendor', 'master\master_vendorController@hapus_vendor');
@@ -255,7 +255,7 @@ Route::get('/quotation/n_penawaran/simpan_n_penawaran', 'master\master_Npenawara
 Route::get('/quotation/dataeditNpenawaran/dataedit_Npenawaran', 'master\master_NpenawaranController@dataedit_Npenawaran');
 Route::get('/quotation/datatable_Npenawaran/datatable_Npenawaran', 'master\master_NpenawaranController@datatable_Npenawaran')->name('datatable_Npenawaran');
 
-//master pegawai 
+//master pegawai
 Route::get('/master/pegawai/pegawai', 'master\master_pegawaiController@pegawai');
 Route::get('/master/pegawai/kode_pegawai', 'master\master_pegawaiController@kode_pegawai')->name('kode_pegawai');
 Route::get('/master/simpanpegawai/simpan_pegawai', 'master\master_pegawaiController@simpan_pegawai');
@@ -326,7 +326,7 @@ Route::get('/purchase/rencanapembelian/dataedit_rencanapembelian', 'purchase\req
 Route::get('/purchase/rencanapembelian/datatable_rencanapembelian', 'purchase\request_orderController@datatable_rencanapembelian')->name('datatable_rencanapembelian');
 Route::get('/purchase/rencanapembelian/datatable_historypembelian', 'purchase\request_orderController@datatable_historypembelian')->name('datatable_historypembelian');
 
-//Purchase Order 
+//Purchase Order
 Route::get('/purchase/purchaseorder/purchaseorder', 'purchase\purchase_orderController@purchaseorder')->name('purchaseorder');
 Route::get('/purchase/purchaseorder/cari_ro_purchaseorder', 'purchase\purchase_orderController@cari_ro_purchaseorder')->name('cari_ro_purchaseorder');
 Route::get('/purchase/purchaseorder/cari_po_purchaseorder', 'purchase\purchase_orderController@cari_po_purchaseorder')->name('cari_po_purchaseorder');
@@ -340,7 +340,7 @@ Route::get('/purchase/purchaseorder/edit_purchaseorder', 'purchase\purchase_orde
 
  //-----------------END OF PURCHASE------------------\\
 
-                            
+
 //--------INVENTORY-DENY-------\\
 
 //penerimaan barang
@@ -364,8 +364,12 @@ Route::get('inventory/create_opname/create_opname', 'inventory\stock_opnameContr
 Route::get('inventory/create_opname/cari_stockopname', 'inventory\stock_opnameController@cari_stockopname')->name('cari_stockopname');
 Route::get('inventory/create_opname/save_stockopname', 'inventory\stock_opnameController@save_stockopname')->name('save_stockopname');
 
-
-
+//Stock Barang
+Route::get('inventory/stockbarang/stockbarang', 'inventory\stockbarangController@index')->name('stockbarang');
+Route::get('inventory/stockbarang/datatable_stockbarang', 'inventory\stockbarangController@datatable_stockbarang')->name('datatable_stockbarang');
+Route::get('inventory/stockbarang/autoitem', 'inventory\stockbarangController@autoitem')->name('autoitem');
+Route::get('inventory/stockbarang/simpan', 'inventory\stockbarangController@simpan');
+Route::get('inventory/stockbarang/hapus', 'inventory\stockbarangController@hapus');
 
 //END OF INVENTORY
 
@@ -379,4 +383,3 @@ Route::get('/master/type/datatable_type', 'MasterType\TypeController@datatable_t
 
 
 }); // End Route Groub middleware auth
-

@@ -16,6 +16,9 @@
   <script src="{{asset('assets/node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
   <script src="{{asset('assets/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
   <script src="{{asset('assets/bower_components/switchery/dist/switchery.min.js')}}"></script>
+
+  <script src="{{asset('assets/waitingfor/waitingfor.js')}}"></script>
+
   <!-- End plugin js for  page-->
   <!-- injectjs -->
 
@@ -50,10 +53,10 @@
   <script src="{{asset('assets/lightgallery/js/lightgallery-all.min.js')}}"></script>
 
   <script src="{{asset('assets/jp-list/js/jplist.core.min.js')}}"></script>
-  
+
   <!-- jPList textbox filter control -->
   <script src="{{asset('assets/jp-list/js/jplist.textbox-filter.min.js')}}"></script>
-  
+
 
   <!-- jplist pagination bundle -->
   <!-- <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle.min.js')}}"></script> -->
@@ -62,7 +65,7 @@
   <script src="{{asset('assets/jp-list/js/jplist.pagination-bundle-custom.min.js')}}"></script>
 
   <script src="{{asset('assets/jp-list/js/jplist.bootstrap-pagination-bundle-custom.min.js')}}"></script>
-  
+
 
 
 
@@ -105,9 +108,9 @@
       format:"dd-mm-yyyy",
       autoclose:true
     }).datepicker("setDate", "0");
-    
-    $('select').select2({ 
-      width: '100%' 
+
+    $('select').select2({
+      width: '100%'
     });
     $('.data-table').dataTable({
           //"responsive":true,
@@ -152,7 +155,7 @@
   $('.red').css('color','red')
   $('.readonly').attr('readonly',true)
 
-   
+
 
 </script>
 <!-- sidebar -->
@@ -164,13 +167,13 @@
     if (sidebar){
         $('body').addClass(sidebar);
 
-        if (sidebar=='sidebar-light') 
+        if (sidebar=='sidebar-light')
         {
           $('#sidebar-light-theme').addClass('selected');
           $('#sidebar-default-theme').removeClass('selected');
 
         }
-        if (sidebar=='sidebar-default') 
+        if (sidebar=='sidebar-default')
         {
           $('#sidebar-default-theme').addClass('selected');
           $('#sidebar-light-theme').removeClass('selected');
@@ -285,14 +288,14 @@
 
         }
     }
-    
+
 
     if (input.value != 0 ) {
       button.classList.remove('d-none');
     } else {
       button.classList.add('d-none');
     }
-    
+
   }
   function btnReset() {
     input = document.getElementById("filterInput");

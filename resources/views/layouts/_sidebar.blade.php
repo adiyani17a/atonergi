@@ -199,7 +199,7 @@
                 <span class="menu-title">Setting</span>
                 <span class="d-none">
                   Setting Level Account
-                  Setting Account 
+                  Setting Account
                   Setting Hak Akses
                   Setting Daftar Menu
                 </span>
@@ -253,7 +253,7 @@
                         Master Data Jasa
                       </a>
                     </li>
-                  
+
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/type/type') ? 'active' : '' || Request::is('master/type/*') ? 'active' : '' }}" href="{{url('master/type/type')}}">Master Data Tipe Barang</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/bundle/bundle') ? 'active' : '' || Request::is('master/bundle/*') ? 'active' : '' }}" href="{{url('master/bundle/bundle')}}">Master Data Bundle Item</a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('master/status/*') ? 'active' : '' }}" href="{{url('master/status/status')}}">Master Data Status Q.O.#</a></li>
@@ -264,7 +264,7 @@
                       Master Data Bank
                     </a>
                   </li>
-                  
+
                 </ul>
                 </div>
             </li>
@@ -323,7 +323,7 @@
               <a class="nav-link" data-toggle="collapse" href="#m_penjualan" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Purchase</span>
                 <span class="d-none">
-                  
+
                   Request Order
                   Belanja Langsung
                   Purchase Order
@@ -333,7 +333,7 @@
               </a>
               <div class="collapse {{Request::is('purchase') ? 'show' : '' || Request::is('purchase/*') ? 'show' : '' }}" id="m_penjualan">
                 <ul class="nav flex-column sub-menu">
-                  
+
                   <li class="nav-item"> <a class="nav-link {{Request::is('purchase/rencanapembelian/rencanapembelian') ? 'active' : '' || Request::is('purchase/rencanapembelian/*') ? 'active' : '' }}" href="{{url('purchase/rencanapembelian/rencanapembelian')}}">Request Order<span class="d-none">Purchase</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('purchase/belanjalangsung/belanjalangsung') ? 'active' : '' || Request::is('purchase/belanjalangsung/*') ? 'active' : '' }}" href="{{url('purchase/belanjalangsung/belanjalangsung')}}">Belanja Langsung<span class="d-none">Purchase</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('purchase/purchaseorder/purchaseorder') ? 'active' : '' || Request::is('purchase/purchaseorder/*') ? 'active' : '' }}" href="{{url('purchase/purchaseorder/purchaseorder')}}">Purchase Order<span class="d-none">Purchase</span></a></li>
@@ -360,19 +360,19 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('project/pengadaanbarang/*') ? 'active' : ''
                   }}" href="{{url('project/pengadaanbarang/pengadaanbarang')}}">Pengadaan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{Request::is('project/pengirimanbarang/*') ? 'active' : '' 
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/pengirimanbarang/*') ? 'active' : ''
                   }}" href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{Request::is('project/pemasangan/*') ? 'active' : '' 
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/pemasangan/*') ? 'active' : ''
                   }}" href="{{url('project/pemasangan/pemasangan')}}">Pemasangan<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('project/jadwalujicoba/*') ? 'active' : ''
                  }}" href="{{url('project/jadwalujicoba/jadwalujicoba')}}">Schedule Uji Coba dan <br>Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS Schedule Uji Coba dan Dokumentasi</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{Request::is('project/salescommon/*') ? 'active' : '' 
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/salescommon/*') ? 'active' : ''
                   }}" href="{{url('project/salescommon/salescommon')}}">Sales Common<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
-                  <li class="nav-item"> <a class="nav-link {{Request::is('project/technicianfee/*') ? 'active' : '' 
+                  <li class="nav-item"> <a class="nav-link {{Request::is('project/technicianfee/*') ? 'active' : ''
                   }}" href="{{url('project/technicianfee/technicianfee')}}">Technician Fee<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
 
 
@@ -380,7 +380,7 @@
 
                 </div>
             </li>
-            
+
             <li class="nav-item {{Request::is('aftersales') ? 'active' : '' || Request::is('aftersales/*') ? 'active' : '' }}">
               <a class="nav-link" data-toggle="collapse" href="#aftersales" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">After Sales Service</span>
@@ -412,8 +412,8 @@
                   Pengeluaran Barang
                   Stock Opname
                   Stock Gudang
+                  Stock Barang
                   Maintenance
-                  
                   Surat Pinjam Barang
                   Barcode Support
                 </span>
@@ -426,8 +426,8 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangkeluar/barangkeluar') ? 'active' : '' || Request::is('inventory/barangkeluar/*') ? 'active' : '' }}" href="{{url('inventory/barangkeluar/barangkeluar')}}">Pengeluaran Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/opname/opname') ? 'active' : '' || Request::is('inventory/opname/*') ? 'active' : '' }}" href="{{url('inventory/opname/opname')}}">Stock Opname<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockgudang/stockgudang') ? 'active' : '' || Request::is('inventory/stockgudang/*') ? 'active' : '' }}" href="{{url('inventory/stockgudang/stockgudang')}}">Stock Gudang<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockbarang/stockbarang') ? 'active' : '' || Request::is('inventory/stockbarang/*') ? 'active' : '' }}" href="{{url('inventory/stockbarang/stockbarang')}}">Stock Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/maintenance/maintenance') ? 'active' : '' || Request::is('inventory/maintenance/*') ? 'active' : '' }}" href="{{url('inventory/maintenance/maintenance')}}">Maintenance<span class="d-none">Inventory</span></a></li>
-                  
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/suratpinjambarang/suratpinjambarang') ? 'active' : '' || Request::is('inventory/suratpinjambarang/*') ? 'active' : '' }}" href="{{url('inventory/suratpinjambarang/suratpinjambarang')}}">Surat Pinjam Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barcode/barcode') ? 'active' : '' || Request::is('inventory/barcode/*') ? 'active' : '' }}" href="{{url('inventory/barcode/barcode')}}">Barcode Support<span class="d-none">Inventory</span></a></li>
                 </ul>
@@ -497,10 +497,5 @@
                 </div>
             </li>
           </ul>
-          
+
         </nav>
-
-
-
-
-
