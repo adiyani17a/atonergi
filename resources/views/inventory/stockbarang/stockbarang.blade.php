@@ -47,7 +47,7 @@
 </div>
 
 @include('inventory.stockbarang.tambah');
-@include('inventory.stockbarang.edit');
+{{-- @include('inventory.stockbarang.edit'); --}}
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
