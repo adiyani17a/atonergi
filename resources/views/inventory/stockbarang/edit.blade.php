@@ -26,7 +26,7 @@
               </div>
 
               <div class="col-md-3 col-sm-4 col-xs-12">
-                <label class="tebal labelprice" id="labelprice">Price</label>
+                <label class="tebal labelprice" id="labelpriceedit">Price</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">

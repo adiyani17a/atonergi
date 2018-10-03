@@ -38,7 +38,7 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control hanya_angka form-control-sm unit" name="unit" maxlength="20" required="" readonly>
+                    <input type="text" class="form-control hanya_angka form-control-sm unit" name="unit" maxlength="20" required="" readonly>
                 </div>
               </div>
 

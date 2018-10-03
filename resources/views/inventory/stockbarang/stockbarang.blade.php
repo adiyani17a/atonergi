@@ -90,9 +90,9 @@
         if (result.status == 'kosong') {
           waitingDialog.hide();
         } else {
-          $('.unit').val(result[0].u_unit);
-          $('.price').val(result[0].i_price);
-          $('.labelprice').text('Price ('+result[0].i_currency_id+')');
+          $('#unitedit').val(result[0].u_unit);
+          $('#priceedit').val(result[0].i_price);
+          $('#labelpriceedit').text('Price ('+result[0].i_currency_id+')');
           waitingDialog.hide();
         }
         waitingDialog.hide();
