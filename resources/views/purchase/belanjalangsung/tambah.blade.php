@@ -14,7 +14,7 @@
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
-    <div class="col-lg-12"> 
+    <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -29,19 +29,19 @@
             <form id="form-save">
               <div class="card-body">
                 <h4 class="card-title">Tambah Belanja Langsung</h4>
-                 
+
 
                 <div class="row">
 
-                    
-                    
+
+
                         <div class="col-md-7 col-sm-12 col-xs-12">
                           <div class="row">
-                            
+
                             <div class="col-md-2 col-sm-6 col-xs-12">
                               <label>Vendor Id</label>
                             </div>
-                            
+
                             <div class="col-md-10 col-sm-6 col-xs-12">
                               <div class="form-group">
                                   <div class="form-group">
@@ -58,7 +58,7 @@
                             <div class="col-md-2 col-sm-6 col-xs-12">
                               <label>Vendor Name</label>
                             </div>
-                            
+
                             <div class="col-md-10 col-sm-6 col-xs-12">
                               <div class="form-group">
                                   <div class="form-group">
@@ -80,7 +80,7 @@
                           </div>
                        </div>
 
-                
+
                        <div class="col-md-5 col-sm-12 col-xs-12" style="height: 1%;">
 
                         <div class="row">
@@ -125,14 +125,14 @@
                         <div class="form-group" >
                           <select name="dbl_shippinethod">
                             <option selected="" value="">- Pilih -</option>
-                            <option value="DARAT">DARAT</option>
-                            <option value="LAUT">LAUT</option>
-                            <option value="UDARA">UDARA</option>
+                            <option value="DARAT">Sea</option>
+                            <option value="LAUT">Land Freight</option>
+                            <option value="UDARA">Air Freight</option>
                           </select>
                         </div>
                       </div>
 
-                      
+
 
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <label>Shipping Term</label>
@@ -143,7 +143,7 @@
                         </div>
                       </div>
 
-                      
+
 
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <label>Delivery Date</label>
@@ -167,7 +167,7 @@
                       <select class="form-control form-control-sm" id="dbldt_kodeitem">
                         <option selected="" value="">- Pilih -</option>
                         @foreach ($item as $i)
-                          <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}" data-jenis="{{ $i->i_jenis }}" 
+                          <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}" data-jenis="{{ $i->i_jenis }}"
                             @if ($i->sg_qty != null)
                               data-qty="{{ $i->sg_qty }}"
                             @else
@@ -192,7 +192,7 @@
                     </div>
                   </div>
                 </div>
-               
+
                <div class="table-responsive" style="margin-bottom: 15px;">
                  <table class="table table-bordered table-hover" cellspacing="0" id="t80b">
                    <thead class="bg-gradient-info">
@@ -208,7 +208,7 @@
                      </tr>
                    </thead>
                    <tbody>
-                   
+
                    </tbody>
                  </table>
                </div>
@@ -241,10 +241,10 @@
                       </div>
                     </div>
                   </div>
-                  
+
                  </div>
                </div>
-              
+
                 <div align="right" style="margin-top: 15px;">
                   <div id="change_function">
                     <button class="btn-info btn-sm btn" type="button" id="save_data">Create Belanja Langsung</button>
@@ -272,7 +272,7 @@
     $('#dbl_name').val(name);
     $('#dbl_address').val(address);
 
-   }); 
+   });
 
     var counter = 1;
     var table           = $("#t80b").DataTable();
@@ -281,14 +281,14 @@
     var dbldt_kodeitem       = $("#dbldt_kodeitem");
 
 
-    $('#dbldt_qty').attr('disabled',true); 
+    $('#dbldt_qty').attr('disabled',true);
     $('#dbldt_kodeitem').change(function(){
-      var this_val = $(this).find(':selected').data('price');   
-          if($(this).val() != '') { 
+      var this_val = $(this).find(':selected').data('price');
+          if($(this).val() != '') {
             $('#dbldt_qty').attr('disabled',false);
           }else{
-            $('#dbldt_qty').attr('disabled',true);          
-          }    
+            $('#dbldt_qty').attr('disabled',true);
+          }
       var price = dbldt_item.val(accounting.formatMoney(this_val,"",0,'.',','));
     });
 
@@ -318,9 +318,9 @@
             '<input type="text" class="form-control form-control-sm total_price" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
             '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>'
-            
+
         ] ).draw( false );
- 
+
         counter++;
         $('#dbldt_qty').val('');
         $('#dbldt_item').val('');
@@ -345,7 +345,7 @@
       }
     });
 
- 
+
     $('#t80b tbody').on( 'click', '.delete', function () {
     table
         .row( $(this).parents('tr') )
@@ -354,7 +354,7 @@
 
 
         var parents = $(this).parents('tr');
-        
+
         var total_price_seq = $(parents).find('.total_price').val();
         var total = $("#dbldt_subtotal").val();
         var total_net = $("#total_net").val();
@@ -362,7 +362,7 @@
         total_price_seq = total_price_seq.replace(/[^0-9\-]+/g,"");
         total = total.replace(/[^0-9\-]+/g,"");
         total_net = total_net.replace(/[^0-9\-]+/g,"");
-        
+
 
         var kurang_total = parseInt(total)-parseInt(total_price_seq);
         var total_net = parseInt(total)-parseInt(total_price_seq);
@@ -386,7 +386,7 @@
     })
 
 
-    
+
 
 
 });
@@ -394,7 +394,7 @@
     function ppn_10 (a) {
       var total_sub   = $('.dbldt_subtotal').val();
       total_sub       = total_sub.replace(/[^0-9\-]+/g,"")*1;
-      
+
       var hitung_tax = 0;
       var total_net_hitung = 0;
       $('.ppn').each(function(){
@@ -409,21 +409,17 @@
 
       $('#dbldt_tax').val(accounting.formatMoney(hitung_tax,"",0,'.',','));
       $('#total_net').val(accounting.formatMoney(total_sub+hitung_tax,"",0,'.',','));
-          
-      
+
+
     }
 
     $('#save_data').click(function(){
 
-      
+
 
     })
 
 
-  
+
 </script>
 @endsection
-
-
-
-
