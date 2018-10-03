@@ -33,10 +33,11 @@ class stockbarangController extends Controller
      // return $check_data_seq;
      // return $data;
 
-     return Datatables::of($data)
 
+     return Datatables::of($data)
              ->addColumn('detail', function ($data) {
-                       return '<button data-toggle="modal" onclick="detail(this)" title="Detail" class="btn btn-outline-primary icon-btn btn-rounded btn-sm"><i class="fa fa-folder"></i></button>                               
+                       return '<button data-toggle="modal" onclick="detail(this)" title="Detail" class="btn btn-outline-primary icon-btn btn-rounded btn-sm"><i class="fa fa-folder"></i></button>
+                               <button onclick="edit('.$data->sg_id.')" title="Edit" class="btn btn-outline-warning icon-btn btn-rounded btn-sm"><i class="fa fa-edit"></i></button>
                                <button onclick="hapus('.$data->sg_id.')" title="Hapus" class="btn btn-outline-danger btn-rounded icon-btn btn-sm"><i class="fa fa-trash"></i></button>';
              })
              ->rawColumns(['aksi','detail','confirmed','status'])
@@ -44,13 +45,19 @@ class stockbarangController extends Controller
  }
 
  public function autoitem(Request $request){
-   $data = DB::table('m_item')
-    ->join('d_unit', 'u_id', '=', 'i_unit')
-    ->select('u_unit', 'i_price', 'i_currency_id')
-    ->where("i_code", $request->item)
-    ->get();
+   if ($request->item == '') {
+     return response()->json([
+       'status' => 'kosong'
+     ]);
+   } else {
+     $data = DB::table('m_item')
+      ->join('d_unit', 'u_id', '=', 'i_unit')
+      ->select('u_unit', 'i_price', 'i_currency_id')
+      ->where("i_code", $request->item)
+      ->get();
 
-    return response()->json($data);
+      return response()->json($data);
+   }
  }
 
  public function simpan(Request $request){
@@ -114,4 +121,54 @@ class stockbarangController extends Controller
    }
 
  }
+
+ public function edit(Request $request){
+   $data = DB::table('i_stock_gudang')
+    ->join('m_item', 'i_code', '=', 'sg_iditem')
+    ->join('d_unit', 'u_id', '=', 'i_unit')
+    ->select('i_code', 'sg_harga', 'sg_qty')
+    ->where('sg_id', $request->id)
+    ->get();
+
+    return response()->json($data);
+ }
+
+ public function update(Request $request){
+   DB::beginTransaction();
+   try {
+
+     $validation = Validator::make($request->all(), [
+              'itemedit' => 'required',
+              'qty' => 'required',
+              'unit' => 'required',
+              'price' => 'required',
+          ]);
+
+    if ($validation->fails()) {
+        return response()->json([
+          'status' => 'kesalahan'
+        ]);
+    } else {
+      DB::table('i_stock_gudang')
+        ->where('sg_id', $request->id)
+        ->update([
+          'sg_iditem' => $request->itemedit,
+          'sg_qty' => $request->qty,
+          'sg_harga' => $request->price,
+          'sg_update' => Carbon::now('Asia/Jakarta')
+        ]);
+
+      DB::commit();
+      return response()->json([
+        'status' => 'berhasil'
+      ]);
+    }
+   } catch (\Exception $e) {
+     DB::rollback();
+     return response()->json([
+       'status' => 'gagal'
+     ]);
+   }
+ }
+
 }

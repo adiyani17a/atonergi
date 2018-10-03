@@ -370,6 +370,8 @@ Route::get('inventory/stockbarang/datatable_stockbarang', 'inventory\stockbarang
 Route::get('inventory/stockbarang/autoitem', 'inventory\stockbarangController@autoitem')->name('autoitem');
 Route::get('inventory/stockbarang/simpan', 'inventory\stockbarangController@simpan');
 Route::get('inventory/stockbarang/hapus', 'inventory\stockbarangController@hapus');
+Route::get('inventory/stockbarang/edit', 'inventory\stockbarangController@edit');
+Route::get('inventory/stockbarang/update', 'inventory\stockbarangController@update');
 
 //END OF INVENTORY
 

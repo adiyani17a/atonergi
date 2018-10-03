@@ -15,7 +15,7 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <select class="select2" name="item" onchange="autoitem()" id="item">
+                    <select class="select2 item" name="item" onchange="autoitem()" id="itemtambah">
                       <option value="">~ Select Item ~</option>
                       @foreach ($item as $key => $value)
                         <option value="{{$value->i_code}}">{{$value->i_name}} ({{$value->u_unit}})</option>
@@ -25,7 +25,7 @@
               </div>
 
               <div class="col-md-3 col-sm-4 col-xs-12">
-                <label class="tebal" id="labelprice">Price</label>
+                <label class="tebal labelprice" id="labelprice">Price</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">

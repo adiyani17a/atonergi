@@ -23,7 +23,7 @@
                     <button type="button" class="btn btn-info" id="tombol_modal_tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
   	          			{{-- <button class="btn btn-info btn-sm" type="button" data-target="#cari_po" id="button_add" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Add Data</button> --}}
   	          		</div>
-
+                  <input type="hidden" name="id">
         					<div class="table-responsive" style="margin-top: 15px;">
         						<table class="table table-hover" id="datatable" cellspacing="0">
         						  <thead class="bg-gradient-info">
@@ -47,7 +47,7 @@
 </div>
 
 @include('inventory.stockbarang.tambah');
-{{-- @include('inventory.stockbarang.edit'); --}}
+@include('inventory.stockbarang.edit');
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
@@ -58,16 +58,43 @@
 
   function autoitem(){
     waitingDialog.show();
-    var item = $('#item').val();
+    var item = $('#itemtambah').val();
     $.ajax({
       type: 'get',
       data: {item:item},
       dataType: 'json',
       url: '{{ route('autoitem') }}',
       success : function(result){
-        $('.unit').val(result[0].u_unit);
-        $('.price').val(result[0].i_price);
-        $('#labelprice').text('Price ('+result[0].i_currency_id+')');
+        if (result.status == 'kosong') {
+          waitingDialog.hide();
+        } else {
+          $('.unit').val(result[0].u_unit);
+          $('.price').val(result[0].i_price);
+          $('.labelprice').text('Price ('+result[0].i_currency_id+')');
+          waitingDialog.hide();
+        }
+        waitingDialog.hide();
+      }
+    });
+  }
+
+  function autoitemedit(){
+    waitingDialog.show();
+    var item = $('#itemedit').val();
+    $.ajax({
+      type: 'get',
+      data: {item:item},
+      dataType: 'json',
+      url: '{{ route('autoitem') }}',
+      success : function(result){
+        if (result.status == 'kosong') {
+          waitingDialog.hide();
+        } else {
+          $('.unit').val(result[0].u_unit);
+          $('.price').val(result[0].i_price);
+          $('.labelprice').text('Price ('+result[0].i_currency_id+')');
+          waitingDialog.hide();
+        }
         waitingDialog.hide();
       }
     });
@@ -208,6 +235,60 @@
         }]
     ],
 });
+}
+
+function edit(id){
+  $('input[name=id]').val(id);
+
+  $('#edit').modal('show');
+
+  $.ajax({
+    type: 'get',
+    data: {id:id},
+    dataType: 'json',
+    url: baseUrl + '/inventory/stockbarang/edit',
+    success : function(result){
+      $('#itemedit').val(result[0].i_code).change();
+      $('#priceedit').val(result[0].sg_harga);
+      $('#qtyedit').val(result[0].sg_qty);
+    }
+  });
+}
+
+function update(){
+  var id = $('input[name=id]').val();
+  waitingDialog.show();
+  $.ajax({
+    type: 'get',
+    dataType: 'json',
+    data: $('#update_barang').serialize()+'&id='+id,
+    url: baseUrl + '/inventory/stockbarang/update',
+    success : function(result){
+      if (result.status == 'berhasil') {
+        iziToast.success({
+          icon: 'fa fa-check',
+          message: 'Berhasil Disimpan!',
+        });
+        table.ajax.reload()
+        $('#tambah').modal('hide');
+        waitingDialog.hide();
+      } else if (result.status == 'kesalahan') {
+        iziToast.warning({
+          icon: 'fa fa-times',
+          message: 'Terjadi Kesalahan!',
+        });
+        ('#tambah').modal('hide');
+        waitingDialog.hide();
+      } else if (result.status == 'gagal') {
+        iziToast.warning({
+          icon: 'fa fa-times',
+          message: 'Gagal Disimpan!',
+        });
+        ('#tambah').modal('hide');
+        waitingDialog.hide();
+      }
+    }
+  })
 }
 
 
