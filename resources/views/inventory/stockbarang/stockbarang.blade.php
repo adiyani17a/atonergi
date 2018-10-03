@@ -57,7 +57,7 @@
   $('.select2').select2();
 
   function autoitem(){
-    waitingDialog.show();
+     
     var item = $('#itemtambah').val();
     $.ajax({
       type: 'get',
@@ -66,21 +66,20 @@
       url: '{{ route('autoitem') }}',
       success : function(result){
         if (result.status == 'kosong') {
-          waitingDialog.hide();
+
         } else {
           $('.unit').val(result[0].u_unit);
           $('.price').val(result[0].i_price);
           $('.labelprice').text('Price ('+result[0].i_currency_id+')');
-          waitingDialog.hide();
+
         }
-        waitingDialog.hide();
+
       }
     });
-    waitingDialog.hide()
   }
 
   function autoitemedit(){
-    waitingDialog.show();
+
     var item = $('#itemedit').val();
     $.ajax({
       type: 'get',
@@ -89,14 +88,14 @@
       url: '{{ route('autoitem') }}',
       success : function(result){
         if (result.status == 'kosong') {
-          waitingDialog.hide();
+
         } else {
           $('#unitedit').val(result[0].u_unit);
           $('#priceedit').val(result[0].i_price);
           $('#labelpriceedit').text('Price ('+result[0].i_currency_id+')');
-          waitingDialog.hide();
+
         }
-        waitingDialog.hide();
+
       }
     });
     waitingDialog.hide()
@@ -163,7 +162,7 @@
 	}
 
   function simpan(){
-    waitingDialog.show();
+
     $.ajax({
       type: 'get',
       dataType: 'json',
@@ -177,21 +176,21 @@
           });
           table.ajax.reload()
           $('#tambah').modal('hide');
-          waitingDialog.hide();
+
         } else if (result.status == 'kesalahan') {
           iziToast.warning({
             icon: 'fa fa-times',
             message: 'Terjadi Kesalahan!',
           });
           ('#tambah').modal('hide');
-          waitingDialog.hide();
+
         } else if (result.status == 'gagal') {
           iziToast.warning({
             icon: 'fa fa-times',
             message: 'Gagal Disimpan!',
           });
           ('#tambah').modal('hide');
-          waitingDialog.hide();
+
         }
       }
     });
@@ -209,7 +208,7 @@
     progressBarColor: '#57c7d4',
     buttons: [
         ['<button>Ya</button>', function (instance, toast) {
-          waitingDialog.show();
+
           $.ajax({
             type: 'get',
             data: {id:id},
@@ -222,13 +221,13 @@
                   message: 'Berhasil Dihapus!',
                 });
                 table.ajax.reload()
-                waitingDialog.hide();
+
               } else if (result.status == 'gagal') {
                 iziToast.warning({
                   icon: 'fa fa-times',
                   message: 'Gagal Dihapus!',
                 });
-                waitingDialog.hide();
+
               }
             }
           });
@@ -261,7 +260,7 @@ function edit(id){
 
 function update(){
   var id = $('input[name=id]').val();
-  waitingDialog.show();
+
   $.ajax({
     type: 'get',
     dataType: 'json',
@@ -275,21 +274,21 @@ function update(){
         });
         table.ajax.reload()
         $('#edit').modal('hide');
-        waitingDialog.hide();
+
       } else if (result.status == 'kesalahan') {
         iziToast.warning({
           icon: 'fa fa-times',
           message: 'Terjadi Kesalahan!',
         });
         ('#edit').modal('hide');
-        waitingDialog.hide();
+
       } else if (result.status == 'gagal') {
         iziToast.warning({
           icon: 'fa fa-times',
           message: 'Gagal Disimpan!',
         });
         ('#edit').modal('hide');
-        waitingDialog.hide();
+
       }
     }
   });
