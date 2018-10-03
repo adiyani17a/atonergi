@@ -76,6 +76,7 @@
         waitingDialog.hide();
       }
     });
+    waitingDialog.hide()
   }
 
   function autoitemedit(){
@@ -98,6 +99,7 @@
         waitingDialog.hide();
       }
     });
+    waitingDialog.hide()
   }
 
 	var table = $('#datatable').DataTable({
@@ -192,7 +194,8 @@
           waitingDialog.hide();
         }
       }
-    })
+    });
+    waitingDialog.hide()
   }
 
   function hapus(id){
@@ -235,6 +238,7 @@
         }]
     ],
 });
+waitingDialog.hide()
 }
 
 function edit(id){
@@ -288,7 +292,8 @@ function update(){
         waitingDialog.hide();
       }
     }
-  })
+  });
+  waitingDialog.hide()
 }
 
 
