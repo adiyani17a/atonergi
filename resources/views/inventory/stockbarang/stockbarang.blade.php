@@ -77,13 +77,12 @@
                         waitingDialog.hide();
                     }, 500);
         }
-
       }
     });
   }
 
   function autoitemedit(){
-
+    waitingDialog.show()
     var item = $('#itemedit').val();
     $.ajax({
       type: 'get',
@@ -92,17 +91,20 @@
       url: '{{ route('autoitem') }}',
       success : function(result){
         if (result.status == 'kosong') {
-
+          setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
         } else {
           $('#unitedit').val(result[0].u_unit);
           $('#priceedit').val(result[0].i_price);
           $('#labelpriceedit').text('Price ('+result[0].i_currency_id+')');
-
+          setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
         }
 
       }
     });
-    waitingDialog.hide()
   }
 
 	var table = $('#datatable').DataTable({
@@ -166,7 +168,7 @@
 	}
 
   function simpan(){
-
+    waitingDialog.show()
     $.ajax({
       type: 'get',
       dataType: 'json',
@@ -180,25 +182,28 @@
           });
           table.ajax.reload()
           $('#tambah').modal('hide');
-
+          setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
         } else if (result.status == 'kesalahan') {
           iziToast.warning({
             icon: 'fa fa-times',
             message: 'Terjadi Kesalahan!',
           });
-          ('#tambah').modal('hide');
-
+          $('#tambah').modal('hide');
+          setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
         } else if (result.status == 'gagal') {
           iziToast.warning({
             icon: 'fa fa-times',
             message: 'Gagal Disimpan!',
           });
-          ('#tambah').modal('hide');
+          $('#tambah').modal('hide');
 
         }
       }
     });
-    waitingDialog.hide()
   }
 
   function hapus(id){
@@ -212,7 +217,7 @@
     progressBarColor: '#57c7d4',
     buttons: [
         ['<button>Ya</button>', function (instance, toast) {
-
+          waitingDialog.show()
           $.ajax({
             type: 'get',
             data: {id:id},
@@ -225,13 +230,17 @@
                   message: 'Berhasil Dihapus!',
                 });
                 table.ajax.reload()
-
+                setTimeout(function () {
+                              waitingDialog.hide();
+                          }, 500);
               } else if (result.status == 'gagal') {
                 iziToast.warning({
                   icon: 'fa fa-times',
                   message: 'Gagal Dihapus!',
                 });
-
+                setTimeout(function () {
+                              waitingDialog.hide();
+                          }, 500);
               }
             }
           });
@@ -241,7 +250,6 @@
         }]
     ],
 });
-waitingDialog.hide()
 }
 
 function edit(id){
@@ -264,7 +272,7 @@ function edit(id){
 
 function update(){
   var id = $('input[name=id]').val();
-
+  waitingDialog.show()
   $.ajax({
     type: 'get',
     dataType: 'json',
@@ -278,25 +286,30 @@ function update(){
         });
         table.ajax.reload()
         $('#edit').modal('hide');
-
+        setTimeout(function () {
+                      waitingDialog.hide();
+                  }, 500);
       } else if (result.status == 'kesalahan') {
         iziToast.warning({
           icon: 'fa fa-times',
           message: 'Terjadi Kesalahan!',
         });
         ('#edit').modal('hide');
-
+        setTimeout(function () {
+                      waitingDialog.hide();
+                  }, 500);
       } else if (result.status == 'gagal') {
         iziToast.warning({
           icon: 'fa fa-times',
           message: 'Gagal Disimpan!',
         });
         ('#edit').modal('hide');
-
+        setTimeout(function () {
+                      waitingDialog.hide();
+                  }, 500);
       }
     }
   });
-  waitingDialog.hide()
 }
 
 
