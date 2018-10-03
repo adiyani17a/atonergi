@@ -270,21 +270,21 @@ function update(){
           message: 'Berhasil Disimpan!',
         });
         table.ajax.reload()
-        $('#tambah').modal('hide');
+        $('#edit').modal('hide');
         waitingDialog.hide();
       } else if (result.status == 'kesalahan') {
         iziToast.warning({
           icon: 'fa fa-times',
           message: 'Terjadi Kesalahan!',
         });
-        ('#tambah').modal('hide');
+        ('#edit').modal('hide');
         waitingDialog.hide();
       } else if (result.status == 'gagal') {
         iziToast.warning({
           icon: 'fa fa-times',
           message: 'Gagal Disimpan!',
         });
-        ('#tambah').modal('hide');
+        ('#edit').modal('hide');
         waitingDialog.hide();
       }
     }
