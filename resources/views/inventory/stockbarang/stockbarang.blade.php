@@ -57,7 +57,7 @@
   $('.select2').select2();
 
   function autoitem(){
-     
+    waitingDialog.show()
     var item = $('#itemtambah').val();
     $.ajax({
       type: 'get',
@@ -66,12 +66,16 @@
       url: '{{ route('autoitem') }}',
       success : function(result){
         if (result.status == 'kosong') {
-
+          setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
         } else {
           $('.unit').val(result[0].u_unit);
           $('.price').val(result[0].i_price);
           $('.labelprice').text('Price ('+result[0].i_currency_id+')');
-
+          setTimeout(function () {
+                        waitingDialog.hide();
+                    }, 500);
         }
 
       }
