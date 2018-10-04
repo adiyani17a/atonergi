@@ -324,9 +324,9 @@
         table.row.add( [
             '<input type="text" name="kode[]" class="form-control form-control-sm" value="'+i_kode+'" readonly>',
             '<input type="text" name="nama[]" id="namaitem" data="'+i_name+'" class="form-control namaitem form-control-sm" value="'+i_name+'" readonly>',
-            '<input type="text" name="qty[]" class="form-control form-control-sm" id="qty'+counter+'" value="'+i_qty+'">',
+            '<input type="text" name="qty[]" onkeyup="qtydinamis('+counter+')" class="form-control form-control-sm" id="qty'+counter+'" value="'+i_qty+'">',
             '<input type="text" name="satuan[]" class="form-control form-control-sm" value="'+i_satuan+'" readonly>',
-            '<input type="text" name="price[]" onkeyup="total('+counter+')" class="form-control price form-control-sm rp" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
+            '<input type="text" name="price[]" onkeyup="total('+counter+')" class="form-control price form-control-sm rp" id="price'+counter+'" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
             '<input type="text" name="total[]" class="form-control form-control-sm total_price" id="total'+counter+'" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
             '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
             '<center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center>'
@@ -496,6 +496,17 @@
       }
 
       $('#dbldt_subtotal').val(accounting.formatMoney(total,"",0,'.',','))
+    }
+
+    function qtydinamis(counter){
+      var price = $('#price'+counter).val();
+      var qty = $('#qty'+counter).val();
+
+      var hasil = parseInt(price.replace('.','')) * parseInt(qty.replace('.',''));
+
+      $('#total'+counter).val(accounting.formatMoney(hasil,"",0,'.',','));
+      linetotal();
+      ppn_10();
     }
 
 </script>
