@@ -45,7 +45,7 @@
                             <div class="col-md-10 col-sm-6 col-xs-12">
                               <div class="form-group">
                                   <div class="form-group">
-                                    <select class="form-control form-control-sm" id="dbl_vendor">
+                                    <select class="form-control form-control-sm" name="dbl_vendor" id="dbl_vendor">
                                       <option>--Select Vendor--</option>
                                       @foreach ($vendor as $el)
                                         <option value="{{ $el->s_kode }}" data-alamat="{{ $el->s_address }}" data-name="{{ $el->s_name }}">{{ $el->s_kode }} - {{ $el->s_name }}</option>
@@ -98,7 +98,7 @@
                           </div>
                           <div class="col-md-8 col-sm-6 col-xs-12">
                             <div class="form-group">
-                              <input type="text" class="form-control form-control-sm readonly"  name="dbl_code" value="{{ $nota }}">
+                              <input type="text" class="form-control form-control-sm readonly"  name="dbl_code" value="( Auto )">
                             </div>
                           </div>
                           <div class="col-md-4 col-sm-6 col-xs-12">
@@ -125,9 +125,9 @@
                         <div class="form-group" >
                           <select name="dbl_shippinethod">
                             <option selected="" value="">- Pilih -</option>
-                            <option value="DARAT">Sea</option>
-                            <option value="LAUT">Land Freight</option>
-                            <option value="UDARA">Air Freight</option>
+                            <option value="Sea">Sea</option>
+                            <option value="Land Freight">Land Freight</option>
+                            <option value="Air Freight">Air Freight</option>
                           </select>
                         </div>
                       </div>
@@ -244,7 +244,7 @@
 
                  </div>
                </div>
-
+               <input type="hidden" name="tax[]" id="tax">
                 <div align="right" style="margin-top: 15px;">
                   <div id="change_function">
                     <button class="btn-info btn-sm btn" type="button" id="save_data">Create Belanja Langsung</button>
@@ -310,12 +310,12 @@
       var i_satuan = $('#dbldt_kodeitem').find(':selected').data('jenis');
 
         table.row.add( [
-            '<input type="text" class="form-control form-control-sm" value="'+i_kode+'" readonly>',
-            '<input type="text" class="form-control form-control-sm" value="'+i_name+'" readonly>',
-            '<input type="text" class="form-control form-control-sm" value="'+i_qty+'">',
-            '<input type="text" class="form-control form-control-sm" value="'+i_satuan+'" readonly>',
-            '<input type="text" class="form-control form-control-sm" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'" readonly>',
-            '<input type="text" class="form-control form-control-sm total_price" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
+            '<input type="text" name="kode[]" class="form-control form-control-sm" value="'+i_kode+'" readonly>',
+            '<input type="text" name="nama[]" class="form-control form-control-sm" value="'+i_name+'" readonly>',
+            '<input type="text" name="qty[]" class="form-control form-control-sm" value="'+i_qty+'">',
+            '<input type="text" name="satuan[]" class="form-control form-control-sm" value="'+i_satuan+'" readonly>',
+            '<input type="text" name="price[]" class="form-control form-control-sm" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'" readonly>',
+            '<input type="text" name="total[]" class="form-control form-control-sm total_price" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
             '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>'
 
@@ -405,6 +405,7 @@
             total_price     *= 10/100;
             hitung_tax    += parseInt(total_price);
           }
+          $('#tax').val(total_price);
       });
 
       $('#dbldt_tax').val(accounting.formatMoney(hitung_tax,"",0,'.',','));
@@ -413,11 +414,35 @@
 
     }
 
-    $('#save_data').click(function(){
-
-
-
-    })
+    $('#save_data').on('click', function(){
+      waitingDialog.show();
+      var codevendor = $('#dbl_vendor').val();
+      $.ajax({
+        type: 'get',
+        data: $('#form-save').serialize(),
+        url: baseUrl + '/purchase/belanjalangsung/simpan',
+        dataType: 'json',
+        success : function(result){
+          if (result.status == 'berhasil') {
+            iziToast.success({
+              icon: 'fa fa-check',
+              message: 'Berhasil Disimpan!',
+            });
+            setTimeout(function () {
+                          waitingDialog.hide();
+                      }, 500);
+          } else {
+            iziToast.warning({
+              icon: 'fa fa-times',
+              message: 'Gagal Disimpan!',
+            });
+            setTimeout(function () {
+                          waitingDialog.hide();
+                      }, 500);
+          }
+        }
+      });
+    });
 
 
 

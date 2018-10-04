@@ -120,6 +120,7 @@ Route::get('/quotation/pdf_penawaran/pdf_penawaran', 'QuotationController@pdf_pe
 // Purchase
 Route::get('/purchase/belanjalangsung/belanjalangsung', 'purchase\belanjalangsungController@belanjalangsung')->name('belanjalangsung');
 Route::get('/purchase/belanjalangsung/tambah_belanjalangsung', 'purchase\belanjalangsungController@tambah_belanjalangsung')->name('tambah_belanjalangsung');
+Route::get('/purchase/belanjalangsung/simpan', 'purchase\belanjalangsungController@simpan');
 Route::get('/purchase/hub_suplier/hub_suplier', 'purchase\belanjalangsungController@hub_suplier')->name('hub_suplier');
 
 // Order
