@@ -318,7 +318,7 @@
             '<input type="text" name="price[]" class="form-control form-control-sm" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'" readonly>',
             '<input type="text" name="total[]" class="form-control form-control-sm total_price" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
             '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
-            '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>'
+            '<center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center>'
 
         ] ).draw( false );
 
