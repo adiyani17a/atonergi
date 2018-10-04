@@ -62,7 +62,11 @@
 											<td>{{$value->dbl_code}}</td>
 											<td>{{$value->s_company}} ( {{$value->s_name}} )</td>
 											<td align="right">{{number_format($value->dbl_total_net,0,',','.')}}</td>
-											<td align="center"> <button type="button" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button> </td>
+											<td align="center">
+												<button type="button" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button>
+												<button type="button" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
+												<button type="button" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
+											</td>
 										</tr>
 									@endforeach
 							  </tbody>

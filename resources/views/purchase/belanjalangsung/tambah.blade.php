@@ -178,6 +178,9 @@
                       </select>
                     </div>
                   </div>
+                  <div class="col-md-1 col-sm-12 col-xs-12">
+                    <label>Price</label>
+                  </div>
                   <div class="col-md-2 col-sm-12 col-xs-12">
                     <div class="form-group">
                       <input type="text" class="form-control form-control-sm right readonly" name="" id="dbldt_item">
@@ -186,7 +189,7 @@
                   <div class="col-md-1 col-sm-12 col-xs-12">
                     <label>Qty</label>
                   </div>
-                  <div class="col-md-3 col-sm-12 col-xs-12">
+                  <div class="col-md-2 col-sm-12 col-xs-12">
                     <div class="form-group">
                       <input type="text" class="form-control form-control-sm right hanya_angka"  name="" id="dbldt_qty" >
                     </div>
@@ -310,18 +313,28 @@
       var i_qty   = $('#dbldt_qty').val();
       var i_satuan = $('#dbldt_kodeitem').find(':selected').data('jenis');
 
+      var find = $('.namaitem').attr('data');
+
+      if (find == i_name) {
+        iziToast.warning({
+          icon: 'fa fa-times',
+          message: 'Sudah ada item yang sama!, coba pilih item yang berbeda :)',
+        });
+      } else {
         table.row.add( [
             '<input type="text" name="kode[]" class="form-control form-control-sm" value="'+i_kode+'" readonly>',
-            '<input type="text" name="nama[]" class="form-control form-control-sm" value="'+i_name+'" readonly>',
-            '<input type="text" name="qty[]" class="form-control form-control-sm" value="'+i_qty+'">',
+            '<input type="text" name="nama[]" id="namaitem" data="'+i_name+'" class="form-control namaitem form-control-sm" value="'+i_name+'" readonly>',
+            '<input type="text" name="qty[]" class="form-control form-control-sm" id="qty'+counter+'" value="'+i_qty+'">',
             '<input type="text" name="satuan[]" class="form-control form-control-sm" value="'+i_satuan+'" readonly>',
-            '<input type="text" name="price[]" class="form-control form-control-sm" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'" readonly>',
-            '<input type="text" name="total[]" class="form-control form-control-sm total_price" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
+            '<input type="text" name="price[]" onkeyup="total('+counter+')" class="form-control price form-control-sm rp" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
+            '<input type="text" name="total[]" class="form-control form-control-sm total_price" id="total'+counter+'" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
             '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
             '<center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center>'
 
         ] ).draw( false );
+      }
 
+        $('.rp').mask('000,000,000,000,000.00', {reverse: true});
         counter++;
         $('#dbldt_qty').val('');
         $('#dbldt_item').val('');
@@ -452,7 +465,38 @@
       });
     });
 
+    function total(counter){
+      var values = [];
+      $(".price").each(function(i, sel){
+          var selectedVal = $(sel).val();
+          values.push(parseInt(selectedVal.replace('.','')));
+      });
+      var total = 0;
+      for (var i = 0; i < values.length; i++) {
+        total += values[i] << 0;
+      }
 
+      var qty = $('#qty'+counter).val();
+      var hasil = total * qty;
+
+      $('#total'+counter).val(accounting.formatMoney(hasil,"",0,'.',','));
+      linetotal();
+      ppn_10();
+    }
+
+    function linetotal(){
+      var values = [];
+      $(".total_price").each(function(i, sel){
+          var selectedVal = $(sel).val();
+          values.push(parseInt(selectedVal.replace('.','')));
+      });
+      var total = 0;
+      for (var i = 0; i < values.length; i++) {
+        total += values[i] << 0;
+      }
+
+      $('#dbldt_subtotal').val(accounting.formatMoney(total,"",0,'.',','))
+    }
 
 </script>
 @endsection
