@@ -5,7 +5,7 @@
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
-		<div class="col-lg-12">	
+		<div class="col-lg-12">
 			<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -19,7 +19,7 @@
 		        <div class="card-body">
 		          <h4 class="card-title">Belanja Langsung</h4>
 		          	<div class="row">
-		          		
+
 						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
 							<a class="btn btn-info" href="{{url('purchase/belanjalangsung/tambah_belanjalangsung')}}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Belanja Langsung</a>
 						</div>
@@ -45,24 +45,30 @@
                       		</div>
                     </div>
 						<div class="table-responsive">
-							<table class="table table-hover data-table" cellspacing="0">
+							<table class="table table-hover data-table" cellspacing="0" id="datatable">
 							  <thead class="bg-gradient-info">
 							    <tr>
 							      <th>No</th>
 							      <th>P.O.#</th>
 							      <th>Vendor</th>
-							      <th>Item</th>
 							      <th>Total</th>
-							      <th>Status</th>
 							      <th>Action</th>
 							    </tr>
 							  </thead>
 							  <tbody>
-							    
+									@foreach ($data as $key => $value)
+										<tr>
+											<td>{{$key + 1}}</td>
+											<td>{{$value->dbl_code}}</td>
+											<td>{{$value->s_company}} ( {{$value->s_name}} )</td>
+											<td align="right">{{number_format($value->dbl_total_net,0,',','.')}}</td>
+											<td align="center"> <button type="button" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button> </td>
+										</tr>
+									@endforeach
 							  </tbody>
 							</table>
 						</div>
-						
+
 		      	</div>
 	    	</div>
 		</div>
@@ -71,5 +77,9 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
-
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#datatable').DataTable();
+	});
+	</script>
 @endsection

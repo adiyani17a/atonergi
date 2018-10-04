@@ -12,7 +12,12 @@ class belanjalangsungController extends Controller
 {
    public function belanjalangsung()
     {
-        return view('purchase/belanjalangsung/belanjalangsung');
+        $data = DB::table('d_belanja_langsung')
+                ->join('m_vendor', 's_kode', '=', 'dbl_vendor')
+                ->select('dbl_id', 'dbl_code', 's_company', 's_name', 'dbl_total_net')
+                ->get();
+
+        return view('purchase/belanjalangsung/belanjalangsung', compact('data'));
     }
     public function tambah_belanjalangsung(Request $request)
     {
