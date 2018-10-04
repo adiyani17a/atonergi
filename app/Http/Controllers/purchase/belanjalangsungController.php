@@ -35,8 +35,8 @@ class belanjalangsungController extends Controller
     }
 
     public function simpan(Request $request){
-      // DB::beginTransaction();
-      // try {
+      DB::beginTransaction();
+      try {
         $id = DB::table('d_belanja_langsung')
               ->max('dbl_id');
 
@@ -81,6 +81,7 @@ class belanjalangsungController extends Controller
             if ($iddt < 0) {
               $iddt = 0;
             }
+
             if ($request->tax[0] == null) {
               DB::table('d_belanja_langsung_dt')
                 ->insert([
@@ -92,28 +93,40 @@ class belanjalangsungController extends Controller
                   'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                 ]);
             } else {
-              DB::table('d_belanja_langsung_dt')
-                ->insert([
-                  'dbldt_id' => $iddt + 1,
-                  'dbldt_ref' => $nota,
-                  'dbldt_item' => $request->kode[$i],
-                  'dbldt_qty' => $request->qty[$i],
-                  'dbldt_line_total' => $request->total[$i],
-                  'dbldt_ppn' => $request->tax[$i],
-                  'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
-                ]);
+              if ($request->tax[$i] != 'undefined') {
+                DB::table('d_belanja_langsung_dt')
+                  ->insert([
+                    'dbldt_id' => $iddt + 1,
+                    'dbldt_ref' => $nota,
+                    'dbldt_item' => $request->kode[$i],
+                    'dbldt_qty' => $request->qty[$i],
+                    'dbldt_line_total' => $request->total[$i],
+                    'dbldt_ppn' => $request->tax[$i],
+                    'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
+                  ]);
+              } else {
+                DB::table('d_belanja_langsung_dt')
+                  ->insert([
+                    'dbldt_id' => $iddt + 1,
+                    'dbldt_ref' => $nota,
+                    'dbldt_item' => $request->kode[$i],
+                    'dbldt_qty' => $request->qty[$i],
+                    'dbldt_line_total' => $request->total[$i],
+                    'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
+                  ]);
+              }
             }
           }
 
-      //   DB::commit();
-      //   return response()->json([
-      //     'status' => 'berhasil'
-      //   ]);
-      // } catch (\Exception $e) {
-      //   DB::rollback();
-      //   return response()->json([
-      //     'status' => 'gagal'
-      //   ]);
-      // }
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
     }
 }

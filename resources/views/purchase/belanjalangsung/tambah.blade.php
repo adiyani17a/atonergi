@@ -212,7 +212,9 @@
                    </tbody>
                  </table>
                </div>
+               <div id="taxshow">
 
+               </div>
                <div class="row">
                  <div class="col-md-12 col-sm-12 col-xs-12">
                   <div class="row">
@@ -244,7 +246,6 @@
 
                  </div>
                </div>
-               <input type="hidden" name="tax[]" id="tax">
                 <div align="right" style="margin-top: 15px;">
                   <div id="change_function">
                     <button class="btn-info btn-sm btn" type="button" id="save_data">Create Belanja Langsung</button>
@@ -394,6 +395,7 @@
     function ppn_10 (a) {
       var total_sub   = $('.dbldt_subtotal').val();
       total_sub       = total_sub.replace(/[^0-9\-]+/g,"")*1;
+      var tax = [];
 
       var hitung_tax = 0;
       var total_net_hitung = 0;
@@ -405,8 +407,14 @@
             total_price     *= 10/100;
             hitung_tax    += parseInt(total_price);
           }
-          $('#tax').val(total_price);
+          tax.push(total_price);
       });
+      var html = '';
+      for (var i = 0; i < tax.length; i++) {
+        html += '<input type="hidden" name="tax[]" value="'+tax[i]+'">';
+      }
+
+      $('#taxshow').html(html);
 
       $('#dbldt_tax').val(accounting.formatMoney(hitung_tax,"",0,'.',','));
       $('#total_net').val(accounting.formatMoney(total_sub+hitung_tax,"",0,'.',','));
