@@ -129,4 +129,33 @@ class belanjalangsungController extends Controller
         ]);
       }
     }
+
+    public function hapus(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $data = DB::table('d_belanja_langsung')
+                  ->where('dbl_id', $request->id)
+                  ->get();
+
+        DB::table('d_belanja_langsung')
+          ->where('dbl_id', $request->id)
+          ->delete();
+
+        DB::table('d_belanja_langsung_dt')
+          ->where('dbldt_ref', $data[0]->dbl_code)
+          ->delete();
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
+
+    }
 }

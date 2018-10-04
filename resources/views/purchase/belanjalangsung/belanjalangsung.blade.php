@@ -65,7 +65,7 @@
 											<td align="center">
 												<button type="button" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button>
 												<button type="button" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
-												<button type="button" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
+												<button type="button" onclick="hapus({{$value->dbl_id}})" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
 											</td>
 										</tr>
 									@endforeach
@@ -83,7 +83,53 @@
 @section('extra_script')
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('#datatable').DataTable();
+		var table = $('#datatable').DataTable();
 	});
+
+	function hapus(id){
+    iziToast.show({
+    timeout: false,
+    theme: 'dark',
+    icon: 'fa fa-question',
+    title: 'Hapus?',
+    message: 'Anda yakin ingin menhapus data?,<br>Data yang sudah dihapus tidak bisa dikembalikan!',
+    position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
+    progressBarColor: '#57c7d4',
+    buttons: [
+        ['<button>Ya</button>', function (instance, toast) {
+          waitingDialog.show()
+          $.ajax({
+            type: 'get',
+            data: {id:id},
+            dataType: 'json',
+            url: baseUrl + '/purchase/belanjalangsung/hapus',
+            success : function(result){
+              if (result.status == 'berhasil') {
+                iziToast.success({
+                  icon: 'fa fa-check',
+                  message: 'Berhasil Dihapus!',
+                });
+								setTimeout(function () {
+                              waitingDialog.hide();
+                          }, 500);
+                window.location.reload();                
+              } else if (result.status == 'gagal') {
+                iziToast.warning({
+                  icon: 'fa fa-times',
+                  message: 'Gagal Dihapus!',
+                });
+                setTimeout(function () {
+                              waitingDialog.hide();
+                          }, 500);
+              }
+            }
+          });
+        }, true], // true to focus
+        ['<button>Tidak</button>', function (instance, toast) {
+            instance.hide();
+        }]
+    ],
+});
+}
 	</script>
 @endsection
