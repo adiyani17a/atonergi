@@ -19,7 +19,7 @@
                     <select class="select2 itemedit" name="itemedit" onchange="autoitemedit()" id="itemedit">
                         <option value="">~ Select Item ~</option>
                         @foreach ($item as $key => $value)
-                          <option value="{{$value->i_code}}">{{$value->i_name}} ({{$value->u_unit}})</option>
+                          <option value="{{$value->i_code}}">{{$value->i_code}} - {{$value->i_name}}</option>
                         @endforeach
                     </select>
                 </div>
