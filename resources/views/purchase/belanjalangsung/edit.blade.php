@@ -246,7 +246,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm right dbldt_subtotal" readonly="" name="po_subtotal" id="dbldt_subtotal">
+                        <input type="text" class="form-control form-control-sm right dbldt_subtotal" readonly="" name="po_subtotal" id="dbldt_subtotal" value="{{number_format($dbl[0]->dbl_total,0,',','.')}}">
                       </div>
                     </div>
                     <div class="offset-md-8 col-md-2 col-sm-12 col-xs-12">
@@ -254,7 +254,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm right format_money dbldt_tax" name="dbldt_tax" value="0" id="dbldt_tax">
+                        <input type="text" class="form-control form-control-sm right format_money dbldt_tax" name="dbldt_tax" value="0" id="dbldt_tax" value="{{number_format($dbl[0]->dbl_tax,0,',','.')}}">
                       </div>
                     </div>
                     <div class="offset-md-8 col-md-2 col-sm-12 col-xs-12">
@@ -262,7 +262,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm right format_money total_net" readonly="dbldt_total_net" name="total_net" id="total_net">
+                        <input type="text" class="form-control form-control-sm right format_money total_net" readonly="dbldt_total_net" name="total_net" id="total_net" value="{{number_format($dbl[0]->dbl_total_net,0,',','.')}}">
                       </div>
                     </div>
                   </div>
@@ -287,8 +287,8 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
-    ppn_10();
-    total(counter);
+
+   $('.rp').mask('000,000,000,000,000.00', {reverse: true});
 
    $('#dbl_vendor').change(function(){
 
@@ -305,7 +305,6 @@
     var dbldt_qty         = $("#dbldt_qty");
     var dbldt_item          = $("#dbldt_item");
     var dbldt_kodeitem       = $("#dbldt_kodeitem");
-
 
     $('#dbldt_qty').attr('disabled',true);
     $('#dbldt_kodeitem').change(function(){
@@ -348,7 +347,7 @@
             '<input type="text" name="nama[]" id="namaitem" data="'+i_name+'" class="form-control namaitem form-control-sm" value="'+i_name+'" readonly>',
             '<input type="text" name="qty[]" onkeyup="qtydinamis('+counter+')" class="form-control form-control-sm" id="qty'+counter+'" value="'+i_qty+'">',
             '<input type="text" name="satuan[]" class="form-control form-control-sm" value="'+i_satuan+'" readonly>',
-            '<input type="text" name="price[]" onkeyup="total('+counter+')" class="form-control price form-control-sm rp" id="price'+counter+'" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
+            '<input type="text" name="price[]" onkeyup="total('+counter+')" class="price form-control-sm rp" id="price'+counter+'" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
             '<input type="text" name="total[]" class="form-control form-control-sm total_price" id="total'+counter+'" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
             '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
             '<center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center>'

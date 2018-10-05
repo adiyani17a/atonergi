@@ -326,7 +326,7 @@
             '<input type="text" name="nama[]" id="namaitem" data="'+i_name+'" class="form-control namaitem form-control-sm" value="'+i_name+'" readonly>',
             '<input type="text" name="qty[]" onkeyup="qtydinamis('+counter+')" class="form-control form-control-sm" id="qty'+counter+'" value="'+i_qty+'">',
             '<input type="text" name="satuan[]" class="form-control form-control-sm" value="'+i_satuan+'" readonly>',
-            '<input type="text" name="price[]" onkeyup="total('+counter+')" class="form-control price form-control-sm rp" id="price'+counter+'" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
+            '<input type="text" name="price[]" onkeyup="total('+counter+')" class="price form-control-sm rp" id="price'+counter+'" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
             '<input type="text" name="total[]" class="form-control form-control-sm total_price" id="total'+counter+'" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
             '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
             '<center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center>'
