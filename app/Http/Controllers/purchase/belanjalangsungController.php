@@ -28,6 +28,21 @@ class belanjalangsungController extends Controller
         return view('purchase/belanjalangsung/tambah',compact('vendor','item'));
     }
 
+    public function edit(Request $request)
+    {
+        $vendor = DB::table('m_vendor')->get();
+
+        $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
+
+        $dbl = DB::table('d_belanja_langsung')
+                ->join('m_vendor', 's_kode', '=', 'dbl_vendor')
+                ->where('dbl_id', $request->id)
+                ->get();
+
+        return view('purchase/belanjalangsung/edit',compact('dbl','vendor','item'));
+
+    }
+
 
     public function hub_suplier(Request $request)
     {
