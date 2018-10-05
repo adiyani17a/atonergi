@@ -12,7 +12,7 @@ use Session;
 use App\mMember;
 use Illuminate\Support\Facades\Crypt;
 use Response;
-use PDF;    
+use PDF;
 
 class OrderController extends Controller
 {
@@ -28,8 +28,8 @@ class OrderController extends Controller
           ->where('q_status',1)
           ->orderBy('q_id','DESC')
           ->get();
-        
-        
+
+
         // return $data;
         $data = collect($data);
         // return $data;
@@ -38,7 +38,7 @@ class OrderController extends Controller
                             return '<div class="btn-group">
                                         <a href="'.url('order/salesorder/s_order/detail_salesorder'). '/' . $data->so_id.'" class="btn btn-info btn-sm">Detail</a>
                                         <a onclick="printing(\''.$data->so_id.'\')" style="color:white" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                                    </div>';                               
+                                    </div>';
                         })
                         ->addColumn('none', function ($data) {
                             return '-';
@@ -64,7 +64,7 @@ class OrderController extends Controller
                             }else{
                                 return  '<span class="badge badge-pill badge-success">Printed</span>';
                             }
-                            
+
                         })
                         ->rawColumns(['aksi', 'detail','histori','total','status','dp','remain'])
                         ->addIndexColumn()
@@ -73,13 +73,13 @@ class OrderController extends Controller
     // SALES ORDER
     public function s_order()
     {
-        
+
 
     	return view('order/salesorder/s_order');
     }
 
     public function detail_salesorder($id)
-    {   
+    {
         if (Auth::user()->akses('SALES ORDER','print')) {
             $data = DB::table('d_sales_order')
                       ->join('d_quotation','so_ref','=','q_nota')
@@ -91,7 +91,7 @@ class OrderController extends Controller
             $marketing = DB::table('d_marketing')
                         ->get();
             $market = '';
-            for ($i=0; $i < count($marketing); $i++) { 
+            for ($i=0; $i < count($marketing); $i++) {
                 if ($marketing[$i]->mk_id == $data->q_marketing) {
                     $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
                 }
@@ -110,7 +110,7 @@ class OrderController extends Controller
     }
 
     public function print_salesorder($id)
-    {   
+    {
         if (Auth::user()->akses('SALES ORDER','print')) {
 
             $head = DB::table('d_sales_order')
@@ -137,7 +137,7 @@ class OrderController extends Controller
             $array = [];
 
             if ($tes > 0) {
-              for ($i=0; $i < $tes; $i++) { 
+              for ($i=0; $i < $tes; $i++) {
                 array_push($array, 'a');
               }
             }
@@ -173,14 +173,14 @@ class OrderController extends Controller
                   ->where('q_status',1)
                   ->orderBy('q_id','DESC')
                   ->get();
-        
-        
+
+
         // return $data;
         $data = collect($data);
         // return $data;
         return Datatables::of($data)
                         ->addColumn('aksi', function ($data) {
-                            return '<a href="'.url('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit').'/'.$data->q_id.'" class="btn btn-outline-info btn-sm">Process</a>';                               
+                            return '<a href="'.url('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit').'/'.$data->q_id.'" class="btn btn-outline-info btn-sm">Process</a>';
                         })
                         ->addColumn('none', function ($data) {
                             return '-';
@@ -217,7 +217,7 @@ class OrderController extends Controller
     	return view('order/pembayarandeposit/pembayarandeposit');
     }
     public function detail_pembayarandeposit($id)
-    {   
+    {
 
         $item = DB::table('m_item')
                       ->get();
@@ -244,12 +244,12 @@ class OrderController extends Controller
         $marketing = DB::table('d_marketing')
                         ->get();
 
-        for ($i=0; $i < count($marketing); $i++) { 
+        for ($i=0; $i < count($marketing); $i++) {
             if ($marketing[$i]->mk_id == $data->q_marketing) {
                 $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
             }
         }
-      
+
         $data_dt = DB::table('d_quotation_dt')
                        ->join('m_item','i_code','=','qd_item')
                        ->where('qd_id',$id)
@@ -260,7 +260,7 @@ class OrderController extends Controller
 
     public function save_deposit(request $req)
     {
-        return DB::transaction(function() use ($req) {  
+        return DB::transaction(function() use ($req) {
 
             $data = DB::table('d_quotation')
                       ->where('q_id',$req->id)
@@ -293,7 +293,7 @@ class OrderController extends Controller
                             'so_create_by'  => Auth::user()->m_name,
                           ]);
 
-                $update = DB::table('d_quotation')  
+                $update = DB::table('d_quotation')
                             ->where('q_id',$req->id)
                             ->update([
                                 'q_dp'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
@@ -319,7 +319,7 @@ class OrderController extends Controller
                             'so_update_by'  => Auth::user()->m_name,
                           ]);
 
-                $update = DB::table('d_quotation')  
+                $update = DB::table('d_quotation')
                             ->where('q_id',$req->id)
                             ->update([
                                 'q_dp'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
@@ -327,7 +327,7 @@ class OrderController extends Controller
                             ]);
             }
 
-            
+
             return response()->json(['status' => 1]);
         });
     }
@@ -344,7 +344,7 @@ class OrderController extends Controller
     {
         return view('order/pelunasanorder/detail_pelunasanorder');
     }
-    
+
     public function print_workorder()
     {
         return view('order/workorder/print_workorder');

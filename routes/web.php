@@ -122,6 +122,7 @@ Route::get('/purchase/belanjalangsung/belanjalangsung', 'purchase\belanjalangsun
 Route::get('/purchase/belanjalangsung/tambah_belanjalangsung', 'purchase\belanjalangsungController@tambah_belanjalangsung')->name('tambah_belanjalangsung');
 Route::get('/purchase/belanjalangsung/simpan', 'purchase\belanjalangsungController@simpan');
 Route::get('/purchase/belanjalangsung/hapus', 'purchase\belanjalangsungController@hapus');
+Route::get('/purchase/belanjalangsung/detail', 'purchase\belanjalangsungController@detail');
 Route::get('/purchase/hub_suplier/hub_suplier', 'purchase\belanjalangsungController@hub_suplier')->name('hub_suplier');
 
 // Order

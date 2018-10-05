@@ -89,6 +89,7 @@ class belanjalangsungController extends Controller
                   'dbldt_ref' => $nota,
                   'dbldt_item' => $request->kode[$i],
                   'dbldt_qty' => $request->qty[$i],
+                  'dbldt_unit_price' => $request->price[$i],
                   'dbldt_line_total' => $request->total[$i],
                   'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                 ]);
@@ -100,6 +101,7 @@ class belanjalangsungController extends Controller
                     'dbldt_ref' => $nota,
                     'dbldt_item' => $request->kode[$i],
                     'dbldt_qty' => $request->qty[$i],
+                    'dbldt_unit_price' => $request->price[$i],
                     'dbldt_line_total' => $request->total[$i],
                     'dbldt_ppn' => $request->tax[$i],
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
@@ -111,6 +113,7 @@ class belanjalangsungController extends Controller
                     'dbldt_ref' => $nota,
                     'dbldt_item' => $request->kode[$i],
                     'dbldt_qty' => $request->qty[$i],
+                    'dbldt_unit_price' => $request->price[$i],
                     'dbldt_line_total' => $request->total[$i],
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
@@ -157,5 +160,16 @@ class belanjalangsungController extends Controller
         ]);
       }
 
+    }
+
+    public function detail(Request $request){
+      $data = DB::table('d_belanja_langsung')
+              ->join('d_belanja_langsung_dt', 'dbldt_ref', '=', 'dbl_code')
+              ->join('m_item', 'i_code', '=', 'dbldt_item')
+              ->join('d_unit', 'u_id', '=', 'i_unit')
+              ->where('dbl_id', $request->id)
+              ->get();
+
+      return response()->json($data);
     }
 }
