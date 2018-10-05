@@ -217,8 +217,8 @@
 										'<td>'+result[i].i_name+'</td>'+
 										'<td>'+result[i].dbldt_qty+'</td>'+
 										'<td>'+result[i].u_unit+'</td>'+
-										'<td>'+parseFloat(result[i].dbldt_unit_price)+'</td>'+
-										'<td>'+parseFloat(result[i].dbldt_line_total)+'</td>'+
+										'<td>'+result[i].dbldt_unit_price+'</td>'+
+										'<td>'+result[i].dbldt_line_total+'</td>'+
 										'<td>'+accounting.formatMoney(result[i].dbldt_ppn,"",0,'.',',')+'</td>'+
 										'</tr>';
 					}
