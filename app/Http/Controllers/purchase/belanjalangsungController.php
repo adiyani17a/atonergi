@@ -58,8 +58,8 @@ class belanjalangsungController extends Controller
     }
 
     public function simpan(Request $request){
-      DB::beginTransaction();
-      try {
+      // DB::beginTransaction();
+      // try {
         $id = DB::table('d_belanja_langsung')
               ->max('dbl_id');
 
@@ -81,6 +81,10 @@ class belanjalangsungController extends Controller
         $request->dbldt_tax = str_replace('.','',$request->dbldt_tax);
         $request->total_net = str_replace('.','',$request->total_net);
 
+        $request->po_subtotal = str_replace(',','',$request->po_subtotal);
+        $request->dbldt_tax = str_replace(',','',$request->dbldt_tax);
+        $request->total_net = str_replace(',','',$request->total_net);
+
         DB::table('d_belanja_langsung')
           ->insert([
             'dbl_id' => $id + 1,
@@ -92,9 +96,9 @@ class belanjalangsungController extends Controller
             'dbl_ship_term' => $request->dbl_shipp_term,
             'dbl_delivery_date' => Carbon::parse($request->dbl_shipp_date)->format('Y-m-d'),
             'dbl_created_at' => Carbon::now('Asia/Jakarta'),
-            'dbl_total' => $request->po_subtotal,
-            'dbl_tax' => $request->dbldt_tax,
-            'dbl_total_net' => $request->total_net
+            'dbl_total' => (double)$request->po_subtotal,
+            'dbl_tax' => (double)$request->dbldt_tax,
+            'dbl_total_net' => (double)$request->total_net
           ]);
 
           for ($i=0; $i < count($request->kode); $i++) {
@@ -111,9 +115,9 @@ class belanjalangsungController extends Controller
                   'dbldt_id' => $iddt + 1,
                   'dbldt_ref' => $nota,
                   'dbldt_item' => $request->kode[$i],
-                  'dbldt_qty' => $request->qty[$i],
-                  'dbldt_unit_price' => $request->price[$i],
-                  'dbldt_line_total' => $request->total[$i],
+                  'dbldt_qty' => (double)$request->qty[$i],
+                  'dbldt_unit_price' => (double)$request->price[$i],
+                  'dbldt_line_total' => (double)$request->total[$i],
                   'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                 ]);
             } else {
@@ -123,10 +127,10 @@ class belanjalangsungController extends Controller
                     'dbldt_id' => $iddt + 1,
                     'dbldt_ref' => $nota,
                     'dbldt_item' => $request->kode[$i],
-                    'dbldt_qty' => $request->qty[$i],
-                    'dbldt_unit_price' => $request->price[$i],
-                    'dbldt_line_total' => $request->total[$i],
-                    'dbldt_ppn' => $request->tax[$i],
+                    'dbldt_qty' => (double)$request->qty[$i],
+                    'dbldt_unit_price' => (double)$request->price[$i],
+                    'dbldt_line_total' => (double)$request->total[$i],
+                    'dbldt_ppn' => (double)$request->tax[$i],
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
               } else {
@@ -136,24 +140,24 @@ class belanjalangsungController extends Controller
                     'dbldt_ref' => $nota,
                     'dbldt_item' => $request->kode[$i],
                     'dbldt_qty' => $request->qty[$i],
-                    'dbldt_unit_price' => $request->price[$i],
-                    'dbldt_line_total' => $request->total[$i],
+                    'dbldt_unit_price' => (double)$request->price[$i],
+                    'dbldt_line_total' => (double)$request->total[$i],
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
               }
             }
           }
 
-        DB::commit();
-        return response()->json([
-          'status' => 'berhasil'
-        ]);
-      } catch (\Exception $e) {
-        DB::rollback();
-        return response()->json([
-          'status' => 'gagal'
-        ]);
-      }
+      //   DB::commit();
+      //   return response()->json([
+      //     'status' => 'berhasil'
+      //   ]);
+      // } catch (\Exception $e) {
+      //   DB::rollback();
+      //   return response()->json([
+      //     'status' => 'gagal'
+      //   ]);
+      // }
     }
 
     public function hapus(Request $request){
