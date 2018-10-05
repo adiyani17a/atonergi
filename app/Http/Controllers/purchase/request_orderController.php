@@ -11,6 +11,7 @@ class request_orderController extends Controller
 {
    public function rencanapembelian()
     {   
+        // return 'a';
         $kode = DB::table('d_requestorder')->max('ro_id');
             if ($kode == null) {
                 $kode = 1;
@@ -23,7 +24,7 @@ class request_orderController extends Controller
 
         $vendor = DB::table('m_vendor')->get();
         $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
-
+        // return $item;
         return view('purchase/rencanapembelian/rencanapembelian',compact('vendor','item','nota'));
     }
     public function datatable_rencanapembelian(Request $request)
