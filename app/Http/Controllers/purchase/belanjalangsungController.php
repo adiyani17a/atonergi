@@ -58,8 +58,8 @@ class belanjalangsungController extends Controller
     }
 
     public function simpan(Request $request){
-      // DB::beginTransaction();
-      // try {
+      DB::beginTransaction();
+      try {
         $id = DB::table('d_belanja_langsung')
               ->max('dbl_id');
 
@@ -148,16 +148,16 @@ class belanjalangsungController extends Controller
             }
           }
 
-      //   DB::commit();
-      //   return response()->json([
-      //     'status' => 'berhasil'
-      //   ]);
-      // } catch (\Exception $e) {
-      //   DB::rollback();
-      //   return response()->json([
-      //     'status' => 'gagal'
-      //   ]);
-      // }
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
     }
 
     public function hapus(Request $request){
