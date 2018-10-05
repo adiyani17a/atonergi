@@ -82,6 +82,7 @@
                           </div>
                        </div>
 
+                       <input type="hidden" name="id" value="{{$id}}">
 
                        <div class="col-md-5 col-sm-12 col-xs-12" style="height: 1%;">
 
@@ -125,9 +126,15 @@
                         <div class="form-group" >
                           <select name="dbl_shippinethod">
                             <option selected="" value="">- Pilih -</option>
-                            <option value="Sea">Sea</option>
-                            <option value="Land Freight">Land Freight</option>
-                            <option value="Air Freight">Air Freight</option>
+                            <option value="Sea" @if ($dbl[0]->dbl_ship_method == 'Sea')
+                              selected
+                            @endif>Sea</option>
+                            <option value="Land Freight" @if ($dbl[0]->dbl_ship_method == 'Land Freight')
+                              selected
+                            @endif>Land Freight</option>
+                            <option value="Air Freight" @if ($dbl[0]->dbl_ship_method == 'Air Freight')
+                              selected
+                            @endif>Air Freight</option>
                           </select>
                         </div>
                       </div>
@@ -139,7 +146,7 @@
                       </div>
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-sm" name="dbl_shipp_term">
+                          <input type="text" class="form-control form-control-sm" name="dbl_shipp_term" value="{{$dbl[0]->dbl_ship_term}}">
                         </div>
                       </div>
 
@@ -150,7 +157,7 @@
                       </div>
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <div class="form-group">
-                          <input type="text" class="form-control form-control-sm datepicker" name="dbl_shipp_date">
+                          <input type="text" class="form-control form-control-sm datepicker" name="dbl_shipp_date" value="{{Carbon\Carbon::parse($dbl[0]->dbl_delivery_date)->format('d-m-Y')}}">
                         </div>
                       </div>
                     </div>
@@ -211,7 +218,20 @@
                      </tr>
                    </thead>
                    <tbody>
-
+                     @foreach ($dbldt as $key => $value)
+                      <tr id="key" data="{{$key + 1}}">
+                       <td> <input type="text" name="kode[]" class="form-control form-control-sm" value="{{$value->i_code}}" readonly> </td>
+                       <td> <input type="text" name="nama[]" id="namaitem" data="{{$value->i_name}}" class="form-control namaitem form-control-sm" value="{{$value->i_name}}" readonly> </td>
+                       <td> <input type="text" name="qty[]" onkeyup="qtydinamis({{$key + 1}})" class="form-control form-control-sm" id="qty{{$key + 1}}" value="{{$value->dbldt_qty}}"> </td>
+                       <td> <input type="text" name="satuan[]" class="form-control form-control-sm" value="{{$value->u_unit}}" readonly> </td>
+                       <td> <input type="text" name="price[]" onkeyup="total({{$key + 1}})" class="form-control price form-control-sm rp" id="price{{$key + 1}}" value="{{$value->dbldt_unit_price}}"> </td>
+                       <td> <input type="text" name="total[]" class="form-control form-control-sm total_price" id="total{{$key + 1}}" value="{{$value->dbldt_line_total}}" readonly> </td>
+                       <td> <input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)" @if ($value->dbldt_ppn != null)
+                         checked
+                       @endif> </td>
+                       <td> <center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center> </td>
+                     </tr>
+                     @endforeach
                    </tbody>
                  </table>
                </div>
@@ -251,7 +271,7 @@
                </div>
                 <div align="right" style="margin-top: 15px;">
                   <div id="change_function">
-                    <button class="btn-info btn-sm btn" type="button" id="save_data">Create Belanja Langsung</button>
+                    <button class="btn-info btn-sm btn" type="button" id="save_data">Update Belanja Langsung</button>
                     <a href="{{ route('belanjalangsung') }}" class="btn btn-secondary btn-sm">Back</a>
                   </div>
                 </div>
@@ -267,6 +287,8 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
+    ppn_10();
+    total(counter);
 
    $('#dbl_vendor').change(function(){
 
@@ -278,7 +300,7 @@
 
    });
 
-    var counter = 1;
+    var counter = $('#key').attr('data');
     var table           = $("#t80b").DataTable();
     var dbldt_qty         = $("#dbldt_qty");
     var dbldt_item          = $("#dbldt_item");
@@ -441,7 +463,7 @@
       $.ajax({
         type: 'get',
         data: $('#form-save').serialize(),
-        url: baseUrl + '/purchase/belanjalangsung/simpan',
+        url: baseUrl + '/purchase/belanjalangsung/update',
         dataType: 'json',
         success : function(result){
           if (result.status == 'berhasil') {

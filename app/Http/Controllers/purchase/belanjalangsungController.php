@@ -30,6 +30,8 @@ class belanjalangsungController extends Controller
 
     public function edit(Request $request)
     {
+        $id = $request->id;
+
         $vendor = DB::table('m_vendor')->get();
 
         $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
@@ -39,7 +41,13 @@ class belanjalangsungController extends Controller
                 ->where('dbl_id', $request->id)
                 ->get();
 
-        return view('purchase/belanjalangsung/edit',compact('dbl','vendor','item'));
+        $dbldt = DB::table('d_belanja_langsung_dt')
+                  ->where('dbldt_ref', $dbl[0]->dbl_code)
+                  ->join('m_item', 'i_code', '=', 'dbldt_item')
+                  ->join('d_unit', 'u_id', '=', 'i_unit')
+                  ->get();
+
+        return view('purchase/belanjalangsung/edit',compact('dbldt','dbl','vendor','item','id'));
 
     }
 
@@ -186,5 +194,108 @@ class belanjalangsungController extends Controller
               ->get();
 
       return response()->json($data);
+    }
+
+    public function update(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $data = DB::table('d_belanja_langsung')
+                  ->where('dbl_id', $request->id)
+                  ->get();
+
+        DB::table('d_belanja_langsung')
+          ->where('dbl_id', $request->id)
+          ->delete();
+
+        DB::table('d_belanja_langsung_dt')
+          ->where('dbldt_ref', $data[0]->dbl_code)
+          ->delete();
+
+        $id = $request->id;
+
+        if ($id < 0) {
+          $id = 0;
+        }
+
+        $nota = $data[0]->dbl_code;
+
+        $request->po_subtotal = str_replace('.','',$request->po_subtotal);
+        $request->dbldt_tax = str_replace('.','',$request->dbldt_tax);
+        $request->total_net = str_replace('.','',$request->total_net);
+
+        DB::table('d_belanja_langsung')
+          ->insert([
+            'dbl_id' => $id,
+            'dbl_code' => $nota,
+            'dbl_vendor' => $request->dbl_vendor,
+            'dbl_date' => Carbon::parse($request->dbl_date)->format('Y-m-d'),
+            'dbl_ship_to' => $request->dbl_ship_to,
+            'dbl_ship_method' => $request->dbl_shippinethod,
+            'dbl_ship_term' => $request->dbl_shipp_term,
+            'dbl_delivery_date' => Carbon::parse($request->dbl_shipp_date)->format('Y-m-d'),
+            'dbl_created_at' => Carbon::now('Asia/Jakarta'),
+            'dbl_total' => $request->po_subtotal,
+            'dbl_tax' => $request->dbldt_tax,
+            'dbl_total_net' => $request->total_net
+          ]);
+
+          for ($i=0; $i < count($request->kode); $i++) {
+            $iddt = DB::table('d_belanja_langsung_dt')
+                    ->max('dbldt_id');
+
+            if ($iddt < 0) {
+              $iddt = 0;
+            }
+
+            if ($request->tax[0] == null) {
+              DB::table('d_belanja_langsung_dt')
+                ->insert([
+                  'dbldt_id' => $iddt + 1,
+                  'dbldt_ref' => $nota,
+                  'dbldt_item' => $request->kode[$i],
+                  'dbldt_qty' => $request->qty[$i],
+                  'dbldt_unit_price' => $request->price[$i],
+                  'dbldt_line_total' => $request->total[$i],
+                  'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
+                ]);
+            } else {
+              if ($request->tax[$i] != 'undefined') {
+                DB::table('d_belanja_langsung_dt')
+                  ->insert([
+                    'dbldt_id' => $iddt + 1,
+                    'dbldt_ref' => $nota,
+                    'dbldt_item' => $request->kode[$i],
+                    'dbldt_qty' => $request->qty[$i],
+                    'dbldt_unit_price' => $request->price[$i],
+                    'dbldt_line_total' => $request->total[$i],
+                    'dbldt_ppn' => $request->tax[$i],
+                    'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
+                  ]);
+              } else {
+                DB::table('d_belanja_langsung_dt')
+                  ->insert([
+                    'dbldt_id' => $iddt + 1,
+                    'dbldt_ref' => $nota,
+                    'dbldt_item' => $request->kode[$i],
+                    'dbldt_qty' => $request->qty[$i],
+                    'dbldt_unit_price' => $request->price[$i],
+                    'dbldt_line_total' => $request->total[$i],
+                    'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
+                  ]);
+              }
+            }
+          }
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
     }
 }
