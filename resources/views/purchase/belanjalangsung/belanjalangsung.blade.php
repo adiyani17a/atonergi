@@ -203,6 +203,7 @@
 }
 
 		function detail(id){
+			waitingDialog.show();
 			var html = '';
 			$.ajax({
 				type: 'get',
@@ -216,11 +217,20 @@
 										'<td>'+result[i].i_name+'</td>'+
 										'<td>'+result[i].dbldt_qty+'</td>'+
 										'<td>'+result[i].u_unit+'</td>'+
-										'<td>'+accounting.formatMoney(result[i].dbldt_unit_price,"",0,'.',',')+'</td>'+
-										'<td>'+accounting.formatMoney(result[i].dbldt_line_total,"",0,'.',',')+'</td>'+
+										'<td>'+parseFloat(result[i].dbldt_unit_price)+'</td>'+
+										'<td>'+parseFloat(result[i].dbldt_line_total)+'</td>'+
 										'<td>'+accounting.formatMoney(result[i].dbldt_ppn,"",0,'.',',')+'</td>'+
 										'</tr>';
 					}
+
+					$('#dbldt_subtotal').val(accounting.formatMoney(result[0].dbl_total,"",0,'.',','));
+					$('#dbldt_tax').val(accounting.formatMoney(result[0].dbl_tax,"",0,'.',','));
+					$('#total_net').val(accounting.formatMoney(result[0].dbl_total_net,"",0,'.',','));
+
+					$('#showdata').html(html);
+					setTimeout(function(){
+						waitingDialog.hide();
+					},500);
 				}
 			});
 			$('#detail').modal('show');

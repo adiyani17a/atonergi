@@ -224,11 +224,11 @@
 		total_harga     = total_harga.replace(/[^0-9\-]+/g,"")/100;
 		var limit = total_harga/2;
 		if (amount < limit) {
-			iziToast.warning({
-	            icon: 'fa fa-info',
-	            message: 'Nominal Kurang Dari 50 %!',
-	        });
-	        return false;
+			// iziToast.warning({
+	    //         icon: 'fa fa-info',
+	    //         message: 'Nominal Kurang Dari 50 %!',
+	    //     });
+	    //     return false;
 		}else if(amount > total_harga){
 			iziToast.warning({
 	            icon: 'fa fa-info',
