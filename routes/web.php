@@ -155,7 +155,7 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
     Route::get('/order/workorder/w_order', 'OrderController@w_order');
     Route::get('/order/workorder/datatable_so', 'OrderController@datatable_wo')->name('datatable_wo');
     Route::get('/order/workorder/s_order/detail_workorder/{id}', 'OrderController@detail_workorder');
-    Route::get('/order/workorder/print_workorder/{id}', 'OrderController@print_workorder');
+    Route::get('/order/workorder/print_workorder', 'OrderController@print_workorder');
     // PAYMENT ORDER
     Route::get('/order/payment_order', 'OrderController@payment_order');
     Route::get('/order/payment_order/datatable_payment_order', 'OrderController@datatable_payment_order')->name('datatable_payment_order');
