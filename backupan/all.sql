@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- Host:                         sql151.main-hosting.eu
--- Server version:               10.2.17-MariaDB - MariaDB Server
+-- Host:                         www.raniyagroup.com
+-- Server version:               10.1.35-MariaDB-cll-lve - MariaDB Server
 -- Server OS:                    Linux
 -- HeidiSQL Version:             9.4.0.5125
 -- --------------------------------------------------------
@@ -11,14 +11,14 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping structure for table u949072907_aton.currency
+-- Dumping structure for table raniyagr_atonergi.currency
 CREATE TABLE IF NOT EXISTS `currency` (
   `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `code` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `symbol` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u949072907_aton.currency: ~105 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.currency: ~112 rows (approximately)
 /*!40000 ALTER TABLE `currency` DISABLE KEYS */;
 REPLACE INTO `currency` (`name`, `code`, `symbol`) VALUES
 	('Leke', 'ALL', 'Lek'),
@@ -135,7 +135,7 @@ REPLACE INTO `currency` (`name`, `code`, `symbol`) VALUES
 	('Zimbabwe Dollars', 'ZWD', 'Z$');
 /*!40000 ALTER TABLE `currency` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.districts
+-- Dumping structure for table raniyagr_atonergi.districts
 CREATE TABLE IF NOT EXISTS `districts` (
   `id` char(7) COLLATE utf8_unicode_ci NOT NULL,
   `regency_id` char(4) COLLATE utf8_unicode_ci NOT NULL,
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `districts` (
   CONSTRAINT `districts_regency_id_foreign` FOREIGN KEY (`regency_id`) REFERENCES `regencies` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u949072907_aton.districts: ~7,377 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.districts: ~7,377 rows (approximately)
 /*!40000 ALTER TABLE `districts` DISABLE KEYS */;
 REPLACE INTO `districts` (`id`, `regency_id`, `name`) VALUES
 	('1101010', '1101', 'TEUPAH SELATAN'),
@@ -7365,14 +7365,69 @@ REPLACE INTO `districts` (`id`, `regency_id`, `name`) VALUES
 	('9471040', '9471', 'JAYAPURA UTARA');
 /*!40000 ALTER TABLE `districts` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_daftar_menu
+-- Dumping structure for table raniyagr_atonergi.d_belanja_langsung
+CREATE TABLE IF NOT EXISTS `d_belanja_langsung` (
+  `dbl_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dbl_code` varchar(50) NOT NULL,
+  `dbl_vendor` varchar(50) DEFAULT NULL,
+  `dbl_date` date DEFAULT NULL,
+  `dbl_ship_to` varchar(50) DEFAULT NULL,
+  `dbl_ship_method` varchar(50) DEFAULT NULL,
+  `dbl_ship_term` varchar(50) DEFAULT NULL,
+  `dbl_delivery_date` date DEFAULT NULL,
+  `dbl_created_at` timestamp NULL DEFAULT NULL,
+  `dbl_updated_at` timestamp NULL DEFAULT NULL,
+  `dbl_total` double DEFAULT NULL,
+  `dbl_tax` double DEFAULT NULL,
+  `dbl_total_net` double DEFAULT NULL,
+  PRIMARY KEY (`dbl_id`),
+  UNIQUE KEY `dbl_code` (`dbl_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table raniyagr_atonergi.d_belanja_langsung: ~4 rows (approximately)
+/*!40000 ALTER TABLE `d_belanja_langsung` DISABLE KEYS */;
+REPLACE INTO `d_belanja_langsung` (`dbl_id`, `dbl_code`, `dbl_vendor`, `dbl_date`, `dbl_ship_to`, `dbl_ship_method`, `dbl_ship_term`, `dbl_delivery_date`, `dbl_created_at`, `dbl_updated_at`, `dbl_total`, `dbl_tax`, `dbl_total_net`) VALUES
+	(1, 'BL-001/VDR/00008/1018', 'VDR/00008', '2018-10-05', '100', 'Air Freight', '100', '2018-10-19', '2018-10-05 15:41:29', NULL, 23491080000, 67500000, 23558580000),
+	(2, 'BL-002/VDR/00006/1018', 'VDR/00006', '2018-10-05', '100', 'Air Freight', '100', '2018-10-03', '2018-10-05 15:47:47', NULL, 3040, 303, 3343),
+	(3, 'BL-003/VDR/00006/1018', 'VDR/00006', '2018-10-05', '100', 'Air Freight', '100', '2018-10-03', '2018-10-05 15:42:29', NULL, 2268077200, 7720, 2268084920),
+	(4, 'BL-004/VDR/00010/1018', 'VDR/00010', '2018-10-05', '100', 'Land Freight', '100', '2018-10-18', '2018-10-05 15:49:40', NULL, 6872900, 0, 6872900);
+/*!40000 ALTER TABLE `d_belanja_langsung` ENABLE KEYS */;
+
+-- Dumping structure for table raniyagr_atonergi.d_belanja_langsung_dt
+CREATE TABLE IF NOT EXISTS `d_belanja_langsung_dt` (
+  `dbldt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dbldt_ref` varchar(50) DEFAULT NULL,
+  `dbldt_item` varchar(50) DEFAULT NULL,
+  `dbldt_qty` double DEFAULT NULL,
+  `dbldt_unit_price` double DEFAULT NULL,
+  `dbldt_line_total` double DEFAULT NULL,
+  `dbldt_ppn` double DEFAULT NULL,
+  `dbldt_created_at` datetime DEFAULT NULL,
+  `dbldt_updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`dbldt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table raniyagr_atonergi.d_belanja_langsung_dt: ~8 rows (approximately)
+/*!40000 ALTER TABLE `d_belanja_langsung_dt` DISABLE KEYS */;
+REPLACE INTO `d_belanja_langsung_dt` (`dbldt_id`, `dbldt_ref`, `dbldt_item`, `dbldt_qty`, `dbldt_unit_price`, `dbldt_line_total`, `dbldt_ppn`, `dbldt_created_at`, `dbldt_updated_at`) VALUES
+	(1, 'BL-001/VDR/00008/1018', 'BRG/0494', 100, 67, 675, 67500000, '2018-10-05 15:41:29', NULL),
+	(2, 'BL-001/VDR/00008/1018', 'BRG/0572', 1509, 151, 22.816, NULL, '2018-10-05 15:41:29', NULL),
+	(5, 'BL-003/VDR/00006/1018', 'BND/0413', 100, 7.72, 77.2, 7720, '2018-10-05 15:42:29', NULL),
+	(6, 'BL-003/VDR/00006/1018', 'BRG/0572', 150, 151, 2.268, NULL, '2018-10-05 15:42:29', NULL),
+	(7, 'BL-002/VDR/00006/1018', 'BND/0413', 100, 7.72, 77.2, 77.2, '2018-10-05 15:47:47', NULL),
+	(8, 'BL-002/VDR/00006/1018', 'BRG/0572', 150, 151, 2.268, 226.8, '2018-10-05 15:47:47', NULL),
+	(9, 'BL-004/VDR/00010/1018', 'BRG/0573', 10, 6, 6.75, NULL, '2018-10-05 15:49:40', NULL),
+	(10, 'BL-004/VDR/00010/1018', 'BRG/0014', 100, 12.29, 122.9, NULL, '2018-10-05 15:49:40', NULL);
+/*!40000 ALTER TABLE `d_belanja_langsung_dt` ENABLE KEYS */;
+
+-- Dumping structure for table raniyagr_atonergi.d_daftar_menu
 CREATE TABLE IF NOT EXISTS `d_daftar_menu` (
   `dm_id` int(11) DEFAULT NULL,
   `dm_nama` varchar(50) DEFAULT NULL,
   `dm_group` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_daftar_menu: ~57 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_daftar_menu: ~60 rows (approximately)
 /*!40000 ALTER TABLE `d_daftar_menu` DISABLE KEYS */;
 REPLACE INTO `d_daftar_menu` (`dm_id`, `dm_nama`, `dm_group`) VALUES
 	(1, 'SETTING LEVEL ACCOUNT', 1),
@@ -7437,14 +7492,14 @@ REPLACE INTO `d_daftar_menu` (`dm_id`, `dm_nama`, `dm_group`) VALUES
 	(60, 'LOWER PRICE', 3);
 /*!40000 ALTER TABLE `d_daftar_menu` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_grup_menu
+-- Dumping structure for table raniyagr_atonergi.d_grup_menu
 CREATE TABLE IF NOT EXISTS `d_grup_menu` (
   `gm_id` int(11) NOT NULL,
   `gm_nama` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`gm_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_grup_menu: ~11 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_grup_menu: ~11 rows (approximately)
 /*!40000 ALTER TABLE `d_grup_menu` DISABLE KEYS */;
 REPLACE INTO `d_grup_menu` (`gm_id`, `gm_nama`) VALUES
 	(1, 'Setting'),
@@ -7460,7 +7515,7 @@ REPLACE INTO `d_grup_menu` (`gm_id`, `gm_nama`) VALUES
 	(11, 'Manajemen Aset');
 /*!40000 ALTER TABLE `d_grup_menu` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_hak_akses
+-- Dumping structure for table raniyagr_atonergi.d_hak_akses
 CREATE TABLE IF NOT EXISTS `d_hak_akses` (
   `ha_id` int(11) NOT NULL,
   `ha_dt` int(11) NOT NULL,
@@ -7474,7 +7529,7 @@ CREATE TABLE IF NOT EXISTS `d_hak_akses` (
   PRIMARY KEY (`ha_id`,`ha_dt`,`ha_level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_hak_akses: ~114 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_hak_akses: ~120 rows (approximately)
 /*!40000 ALTER TABLE `d_hak_akses` DISABLE KEYS */;
 REPLACE INTO `d_hak_akses` (`ha_id`, `ha_dt`, `ha_level`, `ha_menu`, `aktif`, `tambah`, `ubah`, `hapus`, `print`) VALUES
 	(1, 1, 'ADMIN KEUANGAN', 'SETTING LEVEL ACCOUNT', b'1', b'1', b'1', b'1', b'1'),
@@ -7599,7 +7654,7 @@ REPLACE INTO `d_hak_akses` (`ha_id`, `ha_dt`, `ha_level`, `ha_menu`, `aktif`, `t
 	(60, 60, 'SUPERUSER', 'LOWER PRICE', b'1', b'0', b'0', b'0', b'0');
 /*!40000 ALTER TABLE `d_hak_akses` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_jabatan
+-- Dumping structure for table raniyagr_atonergi.d_jabatan
 CREATE TABLE IF NOT EXISTS `d_jabatan` (
   `j_id` int(11) NOT NULL,
   `j_nama` varchar(50) DEFAULT NULL,
@@ -7611,34 +7666,34 @@ CREATE TABLE IF NOT EXISTS `d_jabatan` (
   PRIMARY KEY (`j_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_jabatan: ~2 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_jabatan: ~2 rows (approximately)
 /*!40000 ALTER TABLE `d_jabatan` DISABLE KEYS */;
 REPLACE INTO `d_jabatan` (`j_id`, `j_nama`, `j_keterangan`, `j_created_at`, `j_updated_at`, `j_created_by`, `j_updated_by`) VALUES
 	(1, 'SUPERUSER', 'ADMIN', NULL, NULL, NULL, NULL),
 	(2, 'ADMIN KEUANGAN', 'ADMIN', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `d_jabatan` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_marketing
+-- Dumping structure for table raniyagr_atonergi.d_marketing
 CREATE TABLE IF NOT EXISTS `d_marketing` (
   `mk_id` int(11) NOT NULL,
   `mk_code` varchar(50) DEFAULT NULL,
   `mk_name` varchar(50) DEFAULT NULL,
-  `mk_phone` int(11) DEFAULT NULL,
-  `mk_address` int(11) DEFAULT NULL,
-  `mk_email` int(11) DEFAULT NULL,
-  `mk_information` int(11) DEFAULT NULL,
-  `mk_type` int(11) DEFAULT NULL,
+  `mk_phone` varchar(50) DEFAULT NULL,
+  `mk_address` varchar(500) DEFAULT NULL,
+  `mk_email` varchar(500) DEFAULT NULL,
+  `mk_information` varchar(500) DEFAULT NULL,
+  `mk_type` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`mk_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_marketing: ~2 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_marketing: ~1 rows (approximately)
 /*!40000 ALTER TABLE `d_marketing` DISABLE KEYS */;
 REPLACE INTO `d_marketing` (`mk_id`, `mk_code`, `mk_name`, `mk_phone`, `mk_address`, `mk_email`, `mk_information`, `mk_type`) VALUES
-	(1, 'mk/1', 'bagus', 1, 1, 1, 1, NULL),
-	(2, 'mk/2', 'adinda', 1, 1, 1, 1, NULL);
+	(3, 'MKT/00003', 'Rudy Wijaya', '082143507979', '-', '-', '-', 'sales'),
+	(4, 'MKT/00004', 'Ardiyanto Indrskusuma', '081293101053', '-', '-', '-', 'sales');
 /*!40000 ALTER TABLE `d_marketing` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_mem
+-- Dumping structure for table raniyagr_atonergi.d_mem
 CREATE TABLE IF NOT EXISTS `d_mem` (
   `m_id` int(11) NOT NULL,
   `m_username` varchar(50) DEFAULT NULL,
@@ -7646,23 +7701,23 @@ CREATE TABLE IF NOT EXISTS `d_mem` (
   `m_name` varchar(50) DEFAULT NULL,
   `m_jabatan` varchar(20) NOT NULL,
   `m_image` varchar(50) DEFAULT NULL,
-  `m_created_at` timestamp NULL DEFAULT current_timestamp(),
-  `m_updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `m_created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `m_updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `m_last_login` timestamp NULL DEFAULT NULL,
   `m_last_logout` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`m_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_mem: ~3 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_mem: ~4 rows (approximately)
 /*!40000 ALTER TABLE `d_mem` DISABLE KEYS */;
 REPLACE INTO `d_mem` (`m_id`, `m_username`, `m_password`, `m_name`, `m_jabatan`, `m_image`, `m_created_at`, `m_updated_at`, `m_last_login`, `m_last_logout`) VALUES
-	(1, 'admin', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'admin', 'SUPERUSER', 'user_1_.jpg', '2018-05-08 23:22:46', '2018-09-18 10:03:55', '2018-09-18 10:03:55', NULL),
+	(1, 'admin', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'admin', 'SUPERUSER', 'user_1_.jpg', '2018-05-08 23:22:46', '2018-10-05 15:14:18', '2018-10-05 15:14:18', NULL),
 	(2, 'shitta', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'shitta', 'ADMIN KEUANGAN', 'user_2_.jpg', '2018-05-09 00:04:24', '2018-05-09 00:04:24', NULL, NULL),
 	(3, 'admin1', '47e3896af5f3d18dbce321283dd9af0197f8c0e4', 'her', 'SUPERUSER', 'user_3_.jpg', '2018-05-18 05:27:37', '2018-05-18 13:35:33', '2018-05-18 13:35:06', NULL),
 	(4, 'rudy', 'b570698f121df21dc685180fecc8e7b36f508e0f', 'Rudy', 'SUPERUSER', 'user_4_.jpg', '2018-07-17 03:01:26', '2018-08-15 13:45:57', '2018-08-15 13:45:57', NULL);
 /*!40000 ALTER TABLE `d_mem` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_npenawaran
+-- Dumping structure for table raniyagr_atonergi.d_npenawaran
 CREATE TABLE IF NOT EXISTS `d_npenawaran` (
   `np_kode` varchar(50) DEFAULT NULL,
   `np_id` int(11) DEFAULT NULL,
@@ -7675,14 +7730,14 @@ CREATE TABLE IF NOT EXISTS `d_npenawaran` (
   `np_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_npenawaran: ~2 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_npenawaran: ~2 rows (approximately)
 /*!40000 ALTER TABLE `d_npenawaran` DISABLE KEYS */;
 REPLACE INTO `d_npenawaran` (`np_kode`, `np_id`, `np_flag`, `np_kodeitem`, `np_marketing`, `np_price`, `np_lowerlimit`, `np_insert`, `np_update`) VALUES
 	('NPN/00006', 1, NULL, 'BRG/0001', 'mk/1', 300000.00, 1000000.00, '2018-05-24 12:14:47', '2018-05-24 02:13:31'),
 	('NPN/00009', 2, NULL, 'BRG/0002', 'mk/1', 500000.00, 123123123.00, '2018-05-24 01:04:08', NULL);
 /*!40000 ALTER TABLE `d_npenawaran` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_penerimaan_barang
+-- Dumping structure for table raniyagr_atonergi.d_penerimaan_barang
 CREATE TABLE IF NOT EXISTS `d_penerimaan_barang` (
   `pb_id` int(11) DEFAULT NULL,
   `pb_code` varchar(50) DEFAULT NULL,
@@ -7696,11 +7751,11 @@ CREATE TABLE IF NOT EXISTS `d_penerimaan_barang` (
   `pb_update_by` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_penerimaan_barang: ~0 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_penerimaan_barang: ~1 rows (approximately)
 /*!40000 ALTER TABLE `d_penerimaan_barang` DISABLE KEYS */;
 /*!40000 ALTER TABLE `d_penerimaan_barang` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_penerimaan_barang_dt
+-- Dumping structure for table raniyagr_atonergi.d_penerimaan_barang_dt
 CREATE TABLE IF NOT EXISTS `d_penerimaan_barang_dt` (
   `pbdt_id` int(11) DEFAULT NULL,
   `pbdt_code` varchar(50) DEFAULT NULL,
@@ -7714,11 +7769,11 @@ CREATE TABLE IF NOT EXISTS `d_penerimaan_barang_dt` (
   `pbdt_update_by` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_penerimaan_barang_dt: ~0 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_penerimaan_barang_dt: ~0 rows (approximately)
 /*!40000 ALTER TABLE `d_penerimaan_barang_dt` DISABLE KEYS */;
 /*!40000 ALTER TABLE `d_penerimaan_barang_dt` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_purchaseorder
+-- Dumping structure for table raniyagr_atonergi.d_purchaseorder
 CREATE TABLE IF NOT EXISTS `d_purchaseorder` (
   `po_id` int(11) DEFAULT NULL,
   `po_code` varchar(50) DEFAULT NULL,
@@ -7738,28 +7793,29 @@ CREATE TABLE IF NOT EXISTS `d_purchaseorder` (
   `po_print` varchar(1) DEFAULT 'F'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_purchaseorder: ~0 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_purchaseorder: ~2 rows (approximately)
 /*!40000 ALTER TABLE `d_purchaseorder` DISABLE KEYS */;
 REPLACE INTO `d_purchaseorder` (`po_id`, `po_code`, `po_date`, `po_shipping_method`, `po_shipping_term`, `po_shipping_to`, `po_nomor_ro`, `po_delivery_date`, `po_insert`, `po_update`, `po_subtotal`, `po_sales_tax`, `po_total_net`, `po_vendor`, `po_status`, `po_print`) VALUES
 	(1, 'PO-001/VDR/00004/0718', '2018-07-17', NULL, NULL, NULL, 'RO-003/0718', '1970-01-01', '2018-07-17 01:04:38', NULL, 13530000, 0, 13530000, 'VDR/00004', 'F', 'T'),
-	(2, 'PO-002/VDR/00004/0818', '2018-08-14', 'DARAT', '1week', 'jakarta', 'RO-004/0818', '2018-08-30', '2018-08-14 03:47:02', NULL, 136500000, 0, 136500000, 'VDR/00004', 'F', 'T');
+	(2, 'PO-002/VDR/00004/0818', '2018-08-14', 'DARAT', '1week', 'jakarta', 'RO-004/0818', '2018-08-30', '2018-08-14 03:47:02', NULL, 136500000, 0, 136500000, 'VDR/00004', 'F', 'T'),
+	(3, 'PO-003/VDR/00012/1018', '2018-10-01', 'DARAT', 'credit', 'tes aja', 'RO-005/1018', '2018-11-05', '2018-10-01 12:32:29', NULL, 168, 0, 168, 'VDR/00012', 'F', 'T');
 /*!40000 ALTER TABLE `d_purchaseorder` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_purchaseorder_dt
+-- Dumping structure for table raniyagr_atonergi.d_purchaseorder_dt
 CREATE TABLE IF NOT EXISTS `d_purchaseorder_dt` (
   `podt_id` int(11) DEFAULT NULL,
   `podt_code` varchar(50) DEFAULT NULL,
   `podt_item` varchar(50) DEFAULT NULL,
-  `podt_price` double DEFAULT 0,
-  `podt_unit_price` double DEFAULT 0,
-  `podt_qty` int(20) DEFAULT 0,
+  `podt_price` double DEFAULT '0',
+  `podt_unit_price` double DEFAULT '0',
+  `podt_qty` int(20) DEFAULT '0',
   `podt_insert` timestamp NULL DEFAULT NULL,
   `podt_status` varchar(1) DEFAULT 'F',
   `podt_update` timestamp NULL DEFAULT NULL,
-  `podt_qty_approved` int(20) DEFAULT 0
+  `podt_qty_approved` int(20) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_purchaseorder_dt: ~6 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_purchaseorder_dt: ~9 rows (approximately)
 /*!40000 ALTER TABLE `d_purchaseorder_dt` DISABLE KEYS */;
 REPLACE INTO `d_purchaseorder_dt` (`podt_id`, `podt_code`, `podt_item`, `podt_price`, `podt_unit_price`, `podt_qty`, `podt_insert`, `podt_status`, `podt_update`, `podt_qty_approved`) VALUES
 	(1, 'PO-001/VDR/00004/0718', 'BRG/0002', 3500000, 3500000, 0, '2018-07-17 01:04:38', 'F', NULL, 1),
@@ -7767,18 +7823,21 @@ REPLACE INTO `d_purchaseorder_dt` (`podt_id`, `podt_code`, `podt_item`, `podt_pr
 	(3, 'PO-001/VDR/00004/0718', 'BRG/0004', 10000000, 5000000, 0, '2018-07-17 01:04:38', 'F', NULL, 2),
 	(1, 'PO-002/VDR/00004/0818', 'BRG/0002', 35000000, 3500000, 0, '2018-08-14 03:47:02', 'F', NULL, 10),
 	(2, 'PO-002/VDR/00004/0818', 'BRG/0004', 100000000, 5000000, 0, '2018-08-14 03:47:02', 'F', NULL, 20),
-	(3, 'PO-002/VDR/00004/0818', 'BRG/0003', 1500000, 15000, 0, '2018-08-14 03:47:02', 'F', NULL, 100);
+	(3, 'PO-002/VDR/00004/0818', 'BRG/0003', 1500000, 15000, 0, '2018-08-14 03:47:02', 'F', NULL, 100),
+	(1, 'PO-003/VDR/00012/1018', 'BRG/0001', 117, 117, 0, '2018-10-01 12:32:29', 'F', NULL, 1),
+	(2, 'PO-003/VDR/00012/1018', 'BRG/0004', 33, 11, 0, '2018-10-01 12:32:29', 'F', NULL, 3),
+	(3, 'PO-003/VDR/00012/1018', 'BRG/0005', 18, 9, 0, '2018-10-01 12:32:29', 'F', NULL, 2);
 /*!40000 ALTER TABLE `d_purchaseorder_dt` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_quotation
+-- Dumping structure for table raniyagr_atonergi.d_quotation
 CREATE TABLE IF NOT EXISTS `d_quotation` (
   `q_id` int(11) NOT NULL,
   `q_nota` varchar(50) DEFAULT NULL,
   `q_subtotal` double DEFAULT NULL,
   `q_tax` double DEFAULT NULL,
   `q_total` double DEFAULT NULL,
-  `q_dp` double DEFAULT 0,
-  `q_remain` double DEFAULT 0,
+  `q_dp` double DEFAULT '0',
+  `q_remain` double DEFAULT '0',
   `q_customer` varchar(50) DEFAULT NULL,
   `q_address` varchar(150) DEFAULT NULL,
   `q_type` varchar(50) DEFAULT NULL,
@@ -7790,26 +7849,74 @@ CREATE TABLE IF NOT EXISTS `d_quotation` (
   `q_ship_to` varchar(50) DEFAULT NULL,
   `q_marketing` varchar(50) DEFAULT NULL,
   `q_status` int(10) DEFAULT NULL,
-  `q_created_at` datetime DEFAULT current_timestamp(),
-  `q_updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `q_created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `q_updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `q_update_by` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`q_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_quotation: ~1 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_quotation: ~53 rows (approximately)
 /*!40000 ALTER TABLE `d_quotation` DISABLE KEYS */;
 REPLACE INTO `d_quotation` (`q_id`, `q_nota`, `q_subtotal`, `q_tax`, `q_total`, `q_dp`, `q_remain`, `q_customer`, `q_address`, `q_type`, `q_type_product`, `q_shipping_method`, `q_date`, `q_term`, `q_delivery`, `q_ship_to`, `q_marketing`, `q_status`, `q_created_at`, `q_updated_at`, `q_update_by`) VALUES
-	(1, 'QO-001/ACC/ACC-LO/092018', 7000000, 0, 7000000, 0, 0, 'MKT/00036', 'KUPANG', 'ACC', 'ACC-LO', 'Land Freight', '2018-09-18', '2 Weeks', '2018-09-18', 'Waikabubak, NTT', '--Select Marketing--', 2, '2018-09-18 10:26:26', '2018-09-18 03:26:26', 'admin'),
-	(2, 'QO-001/ACC/ACC-IN/092018', 8100000, 0, 8100000, 0, 0, 'MKT/00188', 'BOGOR', 'ACC', 'ACC-IN', 'Land Freight', '2018-09-18', '3 Days', '2018-09-18', 'Waikabubak, NTT', '--Select Marketing--', 2, '2018-09-18 11:18:54', '2018-09-18 04:18:54', 'admin'),
-	(3, 'QO-002/ACC/ACC-IN/092018', 8100000, 0, 8100000, 0, 0, 'MKT/00195', 'Sumatra Barat, NTT', 'ACC', 'ACC-IN', 'Land Freight', '2018-09-18', '3 Days', '2018-09-18', 'Waikabubak, NTT', '--Select Marketing--', 2, '2018-09-18 11:39:54', '2018-09-18 04:39:54', 'admin'),
-	(4, 'QO-002/ACC/ACC-LO/092018', 85840000, 0, 85840000, 0, 0, 'MKT/00020', 'Jl. Bulak Cumpat Barat 6 No.14 Surabaya', 'ACC', 'ACC-LO', 'Air Freight', '2018-09-18', '2 Weeks', '2018-09-18', 'KAPUAS', '--Select Marketing--', 2, '2018-09-18 11:45:13', '2018-09-18 04:45:13', 'admin'),
-	(5, 'QO-003/ACC/ACC-LO/092018', 1147000000, 0, 1147000000, 0, 0, 'MKT/00025', 'Jl. Jemursari Regency Blok C-1, Surabaya\r\nAlamat Kantor : Komplek Pertokoan Semarang Indah Permai\r\nJl. Semarang Blok A36 No.96D, Bubutan, Surabaya', 'ACC', 'ACC-LO', 'Land Freight', '2018-09-18', '1 Days', '2018-09-18', 'SURABAYA', '0', 2, '2018-09-18 11:51:33', '2018-09-18 05:00:04', 'admin'),
-	(6, 'QO-004/ACC/ACC-LO/092018', 435800, 0, 435800, 0, 0, 'MKT/00010', 'Jl. Tambak Deres 5 No. 19 Kec Bulak Kel. Kenjeran Surabaya', 'ACC', 'ACC-LO', 'Land Freight', '2018-09-18', '0', '2018-09-18', '0', '--Select Marketing--', 2, '2018-09-18 11:54:18', '2018-09-18 04:54:18', 'admin'),
-	(7, 'QO-003/ACC/ACC-IN/092018', 7080000000, 0, 7080000000, 0, 0, 'MKT/00196', 'MALAKA, ATAMBUA', 'ACC', 'ACC-IN', 'Land Freight', '2018-09-18', '1 Month', '2018-09-18', 'MALAKA, ATAMBUA', '0', 2, '2018-09-18 12:07:44', '2018-09-18 05:08:40', 'admin'),
-	(8, 'QO-005/ACC/ACC-LO/092018', 18000000, 0, 18000000, 0, 0, 'MKT/00015', 'Dharmahusada Permai\r\nGg. 6 No. 27 Blok N 212 Surabaya', 'ACC', 'ACC-LO', 'Air Freight', '2018-09-18', '1 weeks', '2018-09-18', '0', '--Select Marketing--', 2, '2018-09-18 12:13:44', '2018-09-18 05:13:44', 'admin');
+	(1, 'QO-001/ACC/ACC-LO/092018', 2900000, 0, 2900000, 0, 0, 'MKT/00036', 'KUPANG', 'ACC', 'ACC-LO', 'Land Freight', '2018-09-18', '2 Weeks', '2018-09-18', 'Waikabubak, NTT', '0', 2, '2018-09-18 10:26:26', '2018-09-21 13:43:04', 'admin'),
+	(3, 'QO-002/ACC/ACC-IN/092018', 8700000, 0, 8700000, 0, 0, 'MKT/00195', 'Sumatra Barat, NTT', 'ACC', 'ACC-IN', 'Land Freight', '2018-09-18', '3 Days', '2018-09-18', 'Waikabubak, NTT', '0', 2, '2018-09-18 11:39:54', '2018-09-21 14:43:22', 'admin'),
+	(4, 'QO-002/ACC/ACC-LO/092018', 87500000, 0, 87500000, 0, 0, 'MKT/00020', 'Jl. Bulak Cumpat Barat 6 No.14 Surabaya', 'ACC', 'ACC-LO', 'Air Freight', '2018-09-18', '2 Weeks', '2018-09-18', 'KAPUAS', '0', 2, '2018-09-18 11:45:13', '2018-09-21 15:06:48', 'admin'),
+	(5, 'QO-003/ACC/ACC-LO/092018', 8500000, 0, 8500000, 0, 0, 'MKT/00025', 'Jl. Jemursari Regency Blok C-1, Surabaya\r\nAlamat Kantor : Komplek Pertokoan Semarang Indah Permai\r\nJl. Semarang Blok A36 No.96D, Bubutan, Surabaya', 'ACC', 'ACC-LO', 'Land Freight', '2018-09-18', '1 Days', '2018-09-18', 'SURABAYA', '0', 2, '2018-09-18 11:51:33', '2018-09-21 15:21:51', 'admin'),
+	(6, 'QO-004/ACC/ACC-LO/092018', 525000, 0, 525000, 0, 0, 'MKT/00010', 'Jl. Tambak Deres 5 No. 19 Kec Bulak Kel. Kenjeran Surabaya', 'ACC', 'ACC-LO', 'Land Freight', '2018-09-18', '0', '2018-09-18', '0', '0', 2, '2018-09-18 11:54:18', '2018-09-21 15:27:13', 'admin'),
+	(7, 'QO-003/ACC/ACC-IN/092018', 70800000, 0, 70800000, 0, 0, 'MKT/00196', 'MALAKA, ATAMBUA', 'ACC', 'ACC-IN', 'Land Freight', '2018-09-18', '1 Month', '2018-09-18', 'MALAKA, ATAMBUA', '0', 2, '2018-09-18 12:07:44', '2018-09-21 15:34:54', 'admin'),
+	(8, 'QO-005/ACC/ACC-LO/092018', 18000000, 0, 18000000, 0, 0, 'MKT/00015', 'Dharmahusada Permai\r\nGg. 6 No. 27 Blok N 212 Surabaya', 'ACC', 'ACC-LO', 'Air Freight', '2018-09-18', '1 weeks', '2018-09-18', '0', '0', 2, '2018-09-18 12:13:44', '2018-09-21 15:40:13', 'admin'),
+	(11, 'QO-002/OFD/OFG/092018', 142500000, 0, 142500000, 0, 0, 'MKT/00198', 'Surabaya', 'OFD', 'OFG', 'Land Freight', '2018-09-21', '2 Weeks', '2018-09-21', 'Surabaya', '--Select Marketing--', 2, '2018-09-21 10:39:50', '2018-09-21 10:39:50', 'admin'),
+	(12, 'QO-003/OFD/OFG/092018', 823740000, 0, 823740000, 0, 0, 'MKT/00197', 'SURABAYA', 'OFD', 'OFG', 'Land Freight', '2018-09-21', '2 Weeks', '2018-09-21', 'Surabaya', '--Select Marketing--', 1, '2018-09-21 11:06:19', '2018-09-21 15:04:57', 'admin'),
+	(13, 'QO-004/ACC/ACC-IN/092018', 8700000, 0, 8700000, 4500000, 4200000, 'MKT/00188', 'BOGOR', 'ACC', 'ACC-IN', 'Land Freight', '2018-09-21', '3 Days', '2018-09-21', 'Waikabubak, NTT', '0', 1, '2018-09-21 13:55:42', '2018-09-26 14:20:29', 'admin'),
+	(14, 'QO-004/OFD/OFG/092018', 538280000, 0, 538280000, 0, 0, 'MKT/00197', 'SURABAYA', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '2 Weeks', '2018-09-18', 'Surabaya', '--Select Marketing--', 2, '2018-09-24 11:52:11', '2018-09-24 11:52:11', 'admin'),
+	(15, 'QO-005/OFD/OFG/092018', 117896000, 0, 117896000, 0, 0, 'MKT/00197', 'SURABAYA', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '2 Weeks', '2018-09-18', 'Surabaya', '--Select Marketing--', 2, '2018-09-24 12:05:05', '2018-09-24 12:05:05', 'admin'),
+	(16, 'QO-006/OFD/OFG/092018', 30600000, 0, 30600000, 0, 0, 'MKT/00197', 'SURABAYA', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '2 Weeks', '2018-09-18', 'Surabaya', '--Select Marketing--', 2, '2018-09-24 12:12:20', '2018-09-24 12:12:20', 'admin'),
+	(17, 'QO-007/OFD/OFG/092018', 207780000, 0, 207780000, 0, 0, 'MKT/00199', 'JAKARTA', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '2 Weeks', '2018-09-18', 'USA', '--Select Marketing--', 2, '2018-09-24 12:48:08', '2018-09-24 12:48:08', 'admin'),
+	(18, 'QO-008/OFD/OFG/092018', 29950000, 0, 29950000, 0, 0, 'MKT/00199', 'JAKARTA', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '2 Weeks', '2018-09-18', 'USA', '--Select Marketing--', 2, '2018-09-24 14:27:23', '2018-09-24 14:27:23', 'admin'),
+	(19, 'QO-009/OFD/OFG/092018', 29800000, 0, 29800000, 0, 0, 'MKT/00177', 'Koordinator Sparc\r\nJl. Jendral Soeharto No. 42 (Kantor Bappeda)\r\nWaingapu, Sumba Timur', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '2 WEEKS', '2018-09-18', 'WANGIPAU', '--Select Marketing--', 2, '2018-09-24 14:40:39', '2018-09-24 14:40:39', 'admin'),
+	(20, 'QO-010/OFD/OFG/092018', 260762000, 0, 260762000, 0, 0, 'MKT/00177', 'Koordinator Sparc\r\nJl. Jendral Soeharto No. 42 (Kantor Bappeda)\r\nWaingapu, Sumba Timur', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '2 weeks', '2018-09-18', 'WANGIPAU', '--Select Marketing--', 2, '2018-09-24 15:29:42', '2018-09-24 15:29:42', 'admin'),
+	(21, 'QO-011/OFD/OFG/092018', 19800000, 0, 19800000, 0, 0, 'MKT/00197', 'SURABAYA', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '2 WEEKS', '2018-09-18', 'SURABAYA', '--Select Marketing--', 2, '2018-09-24 16:06:32', '2018-09-24 16:06:32', 'admin'),
+	(22, 'QO-012/OFD/OFG/092018', 156600000, 0, 156600000, 0, 0, 'MKT/00081', 'SIDOARJO', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '4 WEEKS', '2018-09-18', 'SURABAYA', '--Select Marketing--', 2, '2018-09-24 16:24:10', '2018-09-24 16:24:10', 'admin'),
+	(23, 'QO-013/OFD/OFG/092018', 170820000, 0, 170820000, 0, 0, 'MKT/00200', 'SURABAYA', 'OFD', 'OFG', 'Land Freight', '2018-09-24', '4 WEEKS', '2018-09-18', 'SURABAYA', '--Select Marketing--', 2, '2018-09-24 16:43:20', '2018-09-24 16:43:20', 'admin'),
+	(24, 'QO-014/OFD/OFG/092018', 16500000, 0, 16500000, 0, 0, 'MKT/00201', 'SURABAYA', 'OFD', 'OFG', 'Land Freight', '2018-09-25', '4 WEEKS', '2018-09-18', 'SURABAYA', '--Select Marketing--', 2, '2018-09-25 10:12:19', '2018-09-25 10:12:19', 'admin'),
+	(25, 'QO-015/OFD/OFG/092018', 30000000, 0, 30000000, 0, 0, 'MKT/00201', 'SURABAYA', 'OFD', 'OFG', 'Land Freight', '2018-09-25', '4 WEEEKS', '2018-09-18', 'SURABAYA', '--Select Marketing--', 2, '2018-09-25 10:21:41', '2018-09-25 10:21:41', 'admin'),
+	(26, 'QO-001/ONG/ONG/092018', 346020000, 0, 346020000, 0, 0, 'MKT/00197', 'SURABAYA', 'ONG', 'ONG', 'Land Freight', '2018-09-25', '2 WEEKS', '2018-09-18', 'SURABAYA', '--Select Marketing--', 2, '2018-09-25 10:44:43', '2018-09-25 10:44:43', 'admin'),
+	(27, 'QO-002/ONG/ONG/092018', 123020000, 0, 123020000, 0, 0, 'MKT/00197', 'SURABAYA', 'ONG', 'ONG', 'Land Freight', '2018-09-25', '2 WEEKS', '2018-09-18', 'SURABAYA', '--Select Marketing--', 2, '2018-09-25 10:55:31', '2018-09-25 10:55:31', 'admin'),
+	(28, 'QO-001/SWP/SWP/092018', 27510500, 0, 27510500, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-25', '2 WEEKS', '2018-01-09', 'BOGOR', '--Select Marketing--', 1, '2018-09-25 13:22:55', '2018-09-26 15:51:48', 'admin'),
+	(29, 'QO-002/SWP/SWP/092018', 17900000, 0, 17900000, 0, 0, 'MKT/00182', 'SURABAYA', 'SWP', 'SWP', 'Land Freight', '2018-09-25', '2 WEEKS', '2018-01-17', 'SURABAYA', '--Select Marketing--', 1, '2018-09-25 13:53:17', '2018-09-26 15:53:53', 'admin'),
+	(30, 'QO-003/SWP/SWP/092018', 18000000, 0, 18000000, 0, 0, 'MKT/00037', 'Jl. Raja Alam 1 Rt. 02 No. 34\r\nKel. Sambaliung Tanjung Redep Kab. Berau\r\nKalimantan Timur', 'SWP', 'SWP', 'Sea', '2018-09-25', '2 WEEKS', '2018-02-02', 'KALIMANTAN', '0', 1, '2018-09-25 13:59:00', '2018-09-26 15:55:07', 'admin'),
+	(31, 'QO-004/SWP/SWP/092018', 18500000, 0, 18500000, 0, 0, 'MKT/00030', 'WAINGAPU', 'SWP', 'SWP', 'Land Freight', '2018-09-25', '2 WEEKS', '2018-02-12', 'SUMBA', '--Select Marketing--', 1, '2018-09-25 14:04:11', '2018-09-26 15:56:07', 'admin'),
+	(32, 'QO-005/SWP/SWP/092018', 45000000, 0, 45000000, 0, 0, 'MKT/00179', 'Pulau Lakor Desa Sera, Kab. Maluku Barat Daya', 'SWP', 'SWP', 'Land Freight', '2018-09-25', '2 WEEKS', '2018-02-19', 'AMBON', '--Select Marketing--', 1, '2018-09-25 14:28:08', '2018-09-26 15:56:45', 'admin'),
+	(34, 'QO-007/SWP/SWP/092018', 24568000, 0, 24568000, 0, 0, 'MKT/00030', 'WAINGAPU', 'SWP', 'SWP', 'Land Freight', '2018-09-25', '2 weeks', '2018-03-06', 'sumba', '--Select Marketing--', 2, '2018-09-25 15:42:52', '2018-09-25 15:42:52', 'admin'),
+	(35, 'QO-008/SWP/SWP/092018', 48675000, 0, 48675000, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-26', '2 DAYS', '2018-04-04', 'BOGOR', '0', 1, '2018-09-26 10:29:27', '2018-09-27 10:30:02', 'admin'),
+	(36, 'QO-009/SWP/SWP/092018', 215250000, 0, 215250000, 0, 0, 'MKT/00020', 'Jl. Bulak Cumpat Barat 6 No.14 Surabaya', 'SWP', 'SWP', 'Land Freight', '2018-09-26', '2 WEEKS', '2018-04-12', 'SURABAYA', '--Select Marketing--', 2, '2018-09-26 11:04:31', '2018-09-26 11:04:31', 'admin'),
+	(37, 'QO-010/SWP/SWP/092018', 143500000, 0, 143500000, 0, 0, 'MKT/00020', 'Jl. Bulak Cumpat Barat 6 No.14 Surabaya', 'SWP', 'SWP', 'Land Freight', '2018-09-26', '2 Weeks', '2018-05-17', 'Surabaya', '--Select Marketing--', 2, '2018-09-26 11:20:18', '2018-09-26 11:20:18', 'admin'),
+	(38, 'QO-011/SWP/SWP/092018', 99980000, 0, 99980000, 0, 0, 'MKT/00177', 'Koordinator Sparc\r\nJl. Jendral Soeharto No. 42 (Kantor Bappeda)\r\nWaingapu, Sumba Timur', 'SWP', 'SWP', 'Sea', '2018-09-26', '1 Month', '2018-05-28', 'NTT', '--Select Marketing--', 2, '2018-09-26 11:44:17', '2018-09-26 11:44:17', 'admin'),
+	(39, 'QO-012/SWP/SWP/092018', 20000000, 0, 20000000, 0, 0, 'MKT/00133', 'Villa Jasmine 1A/14 Suko, Sidoarjo', 'SWP', 'SWP', 'Land Freight', '2018-09-26', '1 days', '2018-07-20', 'SURABAYA', '--Select Marketing--', 1, '2018-09-26 13:16:24', '2018-09-27 14:19:20', 'admin'),
+	(40, 'QO-013/SWP/SWP/092018', 19465000, 0, 19465000, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 DAYS', '2018-04-06', 'BOGOR', '--Select Marketing--', 1, '2018-09-27 10:31:58', '2018-09-27 10:32:11', 'admin'),
+	(42, 'QO-014/SWP/SWP/092018', 1, 0, 1, 0, 0, 'MKT/00017', 'JPCC Foundation\r\nDipo Tower Lantai 5 - Dipo Bussines Centre\r\nJl. Jendral Gatot Subroto Kav 51-52 Jakarta Pusat', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 WEEKS', '2018-03-21', 'JAKARTA', '--Select Marketing--', 1, '2018-09-27 12:01:56', '2018-09-27 12:02:08', 'admin'),
+	(43, 'QO-015/SWP/SWP/092018', 6000000, 0, 6000000, 0, 0, 'MKT/00122', 'YOGYAKARTA', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-05-28', 'YOGYAKARTA', '--Select Marketing--', 1, '2018-09-27 12:04:48', '2018-09-27 12:04:56', 'admin'),
+	(45, 'QO-016/SWP/SWP/092018', 23075000, 0, 23075000, 0, 0, 'MKT/00017', 'JPCC Foundation\r\nDipo Tower Lantai 5 - Dipo Bussines Centre\r\nJl. Jendral Gatot Subroto Kav 51-52 Jakarta Pusat', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 WEEKS', '2018-05-28', 'JAKARTA', '--Select Marketing--', 1, '2018-09-27 12:30:59', '2018-09-27 12:31:12', 'admin'),
+	(46, 'QO-017/SWP/SWP/092018', 94793500, 0, 94793500, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-07-03', 'BOGOR', '--Select Marketing--', 1, '2018-09-27 12:47:10', '2018-09-27 12:47:17', 'admin'),
+	(47, 'QO-018/SWP/SWP/092018', 28835000, 0, 28835000, 0, 0, 'MKT/00017', 'JPCC Foundation\r\nDipo Tower Lantai 5 - Dipo Bussines Centre\r\nJl. Jendral Gatot Subroto Kav 51-52 Jakarta Pusat', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 WEEKS', '2018-07-13', 'JAKARTA', '--Select Marketing--', 1, '2018-09-27 13:34:32', '2018-09-27 13:35:17', 'admin'),
+	(48, 'QO-019/SWP/SWP/092018', 22500000, 0, 22500000, 0, 0, 'MKT/00069', 'Medokan Asri Barat Blok H-30 No. 5 Surabaya', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-07-27', 'SURABAYA', '--Select Marketing--', 1, '2018-09-27 14:23:51', '2018-09-27 14:24:39', 'admin'),
+	(49, 'QO-020/SWP/SWP/092018', 30452000, 0, 30452000, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-08-02', 'BOGOR', '--Select Marketing--', 1, '2018-09-27 14:36:34', '2018-09-27 14:36:46', 'admin'),
+	(50, 'QO-021/SWP/SWP/092018', 32657000, 0, 32657000, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-08-02', 'BOGOR', '--Select Marketing--', 1, '2018-09-27 14:49:17', '2018-09-27 14:49:29', 'admin'),
+	(51, 'QO-022/SWP/SWP/092018', 51150000, 0, 51150000, 0, 0, 'MKT/00025', 'Jl. Jemursari Regency Blok C-1, Surabaya\r\nAlamat Kantor : Komplek Pertokoan Semarang Indah Permai\r\nJl. Semarang Blok A36 No.96D, Bubutan, Surabaya', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-08-30', 'SURABAYA', '--Select Marketing--', 1, '2018-09-27 14:56:56', '2018-09-27 15:00:39', 'admin'),
+	(52, 'QO-023/SWP/SWP/092018', 39019000, 0, 39019000, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-08-30', 'BOGOR', '--Select Marketing--', 1, '2018-09-27 15:11:18', '2018-09-27 15:11:26', 'admin'),
+	(53, 'QO-024/SWP/SWP/092018', 31000000, 0, 31000000, 0, 0, 'MKT/00202', 'SURABAYA', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '3 Days', '2018-08-31', 'SURABAYA', '--Select Marketing--', 1, '2018-09-27 15:29:36', '2018-09-27 15:29:43', 'admin'),
+	(54, 'QO-025/SWP/SWP/092018', 10500000, 0, 10500000, 0, 0, 'MKT/00177', 'Koordinator Sparc\r\nJl. Jendral Soeharto No. 42 (Kantor Bappeda)\r\nWaingapu, Sumba Timur', 'SWP', 'SWP', 'Sea', '2018-09-27', '2 WEEKS', '2018-09-05', 'KUPANG, NTT', '--Select Marketing--', 1, '2018-09-27 15:36:09', '2018-09-27 15:36:35', 'admin'),
+	(55, 'QO-026/SWP/SWP/092018', 141479300, 0, 141479300, 0, 0, 'MKT/00202', 'SURABAYA', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-09-07', 'BOGOR', '--Select Marketing--', 1, '2018-09-27 15:44:48', '2018-09-27 15:53:28', 'admin'),
+	(56, 'QO-027/SWP/SWP/092018', 50302000, 0, 50302000, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-09-07', 'bogor', '--Select Marketing--', 1, '2018-09-27 15:53:14', '2018-09-27 15:53:36', 'admin'),
+	(57, 'QO-028/SWP/SWP/092018', 117871000, 0, 117871000, 0, 0, 'MKT/00022', 'Perumahan Grand Kahuripan\r\nCluster Pangrango Blok FH 12 B Klapanunggal\r\nCibinong, Bogor', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-09-07', 'BOGOR', '--Select Marketing--', 1, '2018-09-27 16:03:52', '2018-09-27 16:03:59', 'admin'),
+	(58, 'QO-029/SWP/SWP/092018', 28950000, 0, 28950000, 0, 0, 'MKT/00090', 'SURABAYA', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 DAYS', '2018-09-12', 'SURABAYA', '--Select Marketing--', 1, '2018-09-27 16:10:01', '2018-09-27 16:10:10', 'admin'),
+	(59, 'QO-030/SWP/SWP/092018', 38150000, 0, 38150000, 0, 0, 'MKT/00203', 'KUPANG - NTT', 'SWP', 'SWP', 'Land Freight', '2018-09-27', '2 weeks', '2018-09-24', 'KUPANG-NTT', '--Select Marketing--', 1, '2018-09-27 16:18:10', '2018-09-27 16:18:25', 'admin'),
+	(60, 'QO-031/SWP/SWP/092018', 70000000, 0, 70000000, 0, 0, 'MKT/00204', 'SORONG', 'SWP', 'SWP', 'Land Freight', '2018-09-28', '2 WEEKS', '2018-09-25', 'SORONG', '--Select Marketing--', 1, '2018-09-28 11:41:19', '2018-09-28 11:41:25', 'admin'),
+	(61, 'QO-032/SWP/SWP/092018', 31850000, 0, 31850000, 0, 0, 'MKT/00133', 'Villa Jasmine 1A/14 Suko, Sidoarjo', 'SWP', 'SWP', 'Land Freight', '2018-09-28', '2 WEEKS', '2018-07-26', 'SURABAYA', '--Select Marketing--', 1, '2018-09-28 11:45:29', '2018-09-28 11:45:35', 'admin'),
+	(64, 'QO-001/SWP/SWP/102018', 85350000, 0, 85350000, 40000000, 45350000, 'MKT/00174', '(Toko Alfa) Jl. Eltari No. 16 Waingapu, Sumba Timur - NTT', 'SWP', 'SWP', 'Land Freight', '2018-10-04', '2 weeks', '2018-02-20', 'kupang', '--Select Marketing--', 1, '2018-10-04 11:59:23', '2018-10-05 12:38:16', 'admin');
 /*!40000 ALTER TABLE `d_quotation` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_quotation_dt
+-- Dumping structure for table raniyagr_atonergi.d_quotation_dt
 CREATE TABLE IF NOT EXISTS `d_quotation_dt` (
   `qd_id` int(11) NOT NULL,
   `qd_dt` int(11) NOT NULL,
@@ -7823,21 +7930,345 @@ CREATE TABLE IF NOT EXISTS `d_quotation_dt` (
   CONSTRAINT `FK_d_quotation_dt_d_quotation` FOREIGN KEY (`qd_id`) REFERENCES `d_quotation` (`q_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_quotation_dt: ~8 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_quotation_dt: ~319 rows (approximately)
 /*!40000 ALTER TABLE `d_quotation_dt` DISABLE KEYS */;
 REPLACE INTO `d_quotation_dt` (`qd_id`, `qd_dt`, `qd_item`, `qd_qty`, `qd_description`, `qd_price`, `qd_total`, `qd_update_by`) VALUES
-	(1, 1, 'BRG/0031', 2, 'null', 3500000, 7000000, 'admin'),
-	(2, 1, 'BRG/0434', 3, 'null', 2700000, 8100000, 'admin'),
+	(1, 1, 'BRG/0031', 1, 'null', 2900000, 2900000, 'admin'),
 	(3, 1, 'BRG/0434', 3, 'null', 2700000, 8100000, 'admin'),
-	(4, 1, 'BRG/0027', 5, 'null', 17168000, 85840000, 'admin'),
-	(5, 1, 'BRG/0161', 1, 'null', 1147000000, 1147000000, 'admin'),
-	(6, 1, 'BRG/0005', 1, 'null', 310800, 310800, 'admin'),
+	(3, 2, 'BRG/0483', 1, 'null', 600000, 600000, 'admin'),
+	(3, 3, 'BRG/0436', 0, 'null', 0, 0, 'admin'),
+	(3, 4, 'BRG/0441', 0, 'null', 0, 0, 'admin'),
+	(3, 5, 'BRG/0438', 0, 'null', 0, 0, 'admin'),
+	(3, 6, 'BRG/0439', 0, 'null', 0, 0, 'admin'),
+	(3, 7, 'BRG/0440', 0, 'null', 0, 0, 'admin'),
+	(4, 1, 'BRG/0484', 5, 'null', 17500000, 87500000, 'admin'),
+	(5, 1, 'BRG/0161', 1, 'null', 8500000, 8500000, 'admin'),
+	(6, 1, 'BRG/0005', 1, 'null', 400000, 400000, 'admin'),
 	(6, 2, 'BRG/0441', 1, 'null', 125000, 125000, 'admin'),
-	(7, 1, 'BRG/0442', 24, 'null', 295000000, 7080000000, 'admin'),
-	(8, 1, 'BRG/0467', 10, 'null', 1800000, 18000000, 'admin');
+	(7, 1, 'BRG/0442', 24, 'null', 2950000, 70800000, 'admin'),
+	(8, 1, 'BRG/0467', 10, 'null', 1800000, 18000000, 'admin'),
+	(11, 1, 'BRG/0445', 1, 'null', 27500000, 27500000, 'admin'),
+	(11, 2, 'BRG/0446', 20, 'null', 2500000, 50000000, 'admin'),
+	(11, 3, 'BRG/0447', 3, 'null', 1500000, 4500000, 'admin'),
+	(11, 4, 'BRG/0448', 15, 'null', 200000, 3000000, 'admin'),
+	(11, 5, 'BRG/0449', 8, 'null', 3250000, 26000000, 'admin'),
+	(11, 6, 'BRG/0450', 1, 'null', 7500000, 7500000, 'admin'),
+	(11, 7, 'BRG/0451', 1, 'null', 1250000, 1250000, 'admin'),
+	(11, 8, 'BRG/0452', 1, 'null', 12000000, 12000000, 'admin'),
+	(11, 9, 'BRG/0453', 5, 'null', 550000, 2750000, 'admin'),
+	(11, 10, 'BRG/0454', 1, 'null', 8000000, 8000000, 'admin'),
+	(12, 1, 'BRG/0479', 1, 'null', 156000000, 156000000, 'admin'),
+	(12, 2, 'BRG/0480', 108, 'null', 3000000, 324000000, 'admin'),
+	(12, 3, 'BRG/0447', 10, 'null', 1500000, 15000000, 'admin'),
+	(12, 4, 'BRG/0448', 60, 'null', 200000, 12000000, 'admin'),
+	(12, 5, 'BRG/0449', 60, 'null', 3654000, 219240000, 'admin'),
+	(12, 6, 'BRG/0450', 1, 'null', 12500000, 12500000, 'admin'),
+	(12, 7, 'BRG/0451', 1, 'null', 9500000, 9500000, 'admin'),
+	(12, 8, 'BRG/0452', 1, 'null', 60000000, 60000000, 'admin'),
+	(12, 9, 'BRG/0481', 6, 'null', 1000000, 6000000, 'admin'),
+	(12, 10, 'BRG/0454', 1, 'null', 9500000, 9500000, 'admin'),
+	(13, 1, 'BRG/0434', 3, 'null', 2700000, 8100000, 'admin'),
+	(13, 2, 'BRG/0436', 0, 'null', 0, 0, 'admin'),
+	(13, 3, 'BRG/0438', 0, 'null', 0, 0, 'admin'),
+	(13, 4, 'BRG/0439', 0, 'null', 0, 0, 'admin'),
+	(13, 5, 'BRG/0440', 0, 'null', 0, 0, 'admin'),
+	(13, 6, 'BRG/0441', 0, 'null', 0, 0, 'admin'),
+	(13, 7, 'BRG/0483', 1, 'null', 600000, 600000, 'admin'),
+	(14, 1, 'BRG/0482', 1, 'null', 149000000, 149000000, 'admin'),
+	(14, 2, 'BRG/0480', 40, 'null', 3000000, 120000000, 'admin'),
+	(14, 3, 'BRG/0447', 4, 'null', 1500000, 6000000, 'admin'),
+	(14, 4, 'BRG/0448', 40, 'null', 200000, 8000000, 'admin'),
+	(14, 5, 'BRG/0485', 40, 'null', 4857000, 194280000, 'admin'),
+	(14, 6, 'BRG/0450', 1, 'null', 12500000, 12500000, 'admin'),
+	(14, 7, 'BRG/0451', 1, 'null', 9500000, 9500000, 'admin'),
+	(14, 8, 'BRG/0452', 1, 'null', 27500000, 27500000, 'admin'),
+	(14, 9, 'BRG/0481', 4, 'null', 1000000, 4000000, 'admin'),
+	(14, 10, 'BRG/0454', 1, 'null', 7500000, 7500000, 'admin'),
+	(15, 1, 'BRG/0486', 1, 'null', 22000000, 22000000, 'admin'),
+	(15, 2, 'BRG/0480', 16, 'null', 3000000, 48000000, 'admin'),
+	(15, 3, 'BRG/0447', 2, 'null', 1500000, 3000000, 'admin'),
+	(15, 4, 'BRG/0448', 8, 'null', 200000, 1600000, 'admin'),
+	(15, 5, 'BRG/0487', 8, 'null', 2987000, 23896000, 'admin'),
+	(15, 6, 'BRG/0450', 1, 'null', 4500000, 4500000, 'admin'),
+	(15, 7, 'BRG/0451', 1, 'null', 2500000, 2500000, 'admin'),
+	(15, 8, 'BRG/0452', 1, 'null', 8900000, 8900000, 'admin'),
+	(15, 9, 'BRG/0481', 1, 'null', 1000000, 1000000, 'admin'),
+	(15, 10, 'BRG/0454', 1, 'null', 2500000, 2500000, 'admin'),
+	(16, 1, 'BRG/0486', 1, 'null', 20000000, 20000000, 'admin'),
+	(16, 2, 'BRG/0447', 2, 'null', 1300000, 2600000, 'admin'),
+	(16, 3, 'BRG/0450', 1, 'null', 4000000, 4000000, 'admin'),
+	(16, 4, 'BRG/0451', 1, 'null', 2000000, 2000000, 'admin'),
+	(16, 5, 'BRG/0454', 1, 'null', 2000000, 2000000, 'admin'),
+	(17, 1, 'BRG/0488', 1, 'null', 25100000, 25100000, 'admin'),
+	(17, 2, 'BRG/0489', 24, 'null', 2945000, 70680000, 'admin'),
+	(17, 3, 'BRG/0447', 3, 'null', 1500000, 4500000, 'admin'),
+	(17, 4, 'BRG/0448', 16, 'null', 200000, 3200000, 'admin'),
+	(17, 5, 'BRG/0485', 16, 'null', 4300000, 68800000, 'admin'),
+	(17, 6, 'BRG/0450', 1, 'null', 4500000, 4500000, 'admin'),
+	(17, 7, 'BRG/0451', 1, 'null', 3500000, 3500000, 'admin'),
+	(17, 8, 'BRG/0452', 1, 'null', 21000000, 21000000, 'admin'),
+	(17, 9, 'BRG/0481', 4, 'null', 1000000, 4000000, 'admin'),
+	(17, 10, 'BRG/0454', 1, 'null', 2500000, 2500000, 'admin'),
+	(18, 1, 'BRG/0490', 1, 'null', 7000000, 7000000, 'admin'),
+	(18, 2, 'BRG/0491', 2, 'null', 3375000, 6750000, 'admin'),
+	(18, 3, 'BRG/0447', 1, 'null', 1500000, 1500000, 'admin'),
+	(18, 4, 'BRG/0448', 2, 'null', 200000, 400000, 'admin'),
+	(18, 5, 'BRG/0485', 2, 'null', 2600000, 5200000, 'admin'),
+	(18, 6, 'BRG/0450', 1, 'null', 2500000, 2500000, 'admin'),
+	(18, 7, 'BRG/0451', 1, 'null', 1500000, 1500000, 'admin'),
+	(18, 8, 'BRG/0452', 1, 'null', 1600000, 1600000, 'admin'),
+	(18, 9, 'BRG/0481', 1, 'null', 1000000, 1000000, 'admin'),
+	(18, 10, 'BRG/0454', 1, 'null', 2500000, 2500000, 'admin'),
+	(19, 1, 'BRG/0490', 1, 'null', 7000000, 7000000, 'admin'),
+	(19, 2, 'BRG/0491', 2, 'null', 4050000, 8100000, 'admin'),
+	(19, 3, 'BRG/0447', 1, 'null', 1500000, 1500000, 'admin'),
+	(19, 4, 'BRG/0448', 2, 'null', 200000, 400000, 'admin'),
+	(19, 5, 'BRG/0492', 2, 'null', 2600000, 5200000, 'admin'),
+	(19, 6, 'BRG/0450', 1, 'null', 2500000, 2500000, 'admin'),
+	(19, 7, 'BRG/0451', 1, 'null', 1500000, 1500000, 'admin'),
+	(19, 8, 'BRG/0452', 1, 'null', 1600000, 1600000, 'admin'),
+	(19, 9, 'BRG/0481', 1, 'null', 500000, 500000, 'admin'),
+	(19, 10, 'BRG/0454', 1, 'null', 1500000, 1500000, 'admin'),
+	(20, 1, 'BRG/0493', 1, 'null', 33000000, 33000000, 'admin'),
+	(20, 2, 'BRG/0491', 27, 'null', 4050000, 109350000, 'admin'),
+	(20, 3, 'BRG/0447', 2, 'null', 1500000, 3000000, 'admin'),
+	(20, 4, 'BRG/0448', 16, 'null', 200000, 3200000, 'admin'),
+	(20, 5, 'BRG/0485', 16, 'null', 4857000, 77712000, 'admin'),
+	(20, 6, 'BRG/0450', 1, 'null', 3500000, 3500000, 'admin'),
+	(20, 7, 'BRG/0451', 1, 'null', 2500000, 2500000, 'admin'),
+	(20, 8, 'BRG/0452', 1, 'null', 20500000, 20500000, 'admin'),
+	(20, 9, 'BRG/0481', 4, 'null', 1000000, 4000000, 'admin'),
+	(20, 10, 'BRG/0454', 1, 'null', 4000000, 4000000, 'admin'),
+	(21, 1, 'BRG/0494', 1, 'null', 9000000, 9000000, 'admin'),
+	(21, 2, 'BRG/0495', 0, 'null', 0, 0, 'admin'),
+	(21, 3, 'BRG/0447', 1, 'null', 1500000, 1500000, 'admin'),
+	(21, 4, 'BRG/0448', 4, 'null', 200000, 800000, 'admin'),
+	(21, 5, 'BRG/0487', 4, 'null', 0, 0, 'admin'),
+	(21, 6, 'BRG/0450', 1, 'null', 4500000, 4500000, 'admin'),
+	(21, 7, 'BRG/0451', 1, 'null', 2500000, 2500000, 'admin'),
+	(21, 8, 'BRG/0452', 1, 'null', 0, 0, 'admin'),
+	(21, 9, 'BRG/0481', 1, 'null', 0, 0, 'admin'),
+	(21, 10, 'BRG/0454', 1, 'null', 1500000, 1500000, 'admin'),
+	(22, 1, 'BRG/0486', 1, 'null', 25000000, 25000000, 'admin'),
+	(22, 2, 'BRG/0496', 16, 'null', 3750000, 60000000, 'admin'),
+	(22, 3, 'BRG/0447', 2, 'null', 1800000, 3600000, 'admin'),
+	(22, 4, 'BRG/0448', 8, 'null', 150000, 1200000, 'admin'),
+	(22, 5, 'BRG/0485', 8, 'null', 4600000, 36800000, 'admin'),
+	(22, 6, 'BRG/0450', 1, 'null', 4500000, 4500000, 'admin'),
+	(22, 7, 'BRG/0451', 1, 'null', 2500000, 2500000, 'admin'),
+	(22, 8, 'BRG/0452', 1, 'null', 15500000, 15500000, 'admin'),
+	(22, 9, 'BRG/0481', 8, 'null', 750000, 6000000, 'admin'),
+	(22, 10, 'BRG/0454', 1, 'null', 1500000, 1500000, 'admin'),
+	(23, 1, 'BRG/0486', 1, 'null', 25000000, 25000000, 'admin'),
+	(23, 2, 'BRG/0497', 40, 'null', 1500000, 60000000, 'admin'),
+	(23, 3, 'BRG/0447', 3, 'null', 1800000, 5400000, 'admin'),
+	(23, 4, 'BRG/0448', 16, 'null', 150000, 2400000, 'admin'),
+	(23, 5, 'BRG/0492', 16, 'null', 2595000, 41520000, 'admin'),
+	(23, 6, 'BRG/0450', 1, 'null', 4500000, 4500000, 'admin'),
+	(23, 7, 'BRG/0451', 1, 'null', 2500000, 2500000, 'admin'),
+	(23, 8, 'BRG/0452', 1, 'null', 15000000, 15000000, 'admin'),
+	(23, 9, 'BRG/0481', 16, 'null', 750000, 12000000, 'admin'),
+	(23, 10, 'BRG/0454', 1, 'null', 2500000, 2500000, 'admin'),
+	(24, 1, 'BRG/0498', 1, 'null', 15000000, 15000000, 'admin'),
+	(24, 2, 'BRG/0499', 1, 'null', 0, 0, 'admin'),
+	(24, 3, 'BRG/0497', 1, 'null', 0, 0, 'admin'),
+	(24, 4, 'BRG/0500', 1, 'null', 0, 0, 'admin'),
+	(24, 5, 'BRG/0501', 1, 'null', 0, 0, 'admin'),
+	(24, 6, 'BRG/0502', 1, 'null', 0, 0, 'admin'),
+	(24, 7, 'BRG/0503', 1, 'null', 0, 0, 'admin'),
+	(24, 8, 'BRG/0504', 1, 'null', 0, 0, 'admin'),
+	(24, 9, 'BRG/0505', 1, 'null', 0, 0, 'admin'),
+	(24, 10, 'BRG/0508', 1, 'null', 1500000, 1500000, 'admin'),
+	(24, 11, 'BRG/0001', 1, 'null', 0, 0, 'admin'),
+	(24, 12, 'BRG/0001', 1, 'null', 0, 0, 'admin'),
+	(25, 1, 'BRG/0498', 2, 'null', 0, 0, 'admin'),
+	(25, 2, 'BRG/0499', 2, 'null', 0, 0, 'admin'),
+	(25, 3, 'BRG/0497', 2, 'null', 0, 0, 'admin'),
+	(25, 4, 'BRG/0500', 2, 'null', 0, 0, 'admin'),
+	(25, 5, 'BRG/0501', 1, 'null', 28500000, 28500000, 'admin'),
+	(25, 6, 'BRG/0502', 1, 'null', 0, 0, 'admin'),
+	(25, 7, 'BRG/0503', 1, 'null', 0, 0, 'admin'),
+	(25, 8, 'BRG/0504', 2, 'null', 0, 0, 'admin'),
+	(25, 9, 'BRG/0505', 2, 'null', 0, 0, 'admin'),
+	(25, 10, 'BRG/0508', 1, 'null', 1500000, 1500000, 'admin'),
+	(25, 11, 'BRG/0001', 2, 'null', 0, 0, 'admin'),
+	(25, 12, 'BRG/0001', 1, 'null', 0, 0, 'admin'),
+	(26, 1, 'BRG/0455', 72, 'null', 2660000, 191520000, 'admin'),
+	(26, 2, 'BRG/0456', 1, 'null', 58000000, 58000000, 'admin'),
+	(26, 3, 'BRG/0509', 1, 'null', 5000000, 5000000, 'admin'),
+	(26, 4, 'BRG/0511', 1, 'null', 6500000, 6500000, 'admin'),
+	(26, 5, 'BRG/0510', 1, 'null', 7500000, 7500000, 'admin'),
+	(26, 6, 'BRG/0512', 1, 'null', 9500000, 9500000, 'admin'),
+	(26, 7, 'BRG/0466', 1, 'null', 60500000, 60500000, 'admin'),
+	(26, 8, 'BRG/0513', 5, 'null', 1500000, 7500000, 'admin'),
+	(27, 1, 'BRG/0455', 22, 'null', 2660000, 58520000, 'admin'),
+	(27, 2, 'BRG/0461', 2, 'null', 14000000, 28000000, 'admin'),
+	(27, 3, 'BRG/0509', 1, 'null', 5000000, 5000000, 'admin'),
+	(27, 4, 'BRG/0511', 1, 'null', 2500000, 2500000, 'admin'),
+	(27, 5, 'BRG/0510', 1, 'null', 3000000, 3000000, 'admin'),
+	(27, 6, 'BRG/0512', 1, 'null', 4500000, 4500000, 'admin'),
+	(27, 7, 'BRG/0466', 1, 'null', 18500000, 18500000, 'admin'),
+	(27, 8, 'BRG/0513', 2, 'null', 1500000, 3000000, 'admin'),
+	(28, 1, 'BRG/0521', 1, 'null', 24650000, 24650000, 'admin'),
+	(28, 2, 'BRG/0520', 1, 'null', 778500, 778500, 'admin'),
+	(28, 3, 'BRG/0522', 1, 'null', 1855000, 1855000, 'admin'),
+	(28, 4, 'BRG/0005', 1, 'null', 227000, 227000, 'admin'),
+	(29, 1, 'BRG/0523', 1, 'null', 17500000, 17500000, 'admin'),
+	(29, 2, 'BRG/0005', 1, 'null', 400000, 400000, 'admin'),
+	(30, 1, 'BRG/0005', 1, 'null', 500000, 500000, 'admin'),
+	(30, 2, 'BRG/0524', 1, 'null', 17500000, 17500000, 'admin'),
+	(31, 1, 'BRG/0166', 1, 'null', 18500000, 18500000, 'admin'),
+	(32, 1, 'BRG/0513', 1, 'null', 1400000, 1400000, 'admin'),
+	(32, 2, 'BRG/0525', 1, 'null', 1250000, 1250000, 'admin'),
+	(32, 3, 'BRG/0526', 1, 'null', 3500000, 3500000, 'admin'),
+	(32, 4, 'BRG/0527', 1, 'null', 1200000, 1200000, 'admin'),
+	(32, 5, 'BRG/0454', 1, 'null', 1500000, 1500000, 'admin'),
+	(32, 6, 'BRG/0528', 1, 'null', 30350000, 30350000, 'admin'),
+	(32, 7, 'BRG/0520', 1, 'null', 1400000, 1400000, 'admin'),
+	(32, 8, 'BRG/0005', 1, 'null', 450000, 450000, 'admin'),
+	(32, 9, 'BRG/0013', 1, 'null', 3500000, 3500000, 'admin'),
+	(32, 10, 'BRG/0023', 1, 'null', 450000, 450000, 'admin'),
+	(34, 1, 'BRG/0166', 1, 'null', 24568000, 24568000, 'admin'),
+	(35, 1, 'BRG/0012', 2, 'null', 2965000, 5930000, 'admin'),
+	(35, 2, 'BRG/0023', 2, 'null', 270000, 540000, 'admin'),
+	(35, 3, 'BRG/0529', 1, 'null', 25120000, 25120000, 'admin'),
+	(35, 4, 'BRG/0532', 1, 'null', 15150000, 15150000, 'admin'),
+	(35, 5, 'BRG/0533', 2, 'null', 778500, 1557000, 'admin'),
+	(35, 6, 'BRG/0534', 2, 'null', 189000, 378000, 'admin'),
+	(36, 1, 'BRG/0529', 3, 'null', 30000000, 90000000, 'admin'),
+	(36, 2, 'BRG/0520', 3, 'null', 1500000, 4500000, 'admin'),
+	(36, 3, 'BRG/0005', 3, 'null', 900000, 2700000, 'admin'),
+	(36, 4, 'BRG/0013', 3, 'null', 4500000, 13500000, 'admin'),
+	(36, 5, 'BRG/0023', 3, 'null', 1400000, 4200000, 'admin'),
+	(36, 6, 'BRG/0442', 18, 'null', 2500000, 45000000, 'admin'),
+	(36, 7, 'BRG/0535', 3, 'null', 1750000, 5250000, 'admin'),
+	(36, 8, 'BRG/0452', 18, 'null', 750000, 13500000, 'admin'),
+	(36, 9, 'BRG/0525', 3, 'null', 1500000, 4500000, 'admin'),
+	(36, 10, 'BRG/0526', 3, 'null', 3800000, 11400000, 'admin'),
+	(36, 11, 'BRG/0527', 3, 'null', 1400000, 4200000, 'admin'),
+	(36, 12, 'BRG/0530', 3, 'null', 3500000, 10500000, 'admin'),
+	(36, 13, 'BRG/0454', 3, 'null', 2000000, 6000000, 'admin'),
+	(37, 1, 'BRG/0529', 2, 'null', 30000000, 60000000, 'admin'),
+	(37, 2, 'BRG/0520', 2, 'null', 1500000, 3000000, 'admin'),
+	(37, 3, 'BRG/0005', 2, 'null', 900000, 1800000, 'admin'),
+	(37, 4, 'BRG/0013', 2, 'null', 4500000, 9000000, 'admin'),
+	(37, 5, 'BRG/0023', 2, 'null', 1400000, 2800000, 'admin'),
+	(37, 6, 'BRG/0442', 12, 'null', 2500000, 30000000, 'admin'),
+	(37, 7, 'BRG/0535', 2, 'null', 1750000, 3500000, 'admin'),
+	(37, 8, 'BRG/0452', 12, 'null', 750000, 9000000, 'admin'),
+	(37, 9, 'BRG/0525', 2, 'null', 1500000, 3000000, 'admin'),
+	(37, 10, 'BRG/0526', 2, 'null', 3800000, 7600000, 'admin'),
+	(37, 11, 'BRG/0527', 2, 'null', 1400000, 2800000, 'admin'),
+	(37, 12, 'BRG/0530', 2, 'null', 3500000, 7000000, 'admin'),
+	(37, 13, 'BRG/0454', 2, 'null', 2000000, 4000000, 'admin'),
+	(38, 1, 'BRG/0536', 1, 'null', 26400000, 26400000, 'admin'),
+	(38, 2, 'BRG/0520', 1, 'null', 1400000, 1400000, 'admin'),
+	(38, 3, 'BRG/0005', 1, 'null', 450000, 450000, 'admin'),
+	(38, 4, 'BRG/0013', 1, 'null', 3200000, 3200000, 'admin'),
+	(38, 5, 'BRG/0023', 1, 'null', 450000, 450000, 'admin'),
+	(38, 6, 'BRG/0537', 12, 'null', 3640000, 43680000, 'admin'),
+	(38, 7, 'BRG/0538', 1, 'null', 9500000, 9500000, 'admin'),
+	(38, 8, 'BRG/0535', 1, 'null', 1200000, 1200000, 'admin'),
+	(38, 9, 'BRG/0525', 1, 'null', 1300000, 1300000, 'admin'),
+	(38, 10, 'BRG/0526', 1, 'null', 3550000, 3550000, 'admin'),
+	(38, 11, 'BRG/0527', 1, 'null', 1200000, 1200000, 'admin'),
+	(38, 12, 'BRG/0530', 1, 'null', 2000000, 2000000, 'admin'),
+	(38, 13, 'BRG/0007', 1, 'null', 650000, 650000, 'admin'),
+	(38, 14, 'BRG/0031', 1, 'null', 3000000, 3000000, 'admin'),
+	(38, 15, 'BRG/0454', 1, 'null', 2000000, 2000000, 'admin'),
+	(39, 1, 'BRG/0539', 1, 'null', 18450000, 18450000, 'admin'),
+	(39, 2, 'BRG/0520', 1, 'null', 1100000, 1100000, 'admin'),
+	(39, 3, 'BRG/0005', 1, 'null', 450000, 450000, 'admin'),
+	(40, 1, 'BRG/0210', 1, NULL, 16500000, 16500000, 'admin'),
+	(40, 2, 'BRG/0012', 1, NULL, 2965000, 2965000, 'admin'),
+	(42, 1, 'BRG/0531', 1, NULL, 1, 1, 'admin'),
+	(43, 1, 'BRG/0540', 1, NULL, 6000000, 6000000, 'admin'),
+	(45, 1, 'BRG/0541', 1, NULL, 18700000, 18700000, 'admin'),
+	(45, 2, 'BRG/0520', 1, NULL, 970000, 970000, 'admin'),
+	(45, 3, 'BRG/0005', 1, NULL, 280000, 280000, 'admin'),
+	(45, 4, 'BRG/0023', 1, NULL, 325000, 325000, 'admin'),
+	(45, 5, 'BRG/0031', 1, NULL, 2800000, 2800000, 'admin'),
+	(46, 1, 'BRG/0543', 1, NULL, 80112500, 80112500, 'admin'),
+	(46, 2, 'BRG/0009', 1, NULL, 7395000, 7395000, 'admin'),
+	(46, 3, 'BRG/0533', 1, NULL, 967875, 967875, 'admin'),
+	(46, 4, 'BRG/0006', 1, NULL, 228375, 228375, 'admin'),
+	(46, 5, 'BRG/0545', 1, NULL, 5763750, 5763750, 'admin'),
+	(46, 6, 'BRG/0023', 1, NULL, 326000, 326000, 'admin'),
+	(47, 1, 'BRG/0550', 1, NULL, 20310000, 20310000, 'admin'),
+	(47, 2, 'BRG/0520', 1, NULL, 970000, 970000, 'admin'),
+	(47, 3, 'BRG/0005', 1, NULL, 280000, 280000, 'admin'),
+	(47, 4, 'BRG/0023', 1, NULL, 325000, 325000, 'admin'),
+	(47, 5, 'BRG/0442', 2, NULL, 2850000, 5700000, 'admin'),
+	(47, 6, 'BRG/0525', 1, NULL, 1250000, 1250000, 'admin'),
+	(48, 1, 'BRG/0209', 1, NULL, 11750000, 11750000, 'admin'),
+	(48, 2, 'BRG/0171', 1, NULL, 10750000, 10750000, 'admin'),
+	(49, 1, 'BRG/0555', 1, NULL, 26575000, 26575000, 'admin'),
+	(49, 2, 'BRG/0556', 1, NULL, 1800000, 1800000, 'admin'),
+	(49, 3, 'BRG/0520', 1, NULL, 910000, 910000, 'admin'),
+	(49, 4, 'BRG/0023', 1, NULL, 307000, 307000, 'admin'),
+	(49, 5, 'BRG/0005', 1, NULL, 215000, 215000, 'admin'),
+	(49, 6, 'BRG/0557', 1, NULL, 645000, 645000, 'admin'),
+	(50, 1, 'BRG/0558', 1, NULL, 26575000, 26575000, 'admin'),
+	(50, 2, 'BRG/0556', 1, NULL, 1800000, 1800000, 'admin'),
+	(50, 3, 'BRG/0520', 1, NULL, 910000, 910000, 'admin'),
+	(50, 4, 'BRG/0023', 1, NULL, 307000, 307000, 'admin'),
+	(50, 5, 'BRG/0005', 1, NULL, 215000, 215000, 'admin'),
+	(50, 6, 'BRG/0559', 1, NULL, 2850000, 2850000, 'admin'),
+	(51, 1, 'BRG/0560', 1, NULL, 47200000, 47200000, 'admin'),
+	(51, 2, 'BRG/0005', 1, NULL, 300000, 300000, 'admin'),
+	(51, 3, 'BRG/0561', 1, NULL, 3650000, 3650000, 'admin'),
+	(52, 1, 'BRG/0562', 1, NULL, 20040000, 20040000, 'admin'),
+	(52, 2, 'BRG/0533', 1, NULL, 910000, 910000, 'admin'),
+	(52, 3, 'BRG/0023', 1, NULL, 307000, 307000, 'admin'),
+	(52, 4, 'BRG/0563', 1, NULL, 1900000, 1900000, 'admin'),
+	(52, 5, 'BRG/0564', 1, NULL, 15862000, 15862000, 'admin'),
+	(53, 1, 'BRG/0529', 1, NULL, 31000000, 31000000, 'admin'),
+	(54, 1, 'BRG/0566', 1, NULL, 10500000, 10500000, 'admin'),
+	(55, 1, 'BRG/0567', 5, NULL, 21151300, 105756500, 'admin'),
+	(55, 2, 'BRG/0568', 1, NULL, 26844000, 26844000, 'admin'),
+	(55, 3, 'BRG/0520', 6, NULL, 940700, 5644200, 'admin'),
+	(55, 4, 'BRG/0005', 6, NULL, 222000, 1332000, 'admin'),
+	(55, 5, 'BRG/0023', 6, NULL, 317100, 1902600, 'admin'),
+	(56, 1, 'BRG/0569', 1, NULL, 43500000, 43500000, 'admin'),
+	(56, 2, 'BRG/0520', 1, NULL, 910000, 910000, 'admin'),
+	(56, 3, 'BRG/0005', 1, NULL, 215000, 215000, 'admin'),
+	(56, 4, 'BRG/0023', 1, NULL, 307000, 307000, 'admin'),
+	(56, 5, 'BRG/0013', 1, NULL, 2570000, 2570000, 'admin'),
+	(56, 6, 'BRG/0032', 1, NULL, 2800000, 2800000, 'admin'),
+	(57, 1, 'BRG/0569', 2, NULL, 43500000, 87000000, 'admin'),
+	(57, 2, 'BRG/0570', 1, NULL, 26575000, 26575000, 'admin'),
+	(57, 3, 'BRG/0520', 3, NULL, 910000, 2730000, 'admin'),
+	(57, 4, 'BRG/0005', 3, NULL, 215000, 645000, 'admin'),
+	(57, 5, 'BRG/0023', 3, NULL, 307000, 921000, 'admin'),
+	(58, 1, 'BRG/0571', 1, NULL, 28950000, 28950000, 'admin'),
+	(59, 1, 'BRG/0572', 1, NULL, 33600000, 33600000, 'admin'),
+	(59, 2, 'BRG/0520', 1, NULL, 950000, 950000, 'admin'),
+	(59, 3, 'BRG/0005', 1, NULL, 450000, 450000, 'admin'),
+	(59, 4, 'BRG/0013', 1, NULL, 2700000, 2700000, 'admin'),
+	(59, 5, 'BRG/0023', 1, NULL, 450000, 450000, 'admin'),
+	(60, 1, 'BRG/0565', 2, NULL, 33000000, 66000000, 'admin'),
+	(60, 2, 'BRG/0520', 2, NULL, 1100000, 2200000, 'admin'),
+	(60, 3, 'BRG/0005', 2, NULL, 450000, 900000, 'admin'),
+	(60, 4, 'BRG/0023', 2, NULL, 450000, 900000, 'admin'),
+	(61, 1, 'BRG/0565', 1, NULL, 31500000, 31500000, 'admin'),
+	(61, 2, 'BRG/0005', 1, NULL, 350000, 350000, 'admin'),
+	(64, 1, 'BRG/0529', 1, NULL, 28500000, 28500000, 'admin'),
+	(64, 2, 'BRG/0520', 1, NULL, 1400000, 1400000, 'admin'),
+	(64, 3, 'BRG/0005', 1, NULL, 400000, 400000, 'admin'),
+	(64, 4, 'BRG/0012', 1, NULL, 4200000, 4200000, 'admin'),
+	(64, 5, 'BRG/0023', 1, NULL, 450000, 450000, 'admin'),
+	(64, 6, 'BRG/0497', 21, NULL, 1350000, 28350000, 'admin'),
+	(64, 7, 'BRG/0535', 1, NULL, 1400000, 1400000, 'admin'),
+	(64, 8, 'BRG/0525', 1, NULL, 1500000, 1500000, 'admin'),
+	(64, 9, 'BRG/0526', 1, NULL, 3750000, 3750000, 'admin'),
+	(64, 10, 'BRG/0527', 1, NULL, 1400000, 1400000, 'admin'),
+	(64, 11, 'BRG/0530', 1, NULL, 3500000, 3500000, 'admin'),
+	(64, 12, 'BRG/0454', 1, NULL, 2000000, 2000000, 'admin'),
+	(64, 13, 'BJS/0549', 1, 'JASA PEMASANGAN', 7500000, 7500000, 'admin'),
+	(64, 14, 'BJS/0547', 1, 'KONSUMSI', 1000000, 1000000, 'admin');
 /*!40000 ALTER TABLE `d_quotation_dt` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_quotation_history
+-- Dumping structure for table raniyagr_atonergi.d_quotation_history
 CREATE TABLE IF NOT EXISTS `d_quotation_history` (
   `qh_id` int(11) NOT NULL,
   `qh_dt` int(11) NOT NULL,
@@ -7846,59 +8277,142 @@ CREATE TABLE IF NOT EXISTS `d_quotation_history` (
   CONSTRAINT `FK_d_quotation_history_d_quotation` FOREIGN KEY (`qh_id`) REFERENCES `d_quotation` (`q_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_quotation_history: ~1 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_quotation_history: ~81 rows (approximately)
 /*!40000 ALTER TABLE `d_quotation_history` DISABLE KEYS */;
 REPLACE INTO `d_quotation_history` (`qh_id`, `qh_dt`, `qh_status`) VALUES
 	(1, 1, 2),
-	(2, 1, 2),
 	(3, 1, 2),
 	(4, 1, 2),
 	(5, 1, 2),
 	(6, 1, 2),
 	(7, 1, 2),
-	(8, 1, 2);
+	(8, 1, 2),
+	(11, 1, 2),
+	(12, 1, 2),
+	(12, 2, 1),
+	(13, 1, 2),
+	(13, 2, 1),
+	(13, 3, 3),
+	(14, 1, 2),
+	(15, 1, 2),
+	(16, 1, 2),
+	(17, 1, 2),
+	(18, 1, 2),
+	(19, 1, 2),
+	(20, 1, 2),
+	(21, 1, 2),
+	(22, 1, 2),
+	(23, 1, 2),
+	(24, 1, 2),
+	(25, 1, 2),
+	(26, 1, 2),
+	(27, 1, 2),
+	(28, 1, 2),
+	(28, 2, 1),
+	(29, 1, 2),
+	(29, 2, 1),
+	(30, 1, 2),
+	(30, 2, 1),
+	(31, 1, 2),
+	(31, 2, 1),
+	(32, 1, 2),
+	(32, 2, 1),
+	(34, 1, 2),
+	(35, 1, 2),
+	(35, 2, 1),
+	(36, 1, 2),
+	(37, 1, 2),
+	(38, 1, 2),
+	(39, 1, 2),
+	(39, 2, 1),
+	(40, 1, 2),
+	(40, 2, 1),
+	(42, 1, 2),
+	(42, 2, 1),
+	(43, 1, 2),
+	(43, 2, 1),
+	(45, 1, 2),
+	(45, 2, 1),
+	(46, 1, 2),
+	(46, 2, 1),
+	(47, 1, 2),
+	(47, 2, 1),
+	(48, 1, 2),
+	(48, 2, 1),
+	(49, 1, 2),
+	(49, 2, 1),
+	(50, 1, 2),
+	(50, 2, 1),
+	(51, 1, 2),
+	(51, 2, 1),
+	(52, 1, 2),
+	(52, 2, 1),
+	(53, 1, 2),
+	(53, 2, 1),
+	(54, 1, 2),
+	(54, 2, 1),
+	(55, 1, 2),
+	(55, 2, 1),
+	(56, 1, 2),
+	(56, 2, 1),
+	(57, 1, 2),
+	(57, 2, 1),
+	(58, 1, 2),
+	(58, 2, 1),
+	(59, 1, 2),
+	(59, 2, 1),
+	(60, 1, 2),
+	(60, 2, 1),
+	(61, 1, 2),
+	(61, 2, 1),
+	(64, 1, 2),
+	(64, 2, 1);
 /*!40000 ALTER TABLE `d_quotation_history` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_requestorder
+-- Dumping structure for table raniyagr_atonergi.d_requestorder
 CREATE TABLE IF NOT EXISTS `d_requestorder` (
   `ro_id` int(11) DEFAULT NULL,
   `ro_code` varchar(50) DEFAULT NULL,
   `ro_vendor` varchar(50) DEFAULT NULL,
-  `ro_price` double DEFAULT 0,
-  `ro_qty` double DEFAULT 0,
+  `ro_price` double DEFAULT '0',
+  `ro_qty` double DEFAULT '0',
   `ro_status_po` varchar(1) DEFAULT 'F',
   `ro_status` varchar(1) DEFAULT 'F',
   `ro_insert` timestamp NULL DEFAULT NULL,
   `ro_update` timestamp NULL DEFAULT NULL,
-  `ro_qty_approved` double DEFAULT 0
+  `ro_qty_approved` double DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_requestorder: ~0 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_requestorder: ~8 rows (approximately)
 /*!40000 ALTER TABLE `d_requestorder` DISABLE KEYS */;
 REPLACE INTO `d_requestorder` (`ro_id`, `ro_code`, `ro_vendor`, `ro_price`, `ro_qty`, `ro_status_po`, `ro_status`, `ro_insert`, `ro_update`, `ro_qty_approved`) VALUES
 	(1, 'RO-001/0718', 'VDR/00003', 19000000, 101, 'F', 'F', '2018-07-09 04:03:42', NULL, 0),
 	(2, 'RO-002/0718', 'VDR/00003', 17000000, 4, 'F', 'F', '2018-07-09 04:07:29', NULL, 0),
 	(3, 'RO-003/0718', 'VDR/00004', 13530000, 5, 'T', 'T', '2018-07-17 01:03:40', '2018-07-17 01:04:02', 5),
-	(4, 'RO-004/0818', 'VDR/00004', 136500000, 130, 'T', 'T', '2018-08-14 03:44:39', '2018-08-14 03:45:02', 130);
+	(4, 'RO-004/0818', 'VDR/00004', 136500000, 130, 'T', 'T', '2018-08-14 03:44:39', '2018-08-14 03:45:02', 130),
+	(5, 'RO-005/1018', 'VDR/00012', 168, 6, 'T', 'T', '2018-10-01 12:30:48', '2018-10-01 12:31:54', 6),
+	(6, 'RO-006/1018', 'VDR/00006', 585, 5, 'F', 'T', '2018-10-01 12:52:08', '2018-10-01 12:52:27', 5),
+	(7, 'RO-007/1018', 'VDR/00006', 675000, 6, 'F', 'F', '2018-10-05 11:07:58', NULL, 0),
+	(8, 'RO-007/1018', 'VDR/00006', 675000, 1, 'F', 'F', '2018-10-05 11:09:45', NULL, 0);
 /*!40000 ALTER TABLE `d_requestorder` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_requestorder_dt
+-- Dumping structure for table raniyagr_atonergi.d_requestorder_dt
 CREATE TABLE IF NOT EXISTS `d_requestorder_dt` (
   `rodt_id` int(11) DEFAULT NULL,
   `rodt_code` varchar(50) DEFAULT NULL,
   `rodt_barang` varchar(50) DEFAULT NULL,
-  `rodt_price` double DEFAULT 0,
-  `rodt_unit_price` double DEFAULT 0,
+  `rodt_price` double DEFAULT '0',
+  `rodt_unit_price` double DEFAULT '0',
   `rodt_unit` varchar(50) DEFAULT '0',
-  `rodt_qty` double DEFAULT 0,
+  `rodt_qty` double DEFAULT '0',
   `rodt_insert` timestamp NULL DEFAULT NULL,
   `rodt_status` varchar(1) DEFAULT NULL,
   `rodt_update` timestamp NULL DEFAULT NULL,
-  `rodt_qty_approved` double DEFAULT 0,
+  `rodt_qty_approved` double DEFAULT '0',
   `rodt_status_po` varchar(1) DEFAULT 'F'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_requestorder_dt: ~10 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_requestorder_dt: ~16 rows (approximately)
 /*!40000 ALTER TABLE `d_requestorder_dt` DISABLE KEYS */;
 REPLACE INTO `d_requestorder_dt` (`rodt_id`, `rodt_code`, `rodt_barang`, `rodt_price`, `rodt_unit_price`, `rodt_unit`, `rodt_qty`, `rodt_insert`, `rodt_status`, `rodt_update`, `rodt_qty_approved`, `rodt_status_po`) VALUES
 	(1, 'RO-001/0718', 'BND/0005', 17500000, 17500000, '0', 1, '2018-07-09 04:03:42', 'F', NULL, 0, 'F'),
@@ -7910,10 +8424,16 @@ REPLACE INTO `d_requestorder_dt` (`rodt_id`, `rodt_code`, `rodt_barang`, `rodt_p
 	(3, 'RO-003/0718', 'BRG/0004', 10000000, 5000000, '0', 2, '2018-07-17 01:03:40', 'T', '2018-07-17 01:04:02', 2, 'T'),
 	(1, 'RO-004/0818', 'BRG/0002', 35000000, 3500000, '0', 10, '2018-08-14 03:44:39', 'T', '2018-08-14 03:45:02', 10, 'T'),
 	(2, 'RO-004/0818', 'BRG/0004', 100000000, 5000000, '0', 20, '2018-08-14 03:44:39', 'T', '2018-08-14 03:45:02', 20, 'T'),
-	(3, 'RO-004/0818', 'BRG/0003', 1500000, 15000, '0', 100, '2018-08-14 03:44:39', 'T', '2018-08-14 03:45:02', 100, 'T');
+	(3, 'RO-004/0818', 'BRG/0003', 1500000, 15000, '0', 100, '2018-08-14 03:44:39', 'T', '2018-08-14 03:45:02', 100, 'T'),
+	(1, 'RO-005/1018', 'BRG/0001', 117, 117, '0', 1, '2018-10-01 12:30:48', 'T', '2018-10-01 12:31:54', 1, 'T'),
+	(2, 'RO-005/1018', 'BRG/0005', 18, 9, '0', 2, '2018-10-01 12:30:48', 'T', '2018-10-01 12:31:54', 2, 'T'),
+	(3, 'RO-005/1018', 'BRG/0004', 33, 11, '0', 3, '2018-10-01 12:30:48', 'T', '2018-10-01 12:31:54', 3, 'T'),
+	(1, 'RO-006/1018', 'BRG/0001', 585, 117, '0', 5, '2018-10-01 12:52:08', 'T', '2018-10-01 12:52:27', 5, 'F'),
+	(1, 'RO-007/1018', 'BRG/0573', 675000, 675000, '0', 1, '2018-10-05 11:07:58', 'F', NULL, 0, 'F'),
+	(1, 'RO-007/1018', 'BRG/0573', 675000, 675000, '0', 1, '2018-10-05 11:09:45', 'F', NULL, 0, 'F');
 /*!40000 ALTER TABLE `d_requestorder_dt` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_sales_order
+-- Dumping structure for table raniyagr_atonergi.d_sales_order
 CREATE TABLE IF NOT EXISTS `d_sales_order` (
   `so_id` int(11) NOT NULL,
   `so_nota` varchar(50) NOT NULL,
@@ -7927,13 +8447,13 @@ CREATE TABLE IF NOT EXISTS `d_sales_order` (
   `so_account` varchar(20) DEFAULT NULL,
   `so_date` date DEFAULT NULL,
   `so_status` varchar(50) DEFAULT NULL,
-  `so_update_at` timestamp NULL DEFAULT current_timestamp(),
+  `so_update_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `so_update_by` varchar(50) DEFAULT NULL,
   `so_create_by` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`so_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_sales_order: ~2 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_sales_order: ~10 rows (approximately)
 /*!40000 ALTER TABLE `d_sales_order` DISABLE KEYS */;
 REPLACE INTO `d_sales_order` (`so_id`, `so_nota`, `so_ref`, `so_note`, `so_type`, `so_amount`, `so_remain`, `so_method`, `so_note2`, `so_account`, `so_date`, `so_status`, `so_update_at`, `so_update_by`, `so_create_by`) VALUES
 	(1, 'SO-001/SWP/SWP/052018', 'QO-001/SWP/SWP/052018', 'xx', 'Down Payment', 1500000, 900000, 'tunai', 'xx', 'Cash', '2018-05-30', 'Printed', '2018-05-30 14:04:19', 'admin', 'admin'),
@@ -7941,10 +8461,15 @@ REPLACE INTO `d_sales_order` (`so_id`, `so_nota`, `so_ref`, `so_note`, `so_type`
 	(3, 'SO-001/SWP/PSG-002/072018', 'QO-003/SWP/PSG-002/072018', 'G', 'Down Payment', 10000000, 10000000, 'tunai', NULL, 'Cash', '2018-07-09', 'Printed', '2018-07-09 16:29:29', 'admin', 'admin'),
 	(4, 'SO-002/WP/PSG-002/072018', 'QO-001/WP/PSG-002/072018', 'dp1', 'Down Payment', 10000000, 8090000, 'tunai', NULL, 'Cash', '2018-07-17', 'Released', '2018-07-17 10:46:05', 'Rudy', 'Rudy'),
 	(5, 'SO-001/SWP/PSG-002/082018', 'QO-001/SWP/PSG-002/082018', 'bank', 'Down Payment', 4000000, 3060000, 'transfer', 'transfer bank', 'Deposit', '2018-08-14', 'Printed', '2018-08-14 15:08:55', 'admin', 'admin'),
-	(6, 'SO-002/WP/PSG-002/082018', 'QO-001/WP/PSG-002/082018', 'test', 'Down Payment', 8250000, 8250000, 'tunai', 'test', 'Cash', '2018-08-31', 'Printed', '2018-08-31 13:06:08', 'admin', 'admin');
+	(6, 'SO-002/WP/PSG-002/082018', 'QO-001/WP/PSG-002/082018', 'test', 'Down Payment', 8250000, 8250000, 'tunai', 'test', 'Cash', '2018-08-31', 'Printed', '2018-08-31 13:06:08', 'admin', 'admin'),
+	(7, 'SO-001/ACC/ACC-IN/092018', 'QO-004/ACC/ACC-IN/092018', NULL, 'Down Payment', 4500000, 4200000, 'tunai', NULL, 'Cash', '2018-09-26', 'Printed', '2018-09-26 14:20:29', 'admin', 'admin'),
+	(8, 'SO-001/SWP/SF-PS/102018', 'QO-001/SWP/SF-PS/102018', 'DP', 'Down Payment', 35000000, 26248320, 'tunai', 'tes', 'Cash', '2018-10-01', 'Printed', '2018-10-01 12:38:26', 'admin', 'admin'),
+	(9, 'SO-002/SWP/SWP/092018', 'QO-024/SWP/SWP/092018', NULL, 'Down Payment', 0, 0, 'tunai', NULL, 'Cash', '2018-10-05', 'Released', '2018-10-05 11:05:40', 'admin', 'admin'),
+	(10, 'SO-003/SWP/SWP/102018', 'QO-001/SWP/SWP/102018', 'BCA', 'Down Payment', 40000000, 45350000, 'transfer', 'BCA', 'Deposit', '2018-10-05', 'Printed', '2018-10-05 12:38:16', 'admin', 'admin'),
+	(11, 'SO-002/OFD/OFG/092018', 'QO-003/OFD/OFG/092018', NULL, 'Down Payment', 0, 0, 'tunai', NULL, 'Cash', '2018-10-05', 'Released', '2018-10-05 11:18:36', 'admin', 'admin');
 /*!40000 ALTER TABLE `d_sales_order` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_status
+-- Dumping structure for table raniyagr_atonergi.d_status
 CREATE TABLE IF NOT EXISTS `d_status` (
   `s_id` int(11) NOT NULL,
   `s_color` varchar(50) DEFAULT NULL,
@@ -7952,7 +8477,7 @@ CREATE TABLE IF NOT EXISTS `d_status` (
   PRIMARY KEY (`s_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_status: ~3 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_status: ~4 rows (approximately)
 /*!40000 ALTER TABLE `d_status` DISABLE KEYS */;
 REPLACE INTO `d_status` (`s_id`, `s_color`, `s_name`) VALUES
 	(1, 'success', 'Won'),
@@ -7961,23 +8486,25 @@ REPLACE INTO `d_status` (`s_id`, `s_color`, `s_name`) VALUES
 	(4, 'primary', 'QWER');
 /*!40000 ALTER TABLE `d_status` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.d_unit
+-- Dumping structure for table raniyagr_atonergi.d_unit
 CREATE TABLE IF NOT EXISTS `d_unit` (
   `u_id` int(11) NOT NULL,
   `u_unit` varchar(50) NOT NULL,
   PRIMARY KEY (`u_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.d_unit: ~4 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.d_unit: ~4 rows (approximately)
 /*!40000 ALTER TABLE `d_unit` DISABLE KEYS */;
 REPLACE INTO `d_unit` (`u_id`, `u_unit`) VALUES
 	(1, 'Ls'),
 	(2, 'Roll'),
 	(3, 'Unit'),
-	(4, 'Bundle');
+	(4, 'Bundle'),
+	(5, '1'),
+	(6, '0');
 /*!40000 ALTER TABLE `d_unit` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.i_stock_gudang
+-- Dumping structure for table raniyagr_atonergi.i_stock_gudang
 CREATE TABLE IF NOT EXISTS `i_stock_gudang` (
   `sg_id` int(11) DEFAULT NULL,
   `sg_iditem` varchar(50) DEFAULT NULL,
@@ -7987,14 +8514,38 @@ CREATE TABLE IF NOT EXISTS `i_stock_gudang` (
   `sg_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.i_stock_gudang: ~2 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.i_stock_gudang: ~25 rows (approximately)
 /*!40000 ALTER TABLE `i_stock_gudang` DISABLE KEYS */;
 REPLACE INTO `i_stock_gudang` (`sg_id`, `sg_iditem`, `sg_qty`, `sg_harga`, `sg_insert`, `sg_update`) VALUES
-	(1, 'BRG/1', 20, 10000, NULL, NULL),
-	(2, 'BRG/3', 20, 10000, NULL, NULL);
+	(3, 'BRG/0573', 7, 675000, '2018-10-04 14:14:34', NULL),
+	(4, 'BRG/0574', 0, 0, '2018-10-04 14:17:45', NULL),
+	(5, 'BRG/0575', 6, 1150000, '2018-10-04 14:19:13', NULL),
+	(6, 'BRG/0576', 0, 0, '2018-10-04 14:19:59', NULL),
+	(7, 'BRG/0577', 0, 0, '2018-10-04 14:20:36', NULL),
+	(8, 'BRG/0578', 6, 602333.33, '2018-10-04 14:21:46', NULL),
+	(9, 'BRG/0579', 0, 0, '2018-10-04 14:22:36', NULL),
+	(10, 'BRG/0580', 8, 3050000, '2018-10-04 14:24:20', NULL),
+	(11, 'BRG/0581', 6, 700000, '2018-10-04 14:25:37', NULL),
+	(12, 'BRG/0582', 0, 0, '2018-10-04 14:26:39', NULL),
+	(13, 'BRG/0583', 0, 0, '2018-10-04 14:27:20', NULL),
+	(14, 'BRG/0584', 0, 0, '2018-10-04 14:27:39', NULL),
+	(15, 'BRG/0585', 0, 0, '2018-10-04 14:28:03', NULL),
+	(16, 'BRG/0586', 0, 0, '2018-10-04 14:28:16', NULL),
+	(17, 'BRG/0587', 0, 0, '2018-10-04 14:29:16', NULL),
+	(18, 'BRG/0588', 5, 75000, '2018-10-04 14:30:03', NULL),
+	(19, 'BRG/0589', 0, 0, '2018-10-04 14:30:35', NULL),
+	(20, 'BRG/0590', 0, 0, '2018-10-04 14:31:26', NULL),
+	(21, 'BRG/0591', 0, 0, '2018-10-04 14:32:50', NULL),
+	(22, 'BRG/0592', 0, 0, '2018-10-04 14:33:18', NULL),
+	(23, 'BRG/0593', 1, 1770000, '2018-10-04 14:33:57', NULL),
+	(24, 'BRG/0594', 0, 0, '2018-10-04 14:35:49', NULL),
+	(25, 'BRG/0595', 0, 0, '2018-10-04 14:36:21', NULL),
+	(26, 'BRG/0596', 0, 0, '2018-10-04 14:36:43', NULL),
+	(27, 'BRG/0597', 10, 576600, '2018-10-04 14:37:22', '2018-10-04 14:37:56'),
+	(28, 'BRG/0598', 0, 0, '2018-10-04 14:39:19', NULL);
 /*!40000 ALTER TABLE `i_stock_gudang` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.i_stock_mutasi
+-- Dumping structure for table raniyagr_atonergi.i_stock_mutasi
 CREATE TABLE IF NOT EXISTS `i_stock_mutasi` (
   `sm_id` int(11) NOT NULL,
   `sm_iddetail` int(11) NOT NULL,
@@ -8012,7 +8563,7 @@ CREATE TABLE IF NOT EXISTS `i_stock_mutasi` (
   PRIMARY KEY (`sm_id`,`sm_iddetail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.i_stock_mutasi: ~10 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.i_stock_mutasi: ~10 rows (approximately)
 /*!40000 ALTER TABLE `i_stock_mutasi` DISABLE KEYS */;
 REPLACE INTO `i_stock_mutasi` (`sm_id`, `sm_iddetail`, `sm_item`, `sm_hpp`, `sm_qty`, `sm_use`, `sm_sisa`, `sm_description`, `sm_ref`, `sm_insert`, `sm_update`, `sm_mutcat`, `sm_deliveryorder`) VALUES
 	(1, 1, 'BRG/1', 10000, 20, 20, 0, 'PENERIMAAN BARANG', 'PB-001//0618', '2018-06-08 01:47:50', NULL, 1, '123123'),
@@ -8027,20 +8578,20 @@ REPLACE INTO `i_stock_mutasi` (`sm_id`, `sm_iddetail`, `sm_item`, `sm_hpp`, `sm_
 	(2, 5, 'BRG/3', 10000, 1, 1, 0, 'STOCK OPNAME KURANG', 'SOP-001/0618', '2018-06-08 14:33:44', NULL, 3, '');
 /*!40000 ALTER TABLE `i_stock_mutasi` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.i_stock_opname
+-- Dumping structure for table raniyagr_atonergi.i_stock_opname
 CREATE TABLE IF NOT EXISTS `i_stock_opname` (
   `so_id` int(11) DEFAULT NULL,
   `so_code` varchar(50) DEFAULT NULL,
   `so_bulan` date DEFAULT NULL,
   `so_create_at` timestamp NULL DEFAULT NULL,
-  `so_update_at` timestamp NULL DEFAULT current_timestamp()
+  `so_update_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.i_stock_opname: ~0 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.i_stock_opname: ~0 rows (approximately)
 /*!40000 ALTER TABLE `i_stock_opname` DISABLE KEYS */;
 /*!40000 ALTER TABLE `i_stock_opname` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.i_stock_opname_dt
+-- Dumping structure for table raniyagr_atonergi.i_stock_opname_dt
 CREATE TABLE IF NOT EXISTS `i_stock_opname_dt` (
   `sodt_id` int(11) DEFAULT NULL,
   `sodt_code` varchar(50) DEFAULT NULL,
@@ -8054,18 +8605,18 @@ CREATE TABLE IF NOT EXISTS `i_stock_opname_dt` (
   `sodt_update_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.i_stock_opname_dt: ~0 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.i_stock_opname_dt: ~0 rows (approximately)
 /*!40000 ALTER TABLE `i_stock_opname_dt` DISABLE KEYS */;
 /*!40000 ALTER TABLE `i_stock_opname_dt` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_bank
+-- Dumping structure for table raniyagr_atonergi.m_bank
 CREATE TABLE IF NOT EXISTS `m_bank` (
   `id` varchar(50) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_bank: ~135 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_bank: ~135 rows (approximately)
 /*!40000 ALTER TABLE `m_bank` DISABLE KEYS */;
 REPLACE INTO `m_bank` (`id`, `name`) VALUES
 	('002', 'BANK BRI'),
@@ -8205,7 +8756,7 @@ REPLACE INTO `m_bank` (`id`, `name`) VALUES
 	('950', 'BANK COMMONWEALTH');
 /*!40000 ALTER TABLE `m_bank` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_currency
+-- Dumping structure for table raniyagr_atonergi.m_currency
 CREATE TABLE IF NOT EXISTS `m_currency` (
   `cu_name` varchar(100) DEFAULT NULL,
   `cu_code` varchar(100) DEFAULT NULL,
@@ -8213,7 +8764,7 @@ CREATE TABLE IF NOT EXISTS `m_currency` (
   `cu_value` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_currency: ~112 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_currency: ~112 rows (approximately)
 /*!40000 ALTER TABLE `m_currency` DISABLE KEYS */;
 REPLACE INTO `m_currency` (`cu_name`, `cu_code`, `cu_symbol`, `cu_value`) VALUES
 	('Leke', 'ALL', 'Lek', NULL),
@@ -8330,7 +8881,7 @@ REPLACE INTO `m_currency` (`cu_name`, `cu_code`, `cu_symbol`, `cu_value`) VALUES
 	('Zimbabwe Dollars', 'ZWD', 'Z$', NULL);
 /*!40000 ALTER TABLE `m_currency` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_customer
+-- Dumping structure for table raniyagr_atonergi.m_customer
 CREATE TABLE IF NOT EXISTS `m_customer` (
   `c_id` int(11) NOT NULL,
   `c_hometown` varchar(50) DEFAULT NULL,
@@ -8338,7 +8889,7 @@ CREATE TABLE IF NOT EXISTS `m_customer` (
   `c_name` varchar(100) DEFAULT NULL,
   `c_birthday` date DEFAULT NULL,
   `c_phone` varchar(50) DEFAULT NULL,
-  `c_address` text DEFAULT NULL,
+  `c_address` text,
   `c_email` varchar(150) DEFAULT NULL,
   `c_type` varchar(50) DEFAULT NULL,
   `c_insert` timestamp NULL DEFAULT NULL,
@@ -8354,7 +8905,7 @@ CREATE TABLE IF NOT EXISTS `m_customer` (
   PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_customer: ~187 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_customer: ~194 rows (approximately)
 /*!40000 ALTER TABLE `m_customer` DISABLE KEYS */;
 REPLACE INTO `m_customer` (`c_id`, `c_hometown`, `c_code`, `c_name`, `c_birthday`, `c_phone`, `c_address`, `c_email`, `c_type`, `c_insert`, `c_creditterms`, `c_plafon`, `c_bankname`, `c_npwp`, `c_accountnumber`, `c_information`, `c_update`, `c_company_name`, `c_phone_1`) VALUES
 	(3, NULL, 'MKT/00003', 'tes', '2018-08-31', NULL, 'jl.asdasdas', NULL, NULL, '2018-05-24 10:20:12', NULL, NULL, NULL, NULL, '123123123', NULL, '2018-08-31 09:52:50', NULL, NULL),
@@ -8364,7 +8915,7 @@ REPLACE INTO `m_customer` (`c_id`, `c_hometown`, `c_code`, `c_name`, `c_birthday
 	(11, NULL, 'MKT/00011', 'ELKANA GORO LEBA', '2018-08-30', '0852 5345 8845', NULL, 'elkana.goroleba@yahoo.com', NULL, '2018-08-30 09:59:31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(12, NULL, 'MKT/00012', 'PAMSIMAS Timur Tengah Selatan', '2018-08-30', '0813 3741 3121', 'KUPANG', 'Imestop@gmail.com', NULL, '2018-08-30 10:01:08', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(13, NULL, 'MKT/00013', 'DIAN', '2018-08-30', '0853 3023 0662', 'Ds. Buluagung RT. 06 RW.03 Kec. Karangan Kab. Trenggalek', 'ss.trenggalek@gmail.com', NULL, '2018-08-30 10:02:32', NULL, NULL, NULL, NULL, NULL, NULL, '2018-08-30 04:20:14', NULL, NULL),
-	(15, NULL, 'MKT/00015', 'RENNY', '2018-08-30', '0821 4356 5008', 'Dharmahusada Permai\r\nGg. 6 No. 27 Blok N 212 Surabaya', 'rennykopaloma@icloud.com', NULL, '2018-08-30 10:06:11', NULL, NULL, 'BNI', NULL, '44980306', NULL, '2018-08-30 11:08:22', NULL, NULL),
+	(15, NULL, 'MKT/00015', 'RENNY (Aris)', '2018-09-18', '0821 4356 5008', 'Dharmahusada Permai\r\nGg. 6 No. 27 Blok N 212 Surabaya', 'rennykopaloma@icloud.com', NULL, '2018-08-30 10:06:11', NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-18 01:55:11', NULL, NULL),
 	(16, NULL, 'MKT/00016', 'AGUS EKO WAHYUDI', '2018-08-30', '0812 3117 111', 'SURABAYA', 'agusekowahyudi@gmail.com', NULL, '2018-08-30 10:07:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(17, NULL, 'MKT/00017', 'REAGEN FELIX', '2018-08-30', '0812 9424 0707', 'JPCC Foundation\r\nDipo Tower Lantai 5 - Dipo Bussines Centre\r\nJl. Jendral Gatot Subroto Kav 51-52 Jakarta Pusat', 'reagan_felix@jpccfoundation.org', NULL, '2018-08-30 10:13:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(18, NULL, 'MKT/00018', 'YUSTINUS', '2018-08-30', '0819 0821 8695', 'JAKARTA', 'yustinus_tp@yahoo.co.id', NULL, '2018-08-30 10:14:32', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -8385,7 +8936,7 @@ REPLACE INTO `m_customer` (`c_id`, `c_hometown`, `c_code`, `c_name`, `c_birthday
 	(33, NULL, 'MKT/00033', 'KANIS', '2018-08-30', '0813 3324 2679  ', 'KUPANG', 'action4success@yahoo.com', NULL, '2018-08-30 11:44:44', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(34, NULL, 'MKT/00034', 'MISBAH', '2018-08-30', '0853 2954 5678', 'BERAU', 'misbahsopongiro@gmail.com', NULL, '2018-08-30 11:46:04', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(35, NULL, 'MKT/00035', 'NATHAN', '2018-08-30', '0811 4859 099', 'SORONG', 'pt.tivanta@gmail.com', NULL, '2018-08-30 11:47:56', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(36, NULL, 'MKT/00036', 'OSCAR', '2018-08-30', '0813 5333 0250 ', 'KUPANG', 'oscharfred37@gmail.com', NULL, '2018-08-30 11:49:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(36, NULL, 'MKT/00036', 'OSCAR (Nan)', '2018-09-18', '0813 5333 0250 ', 'KUPANG', 'oscharfred37@gmail.com', NULL, '2018-08-30 11:49:37', NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-18 01:55:36', NULL, NULL),
 	(37, NULL, 'MKT/00037', 'SABRI', '2018-08-30', '0853 9399 6422', 'Jl. Raja Alam 1 Rt. 02 No. 34\r\nKel. Sambaliung Tanjung Redep Kab. Berau\r\nKalimantan Timur', 'arie_ftehnik@yahoo.com', NULL, '2018-08-30 11:51:19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(38, NULL, 'MKT/00038', 'BAYU INDRA', '2018-08-30', '0858 5500 4339', 'SORONG', 'bayuindramalaya@gmail.com', NULL, '2018-08-30 11:53:12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(39, NULL, 'MKT/00039', 'MAHDI', '2018-08-30', '0812 4667 9017', 'ROTE', 'mahdilatif0@gmail.com', NULL, '2018-08-30 11:54:42', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -8546,10 +9097,17 @@ REPLACE INTO `m_customer` (`c_id`, `c_hometown`, `c_code`, `c_name`, `c_birthday
 	(194, NULL, 'MKT/00194', 'AHMAD MUFID/GUNAWAN', '2018-08-31', '0823 3337 7588', 'TULUNGAGUNG, JATIM', 'mufid@indopenta.com', NULL, '2018-08-30 04:16:12', NULL, NULL, NULL, NULL, NULL, NULL, '2018-08-31 10:52:12', NULL, NULL),
 	(195, '13', 'MKT/00195', 'Liam Alam', '2018-09-18', NULL, 'Sumatra Barat, NTT', NULL, NULL, '2018-09-18 11:34:43', NULL, NULL, NULL, NULL, NULL, NULL, '2018-09-18 11:38:16', NULL, NULL),
 	(196, NULL, 'MKT/00196', 'AGUS', '2018-09-18', NULL, 'MALAKA, ATAMBUA', NULL, NULL, '2018-09-18 12:04:56', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(197, '3578', 'MKT/00197', 'DANANG', '2018-09-18', NULL, 'SURABAYA', NULL, NULL, '2018-09-18 12:16:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	(197, '3578', 'MKT/00197', 'DANANG', '2018-09-18', NULL, 'SURABAYA', NULL, NULL, '2018-09-18 12:16:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(198, '3578', 'MKT/00198', 'Panji', '2018-09-21', NULL, 'Surabaya', 'panji.kushendratno@palmaasri.com', NULL, '2018-09-21 10:31:44', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(199, '31', 'MKT/00199', 'WINNY', '2018-09-24', NULL, 'JAKARTA', NULL, NULL, '2018-09-24 12:33:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(200, '3578', 'MKT/00200', 'DENY', '2018-09-24', NULL, 'SURABAYA', NULL, NULL, '2018-09-24 04:29:19', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'SURABAYA', NULL),
+	(201, '3578', 'MKT/00201', 'MUHADI NUR', '2018-09-25', NULL, 'SURABAYA', NULL, NULL, '2018-09-25 09:55:13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(202, '3578', 'MKT/00202', 'MERLYN', '2018-09-27', NULL, 'SURABAYA', NULL, NULL, '2018-09-27 03:27:26', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(203, '5371', 'MKT/00203', 'MARTEN', '2018-09-27', NULL, 'KUPANG - NTT', NULL, NULL, '2018-09-27 04:15:18', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(204, '9171', 'MKT/00204', 'HARIS', '2018-09-28', NULL, 'SORONG', NULL, NULL, '2018-09-28 11:34:57', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `m_customer` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_item
+-- Dumping structure for table raniyagr_atonergi.m_item
 CREATE TABLE IF NOT EXISTS `m_item` (
   `i_id` int(11) NOT NULL,
   `i_code` varchar(12) DEFAULT NULL,
@@ -8565,7 +9123,7 @@ CREATE TABLE IF NOT EXISTS `m_item` (
   `i_image` varchar(255) DEFAULT NULL,
   `i_weight` float DEFAULT NULL,
   `i_currency_id` varchar(50) DEFAULT NULL,
-  `i_description` text DEFAULT NULL,
+  `i_description` text,
   `i_insert_at` timestamp NULL DEFAULT NULL,
   `i_update_at` timestamp NULL DEFAULT NULL,
   `i_insert_by` varchar(50) DEFAULT NULL,
@@ -8573,79 +9131,78 @@ CREATE TABLE IF NOT EXISTS `m_item` (
   PRIMARY KEY (`i_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_item: ~388 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_item: ~525 rows (approximately)
 /*!40000 ALTER TABLE `m_item` DISABLE KEYS */;
 REPLACE INTO `m_item` (`i_id`, `i_code`, `i_name`, `i_unit`, `i_price`, `i_sell_price`, `i_lower_price`, `i_active`, `i_jenis`, `i_type`, `i_minstock`, `i_image`, `i_weight`, `i_currency_id`, `i_description`, `i_insert_at`, `i_update_at`, `i_insert_by`, `i_update_by`) VALUES
-	(1, 'BRG/0001', 'WATER SENSOR, PIPE INST.', '3', 117.00, 260.00, 208.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_1.jpg', 3.5, 'USD', NULL, '2018-09-05 14:44:25', '2018-09-05 14:44:25', 'admin', 'admin'),
-	(2, 'BRG/0002', 'WELL PROBE SENSOR', '3', 40.05, 89.00, 71.20, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_2.jpg', 0.1, 'USD', NULL, '2018-09-05 14:43:52', '2018-09-05 14:43:52', 'admin', 'admin'),
-	(3, 'BRG/0003', 'SS ADAPTOR', '1', 22.50, 50.00, 40.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_3.jpg', 0.3, 'USD', NULL, '2018-09-05 14:45:31', '2018-09-05 14:45:31', 'admin', 'admin'),
-	(4, 'BRG/0004', 'STEEL ADAPTOR', '1', 10.80, 24.00, 19.20, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_4.jpg', 0.3, 'USD', NULL, '2018-09-05 14:45:57', '2018-09-05 14:45:57', 'admin', 'admin'),
-	(5, 'BRG/0005', 'CABLE SPLICE KIT 2.5-6SQMM', '1', 9.45, 21.00, 16.80, 'Y', 'ITEM', 'ACC-LO', 20, 'barang_5.jpg', 0.1, 'USD', NULL, '2018-09-05 14:46:54', '2018-09-05 14:46:54', 'admin', 'admin'),
-	(6, 'BRG/0006', 'CABLE SPLICE KIT 6-10SQMM', '1', 11.70, 26.00, 20.80, 'Y', 'ITEM', 'ACC-LO', 10, 'barang_6.jpg', 0.1, 'USD', NULL, '2018-09-05 14:47:23', '2018-09-05 14:47:23', 'admin', 'admin'),
-	(7, 'BRG/0007', 'FLOAT SWITCH', '1', 12.60, 28.00, 22.40, 'Y', 'ITEM', 'ACC-LO', 5, 'barang_7.jpg', 0.7, 'USD', NULL, '2018-09-05 14:49:46', '2018-09-05 14:49:46', 'admin', 'admin'),
-	(8, 'BRG/0008', 'SUN SWITCH LIGHT-SENSOR', '1', 130.50, 290.00, 232.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_8.jpg', 1.8, 'USD', NULL, '2018-09-05 14:48:23', '2018-09-05 14:48:23', 'admin', 'admin'),
-	(9, 'BRG/0009', 'PV DISCONNECT 1000-40-5', '1', 306.00, 680.00, 544.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_9.jpg', 3, 'USD', NULL, '2018-09-05 14:53:38', '2018-09-05 14:53:38', 'admin', 'admin'),
-	(10, 'BRG/0010', 'PV COMBINER 1000-125-4', '1', 157.50, 350.00, 280.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_10.jpg', 2.7, 'USD', NULL, '2018-09-05 14:55:33', '2018-09-05 14:55:33', 'admin', 'admin'),
-	(11, 'BRG/0011', 'PV PROTECT 1000-125', '1', 238.50, 530.00, 424.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_11.jpg', 2.3, 'USD', NULL, '2018-09-05 14:56:03', '2018-09-05 14:56:03', 'admin', 'admin'),
-	(12, 'BRG/0012', 'PV DISCONNECT 440-40-6', '1', 148.50, 330.00, 264.00, 'Y', 'ITEM', 'ACC-LO', 10, 'barang_12.jpg', 2.7, 'USD', NULL, '2018-09-05 14:54:50', '2018-09-05 14:54:50', 'admin', 'admin'),
-	(13, 'BRG/0013', 'PV DISCONNECT 440-40-1', '1', 103.50, 230.00, 184.00, 'Y', 'ITEM', 'ACC-LO', 10, 'barang_13.jpg', 1.9, 'USD', NULL, '2018-09-07 15:49:20', '2018-09-07 15:49:20', 'admin', 'admin'),
-	(14, 'BRG/0014', 'POWER PACK 4000 380VAC', '3', 1228.50, 2730.00, 2184.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_14.jpg', 13, 'USD', NULL, '2018-09-05 11:33:22', '2018-09-05 11:33:22', 'admin', 'admin'),
-	(15, 'BRG/0015', 'PS BOOST INST. KIT', '3', 85.50, 190.00, 152.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_15.jpg', 5, 'USD', NULL, '2018-09-05 10:36:44', '2018-09-05 10:36:44', 'admin', 'admin'),
-	(16, 'BRG/0016', 'INLINE FILTER 10" PS150 BOOST', '3', 27.45, 61.00, 48.80, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_16.jpg', 3.5, 'USD', NULL, '2018-09-05 14:26:09', '2018-09-05 14:26:09', 'admin', 'admin'),
-	(17, 'BRG/0017', 'FILTER CARTRIDGE 10" PS150 BOOST', '1', 5.40, 12.00, 9.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_17.jpg', 0.5, 'USD', NULL, '2018-09-10 12:09:07', '2018-09-10 12:09:07', 'admin', 'admin'),
-	(18, 'BRG/0018', 'HOLDER KIT', '3', 3.78, 8.40, 6.72, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_18.jpg', 0.3, 'USD', NULL, '2018-09-05 14:27:04', '2018-09-05 14:27:04', 'admin', 'admin'),
-	(19, 'BRG/0019', 'FLOW SLEEVE KIT FOR 4" HR PUMPS', '3', 40.05, 89.00, 71.20, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_19.jpg', 3.7, 'USD', NULL, '2018-09-05 14:29:13', '2018-09-05 14:29:13', 'admin', 'admin'),
-	(20, 'BRG/0020', 'FLOW SLEEVE KIT FOR 4" C-SJ PUMPS WITH 4" MOTOR', '3', 40.05, 89.00, 71.20, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_20.jpg', 3.3, 'USD', NULL, '2018-09-05 14:29:54', '2018-09-05 14:29:54', 'admin', 'admin'),
-	(21, 'BRG/0021', 'FLOW SLEEVE ADAPTOR FOR 4" HR PUMPS', '1', 16.65, 37.00, 29.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_21.jpg', 1.2, 'USD', NULL, '2018-09-05 14:58:56', '2018-09-05 14:58:56', 'admin', 'admin'),
-	(22, 'BRG/0022', 'GROUNDING CONNECT KIT', '3', 117.00, 260.00, 208.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_22.jpg', 11.5, 'USD', NULL, '2018-09-05 14:27:29', '2018-09-05 14:27:29', 'admin', 'admin'),
-	(23, 'BRG/0023', 'SURGE PROTECTOR', '3', 13.50, 30.00, 24.00, 'Y', 'ITEM', 'ACC-LO', 20, 'barang_23.jpg', 0.2, 'USD', NULL, '2018-09-05 10:32:43', '2018-09-05 10:32:43', 'admin', 'admin'),
-	(24, 'BRG/0024', 'PS COMMUNICATOR WITHOUT BATTERY', '3', 337.50, 750.00, 600.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_24.jpg', 4, 'USD', NULL, '2018-09-05 10:36:02', '2018-09-05 10:36:02', 'admin', 'admin'),
-	(25, 'BRG/0025', 'PRESSURE SWITCH 1-5BAR', '3', 37.80, 84.00, 67.20, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_25.jpg', 1, 'USD', NULL, '2018-09-05 10:37:07', '2018-09-05 10:37:07', 'admin', 'admin'),
-	(26, 'BRG/0026', 'POWER PACK 600H, UL', '3', 427.50, 950.00, 760.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_26.jpg', 21.1, 'USD', NULL, '2018-09-05 10:38:47', '2018-09-05 10:38:47', 'admin', 'admin'),
-	(27, 'BRG/0027', 'POWER PACK 2000, UL', '3', 522.00, 1160.00, 928.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_27.jpg', 25.9, 'USD', NULL, '2018-09-05 10:37:48', '2018-09-05 10:37:48', 'admin', 'admin'),
-	(28, 'BRG/0028', 'POWER PACK 600H SS, UL', '3', 522.00, 1160.00, 928.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_28.jpg', 22, 'USD', NULL, '2018-09-05 10:38:24', '2018-09-05 10:38:24', 'admin', 'admin'),
-	(29, 'BRG/0029', 'POWER PACK 2000 SS, UL', '3', 616.50, 1370.00, 1096.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_29.jpg', 25.5, 'USD', NULL, '2018-09-05 10:38:10', '2018-09-05 10:38:10', 'admin', 'admin'),
-	(30, 'BRG/0030', 'MNSPD-115', '3', 135.00, 300.00, 240.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_30.jpg', 0.4, 'USD', NULL, '2018-09-05 14:24:22', '2018-09-05 14:24:22', 'admin', 'admin'),
-	(31, 'BRG/0031', 'MNSPD-300', '1', 2450000.00, 3500000.00, 2800000.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_31.jpg', 0.4, 'IDR', NULL, '2018-09-13 10:47:48', '2018-09-13 10:47:48', 'admin', 'admin'),
-	(32, 'BRG/0032', 'MNSPD-600', '3', 135.00, 300.00, 240.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_32.jpg', 0.5, 'USD', NULL, '2018-09-05 14:23:27', '2018-09-05 14:23:27', 'admin', 'admin'),
-	(33, 'BRG/0033', 'WATER METER, WP-DN40, 0.1CBM/P', '3', 166.50, 370.00, 296.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_33.jpg', 18.8, 'USD', NULL, '2018-09-05 10:32:18', '2018-09-05 10:32:18', 'admin', 'admin'),
-	(34, 'BRG/0034', 'WATER METER, WP-DN65, 0.1CBM/P', '3', 166.50, 370.00, 296.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_34.jpg', 18.5, 'USD', NULL, '2018-09-05 10:31:54', '2018-09-05 10:31:54', 'admin', 'admin'),
-	(35, 'BRG/0035', 'WATER METER, WP-DN80, 0.1CBM/P', '3', 166.50, 370.00, 296.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_35.jpg', 21.5, 'USD', NULL, '2018-09-05 10:31:27', '2018-09-05 10:31:27', 'admin', 'admin'),
-	(36, 'BRG/0036', 'WATER METER, WP-DN100, 0.1CBM/P', '3', 180.00, 400.00, 320.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_36.jpg', 25, 'USD', NULL, '2018-09-05 10:31:05', '2018-09-05 10:31:05', 'admin', 'admin'),
-	(37, 'BRG/0037', 'WATER METER, WP-DN125, 0.1CBM/P', '3', 211.50, 470.00, 376.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_37.jpg', 28, 'USD', NULL, '2018-09-05 10:30:51', '2018-09-05 10:30:51', 'admin', 'admin'),
-	(38, 'BRG/0038', 'WATER METER, WP-DN200, 1CBM/P', '3', 427.50, 950.00, 760.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_38.jpg', 70, 'USD', NULL, '2018-09-05 10:29:49', '2018-09-05 10:29:49', 'admin', 'admin'),
-	(39, 'BRG/0039', 'WATER METER, WP-DN150, 1CBM/P', '3', 346.50, 770.00, 616.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_39.jpg', 46.5, 'USD', NULL, '2018-09-05 10:30:32', '2018-09-05 10:30:32', 'admin', 'admin'),
-	(40, 'BRG/0040', 'SMARTPSUK2', '3', 162.00, 360.00, 288.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_40.jpg', 24, 'USD', NULL, '2018-09-05 10:34:38', '2018-09-05 10:34:38', 'admin', 'admin'),
-	(41, 'BRG/0041', '"LC20-12M, PV-MODULE, PRE-WIRED, FIXTURE"', '3', 54.00, 120.00, 96.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_41.jpg', 4, 'USD', NULL, '2018-09-05 14:43:19', '2018-09-05 14:43:19', 'admin', 'admin'),
-	(42, 'BRG/0042', 'ANODE, SACRIFICIAL ZINC ANODE ASSEMBLY, DI42MM', '3', 34.65, 77.00, 61.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_42.jpg', 2, 'USD', NULL, '2018-09-05 14:40:39', '2018-09-05 14:40:39', 'admin', 'admin'),
-	(43, 'BRG/0043', 'ANODE, SACRIFICIAL ZINC ANODE ASSEMBLY, DI48MM', '3', 34.65, 77.00, 61.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_43.jpg', 2, 'USD', NULL, '2018-09-05 14:40:06', '2018-09-05 14:40:06', 'admin', 'admin'),
-	(44, 'BRG/0044', 'ANODE, SACRIFICIAL ZINC ANODE FOR 4" MOTOR', '3', 92.25, 205.00, 164.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_44.jpg', 2.3, 'USD', NULL, '2018-09-05 14:39:18', '2018-09-05 14:39:18', 'admin', 'admin'),
-	(45, 'BRG/0045', 'ANODE, SACRIFICIAL ZINC ANODE FOR 6" MOTOR', '3', 130.50, 290.00, 232.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_45.jpg', 2.3, 'USD', NULL, '2018-09-05 14:38:14', '2018-09-05 14:38:14', 'admin', 'admin'),
-	(46, 'BRG/0046', 'ANTENNA, EXTERNAL', '3', 33.30, 74.00, 59.20, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_46.jpg', 0.4, 'USD', NULL, '2018-09-05 12:10:42', '2018-09-05 12:10:42', 'admin', 'admin'),
-	(47, 'BRG/0047', 'POLE MOUNT PM-1-1', '3', 99.90, 222.00, 177.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_47.jpg', 5.5, 'USD', NULL, '2018-09-05 10:41:45', '2018-09-05 10:41:45', 'admin', 'admin'),
-	(48, 'BRG/0048', 'POLE MOUNT PM-1-2', '3', 115.65, 257.00, 205.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_48.jpg', 6.5, 'USD', NULL, '2018-09-05 10:41:10', '2018-09-05 10:41:10', 'admin', 'admin'),
-	(49, 'BRG/0049', 'POLE MOUNT PM-1-3', '3', 131.40, 292.00, 233.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_49.jpg', 7.5, 'USD', NULL, '2018-09-05 10:40:34', '2018-09-05 10:40:34', 'admin', 'admin'),
-	(50, 'BRG/0050', 'POLE MOUNT PM-1-4', '3', 146.70, 326.00, 260.80, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_50.jpg', 8.7, 'USD', NULL, '2018-09-05 10:40:03', '2018-09-05 10:40:03', 'admin', 'admin'),
-	(51, 'BRG/0051', 'POLE MOUNT PM-1-5', '3', 162.00, 360.00, 288.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_51.jpg', 9.8, 'USD', NULL, '2018-09-05 10:39:36', '2018-09-05 10:39:36', 'admin', 'admin'),
-	(52, 'BRG/0052', 'POLE MOUNT PM-1-6', '3', 177.75, 395.00, 316.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_52.jpg', 11, 'USD', NULL, '2018-09-05 10:39:10', '2018-09-05 10:39:10', 'admin', 'admin'),
-	(53, 'BRG/0053', 'POLE MOUNT PM-1, POLE-70-1', '3', 25.20, 56.00, 44.80, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_53.jpg', 10, 'USD', NULL, '2018-09-05 10:43:10', '2018-09-05 10:43:10', 'admin', 'admin'),
-	(54, 'BRG/0054', 'POLE MOUNT PM-1, POLE-114-1', '3', 49.50, 110.00, 88.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_54.jpg', 19, 'USD', NULL, '2018-09-05 14:33:23', '2018-09-05 14:33:23', 'admin', 'admin'),
-	(55, 'BRG/0055', 'POLE MOUNT PM-1, BEAM-70-1', '3', 14.85, 33.00, 26.40, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_55.jpg', 5.5, 'USD', NULL, '2018-09-05 10:45:30', '2018-09-05 10:45:30', 'admin', 'admin'),
-	(56, 'BRG/0056', 'POLE MOUNT PM-1, BEAM-70-2', '3', 27.90, 62.00, 49.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_56.jpg', 10.5, 'USD', NULL, '2018-09-05 10:44:56', '2018-09-05 10:44:56', 'admin', 'admin'),
-	(57, 'BRG/0057', 'POLE MOUNT PM-1, BEAM-70-3', '3', 45.45, 101.00, 80.80, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_57.jpg', 16.5, 'USD', NULL, '2018-09-05 10:44:21', '2018-09-05 10:44:21', 'admin', 'admin'),
-	(58, 'BRG/0058', 'POLE MOUNT PM-1, BEAM-70-4', '3', 111.60, 248.00, 198.40, 'Y', 'ITEM', 'ACC-LO', 10, 'barang_58.jpg', 42, 'USD', NULL, '2018-09-05 10:43:49', '2018-09-05 10:43:49', 'admin', 'admin'),
-	(59, 'BRG/0059', 'PM ACCESSORY BRACKET 4-1', '3', 8.91, 19.80, 15.84, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_59.jpg', 0.8, 'USD', NULL, '2018-09-05 10:47:24', '2018-09-05 10:47:24', 'admin', 'admin'),
-	(60, 'BRG/0060', 'PM ACCESSORY BRACKET 2.5-1', '3', 8.91, 19.80, 15.84, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_60.jpg', 0.8, 'USD', NULL, '2018-09-05 10:49:38', '2018-09-05 10:49:38', 'admin', 'admin'),
-	(61, 'BRG/0061', 'SMARTSTART', '3', 153.00, 340.00, 272.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_61.jpg', 3.3, 'USD', NULL, '2018-09-05 10:34:18', '2018-09-05 10:34:18', 'admin', 'admin'),
-	(62, 'BRG/0062', 'LIQUID PRESSURE SENSOR, LPS-500', '3', 99.00, 220.00, 176.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_62.jpg', 0.3, 'USD', NULL, '2018-09-05 14:25:18', '2018-09-05 14:25:18', 'admin', 'admin'),
-	(63, 'BRG/0063', 'LIQUID PRESSURE SENSOR, LPS-1000', '3', 99.00, 220.00, 176.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_63.jpg', 0.3, 'USD', NULL, '2018-09-05 14:24:44', '2018-09-05 14:24:44', 'admin', 'admin'),
-	(64, 'BRG/0064', 'PLUG-KIT PS2-CONTROLLER', '3', 81.00, 180.00, 144.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_64.jpg', 0.3, 'USD', NULL, '2018-09-05 10:50:11', '2018-09-05 10:50:11', 'admin', 'admin'),
-	(65, 'BRG/0065', 'SENSOR PLUG EXTENSION KIT 2 SENSORS', '3', 44.10, 98.00, 78.40, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_65.jpg', 0, 'USD', NULL, '2018-09-05 10:35:41', '2018-09-05 10:35:41', 'admin', 'admin'),
-	(66, 'BRG/0066', 'SUN SENSOR, LORENTZ BLUE', '3', 29.25, 65.00, 52.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_66.jpg', 0.6, 'USD', NULL, '2018-09-05 10:33:34', '2018-09-05 10:33:34', 'admin', 'admin'),
-	(67, 'BRG/0067', '"LIQUID LEVEL SENSOR, 0-10M/30FT, 30M/100FT CABLE"', '3', 281.25, 625.00, 500.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_67.jpg', 2.3, 'USD', NULL, '2018-09-05 14:41:52', '2018-09-05 14:41:52', 'admin', 'admin'),
-	(68, 'BRG/0068', '"LIQUID LEVEL SENSOR, 0-20M/60FT, 40M/130FT CABLE"', '3', 330.75, 735.00, 588.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_68.jpg', 2.9, 'USD', NULL, '2018-09-05 14:41:19', '2018-09-05 14:41:19', 'admin', 'admin'),
-	(69, 'BRG/0069', 'FLOW SLEEVE KIT FOR C-SJ42-X PUMPS', '3', 130.50, 290.00, 232.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_69.jpg', 0, 'USD', NULL, '2018-09-05 14:28:04', '2018-09-05 14:28:04', 'admin', 'admin'),
-	(70, 'BRG/0070', 'FLOW SLEEVE ADAPTOR FOR C-SJ42-X PUMPS', '3', 103.50, 230.00, 184.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_70.jpg', 0, 'USD', NULL, '2018-09-05 14:30:42', '2018-09-05 14:30:42', 'admin', 'admin'),
+	(1, 'BRG/0001', 'WATER SENSOR, PIPE INST.', '3', 117.00, 260.00, 195.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_1.jpg', 3.5, 'USD', NULL, '2018-09-21 11:42:11', '2018-09-21 11:42:11', 'admin', 'admin'),
+	(3, 'BRG/0003', 'SS ADAPTOR', '3', 22.50, 50.00, 37.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_3.jpg', 0.3, 'USD', NULL, '2018-09-21 11:40:51', '2018-09-21 11:40:51', 'admin', 'admin'),
+	(4, 'BRG/0004', 'STEEL ADAPTOR', '3', 10.80, 24.00, 18.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_4.jpg', 0.3, 'USD', NULL, '2018-09-21 11:40:36', '2018-09-21 11:40:36', 'admin', 'admin'),
+	(5, 'BRG/0005', 'CABLE SPLICE KIT 2.5-6SQMM', '3', 9.45, 21.00, 15.75, 'Y', 'ITEM', 'ACC-LO', 20, 'barang_5.jpg', 0.1, 'USD', NULL, '2018-09-21 15:23:30', '2018-09-21 15:23:30', 'admin', 'admin'),
+	(6, 'BRG/0006', 'CABLE SPLICE KIT 6-10SQMM', '3', 11.70, 26.00, 19.50, 'Y', 'ITEM', 'ACC-LO', 10, 'barang_6.jpg', 0.1, 'USD', NULL, '2018-09-21 11:40:04', '2018-09-21 11:40:04', 'admin', 'admin'),
+	(7, 'BRG/0007', 'FLOAT SWITCH', '3', 12.60, 28.00, 21.00, 'Y', 'ITEM', 'ACC-LO', 5, 'barang_7.jpg', 0.7, 'USD', NULL, '2018-09-21 11:39:50', '2018-09-21 11:39:50', 'admin', 'admin'),
+	(8, 'BRG/0008', 'SUN SWITCH LIGHT-SENSOR', '3', 130.50, 290.00, 217.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_8.jpg', 1.8, 'USD', NULL, '2018-09-21 11:39:32', '2018-09-21 11:39:32', 'admin', 'admin'),
+	(9, 'BRG/0009', 'PV DISCONNECT 1000-40-5', '3', 306.00, 680.00, 510.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_9.jpg', 3, 'USD', NULL, '2018-09-21 11:42:55', '2018-09-21 11:42:55', 'admin', 'admin'),
+	(10, 'BRG/0010', 'PV COMBINER 1000-125-4', '3', 157.50, 350.00, 262.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_10.jpg', 2.7, 'USD', NULL, '2018-09-21 11:43:33', '2018-09-21 11:43:33', 'admin', 'admin'),
+	(11, 'BRG/0011', 'PV PROTECT 1000-125', '3', 238.50, 530.00, 397.50, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_11.jpg', 2.3, 'USD', NULL, '2018-09-21 11:43:59', '2018-09-21 11:43:59', 'admin', 'admin'),
+	(12, 'BRG/0012', 'PV DISCONNECT 440-40-6', '3', 148.50, 330.00, 247.50, 'Y', 'ITEM', 'ACC-LO', 10, 'barang_12.jpg', 2.7, 'USD', NULL, '2018-09-21 11:44:22', '2018-09-21 11:44:22', 'admin', 'admin'),
+	(13, 'BRG/0013', 'PV DISCONNECT 440-40-1', '3', 103.50, 230.00, 172.50, 'Y', 'ITEM', 'ACC-LO', 10, 'barang_13.jpg', 1.9, 'USD', NULL, '2018-09-21 11:44:55', '2018-09-21 11:44:55', 'admin', 'admin'),
+	(14, 'BRG/0014', 'POWER PACK 4000 380VAC', '3', 1228.50, 2730.00, 2047.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_14.jpg', 13, 'USD', NULL, '2018-09-21 11:45:27', '2018-09-21 11:45:27', 'admin', 'admin'),
+	(15, 'BRG/0015', 'PS BOOST INST. KIT', '3', 85.50, 190.00, 142.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_15.jpg', 5, 'USD', NULL, '2018-09-21 11:45:50', '2018-09-21 11:45:50', 'admin', 'admin'),
+	(16, 'BRG/0016', 'INLINE FILTER 10" PS150 BOOST', '3', 27.45, 61.00, 45.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_16.jpg', 3.5, 'USD', NULL, '2018-09-21 11:46:13', '2018-09-21 11:46:13', 'admin', 'admin'),
+	(17, 'BRG/0017', 'FILTER CARTRIDGE 10" PS150 BOOST', '3', 5.40, 12.00, 9.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_17.jpg', 0.5, 'USD', NULL, '2018-09-21 11:46:36', '2018-09-21 11:46:36', 'admin', 'admin'),
+	(18, 'BRG/0018', 'HOLDER KIT', '3', 3.78, 8.40, 6.30, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_18.jpg', 0.3, 'USD', NULL, '2018-09-21 11:47:00', '2018-09-21 11:47:00', 'admin', 'admin'),
+	(19, 'BRG/0019', 'FLOW SLEEVE KIT FOR 4" HR PUMPS', '3', 40.05, 89.00, 66.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_19.jpg', 3.7, 'USD', NULL, '2018-09-21 11:47:25', '2018-09-21 11:47:25', 'admin', 'admin'),
+	(20, 'BRG/0020', 'FLOW SLEEVE KIT FOR 4" C-SJ PUMPS WITH 4" MOTOR', '3', 40.05, 89.00, 66.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_20.jpg', 3.3, 'USD', NULL, '2018-09-21 11:47:46', '2018-09-21 11:47:46', 'admin', 'admin'),
+	(21, 'BRG/0021', 'FLOW SLEEVE ADAPTOR FOR 4" HR PUMPS', '3', 16.65, 37.00, 27.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_21.jpg', 1.2, 'USD', NULL, '2018-09-21 11:48:15', '2018-09-21 11:48:15', 'admin', 'admin'),
+	(22, 'BRG/0022', 'GROUNDING CONNECT KIT', '3', 117.00, 260.00, 195.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_22.jpg', 11.5, 'USD', NULL, '2018-09-21 11:49:36', '2018-09-21 11:49:36', 'admin', 'admin'),
+	(23, 'BRG/0023', 'SURGE PROTECTOR', '3', 13.50, 30.00, 22.50, 'Y', 'ITEM', 'ACC-LO', 20, 'barang_23.jpg', 0.2, 'USD', NULL, '2018-09-21 11:49:57', '2018-09-21 11:49:57', 'admin', 'admin'),
+	(24, 'BRG/0024', 'PS COMMUNICATOR WITHOUT BATTERY', '3', 337.50, 750.00, 562.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_24.jpg', 4, 'USD', NULL, '2018-09-21 11:50:25', '2018-09-21 11:50:25', 'admin', 'admin'),
+	(25, 'BRG/0025', 'PRESSURE SWITCH 1-5BAR', '3', 37.80, 84.00, 63.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_25.jpg', 1, 'USD', NULL, '2018-09-21 11:51:19', '2018-09-21 11:51:19', 'admin', 'admin'),
+	(26, 'BRG/0026', 'POWER PACK 600H, UL', '3', 427.50, 950.00, 712.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_26.jpg', 21.1, 'USD', NULL, '2018-09-21 11:52:08', '2018-09-21 11:52:08', 'admin', 'admin'),
+	(27, 'BRG/0027', 'POWER PACK 2000, UL', '3', 522.00, 1160.00, 870.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_27.jpg', 25.9, 'USD', NULL, '2018-09-21 11:52:32', '2018-09-21 11:52:32', 'admin', 'admin'),
+	(28, 'BRG/0028', 'POWER PACK 600H SS, UL', '3', 522.00, 1160.00, 870.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_28.jpg', 22, 'USD', NULL, '2018-09-21 11:52:52', '2018-09-21 11:52:52', 'admin', 'admin'),
+	(29, 'BRG/0029', 'POWER PACK 2000 SS, UL', '3', 616.50, 1370.00, 1027.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_29.jpg', 25.5, 'USD', NULL, '2018-09-21 11:53:16', '2018-09-21 11:53:16', 'admin', 'admin'),
+	(30, 'BRG/0030', 'MNSPD-115', '3', 135.00, 300.00, 225.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_30.jpg', 0.4, 'USD', NULL, '2018-09-21 11:56:07', '2018-09-21 11:56:07', 'admin', 'admin'),
+	(31, 'BRG/0031', 'MNSPD-300', '3', 2175000.00, 2900000.00, 2465000.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_31.jpg', 0.4, 'IDR', NULL, '2018-09-21 12:34:04', '2018-09-21 12:34:04', 'admin', 'admin'),
+	(32, 'BRG/0032', 'MNSPD-600', '3', 135.00, 300.00, 225.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_32.jpg', 0.5, 'USD', NULL, '2018-09-21 11:56:30', '2018-09-21 11:56:30', 'admin', 'admin'),
+	(33, 'BRG/0033', 'WATER METER, WP-DN40, 0.1CBM/P', '3', 166.50, 370.00, 277.50, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_33.jpg', 18.8, 'USD', NULL, '2018-09-21 11:56:53', '2018-09-21 11:56:53', 'admin', 'admin'),
+	(34, 'BRG/0034', 'WATER METER, WP-DN65, 0.1CBM/P', '3', 166.50, 370.00, 277.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_34.jpg', 18.5, 'USD', NULL, '2018-09-21 11:57:24', '2018-09-21 11:57:24', 'admin', 'admin'),
+	(35, 'BRG/0035', 'WATER METER, WP-DN80, 0.1CBM/P', '3', 166.50, 370.00, 277.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_35.jpg', 21.5, 'USD', NULL, '2018-09-21 11:58:03', '2018-09-21 11:58:03', 'admin', 'admin'),
+	(36, 'BRG/0036', 'WATER METER, WP-DN100, 0.1CBM/P', '3', 180.00, 400.00, 300.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_36.jpg', 25, 'USD', NULL, '2018-09-21 11:58:32', '2018-09-21 11:58:32', 'admin', 'admin'),
+	(37, 'BRG/0037', 'WATER METER, WP-DN125, 0.1CBM/P', '3', 211.50, 470.00, 352.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_37.jpg', 28, 'USD', NULL, '2018-09-21 11:59:00', '2018-09-21 11:59:00', 'admin', 'admin'),
+	(38, 'BRG/0038', 'WATER METER, WP-DN200, 1CBM/P', '3', 427.50, 950.00, 712.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_38.jpg', 70, 'USD', NULL, '2018-09-21 11:59:24', '2018-09-21 11:59:24', 'admin', 'admin'),
+	(39, 'BRG/0039', 'WATER METER, WP-DN150, 1CBM/P', '3', 346.50, 770.00, 577.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_39.jpg', 46.5, 'USD', NULL, '2018-09-21 12:00:07', '2018-09-21 12:00:07', 'admin', 'admin'),
+	(40, 'BRG/0040', 'SMARTPSUK2', '3', 162.00, 360.00, 270.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_40.jpg', 24, 'USD', NULL, '2018-09-21 12:00:27', '2018-09-21 12:00:27', 'admin', 'admin'),
+	(41, 'BRG/0041', '"LC20-12M, PV-MODULE, PRE-WIRED, FIXTURE"', '3', 54.00, 120.00, 90.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_41.jpg', 4, 'USD', NULL, '2018-09-21 12:00:57', '2018-09-21 12:00:57', 'admin', 'admin'),
+	(42, 'BRG/0042', 'ANODE, SACRIFICIAL ZINC ANODE ASSEMBLY, DI42MM', '3', 34.65, 77.00, 57.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_42.jpg', 2, 'USD', NULL, '2018-09-21 12:01:49', '2018-09-21 12:01:49', 'admin', 'admin'),
+	(43, 'BRG/0043', 'ANODE, SACRIFICIAL ZINC ANODE ASSEMBLY, DI48MM', '3', 34.65, 77.00, 57.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_43.jpg', 2, 'USD', NULL, '2018-09-21 12:02:11', '2018-09-21 12:02:11', 'admin', 'admin'),
+	(44, 'BRG/0044', 'ANODE, SACRIFICIAL ZINC ANODE FOR 4" MOTOR', '3', 92.25, 205.00, 153.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_44.jpg', 2.3, 'USD', NULL, '2018-09-21 12:03:08', '2018-09-21 12:03:08', 'admin', 'admin'),
+	(45, 'BRG/0045', 'ANODE, SACRIFICIAL ZINC ANODE FOR 6" MOTOR', '3', 130.50, 290.00, 217.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_45.jpg', 2.3, 'USD', NULL, '2018-09-21 12:03:35', '2018-09-21 12:03:35', 'admin', 'admin'),
+	(46, 'BRG/0046', 'ANTENNA, EXTERNAL', '3', 33.30, 74.00, 55.50, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_46.jpg', 0.4, 'USD', NULL, '2018-09-21 12:04:01', '2018-09-21 12:04:01', 'admin', 'admin'),
+	(47, 'BRG/0047', 'POLE MOUNT PM-1-1', '3', 99.90, 222.00, 166.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_47.jpg', 5.5, 'USD', NULL, '2018-09-21 12:04:25', '2018-09-21 12:04:25', 'admin', 'admin'),
+	(48, 'BRG/0048', 'POLE MOUNT PM-1-2', '3', 115.65, 257.00, 192.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_48.jpg', 6.5, 'USD', NULL, '2018-09-21 12:04:47', '2018-09-21 12:04:47', 'admin', 'admin'),
+	(49, 'BRG/0049', 'POLE MOUNT PM-1-3', '3', 131.40, 292.00, 219.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_49.jpg', 7.5, 'USD', NULL, '2018-09-21 12:05:11', '2018-09-21 12:05:11', 'admin', 'admin'),
+	(50, 'BRG/0050', 'POLE MOUNT PM-1-4', '3', 146.70, 326.00, 244.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_50.jpg', 8.7, 'USD', NULL, '2018-09-21 12:05:34', '2018-09-21 12:05:34', 'admin', 'admin'),
+	(51, 'BRG/0051', 'POLE MOUNT PM-1-5', '3', 162.00, 360.00, 270.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_51.jpg', 9.8, 'USD', NULL, '2018-09-21 12:07:12', '2018-09-21 12:07:12', 'admin', 'admin'),
+	(52, 'BRG/0052', 'POLE MOUNT PM-1-6', '3', 177.75, 395.00, 296.25, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_52.jpg', 11, 'USD', NULL, '2018-09-21 12:07:46', '2018-09-21 12:07:46', 'admin', 'admin'),
+	(53, 'BRG/0053', 'POLE MOUNT PM-1, POLE-70-1', '3', 25.20, 56.00, 42.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_53.jpg', 10, 'USD', NULL, '2018-09-21 12:08:10', '2018-09-21 12:08:10', 'admin', 'admin'),
+	(54, 'BRG/0054', 'POLE MOUNT PM-1, POLE-114-1', '3', 49.50, 110.00, 82.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_54.jpg', 19, 'USD', NULL, '2018-09-21 12:08:35', '2018-09-21 12:08:35', 'admin', 'admin'),
+	(55, 'BRG/0055', 'POLE MOUNT PM-1, BEAM-70-1', '3', 14.85, 33.00, 24.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_55.jpg', 5.5, 'USD', NULL, '2018-09-21 12:08:56', '2018-09-21 12:08:56', 'admin', 'admin'),
+	(56, 'BRG/0056', 'POLE MOUNT PM-1, BEAM-70-2', '3', 27.90, 62.00, 46.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_56.jpg', 10.5, 'USD', NULL, '2018-09-21 12:09:20', '2018-09-21 12:09:20', 'admin', 'admin'),
+	(57, 'BRG/0057', 'POLE MOUNT PM-1, BEAM-70-3', '3', 45.45, 101.00, 75.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_57.jpg', 16.5, 'USD', NULL, '2018-09-21 12:09:40', '2018-09-21 12:09:40', 'admin', 'admin'),
+	(58, 'BRG/0058', 'POLE MOUNT PM-1, BEAM-70-4', '3', 111.60, 248.00, 186.00, 'Y', 'ITEM', 'ACC-LO', 10, 'barang_58.jpg', 42, 'USD', NULL, '2018-09-21 12:10:04', '2018-09-21 12:10:04', 'admin', 'admin'),
+	(59, 'BRG/0059', 'PM ACCESSORY BRACKET 4-1', '3', 8.91, 19.80, 14.85, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_59.jpg', 0.8, 'USD', NULL, '2018-09-21 12:10:27', '2018-09-21 12:10:27', 'admin', 'admin'),
+	(60, 'BRG/0060', 'PM ACCESSORY BRACKET 2.5-1', '3', 8.91, 19.80, 14.85, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_60.jpg', 0.8, 'USD', NULL, '2018-09-21 12:10:53', '2018-09-21 12:10:53', 'admin', 'admin'),
+	(61, 'BRG/0061', 'SMARTSTART', '3', 153.00, 340.00, 255.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_61.jpg', 3.3, 'USD', NULL, '2018-09-21 12:12:06', '2018-09-21 12:12:06', 'admin', 'admin'),
+	(62, 'BRG/0062', 'LIQUID PRESSURE SENSOR, LPS-500', '3', 99.00, 220.00, 165.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_62.jpg', 0.3, 'USD', NULL, '2018-09-21 12:12:27', '2018-09-21 12:12:27', 'admin', 'admin'),
+	(63, 'BRG/0063', 'LIQUID PRESSURE SENSOR, LPS-1000', '3', 99.00, 220.00, 165.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_63.jpg', 0.3, 'USD', NULL, '2018-09-21 12:13:22', '2018-09-21 12:13:22', 'admin', 'admin'),
+	(64, 'BRG/0064', 'PLUG-KIT PS2-CONTROLLER', '3', 81.00, 180.00, 135.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_64.jpg', 0.3, 'USD', NULL, '2018-09-21 12:14:08', '2018-09-21 12:14:08', 'admin', 'admin'),
+	(65, 'BRG/0065', 'SENSOR PLUG EXTENSION KIT 2 SENSORS', '3', 44.10, 98.00, 73.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_65.jpg', 0, 'USD', NULL, '2018-09-21 12:14:39', '2018-09-21 12:14:39', 'admin', 'admin'),
+	(66, 'BRG/0066', 'SUN SENSOR, LORENTZ BLUE', '3', 29.25, 65.00, 48.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_66.jpg', 0.6, 'USD', NULL, '2018-09-21 12:15:20', '2018-09-21 12:15:20', 'admin', 'admin'),
+	(67, 'BRG/0067', '"LIQUID LEVEL SENSOR, 0-10M/30FT, 30M/100FT CABLE"', '3', 281.25, 625.00, 468.75, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_67.jpg', 2.3, 'USD', NULL, '2018-09-21 12:15:46', '2018-09-21 12:15:46', 'admin', 'admin'),
+	(68, 'BRG/0068', '"LIQUID LEVEL SENSOR, 0-20M/60FT, 40M/130FT CABLE"', '3', 330.75, 735.00, 551.25, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_68.jpg', 2.9, 'USD', NULL, '2018-09-21 12:16:19', '2018-09-21 12:16:19', 'admin', 'admin'),
+	(69, 'BRG/0069', 'FLOW SLEEVE KIT FOR C-SJ42-X PUMPS', '3', 130.50, 290.00, 217.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_69.jpg', 0, 'USD', NULL, '2018-09-21 12:17:18', '2018-09-21 12:17:18', 'admin', 'admin'),
+	(70, 'BRG/0070', 'FLOW SLEEVE ADAPTOR FOR C-SJ42-X PUMPS', '3', 103.50, 230.00, 172.50, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_70.jpg', 0, 'USD', NULL, '2018-09-21 12:17:55', '2018-09-21 12:17:55', 'admin', 'admin'),
 	(71, 'BRG/0071', 'PE HR-03H-3, RP 1 1/4"', '3', 330.75, 735.00, 588.00, 'Y', 'ITEM', 'PE', 0, 'barang_71.jpg', 5.2, 'USD', NULL, '2018-09-05 11:49:11', '2018-09-05 11:49:11', 'admin', 'admin'),
 	(72, 'BRG/0072', 'PE HR-03-3, RP 1 1/4"', '3', 330.75, 735.00, 588.00, 'Y', 'ITEM', 'PU', 0, 'barang_72.jpg', 5.1, 'USD', NULL, '2018-09-05 11:49:36', '2018-09-05 11:49:36', 'admin', 'admin'),
 	(73, 'BRG/0073', 'PE HR-04-3, RP 1 1/4"', '3', 330.75, 735.00, 588.00, 'Y', 'ITEM', 'PU', 0, 'barang_73.jpg', 5.2, 'USD', NULL, '2018-09-05 11:48:47', '2018-09-05 11:48:47', 'admin', 'admin'),
@@ -8756,11 +9313,11 @@ REPLACE INTO `m_item` (`i_id`, `i_code`, `i_name`, `i_unit`, `i_price`, `i_sell_
 	(178, 'BRG/0178', 'AC DRIVE SUB 6" 18.5KW-380V-3PH-50HZ', '3', 1399.50, 3110.00, 2488.00, 'Y', 'ITEM', 'EC-D', 1, 'barang_178.jpg', 78.5, 'USD', NULL, '2018-09-05 16:13:07', '2018-09-05 16:13:07', 'admin', 'admin'),
 	(179, 'BRG/0179', 'AC DRIVE SUB 6" 30KW-380V-3PH-50HZ', '3', 1800.00, 4000.00, 3200.00, 'Y', 'ITEM', 'EC-D', 1, 'barang_179.jpg', 103.5, 'USD', NULL, '2018-09-05 16:13:59', '2018-09-05 16:13:59', 'admin', 'admin'),
 	(180, 'BRG/0180', 'PE CS-F3-7, 1 1/4"', '3', 337.50, 750.00, 600.00, 'Y', 'ITEM', 'PE', 0, 'barang_180.jpg', 18, 'USD', NULL, '2018-09-06 13:15:20', '2018-09-06 13:15:20', 'admin', 'admin'),
-	(181, 'BRG/0181', 'FLOW SLEEVE ADAPTOR FOR 4" C-SJ PUMPS WITH 4" MOTOR', '3', 16.65, 37.00, 29.60, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_181.jpg', 1.2, 'USD', NULL, '2018-09-06 13:17:04', '2018-09-06 13:17:04', 'admin', 'admin'),
-	(182, 'BRG/0182', '"FLOW SLEEVE ADAPTOR FOR C-SJ17-X/30-X WITH 4"" MOTOR"', '1', 33.75, 75.00, 60.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_182.jpg', 0.7, 'USD', NULL, '2018-09-06 13:26:55', '2018-09-06 13:26:55', 'admin', 'admin'),
-	(183, 'BRG/0183', '"POWER PACK 150, 120VAC, 47-63HZ, DC OUT= 24V, 0.4KVA"', '3', 207.00, 460.00, 368.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_183.jpg', 6.4, 'USD', NULL, '2018-09-06 13:29:06', '2018-09-06 13:29:06', 'admin', 'admin'),
-	(184, 'BRG/0184', '"POWER PACK 200, 120VAC, 47-63HZ, DC OUT= 48V, 0.4KVA"', '3', 207.00, 460.00, 368.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_184.jpg', 6.4, 'USD', NULL, '2018-09-06 13:31:15', '2018-09-06 13:31:15', 'admin', 'admin'),
-	(185, 'BRG/0185', '"LIQUID LEVEL SENSOR, 0-50M/160FT, 60M/200FT CABLE"', '3', 369.00, 820.00, 656.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_185.jpg', 4.3, 'USD', NULL, '2018-09-06 13:33:25', '2018-09-06 13:33:25', 'admin', 'admin'),
+	(181, 'BRG/0181', 'FLOW SLEEVE ADAPTOR FOR 4" C-SJ PUMPS WITH 4" MOTOR', '3', 16.65, 37.00, 27.75, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_181.jpg', 1.2, 'USD', NULL, '2018-09-21 11:48:39', '2018-09-21 11:48:39', 'admin', 'admin'),
+	(182, 'BRG/0182', '"FLOW SLEEVE ADAPTOR FOR C-SJ17-X/30-X WITH 4"" MOTOR"', '3', 33.75, 75.00, 56.25, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_182.jpg', 0.7, 'USD', NULL, '2018-09-21 11:49:10', '2018-09-21 11:49:10', 'admin', 'admin'),
+	(183, 'BRG/0183', '"POWER PACK 150, 120VAC, 47-63HZ, DC OUT= 24V, 0.4KVA"', '3', 207.00, 460.00, 345.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_183.jpg', 6.4, 'USD', NULL, '2018-09-21 12:11:20', '2018-09-21 12:11:20', 'admin', 'admin'),
+	(184, 'BRG/0184', '"POWER PACK 200, 120VAC, 47-63HZ, DC OUT= 48V, 0.4KVA"', '3', 207.00, 460.00, 345.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_184.jpg', 6.4, 'USD', NULL, '2018-09-21 12:11:45', '2018-09-21 12:11:45', 'admin', 'admin'),
+	(185, 'BRG/0185', '"LIQUID LEVEL SENSOR, 0-50M/160FT, 60M/200FT CABLE"', '3', 369.00, 820.00, 615.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_185.jpg', 4.3, 'USD', NULL, '2018-09-21 12:16:40', '2018-09-21 12:16:40', 'admin', 'admin'),
 	(186, 'BRG/0186', 'AC DRIVE CS-F 5.5KW-380V-3PH-50HZ', '1', 598.50, 1330.00, 1064.00, 'Y', 'ITEM', 'EC-D', 1, 'barang_186.jpg', 48, 'USD', NULL, '2018-09-06 14:09:30', '2018-09-06 14:09:30', 'admin', 'admin'),
 	(187, 'BRG/0187', 'AC DRIVE CS-F 7.5KW-380V-3PH-50HZ', '3', 625.50, 1390.00, 1112.00, 'Y', 'ITEM', 'EC-D', 1, 'barang_187.jpg', 56, 'USD', NULL, '2018-09-06 14:10:32', '2018-09-06 14:10:32', 'admin', 'admin'),
 	(188, 'BRG/0188', 'AC DRIVE CS-F 11KW-380V-3PH-50HZ', '3', 958.50, 2130.00, 1704.00, 'Y', 'ITEM', 'EC-D', 0, 'barang_188.jpg', 128, 'USD', NULL, '2018-09-06 14:11:47', '2018-09-06 14:11:47', 'admin', 'admin'),
@@ -8997,17 +9554,17 @@ REPLACE INTO `m_item` (`i_id`, `i_code`, `i_name`, `i_unit`, `i_price`, `i_sell_
 	(430, 'BND/0430', '06-000045 PS2-150 BOOST-240', '4', 758.25, 758.25, 758.25, 'Y', 'BUNDLE', '0', 0, '0', 0, 'USD', 'pump set', '2018-09-12 16:22:43', '2018-09-12 16:22:43', 'admin', 'admin'),
 	(431, 'BND/0431', 'PS2-150 BOOST-330', '4', 758.25, 758.25, 758.25, 'Y', 'BUNDLE', '0', 0, '0', 0, 'USD', 'pump set', '2018-09-12 16:24:52', '2018-09-12 16:24:52', 'admin', 'admin'),
 	(432, 'BRG/0432', 'MNSPD-300 LORENTZ', '1', 135.00, 300.00, 240.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_432.jpg', 0.4, 'USD', NULL, '2018-09-13 10:51:57', '2018-09-13 10:51:57', 'admin', 'admin'),
-	(434, 'BRG/0434', 'HDPE PIPA 1,5" PN 10 WAVIN', '2', 3375000.00, 2700000.00, 2430000.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_434.jpg', 0, 'IDR', NULL, '2018-09-14 12:30:04', '2018-09-14 12:30:04', 'admin', 'admin'),
+	(434, 'BRG/0434', 'HDPE PIPA 1,5" PN 10 WAVIN', '3', 2025000.00, 2700000.00, 2295000.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_434.jpg', 0, 'IDR', NULL, '2018-09-21 14:33:50', '2018-09-21 14:33:50', 'admin', 'admin'),
 	(435, 'BRG/0435', 'AKSESORIS INSTALASI 2OKW', '3', 11875000.00, 9500000.00, 8550000.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_435.jpg', 0, 'IDR', NULL, '2018-09-14 14:10:46', '2018-09-14 14:10:46', 'admin', 'admin'),
-	(436, 'BRG/0436', 'ELBOW 1 PC', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_436.jpg', 0, 'IDR', NULL, '2018-09-14 12:18:06', '2018-09-14 12:18:06', 'admin', 'admin'),
-	(438, 'BRG/0438', 'STREET COPLER 2 PC', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_438.jpg', 0, 'IDR', NULL, '2018-09-14 12:19:22', '2018-09-14 12:19:22', 'admin', 'admin'),
-	(439, 'BRG/0439', 'REDUCER 1 PC', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_439.jpg', 0, 'IDR', NULL, '2018-09-14 12:19:57', '2018-09-14 12:19:57', 'admin', 'admin'),
-	(440, 'BRG/0440', 'DOUBLE NAPLE 1 PC', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_440.jpg', 0, 'IDR', NULL, '2018-09-14 12:20:28', '2018-09-14 12:20:28', 'admin', 'admin'),
-	(441, 'BRG/0441', 'MALE THREAT', '3', 156250.00, 125000.00, 112500.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_441.jpg', 0, 'IDR', NULL, '2018-09-14 12:36:49', '2018-09-14 12:36:49', 'admin', 'admin'),
-	(442, 'BRG/0442', 'SOLAR PANEL 250 WP', '3', 3687500.00, 2950000.00, 2655000.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_442.jpg', 0, 'IDR', NULL, '2018-09-14 12:23:00', '2018-09-14 12:23:00', 'admin', 'admin'),
-	(443, 'BRG/0443', 'HDPE PIPA 1,5" PN 10 SUPRALON', '2', 2481250.00, 1985000.00, 1786500.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_443.jpg', 0, 'IDR', NULL, '2018-09-14 12:29:27', '2018-09-14 12:29:27', 'admin', 'admin'),
+	(436, 'BRG/0436', 'ELBOW', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_436.jpg', 0, 'IDR', NULL, '2018-09-21 13:50:05', '2018-09-21 13:50:05', 'admin', 'admin'),
+	(438, 'BRG/0438', 'STREET COPLER', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_438.jpg', 0, 'IDR', NULL, '2018-09-21 13:49:39', '2018-09-21 13:49:39', 'admin', 'admin'),
+	(439, 'BRG/0439', 'REDUCER', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_439.jpg', 0, 'IDR', NULL, '2018-09-21 13:50:30', '2018-09-21 13:50:30', 'admin', 'admin'),
+	(440, 'BRG/0440', 'DOUBLE NAPLE', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_440.jpg', 0, 'IDR', NULL, '2018-09-21 13:50:50', '2018-09-21 13:50:50', 'admin', 'admin'),
+	(441, 'BRG/0441', 'MALE THREAT', '3', 93750.00, 125000.00, 106250.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_441.jpg', 0, 'IDR', NULL, '2018-09-21 15:25:13', '2018-09-21 15:25:13', 'admin', 'admin'),
+	(442, 'BRG/0442', 'SOLAR PANEL 250 WP POLY', '3', 2212500.00, 2950000.00, 2507500.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_442.jpg', 0, 'IDR', NULL, '2018-09-26 11:06:58', '2018-09-26 11:06:58', 'admin', 'admin'),
+	(443, 'BRG/0443', 'HDPE PIPA 1,5" PN 10 SUPRALON', '3', 1488750.00, 1985000.00, 1687250.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_443.jpg', 0, 'IDR', NULL, '2018-09-21 14:34:37', '2018-09-21 14:34:37', 'admin', 'admin'),
 	(444, 'BRG/0444', 'HDPE PIPA 1,5" PN 16', '2', 3712500.00, 2970000.00, 2673000.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_444.jpg', 0, 'IDR', NULL, '2018-09-14 12:34:48', '2018-09-14 12:34:48', 'admin', 'admin'),
-	(445, 'BRG/0445', 'ICA SNV-GFT-5KW OFFGRID INVERTER', '3', 34375000.00, 27500000.00, 24750000.00, 'Y', 'ITEM', 'OFG', 1, 'barang_445.jpg', 0, 'IDR', NULL, '2018-09-14 13:02:41', '2018-09-14 13:02:41', 'admin', 'admin'),
+	(445, 'BRG/0445', 'ICA SNV-GFT-5KW OFFGRID INVERTER', '3', 34375000.00, 27500000.00, 24750000.00, 'Y', 'ITEM', 'OFG', 1, 'barang_445.jpg', 0, 'IDR', NULL, '2018-09-21 10:49:24', '2018-09-21 10:49:24', 'admin', 'admin'),
 	(446, 'BRG/0446', 'SOLAR PANEL 265WP', '3', 3125000.00, 2500000.00, 2250000.00, 'Y', 'ITEM', 'OFG', 1, 'barang_446.jpg', 0, 'IDR', NULL, '2018-09-14 13:06:03', '2018-09-14 13:06:03', 'admin', 'admin'),
 	(447, 'BRG/0447', 'PV CABLE SET 1X6MM', '3', 1875000.00, 1500000.00, 1350000.00, 'Y', 'ITEM', 'OFG', 0, 'barang_447.jpg', 0, 'IDR', NULL, '2018-09-14 13:07:11', '2018-09-14 13:07:11', 'admin', 'admin'),
 	(448, 'BRG/0448', 'DC BATTERY CABLE SET', '3', 250000.00, 200000.00, 180000.00, 'Y', 'ITEM', 'OFG', 0, 'barang_448.jpg', 0, 'IDR', NULL, '2018-09-14 13:08:26', '2018-09-14 13:08:26', 'admin', 'admin'),
@@ -9029,7 +9586,7 @@ REPLACE INTO `m_item` (`i_id`, `i_code`, `i_name`, `i_unit`, `i_price`, `i_sell_
 	(464, 'BRG/0464', 'AKSESORIS INSTALASI 3KW', '3', 5625000.00, 4500000.00, 4050000.00, 'Y', 'ITEM', 'ONG', 1, 'barang_464.jpg', 0, 'IDR', NULL, '2018-09-14 14:22:29', '2018-09-14 14:22:29', 'admin', 'admin'),
 	(465, 'BRG/0465', 'AKSESORIS INSTALASI 3KW', '3', 5625000.00, 4500000.00, 4050000.00, 'Y', 'ITEM', 'ONG', 1, 'barang_465.jpg', 0, 'IDR', NULL, '2018-09-14 14:22:30', '2018-09-14 14:22:30', 'admin', 'admin'),
 	(466, 'BRG/0466', 'ROOF MOUNTING', '3', 23125000.00, 18500000.00, 16650000.00, 'Y', 'ITEM', 'ONG', 0, 'barang_466.jpg', 0, 'IDR', NULL, '2018-09-14 14:23:54', '2018-09-14 14:23:54', 'admin', 'admin'),
-	(467, 'BRG/0467', 'WATER METER UK. 2"', '3', 2250000.00, 1800000.00, 1620000.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_467.jpg', 0, 'IDR', NULL, '2018-09-14 14:31:06', '2018-09-14 14:31:06', 'admin', 'admin'),
+	(467, 'BRG/0467', 'WATER METER UK. 2"', '3', 1350000.00, 1800000.00, 1530000.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_467.jpg', 0, 'IDR', NULL, '2018-09-21 15:39:05', '2018-09-21 15:39:05', 'admin', 'admin'),
 	(468, 'BND/0468', 'PS2-150 C-SJ5-4', '4', 947.75, 1600.00, 1280.00, 'Y', 'BUNDLE', '0', 0, '0', 0, 'USD', 'Pump Set', '2018-09-17 14:37:25', '2018-09-17 14:37:25', 'admin', 'admin'),
 	(469, 'BND/0469', 'PSK2-40 C-SJ30-35', '4', 9031.50, 20070.00, 16056.00, 'Y', 'BUNDLE', '0', 0, '0', 0, 'USD', 'Pump Set', '2018-09-17 14:41:34', '2018-09-17 14:41:34', 'admin', 'admin'),
 	(470, 'BND/0470', 'PSK2-21 C-SJ8-50', '4', 5613.75, 12475.00, 9980.00, 'Y', 'BUNDLE', '0', 0, '0', 0, 'USD', 'Pump Set', '2018-09-17 14:44:52', '2018-09-17 14:44:52', 'admin', 'admin'),
@@ -9037,13 +9594,127 @@ REPLACE INTO `m_item` (`i_id`, `i_code`, `i_name`, `i_unit`, `i_price`, `i_sell_
 	(472, 'BND/0472', 'PS2-150 BOOST-125', '4', 941.00, 1580.00, 1264.00, 'Y', 'BUNDLE', '0', 0, '0', 0, 'USD', 'Pump Set', '2018-09-17 14:49:56', '2018-09-17 14:49:56', 'admin', 'admin'),
 	(473, 'BND/0473', 'PS2-150 BOOST-240', '4', 758.25, 1685.00, 1348.00, 'Y', 'BUNDLE', '0', 0, '0', 0, 'USD', 'Pump Set', '2018-09-17 14:51:59', '2018-09-17 14:51:59', 'admin', 'admin'),
 	(474, 'BND/0474', 'PS2-150 BOOST-330', '4', 758.25, 1685.00, 1348.00, 'Y', 'BUNDLE', '0', 0, '0', 0, 'USD', 'Pump Set', '2018-09-17 14:54:11', '2018-09-17 14:54:11', 'admin', 'admin'),
-	(475, NULL, 'JASA PEMASANGAN', NULL, 12500000.00, NULL, NULL, 'Y', 'JASA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(476, NULL, 'KONSUMSI', NULL, 2500000.00, NULL, NULL, 'Y', 'JASA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(477, NULL, 'AKOMODASI', NULL, 0.00, NULL, NULL, 'Y', 'JASA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(478, NULL, 'MATERIAL SHIPPING', NULL, 0.00, NULL, NULL, 'Y', 'JASA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	(479, 'BRG/0479', 'ICA SNV-GFW-20360', '3', 195000000.00, 156000000.00, 140400000.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_479.jpg', 0, 'IDR', NULL, '2018-09-21 10:48:17', '2018-09-21 10:48:17', 'admin', 'admin'),
+	(480, 'BRG/0480', 'SOLAR PANEL 200WP', '3', 3750000.00, 3000000.00, 2700000.00, 'Y', 'ITEM', 'SP', 1, 'barang_480.jpg', 0, 'IDR', NULL, '2018-09-21 10:51:39', '2018-09-21 10:51:39', 'admin', 'admin'),
+	(481, 'BRG/0481', 'RAK BATTERY', '3', 1250000.00, 1000000.00, 900000.00, 'Y', 'ITEM', 'OFG', 0, 'barang_481.jpg', 0, 'IDR', NULL, '2018-09-21 10:57:45', '2018-09-21 10:57:45', 'admin', 'admin'),
+	(482, 'BRG/0482', 'ICA SNV-GFW-10360', '1', 186250000.00, 149000000.00, 134100000.00, 'Y', 'ITEM', 'OFG', 0, 'barang_482.jpg', 0, 'IDR', NULL, '2018-09-21 11:14:10', '2018-09-21 11:14:10', 'admin', 'admin'),
+	(483, 'BRG/0483', 'AKSESORIS INTALASI', '3', 450000.00, 600000.00, 510000.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_483.jpg', 0, 'IDR', NULL, '2018-09-21 13:48:39', '2018-09-21 13:48:39', 'admin', 'admin'),
+	(484, 'BRG/0484', 'POWER PACK 2000', '3', 7875000.00, 17500000.00, 13125000.00, 'Y', 'ITEM', 'ACC-LO', 1, 'barang_484.jpg', 0, 'IDR', NULL, '2018-09-21 14:51:50', '2018-09-21 14:51:50', 'admin', 'admin'),
+	(485, 'BRG/0485', 'BATT VRLA 12V 200AH', '3', 3642750.00, 4857000.00, 4128450.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_485.jpg', 0, 'IDR', NULL, '2018-09-24 11:33:46', '2018-09-24 11:33:46', 'admin', 'admin'),
+	(486, 'BRG/0486', 'ICA SNV-GFT-3096', '1', 16500000.00, 22000000.00, 18700000.00, 'Y', 'ITEM', 'ACC-IN', 1, 'barang_486.jpg', 0, 'IDR', NULL, '2018-09-24 11:57:08', '2018-09-24 11:57:08', 'admin', 'admin'),
+	(487, 'BRG/0487', 'BATT VRLA 12V 120AH', '1', 2250000.00, 3000000.00, 2550000.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_487.jpg', 0, 'IDR', NULL, '2018-09-24 11:59:12', '2018-09-24 11:59:12', 'admin', 'admin'),
+	(488, 'BRG/0488', 'ICA SNV-GFW-5192', '3', 18825000.00, 25100000.00, 21335000.00, 'Y', 'ITEM', 'ACC-IN', 0, 'barang_488.jpg', 0, 'IDR', NULL, '2018-09-24 12:38:39', '2018-09-24 12:38:39', 'admin', 'admin'),
+	(489, 'BRG/0489', 'SOLAR PANEL 310WP', '3', 2208750.00, 2945000.00, 2503250.00, 'Y', 'ITEM', 'OFG', 1, 'barang_489.jpg', 0, 'IDR', NULL, '2018-09-24 12:40:57', '2018-09-24 12:40:57', 'admin', 'admin'),
+	(490, 'BRG/0490', 'ICA SNV-GFW-1024', '3', 5250000.00, 7000000.00, 5950000.00, 'Y', 'ITEM', 'OFG', 1, 'barang_490.jpg', 0, 'IDR', NULL, '2018-09-24 13:16:37', '2018-09-24 13:16:37', 'admin', 'admin'),
+	(491, 'BRG/0491', 'SOLAR PANEL 270WP', '3', 2531250.00, 3375000.00, 2868750.00, 'Y', 'ITEM', 'OFG', 1, 'barang_491.jpg', 0, 'IDR', NULL, '2018-09-24 13:18:16', '2018-09-24 13:18:16', 'admin', 'admin'),
+	(492, 'BRG/0492', 'BATT VRLA 12V 100AH', '3', 1950000.00, 2600000.00, 2210000.00, 'Y', 'ITEM', 'OFG', 1, 'barang_492.jpg', 0, 'IDR', NULL, '2018-09-24 14:34:53', '2018-09-24 14:34:53', 'admin', 'admin'),
+	(493, 'BRG/0493', 'ICA SNV-GFT-5K16', '3', 24750000.00, 33000000.00, 28050000.00, 'Y', 'ITEM', 'OFG', 0, 'barang_493.jpg', 0, 'IDR', NULL, '2018-09-24 15:02:52', '2018-09-24 15:02:52', 'admin', 'admin'),
+	(494, 'BRG/0494', 'ICA SNV-GFT-1548', '3', 6750000.00, 9000000.00, 7650000.00, 'Y', 'ITEM', 'OFG', 1, 'barang_494.jpg', 0, 'IDR', NULL, '2018-09-24 15:49:56', '2018-09-24 15:49:56', 'admin', 'admin'),
+	(495, 'BRG/0495', 'SOLAR PANEL GH 100WP', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 0, 'barang_495.jpg', 0, 'IDR', NULL, '2018-09-24 15:50:51', '2018-09-24 15:50:51', 'admin', 'admin'),
+	(496, 'BRG/0496', 'SOLAR PANEL 250WP', '3', 2812500.00, 3750000.00, 3187500.00, 'Y', 'ITEM', 'OFG', 0, 'barang_496.jpg', 0, 'IDR', NULL, '2018-09-24 16:13:14', '2018-09-24 16:13:14', 'admin', 'admin'),
+	(497, 'BRG/0497', 'SOLAR PANEL 100WP', '3', 1125000.00, 1500000.00, 1275000.00, 'Y', 'ITEM', 'OFG', 0, 'barang_497.jpg', 0, 'IDR', NULL, '2018-09-24 16:26:45', '2018-09-24 16:26:45', 'admin', 'admin'),
+	(498, 'BRG/0498', 'LAMPU MULTILED 56W', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_498.jpg', 0, 'IDR', NULL, '2018-09-25 09:44:32', '2018-09-25 09:44:32', 'admin', 'admin'),
+	(499, 'BRG/0499', 'SMART WIRELESS CONTROLLER 15AH', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 0, 'barang_499.jpg', 0, 'IDR', NULL, '2018-09-25 09:45:17', '2018-09-25 09:45:17', 'admin', 'admin'),
+	(500, 'BRG/0500', 'BATTERY VRLA 12 V 150AH', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_500.jpg', 0, 'IDR', NULL, '2018-09-25 09:46:34', '2018-09-25 09:46:34', 'admin', 'admin'),
+	(501, 'BRG/0501', 'BOX BATTERY POWDER COATING SINGLE JUMBO', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_501.jpg', 0, 'IDR', NULL, '2018-09-25 09:47:15', '2018-09-25 09:47:15', 'admin', 'admin'),
+	(502, 'BRG/0502', 'KLEM BOX & BATTERYBELT', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_502.jpg', 0, 'IDR', NULL, '2018-09-25 09:47:54', '2018-09-25 09:47:54', 'admin', 'admin'),
+	(503, 'BRG/0503', 'BARAKET SOLAR DOUBLE', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_503.jpg', 0, 'IDR', NULL, '2018-09-25 09:48:39', '2018-09-25 09:48:39', 'admin', 'admin'),
+	(504, 'BRG/0504', 'SOLAR CABLE NYYHY 2X4 MM', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_504.jpg', 0, 'IDR', NULL, '2018-09-25 09:49:27', '2018-09-25 09:49:27', 'admin', 'admin'),
+	(505, 'BRG/0505', 'LIGHT CABLE NYYHY 2X1,5 MM', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_505.jpg', 0, 'IDR', NULL, '2018-09-25 09:50:19', '2018-09-25 09:50:19', 'admin', 'admin'),
+	(506, 'BRG/0506', 'ANTI CLIMBING', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_506.jpg', 0, 'IDR', NULL, '2018-09-25 09:51:10', '2018-09-25 09:51:10', 'admin', 'admin'),
+	(507, 'BRG/0507', 'NUT & BOLT, TERMINAL BLOCK, CONNECTORS BLOCK', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_507.jpg', 0, 'IDR', NULL, '2018-09-25 09:51:49', '2018-09-25 09:51:49', 'admin', 'admin'),
+	(508, 'BRG/0508', 'SMART WIRELESS CONTROLLER REMOTE', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'OFG', 1, 'barang_508.jpg', 0, 'IDR', NULL, '2018-09-25 09:52:56', '2018-09-25 09:52:56', 'admin', 'admin'),
+	(509, 'BRG/0509', 'WIFI MONITORING SYSTEM', '3', 3750000.00, 5000000.00, 4250000.00, 'Y', 'ITEM', 'ONG', 0, 'barang_509.jpg', 0, 'IDR', NULL, '2018-09-25 10:30:41', '2018-09-25 10:30:41', 'admin', 'admin'),
+	(510, 'BRG/0510', 'DC DISCONNECT BOX', '3', 5625000.00, 7500000.00, 6375000.00, 'Y', 'ITEM', 'ONG', 0, 'barang_510.jpg', 0, 'IDR', NULL, '2018-09-25 10:32:42', '2018-09-25 10:32:42', 'admin', 'admin'),
+	(511, 'BRG/0511', 'AC DISCONNECT BOX', '3', 4875000.00, 6500000.00, 5525000.00, 'Y', 'ITEM', 'ONG', 0, 'barang_511.jpg', 0, 'IDR', NULL, '2018-09-25 10:33:53', '2018-09-25 10:33:53', 'admin', 'admin'),
+	(512, 'BRG/0512', 'AKSESORIS INSTALASI', '3', 7125000.00, 9500000.00, 8075000.00, 'Y', 'ITEM', 'ONG', 1, 'barang_512.jpg', 0, 'IDR', NULL, '2018-09-25 10:35:34', '2018-09-25 10:35:34', 'admin', 'admin'),
+	(513, 'BRG/0513', 'PV CABLE', '1', 1125000.00, 1500000.00, 1275000.00, 'Y', 'ITEM', 'ONG', 0, 'barang_513.jpg', 0, 'IDR', NULL, '2018-09-25 14:07:05', '2018-09-25 14:07:05', 'admin', 'admin'),
+	(514, 'BRG/0514', 'SOLAR PANEL 200WP POLY', '3', 3000000.00, 4000000.00, 3400000.00, 'Y', 'ITEM', 'ONG', 0, 'barang_514.jpg', 0, 'IDR', NULL, '2018-09-25 11:34:26', '2018-09-25 11:34:26', 'admin', 'admin'),
+	(515, 'BRG/0515', 'BRAKET PENYANGGA', '3', 12900000.00, 17200000.00, 14620000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_515.jpg', 0, 'IDR', NULL, '2018-09-25 11:38:59', '2018-09-25 11:38:59', 'admin', 'admin'),
+	(516, 'BRG/0516', 'PUMP CABLE NYYHY 4 X 4MM', '3', 2887500.00, 3850000.00, 3272500.00, 'Y', 'ITEM', 'SWP', 0, 'barang_516.jpg', 0, 'IDR', NULL, '2018-09-25 11:42:18', '2018-09-25 11:42:18', 'admin', 'admin'),
+	(517, 'BRG/0517', 'SENSOR CABLE NYYHY 2 X 0,75MM', '3', 1237500.00, 1650000.00, 1402500.00, 'Y', 'ITEM', 'SWP', 0, 'barang_517.jpg', 0, 'IDR', NULL, '2018-09-25 11:43:38', '2018-09-25 11:43:38', 'admin', 'admin'),
+	(518, 'BRG/0518', 'ACCESSORIES INSTALLASI', '3', 1875000.00, 2500000.00, 2125000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_518.jpg', 0, 'IDR', NULL, '2018-09-25 11:45:10', '2018-09-25 11:45:10', 'admin', 'admin'),
+	(519, 'BRG/0519', 'PS2-4000 C-SJ5-25, RP"" - UL""-D, PS2-4000 CONTROLLER-4.0KVA"', '3', 51000000.00, 68000000.00, 54400000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_519.jpg', 0, 'IDR', NULL, '2018-09-25 11:52:02', '2018-09-25 11:52:02', 'admin', 'admin'),
+	(520, 'BRG/0520', 'LORENTZ WELL PROBE SENSOR', '3', 720000.00, 1600000.00, 1200000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_520.jpg', 0, 'IDR', NULL, '2018-09-25 11:53:40', '2018-09-25 11:53:40', 'admin', 'admin'),
+	(521, 'BRG/0521', '"LORENTZ PS2-1800 HR 14H, RP 1 1/4"" - UL""-D, PS2-1800 CONTROLLER-1.8 KVA"', '3', 11092500.00, 24650000.00, 19720000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_521.jpg', 0, 'IDR', NULL, '2018-09-25 13:16:36', '2018-09-25 13:16:36', 'admin', 'admin'),
+	(522, 'BRG/0522', 'PV DISSCONNECT 440-40-1', '3', 350325.00, 778500.00, 583875.00, 'Y', 'ITEM', 'ACC-LO', 0, 'barang_522.jpg', 0, 'IDR', NULL, '2018-09-25 13:19:52', '2018-09-25 13:19:52', 'admin', 'admin'),
+	(523, 'BRG/0523', 'LORENTZ PU-1800 C-SJ5-12, RP 1 1/2" - UL"', '3', 7875000.00, 17500000.00, 14000000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_523.jpg', 0, 'IDR', NULL, '2018-09-25 13:50:49', '2018-09-25 13:50:49', 'admin', 'admin'),
+	(524, 'BRG/0524', 'LORENTZ, EC DRIVE 400 - C', '3', 7875000.00, 17500000.00, 14000000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_524.jpg', 0, 'IDR', NULL, '2018-09-25 13:56:29', '2018-09-25 13:56:29', 'admin', 'admin'),
+	(525, 'BRG/0525', 'BOX PANEL OUTDOOR', '3', 937500.00, 1250000.00, 1062500.00, 'Y', 'ITEM', 'SWP', 0, 'barang_525.jpg', 0, 'IDR', NULL, '2018-09-25 14:08:40', '2018-09-25 14:08:40', 'admin', 'admin'),
+	(526, 'BRG/0526', 'PUMP CABLE NYYHY 4X4M', '3', 2625000.00, 3500000.00, 2975000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_526.jpg', 0, 'IDR', NULL, '2018-09-25 14:13:26', '2018-09-25 14:13:26', 'admin', 'admin'),
+	(527, 'BRG/0527', 'SENSOR CABLE NYYHY 2X0,075', '3', 900000.00, 1200000.00, 1020000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_527.jpg', 0, 'IDR', NULL, '2018-09-25 14:15:18', '2018-09-25 14:15:18', 'admin', 'admin'),
+	(528, 'BRG/0528', '"LORENTZ PS2-1800 C-SJ8-7, RP2"" - UL""-D, PS2-1800 CONTROLLER-1.8 KVA"', '3', 13657500.00, 30350000.00, 24280000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_528.jpg', 0, 'IDR', NULL, '2018-09-25 14:16:37', '2018-09-25 14:16:37', 'admin', 'admin'),
+	(529, 'BRG/0529', '"LORENTZ PS2-1800 C-SJ5-12, RP 1 1/2"" - UL""-D, PS2-1800 CONTROLLER-1.8 KVA"', '1', 12825000.00, 28500000.00, 22800000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_529.jpg', 0, 'IDR', NULL, '2018-09-25 14:44:11', '2018-09-25 14:44:11', 'admin', 'admin'),
+	(530, 'BRG/0530', 'GROUNDING KIT', '3', 2625000.00, 3500000.00, 2975000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_530.jpg', 0, 'IDR', NULL, '2018-09-25 14:49:57', '2018-09-25 14:49:57', 'admin', 'admin'),
+	(531, 'BRG/0531', 'LORENTZ PUMP END FOR HR-07', '1', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'SWP', 0, 'barang_531.jpg', 0, 'IDR', NULL, '2018-09-25 16:00:06', '2018-09-25 16:00:06', 'admin', 'admin'),
+	(532, 'BRG/0532', 'LORENTZ PUMP END C-SJ8-15, RP 2"', '3', 6817500.00, 15150000.00, 12120000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_532.jpg', 0, 'IDR', NULL, '2018-09-26 10:00:16', '2018-09-26 10:00:16', 'admin', 'admin'),
+	(533, 'BRG/0533', 'WELLPROBE SENSOR', '3', 350325.00, 778500.00, 583875.00, 'Y', 'ITEM', 'SWP', 1, 'barang_533.jpg', 0, 'IDR', NULL, '2018-09-26 10:02:20', '2018-09-26 10:02:20', 'admin', 'admin'),
+	(534, 'BRG/0534', 'CABLE SPLICE KIT', '3', 85050.00, 189000.00, 141750.00, 'Y', 'ITEM', 'SWP', 0, 'barang_534.jpg', 0, 'IDR', NULL, '2018-09-26 10:03:29', '2018-09-26 10:03:29', 'admin', 'admin'),
+	(535, 'BRG/0535', 'PV CABLE 1X6MM', '3', 1312500.00, 1750000.00, 1487500.00, 'Y', 'ITEM', 'SWP', 1, 'barang_535.jpg', 0, 'IDR', NULL, '2018-09-26 10:43:28', '2018-09-26 10:43:28', 'admin', 'admin'),
+	(536, 'BRG/0536', '"LORENTZ PS2- 1800 C-SJ5-12,RP 1 1/4"" - UL""-D, PS2-1800 CONTROLLER-1.8 KVA"', '3', 11880000.00, 26400000.00, 21120000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_536.jpg', 0, 'IDR', NULL, '2018-09-26 11:28:41', '2018-09-26 11:28:41', 'admin', 'admin'),
+	(537, 'BRG/0537', 'SOLAR PANEL 280 WP POLY', '3', 2730000.00, 3640000.00, 3094000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_537.jpg', 0, 'IDR', NULL, '2018-09-26 11:33:20', '2018-09-26 11:33:20', 'admin', 'admin'),
+	(538, 'BRG/0538', 'TIANG GALVANIZE SET', '3', 7125000.00, 9500000.00, 8075000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_538.jpg', 0, 'IDR', NULL, '2018-09-26 11:34:53', '2018-09-26 11:34:53', 'admin', 'admin'),
+	(539, 'BRG/0539', 'PS2-150 C-SJ5-8, RP 1 1/2 "- UL, PS150 CONTROLLER -0,3KVA', '3', 8302500.00, 18450000.00, 14760000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_539.jpg', 0, 'IDR', NULL, '2018-09-26 13:12:47', '2018-09-26 13:12:47', 'admin', 'admin'),
+	(540, 'BRG/0540', 'LORENTZ PUMP END HR-14HL', '3', 2700000.00, 6000000.00, 4800000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_540.jpg', 0, 'IDR', NULL, '2018-09-27 10:40:31', '2018-09-27 10:40:31', 'admin', 'admin'),
+	(541, 'BRG/0541', 'LORENTZ PUMP UNIT  1800 C-SJ8-7', '3', 10285000.00, 18700000.00, 3740000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_541.jpg', 0, 'IDR', NULL, '2018-09-27 12:08:01', '2018-09-27 12:08:01', 'admin', 'admin'),
+	(543, 'BRG/0543', 'LORENTZ PSK2-9 C-SJ17-11, RP 2 1/2" - UL"-D, PSK2-9 CONTROLLER-7.5 KVA', '3', 44061875.00, 80112500.00, 16022500.00, 'Y', 'ITEM', 'SWP', 0, 'barang_543.jpg', 0, 'IDR', NULL, '2018-09-27 12:35:57', '2018-09-27 12:35:57', 'admin', 'admin'),
+	(544, 'BRG/0544', 'PV DISCONNECT SWITCH BOX 1000-40-5', '3', 5546250.00, 7395000.00, 6285750.00, 'Y', 'ITEM', 'SWP', 0, 'barang_544.jpg', 0, 'IDR', NULL, '2018-09-27 12:39:32', '2018-09-27 12:39:32', 'admin', 'admin'),
+	(545, 'BRG/0545', 'PV PROTECT 1000V - 125A', '3', 2593687.50, 5763750.00, 4899187.50, 'Y', 'ITEM', 'SWP', 0, 'barang_545.jpg', 0, 'IDR', NULL, '2018-09-27 12:41:32', '2018-09-27 12:41:32', 'admin', 'admin'),
+	(546, 'BJS/0546', 'ACCOMODATION', '6', 0.00, 0.00, 999999999.00, 'Y', 'JASA', NULL, NULL, NULL, NULL, NULL, 'AKOMODASI', NULL, NULL, NULL, NULL),
+	(547, 'BJS/0547', 'CONSUMPTION', '6', 0.00, 0.00, 999999999.00, 'Y', 'JASA', NULL, NULL, NULL, NULL, NULL, 'KONSUMSI', NULL, NULL, NULL, NULL),
+	(548, 'BJS/0548', 'MATERIAL SHIPPING COST', '6', 0.00, 0.00, 999999999.00, 'Y', 'JASA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(549, 'BJS/0549', 'INSTALATION FEE', '6', 0.00, 0.00, 999999999.00, 'Y', 'JASA', NULL, NULL, NULL, NULL, NULL, 'JASA PEMASANGAN', NULL, NULL, NULL, NULL),
+	(550, 'BRG/0550', 'LORENTZ PS2-200 HR-07 , RP 1 1/4" - UL"-D PS2-200 CONTROLLER - 0,3 KVA', '1', 9139500.00, 20310000.00, 16248000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_550.jpg', 0, 'IDR', NULL, '2018-09-27 13:29:14', '2018-09-27 13:29:14', 'admin', 'admin'),
+	(551, 'BRG/0551', '"LORENTZ PS2 1800 C-SF4-6, RP 1 1/4"" - UL""-D, PS2-1800 CONTROLLER-1,8 KVA"', '3', 13806000.00, 30680000.00, 24544000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_551.jpg', 0, 'IDR', NULL, '2018-09-27 13:50:00', '2018-09-27 13:50:00', 'admin', 'admin'),
+	(552, 'BRG/0552', 'SOLAR PANEL 280 WP', '3', 2517000.00, 3356000.00, 2852600.00, 'Y', 'ITEM', 'SWP', 0, 'barang_552.jpg', 0, 'IDR', NULL, '2018-09-27 13:51:44', '2018-09-27 13:51:44', 'admin', 'admin'),
+	(553, 'BRG/0553', 'TIANG GALVANIZE', '3', 4125000.00, 5500000.00, 4675000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_553.jpg', 0, 'IDR', NULL, '2018-09-27 13:53:15', '2018-09-27 13:53:15', 'admin', 'admin'),
+	(555, 'BRG/0555', 'LORENTZ PS2-1800 C-SJ5-12, RP 1,5" - UL"-D, PS2-2 CONTROLLER-1.8 KVA', '3', 11958750.00, 26575000.00, 21260000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_555.jpg', 0, 'IDR', NULL, '2018-09-27 14:29:05', '2018-09-27 14:29:05', 'admin', 'admin'),
+	(556, 'BRG/0556', 'DC BOX ONE', '3', 1350000.00, 1800000.00, 1530000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_556.jpg', 0, 'IDR', NULL, '2018-09-27 14:32:01', '2018-09-27 14:32:01', 'admin', 'admin'),
+	(557, 'BRG/0557', 'IO BOARD', '3', 483750.00, 645000.00, 548250.00, 'Y', 'ITEM', 'SWP', 0, 'barang_557.jpg', 0, 'IDR', NULL, '2018-09-27 14:33:18', '2018-09-27 14:33:18', 'admin', 'admin'),
+	(558, 'BRG/0558', 'LORENTZ PS2-1800 CS-F4-6, RP 1 1/4" - UL"-D, PS2-1800 CONTROLLER-1,8 KVA', '3', 11958750.00, 26575000.00, 21260000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_558.jpg', 0, 'IDR', NULL, '2018-09-27 14:40:45', '2018-09-27 14:40:45', 'admin', 'admin'),
+	(559, 'BRG/0559', 'WATER SENSOR (EXCLUDE STELL ADAPTOR)', '3', 2137500.00, 2850000.00, 2422500.00, 'Y', 'ITEM', 'SWP', 0, 'barang_559.jpg', 0, 'IDR', NULL, '2018-09-27 14:42:24', '2018-09-27 14:42:24', 'admin', 'admin'),
+	(560, 'BRG/0560', 'PS2-4000 C-SJ5-25 D, RP 1 1/2"- UL-D, PS2-4000 CONTROLLER -4,0KVA', '3', 21240000.00, 47200000.00, 37760000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_560.jpg', 0, 'IDR', NULL, '2018-09-27 14:52:59', '2018-09-27 14:52:59', 'admin', 'admin'),
+	(561, 'BRG/0561', 'LORENTZ PV DISSCONNECT 440-40-6', '3', 1642500.00, 3650000.00, 2920000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_561.jpg', 0, 'IDR', NULL, '2018-09-27 14:54:20', '2018-09-27 14:54:20', 'admin', 'admin'),
+	(562, 'BRG/0562', 'LORENTZ PS2-4000 CONTROLLER 4.0 KVA', '3', 9018000.00, 20040000.00, 16032000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_562.jpg', 0, 'IDR', NULL, '2018-09-27 15:04:10', '2018-09-27 15:04:10', 'admin', 'admin'),
+	(563, 'BRG/0563', 'DC BOX POWER SIX', '3', 1425000.00, 1900000.00, 1615000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_563.jpg', 0, 'IDR', NULL, '2018-09-27 15:05:57', '2018-09-27 15:05:57', 'admin', 'admin'),
+	(564, 'BRG/0564', 'EC DRIVE 4000-C', '3', 11896500.00, 15862000.00, 13482700.00, 'Y', 'ITEM', 'SWP', 0, 'barang_564.jpg', 0, 'IDR', NULL, '2018-09-27 15:07:35', '2018-09-27 15:07:35', 'admin', 'admin'),
+	(565, 'BRG/0565', 'LORENTZ PS2-1800 C-SJ5-12, RP 1 1/2" - UL"-D, PS2-1800 CONTROLLER-1,8 KVA', '3', 13950000.00, 31000000.00, 24800000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_565.jpg', 0, 'IDR', NULL, '2018-09-27 15:14:28', '2018-09-27 15:14:28', 'admin', 'admin'),
+	(566, 'BRG/0566', 'LORENTZ EC DRIVE 1800-C, 1.7, UL', '1', 4725000.00, 10500000.00, 8400000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_566.jpg', 0, 'IDR', NULL, '2018-09-27 15:34:27', '2018-09-27 15:34:27', 'admin', 'admin'),
+	(567, 'BRG/0567', 'LORENTZ PS2-200 C-SJ3-9, RP 1 1/4" - UL"D, PS2-200 CONTROLLER-0,3KVA', '3', 9518085.00, 21151300.00, 16921040.00, 'Y', 'ITEM', 'SWP', 0, 'barang_567.jpg', 0, 'IDR', NULL, '2018-09-27 15:39:27', '2018-09-27 15:39:27', 'admin', 'admin'),
+	(568, 'BRG/0568', 'LORENTZ PS2-600 C-SJ5-8, RP 1 1/2" - UL"D, PS2-600 CONTROLLER-0,7 KVA', '3', 12079800.00, 26844000.00, 21475200.00, 'Y', 'ITEM', 'SWP', 0, 'barang_568.jpg', 0, 'IDR', NULL, '2018-09-27 15:41:45', '2018-09-27 15:41:45', 'admin', 'admin'),
+	(569, 'BRG/0569', 'LORENTZ PS2-4000 C-SJ8-15, RP 2" - UL"-D, PS2-4000 CONTROLLER-4.0 KVA', '3', 19575000.00, 43500000.00, 34800000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_569.jpg', 0, 'IDR', NULL, '2018-09-27 15:48:00', '2018-09-27 15:48:00', 'admin', 'admin'),
+	(570, 'BRG/0570', 'LORENTZ PS2-1800 C-SJ8-7, RP 2" - UL"-D, PS2-1800 CONTROLLER-4.0 KVA', '3', 11958750.00, 26575000.00, 21260000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_570.jpg', 0, 'IDR', NULL, '2018-09-27 15:59:04', '2018-09-27 15:59:04', 'admin', 'admin'),
+	(571, 'BRG/0571', 'LORENTZ PS2-4000 C-SJ8-15 (PUMP ONLY WITHOUT PARTS ACCESORIES)', '3', 13027500.00, 28950000.00, 23160000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_571.jpg', 0, 'IDR', NULL, '2018-09-27 16:08:00', '2018-09-27 16:08:00', 'admin', 'admin'),
+	(572, 'BRG/0572', 'LORENTZ PS2-1800 C-SJ1-25, RP 1 1/4" - UL"-D, PS2-1800 CONTROLLER-1.8 KVA', '3', 15120000.00, 33600000.00, 26880000.00, 'Y', 'ITEM', 'SWP', 0, 'barang_572.jpg', 0, 'IDR', NULL, '2018-09-27 16:13:40', '2018-09-27 16:13:40', 'admin', 'admin'),
+	(573, 'BRG/0573', 'BOX PANEL', '3', 675000.00, 1.00, 1.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_573.jpg', 0, 'IDR', NULL, '2018-10-01 11:27:46', '2018-10-01 11:27:46', 'admin', 'admin'),
+	(574, 'BRG/0574', 'CABLE SUPREME 1X6 (NYAF)', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_574.jpg', 0, 'IDR', NULL, '2018-10-01 11:29:11', '2018-10-01 11:29:11', 'admin', 'admin'),
+	(575, 'BRG/0575', 'CABLE JEMBO 1X6 (NYAF)', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_575.jpg', 0, 'IDR', NULL, '2018-10-01 11:29:47', '2018-10-01 11:29:47', 'admin', 'admin'),
+	(576, 'BRG/0576', 'CABLE SUPREME 2X0,75 (NYYHY)', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_576.jpg', 0, 'IDR', NULL, '2018-10-01 11:30:38', '2018-10-01 11:30:38', 'admin', 'admin'),
+	(577, 'BRG/0577', 'CABLE EXTRANA 2X0,75 (NYYHY)', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_577.jpg', 0, 'IDR', NULL, '2018-10-01 11:31:22', '2018-10-01 11:31:22', 'admin', 'admin'),
+	(578, 'BRG/0578', 'CABLE JEMBO 2X0,75 (NYYHY)', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_578.jpg', 0, 'IDR', NULL, '2018-10-01 11:32:03', '2018-10-01 11:32:03', 'admin', 'admin'),
+	(579, 'BRG/0579', 'CABLE 4X4 JEMBO (NYYHY)', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_579.jpg', 0, 'IDR', NULL, '2018-10-01 11:32:55', '2018-10-01 11:32:55', 'admin', 'admin'),
+	(580, 'BRG/0580', 'CABLE 4X4 SUPREME (NYYHY)', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_580.jpg', 0, 'IDR', NULL, '2018-10-01 11:33:40', '2018-10-01 11:33:40', 'admin', 'admin'),
+	(581, 'BRG/0581', 'SLING ROPE', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_581.jpg', 0, 'IDR', NULL, '2018-10-01 11:34:16', '2018-10-01 11:34:16', 'admin', 'admin'),
+	(582, 'BRG/0582', 'SOLASI  TRANSAPARAN', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_582.jpg', 0, 'IDR', NULL, '2018-10-01 11:34:50', '2018-10-01 11:34:50', 'admin', 'admin'),
+	(583, 'BRG/0583', 'SOLASI HITAM (UNIBELL)', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_583.jpg', 0, 'IDR', NULL, '2018-10-01 11:35:18', '2018-10-01 11:35:18', 'admin', 'admin'),
+	(584, 'BRG/0584', 'KUKUMACAN', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_584.jpg', 0, 'IDR', NULL, '2018-10-01 11:35:50', '2018-10-01 11:35:50', 'admin', 'admin'),
+	(585, 'BRG/0585', 'SEAL TAPE ONDA', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_585.jpg', 0, 'IDR', NULL, '2018-10-01 11:36:19', '2018-10-01 11:36:19', 'admin', 'admin'),
+	(586, 'BRG/0586', 'BAUT ROFFING', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_586.jpg', 0, 'IDR', NULL, '2018-10-01 11:36:47', '2018-10-01 11:36:47', 'admin', 'admin'),
+	(587, 'BRG/0587', 'CABLE TIES', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_587.jpg', 0, 'IDR', NULL, '2018-10-01 11:37:13', '2018-10-01 11:37:13', 'admin', 'admin'),
+	(588, 'BRG/0588', 'GROUNDING ROD', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_588.jpg', 0, 'IDR', NULL, '2018-10-01 11:37:39', '2018-10-01 11:37:39', 'admin', 'admin'),
+	(589, 'BRG/0589', 'REDUCER 2X1 1/2', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_589.jpg', 0, 'IDR', NULL, '2018-10-01 11:38:32', '2018-10-01 11:38:32', 'admin', 'admin'),
+	(590, 'BRG/0590', 'REDUCER 1 1/2 X 1 1/4', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_590.jpg', 0, 'IDR', NULL, '2018-10-01 11:39:09', '2018-10-01 11:39:09', 'admin', 'admin'),
+	(591, 'BRG/0591', 'DOUBLE NEPEL 1 1/4', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_591.jpg', 0, 'IDR', NULL, '2018-10-01 11:39:39', '2018-10-01 11:39:39', 'admin', 'admin'),
+	(592, 'BRG/0592', 'DOUBLE NEPEL 1 1/2', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_592.jpg', 0, 'IDR', NULL, '2018-10-01 11:40:10', '2018-10-01 11:40:10', 'admin', 'admin'),
+	(593, 'BRG/0593', 'PIPA HDPE 100M', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_593.jpg', 0, 'IDR', NULL, '2018-10-01 11:40:49', '2018-10-01 11:40:49', 'admin', 'admin'),
+	(594, 'BRG/0594', 'COPLER HDPE', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_594.jpg', 0, 'IDR', NULL, '2018-10-01 11:41:14', '2018-10-01 11:41:14', 'admin', 'admin'),
+	(595, 'BRG/0595', 'MALE THREAD 50 X 1-1', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_595.jpg', 0, 'IDR', NULL, '2018-10-01 11:48:12', '2018-10-01 11:48:12', 'admin', 'admin'),
+	(596, 'BRG/0596', 'ELBOW HDPE 50 MM', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_596.jpg', 0, 'IDR', NULL, '2018-10-01 11:48:44', '2018-10-01 11:48:44', 'admin', 'admin'),
+	(597, 'BRG/0597', 'BOX PANEL TRANSPARAN', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_597.jpg', 0, 'IDR', NULL, '2018-10-01 11:49:22', '2018-10-01 11:49:22', 'admin', 'admin'),
+	(598, 'BRG/0598', 'KABEL CONECTOR MC4 CAB 2', '3', 0.00, 0.00, 0.00, 'Y', 'ITEM', 'ACC-PELENGKAP', 0, 'barang_598.jpg', 0, 'IDR', NULL, '2018-10-01 11:50:04', '2018-10-01 11:50:04', 'admin', 'admin');
 /*!40000 ALTER TABLE `m_item` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_item_bundling
+-- Dumping structure for table raniyagr_atonergi.m_item_bundling
 CREATE TABLE IF NOT EXISTS `m_item_bundling` (
   `ib_item` int(11) DEFAULT NULL,
   `ib_detailid` int(11) DEFAULT NULL,
@@ -9053,7 +9724,7 @@ CREATE TABLE IF NOT EXISTS `m_item_bundling` (
   `ib_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_item_bundling: ~21 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_item_bundling: ~21 rows (approximately)
 /*!40000 ALTER TABLE `m_item_bundling` DISABLE KEYS */;
 REPLACE INTO `m_item_bundling` (`ib_item`, `ib_detailid`, `ib_price`, `ib_isactive`, `ib_insert`, `ib_update`) VALUES
 	(0, 1, 77710000, NULL, '2018-05-25 08:09:02', NULL),
@@ -9079,7 +9750,7 @@ REPLACE INTO `m_item_bundling` (`ib_item`, `ib_detailid`, `ib_price`, `ib_isacti
 	(111, 6, 3650000, NULL, '2018-05-25 09:49:22', NULL);
 /*!40000 ALTER TABLE `m_item_bundling` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_item_bundling_dt
+-- Dumping structure for table raniyagr_atonergi.m_item_bundling_dt
 CREATE TABLE IF NOT EXISTS `m_item_bundling_dt` (
   `ibd_id` int(11) DEFAULT NULL,
   `ibd_detailid` varchar(50) DEFAULT NULL,
@@ -9091,7 +9762,7 @@ CREATE TABLE IF NOT EXISTS `m_item_bundling_dt` (
   `ibd_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_item_bundling_dt: ~32 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_item_bundling_dt: ~32 rows (approximately)
 /*!40000 ALTER TABLE `m_item_bundling_dt` DISABLE KEYS */;
 REPLACE INTO `m_item_bundling_dt` (`ibd_id`, `ibd_detailid`, `ibd_barang`, `ibd_qty`, `ibd_unit`, `ibd_price`, `ibd_insert`, `ibd_update`) VALUES
 	(1, '1', 'BRG/3', 1111, NULL, 11110000.00, '2018-05-25 08:09:02', NULL),
@@ -9128,7 +9799,7 @@ REPLACE INTO `m_item_bundling_dt` (`ibd_id`, `ibd_detailid`, `ibd_barang`, `ibd_
 	(5, '1', 'BRG/1', 11, NULL, 110000.00, '2018-05-25 01:50:34', NULL);
 /*!40000 ALTER TABLE `m_item_bundling_dt` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_item_dt
+-- Dumping structure for table raniyagr_atonergi.m_item_dt
 CREATE TABLE IF NOT EXISTS `m_item_dt` (
   `id_id` int(11) NOT NULL,
   `id_detailid` int(11) NOT NULL,
@@ -9145,7 +9816,7 @@ CREATE TABLE IF NOT EXISTS `m_item_dt` (
   CONSTRAINT `FK_m_item_dt_m_item` FOREIGN KEY (`id_id`) REFERENCES `m_item` (`i_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_item_dt: ~517 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_item_dt: ~538 rows (approximately)
 /*!40000 ALTER TABLE `m_item_dt` DISABLE KEYS */;
 REPLACE INTO `m_item_dt` (`id_id`, `id_detailid`, `id_item`, `id_unit`, `id_qty`, `id_price_unit`, `id_total_price`, `id_insert_at`, `id_update_at`, `id_insert_by`, `id_update_by`) VALUES
 	(217, 1, 'BRG/0093', 'Unit', 1, 330.75, 330.75, '2018-09-13 16:36:21', '2018-09-13 16:36:21', 'admin', 'admin'),
@@ -9688,16 +10359,16 @@ REPLACE INTO `m_item_dt` (`id_id`, `id_detailid`, `id_item`, `id_unit`, `id_qty`
 	(474, 3, 'BRG/0160', 'Unit', 1, 229.50, 229.50, '2018-09-17 14:54:11', '2018-09-17 14:54:11', 'admin', 'admin');
 /*!40000 ALTER TABLE `m_item_dt` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_item_type
+-- Dumping structure for table raniyagr_atonergi.m_item_type
 CREATE TABLE IF NOT EXISTS `m_item_type` (
   `it_id` int(11) DEFAULT NULL,
   `it_code` varchar(50) DEFAULT NULL,
   `it_name` varchar(50) DEFAULT NULL,
-  `CREATED_AT` datetime DEFAULT current_timestamp(),
-  `UPDATED_AT` datetime DEFAULT NULL ON UPDATE current_timestamp()
+  `CREATED_AT` datetime DEFAULT CURRENT_TIMESTAMP,
+  `UPDATED_AT` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_item_type: 15 rows
+-- Dumping data for table raniyagr_atonergi.m_item_type: 17 rows
 /*!40000 ALTER TABLE `m_item_type` DISABLE KEYS */;
 REPLACE INTO `m_item_type` (`it_id`, `it_code`, `it_name`, `CREATED_AT`, `UPDATED_AT`) VALUES
 	(2, 'SF-PS', 'SURFACE PUMP SYSTEM', '2018-07-03 15:33:00', '2018-09-03 06:10:49'),
@@ -9714,10 +10385,12 @@ REPLACE INTO `m_item_type` (`it_id`, `it_code`, `it_name`, `CREATED_AT`, `UPDATE
 	(12, 'ACC-IN', 'ACCESORIES INSTALATION', '2018-09-03 06:14:08', NULL),
 	(14, 'OND', 'ON GRID', '2018-09-13 08:20:01', NULL),
 	(15, 'JASA', 'JASA', '2018-09-13 08:20:47', '2018-09-13 08:22:42'),
-	(16, 'ONG', 'ON GRID', '2018-09-14 06:45:17', NULL);
+	(16, 'ONG', 'ON GRID', '2018-09-14 06:45:17', NULL),
+	(17, 'SWP', 'SOLAR WATER PUMP', '2018-09-25 11:36:23', NULL),
+	(18, 'ACC-PELENGKAP', 'ACCESORIES PELENGKAP INSTALASI NON-LORENTZ', '2018-10-01 11:23:41', NULL);
 /*!40000 ALTER TABLE `m_item_type` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_pegawai
+-- Dumping structure for table raniyagr_atonergi.m_pegawai
 CREATE TABLE IF NOT EXISTS `m_pegawai` (
   `mp_id` int(11) DEFAULT NULL,
   `mp_kode` varchar(50) DEFAULT NULL,
@@ -9731,7 +10404,7 @@ CREATE TABLE IF NOT EXISTS `m_pegawai` (
   `mp_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_pegawai: ~1 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_pegawai: ~3 rows (approximately)
 /*!40000 ALTER TABLE `m_pegawai` DISABLE KEYS */;
 REPLACE INTO `m_pegawai` (`mp_id`, `mp_kode`, `mp_nik`, `mp_name`, `mp_email`, `mp_address`, `mp_position`, `mp_status`, `mp_insert`, `mp_update`) VALUES
 	(3, 'PGW/00003', 12345678, 'andiaw', 'faa', '3242', 'Manager', 'Lajang', '2018-07-17 10:24:36', '2018-07-17 10:25:01'),
@@ -9739,7 +10412,7 @@ REPLACE INTO `m_pegawai` (`mp_id`, `mp_kode`, `mp_nik`, `mp_name`, `mp_email`, `
 	(5, 'PGW/00005', 23671, 'hgysd', 'gsa', 'ygwd', 'Manager', 'Lajang', '2018-08-31 04:09:36', NULL);
 /*!40000 ALTER TABLE `m_pegawai` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_price
+-- Dumping structure for table raniyagr_atonergi.m_price
 CREATE TABLE IF NOT EXISTS `m_price` (
   `p_id` int(11) DEFAULT NULL,
   `p_code` int(11) DEFAULT NULL,
@@ -9747,11 +10420,11 @@ CREATE TABLE IF NOT EXISTS `m_price` (
   `p_range_price` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_price: ~0 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_price: ~0 rows (approximately)
 /*!40000 ALTER TABLE `m_price` DISABLE KEYS */;
 /*!40000 ALTER TABLE `m_price` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.m_vendor
+-- Dumping structure for table raniyagr_atonergi.m_vendor
 CREATE TABLE IF NOT EXISTS `m_vendor` (
   `s_id` int(11) DEFAULT NULL,
   `s_kode` varchar(50) DEFAULT NULL,
@@ -9764,7 +10437,7 @@ CREATE TABLE IF NOT EXISTS `m_vendor` (
   `s_termin` varchar(50) DEFAULT NULL,
   `s_limit` float DEFAULT NULL,
   `s_npwp` varchar(50) DEFAULT NULL,
-  `s_information` text DEFAULT NULL,
+  `s_information` text,
   `s_insert` timestamp NULL DEFAULT NULL,
   `s_update` timestamp NULL DEFAULT NULL,
   `s_date` date DEFAULT NULL,
@@ -9781,7 +10454,7 @@ CREATE TABLE IF NOT EXISTS `m_vendor` (
   `s_phone_1` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table u949072907_aton.m_vendor: ~9 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.m_vendor: ~14 rows (approximately)
 /*!40000 ALTER TABLE `m_vendor` DISABLE KEYS */;
 REPLACE INTO `m_vendor` (`s_id`, `s_kode`, `s_company`, `s_name`, `s_address`, `s_email`, `s_phone`, `s_fax`, `s_termin`, `s_limit`, `s_npwp`, `s_information`, `s_insert`, `s_update`, `s_date`, `s_hometown`, `s_type`, `s_bankname`, `s_bankname_1`, `s_accountnumber`, `s_accountnumber_1`, `s_bank_town`, `s_bank_town_1`, `s_bank_pic`, `s_bank_pic_1`, `s_phone_1`) VALUES
 	(6, 'VDR/00006', 'LORENTZ GMBH', 'RACHEL CHIAO', 'ROOM 2702, 27/F, OMEGA PLAZA, 32\r\nDUNDAS STREET, MONGKOK, KOWLOON\r\nHONGKONG', 'rachel.chiao@lorentz.de', '106 345 5327', NULL, NULL, NULL, NULL, NULL, '2018-08-31 10:10:42', '2018-08-31 04:01:44', '2018-08-31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -9800,14 +10473,14 @@ REPLACE INTO `m_vendor` (`s_id`, `s_kode`, `s_company`, `s_name`, `s_address`, `
 	(21, 'VDR/00021', 'PT. PREFORMET LINE PRODUCTS INDONESIA', 'TURINTO', NULL, 'turintong@preformed.asia', '021 893 4866', NULL, NULL, NULL, NULL, NULL, '2018-08-31 02:54:52', NULL, '2018-08-31', '3216', NULL, '013', NULL, '0704033036', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `m_vendor` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.provinces
+-- Dumping structure for table raniyagr_atonergi.provinces
 CREATE TABLE IF NOT EXISTS `provinces` (
   `id` char(2) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u949072907_aton.provinces: ~34 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.provinces: ~34 rows (approximately)
 /*!40000 ALTER TABLE `provinces` DISABLE KEYS */;
 REPLACE INTO `provinces` (`id`, `name`) VALUES
 	('11', 'ACEH'),
@@ -9846,7 +10519,7 @@ REPLACE INTO `provinces` (`id`, `name`) VALUES
 	('94', 'PAPUA');
 /*!40000 ALTER TABLE `provinces` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.regencies
+-- Dumping structure for table raniyagr_atonergi.regencies
 CREATE TABLE IF NOT EXISTS `regencies` (
   `id` char(4) COLLATE utf8_unicode_ci NOT NULL,
   `province_id` char(2) COLLATE utf8_unicode_ci NOT NULL,
@@ -9856,7 +10529,7 @@ CREATE TABLE IF NOT EXISTS `regencies` (
   CONSTRAINT `regencies_province_id_foreign` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u949072907_aton.regencies: ~514 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.regencies: ~514 rows (approximately)
 /*!40000 ALTER TABLE `regencies` DISABLE KEYS */;
 REPLACE INTO `regencies` (`id`, `province_id`, `name`) VALUES
 	('1101', '11', 'KABUPATEN SIMEULUE'),
@@ -10375,7 +11048,7 @@ REPLACE INTO `regencies` (`id`, `province_id`, `name`) VALUES
 	('9471', '94', 'KOTA JAYAPURA');
 /*!40000 ALTER TABLE `regencies` ENABLE KEYS */;
 
--- Dumping structure for table u949072907_aton.villages
+-- Dumping structure for table raniyagr_atonergi.villages
 CREATE TABLE IF NOT EXISTS `villages` (
   `id` char(10) COLLATE utf8_unicode_ci NOT NULL,
   `district_id` char(7) COLLATE utf8_unicode_ci NOT NULL,
@@ -10385,7 +11058,7 @@ CREATE TABLE IF NOT EXISTS `villages` (
   CONSTRAINT `villages_district_id_foreign` FOREIGN KEY (`district_id`) REFERENCES `districts` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table u949072907_aton.villages: ~23,952 rows (approximately)
+-- Dumping data for table raniyagr_atonergi.villages: ~24,316 rows (approximately)
 /*!40000 ALTER TABLE `villages` DISABLE KEYS */;
 REPLACE INTO `villages` (`id`, `district_id`, `name`) VALUES
 	('1101010001', '1101010', 'LATIUNG'),

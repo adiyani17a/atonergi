@@ -123,15 +123,6 @@ Route::get('/purchase/belanjalangsung/tambah_belanjalangsung', 'purchase\belanja
 Route::get('/purchase/hub_suplier/hub_suplier', 'purchase\belanjalangsungController@hub_suplier')->name('hub_suplier');
 
 // Order
-Route::get('/order/s_invoice/s_invoice', 'OrderController@s_invoice');
-
-Route::get('/order/workorder/w_order', 'OrderController@w_order');
-Route::get('/order/workorder/w_order/detail_workorder', 'OrderController@detail_workorder');
-Route::get('/order/checklistform/checklistform', 'OrderController@checklist');
-Route::get('/order/pelunasanorder/pelunasanorder', 'OrderController@pelunasanorder');
-Route::get('/order/f_penjualan/f_penjualan', 'OrderController@f_penjualan');
-Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
-    
     // PEMBAYARAN DEPOSIT
     Route::get('/order/pembayarandeposit/pembayarandeposit', 'OrderController@pembayarandeposit');
     Route::get('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit/{id}', 'OrderController@detail_pembayarandeposit');
@@ -144,12 +135,23 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
     Route::get('/order/salesorder/datatable_so', 'OrderController@datatable_so')->name('datatable_so');
     Route::get('/order/salesorder/s_order/detail_salesorder/{id}', 'OrderController@detail_salesorder');
     Route::get('/order/salesorder/print_salesorder/{id}', 'OrderController@print_salesorder');
-    // 
-Route::get('/order/proforma/proforma', 'OrderController@proforma');
-Route::get('/order/pelunasanorder/pelunasanorder/detail_pelunasanorder', 'OrderController@detail_pelunasanorder');
-Route::get('/order/workorder/print_workorder', 'OrderController@print_workorder');
-Route::get('/order/checklistform/print_checklistform', 'OrderController@print_checklistform');
-Route::get('/order/s_invoice/print_salesinvoice', 'OrderController@print_salesinvoice');
+
+    // work ORDER
+    Route::get('/order/workorder/w_order', 'OrderController@w_order');
+    Route::get('/order/workorder/datatable_so', 'OrderController@datatable_wo')->name('datatable_wo');
+    Route::get('/order/workorder/s_order/detail_workorder/{id}', 'OrderController@detail_workorder');
+    Route::get('/order/workorder/print_workorder/{id}', 'OrderController@print_workorder');
+    // PAYMENT ORDER
+    Route::get('/order/payment_order', 'OrderController@payment_order');
+    Route::get('/order/payment_order/datatable_payment_order', 'OrderController@datatable_payment_order')->name('datatable_payment_order');
+    Route::get('/order/payment_order/detail_payment_order/{id}', 'OrderController@detail_payment_order');
+    Route::get('/order/payment_order/save_payment_order', 'OrderController@save_payment_order');
+    // PROFORMA INVOICE
+    Route::get('/order/proforma_invoice', 'OrderController@proforma_invoice');
+    Route::get('/order/payment_order/datatable_proforma_invoice', 'OrderController@datatable_proforma_invoice')->name('datatable_proforma_invoice');
+    Route::get('/order/proforma_invoice/detail_proforma_invoice/{id}', 'OrderController@detail_proforma_invoice');
+    Route::get('/order/proforma_invoice/save_proforma_invoice', 'OrderController@save_proforma_invoice');
+    Route::get('/order/proforma_invoice/hapus_proforma_invoice', 'OrderController@hapus_proforma_invoice');
 
 // Pilih Project Manejmen Pompa | SHS
 Route::get('/project/dokumentasi/dokumentasi', 'ProjectController@dokumentasi');

@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-<link rel="stylesheet" href="{{asset('node_modules/checkbox/css/style.css')}}">
+<link rel="stylesheet" href="{{asset('assets/node_modules/checkbox/css/style.css')}}">
 
 <!-- partial -->
 <div class="content-wrapper">

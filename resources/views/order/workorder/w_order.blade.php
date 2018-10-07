@@ -1,66 +1,148 @@
 @extends('main')
 @section('content')
-@include('order/workorder/cari_workorder')
 <!-- partial -->
 <div class="content-wrapper">
-	<div class="row">
-		<div class="col-lg-12">	
-			<nav aria-label="breadcrumb" role="navigation">
-				<ol class="breadcrumb bg-info">
-					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
-					<li class="breadcrumb-item">Order</li>
-					<li class="breadcrumb-item active" aria-current="page">Work Order</li>
-				</ol>
-			</nav>
-		</div>
-		<div class="col-lg-12 grid-margin stretch-card">
-	      	<div class="card">
-		        <div class="card-body">
-		          <h4 class="card-title">Work Order</h4>
-		          	
-		          		
-						
-						
-						<div class="table-responsive" style="margin-bottom: 15px;">
-				            <table class="table table-hover data-table" cellspacing="0">
-				              <thead class="bg-gradient-info">
-				                <tr>
-				                  <th>W.O.#</th>
-				                  <th>S.I.#</th>
-				                  <th>Customer</th>
-				                  <th>Total Bill</th>
-				                  <th>DP</th>
-				                  <th>Total Balance</th>
-				                  <th>Action</th>
-				                </tr>
-				              </thead>
-				              <tbody>
-				                <tr>
-				                  <td>B002</td>
-				                  <td>I001</td>
-				                  <td>Alpha</td>
-				                  <td align="left">Rp. 700.000,00</td>
-				                  <td align="left">Rp. 700.000,00</td>
-				                  <td align="left">Rp. 0,00</td>
-				                  <td>
-				                  	<div class="btn-group">
-				                    	<a href="{{url('order/workorder/w_order/detail_workorder')}}" class="btn btn-info btn-sm">Detail</a>
-				                    	<a href="{{url('order/workorder/print_workorder')}}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-				                    </div>
-				                  </td>
-				                </tr>
-				               
-				              </tbody>
-				            </table>
-				        </div>
-		        	
-		      	</div>
-	    	</div>
-		</div>
-	</div>
+  <div class="row">
+  	<div class="col-lg-12">	
+  		<nav aria-label="breadcrumb" role="navigation">
+  			<ol class="breadcrumb bg-info">
+  				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
+  				<li class="breadcrumb-item">Order</li>
+  				<li class="breadcrumb-item active" aria-current="page">Work Order</li>
+  			</ol>
+  		</nav>
+  	</div>
+  	<div class="col-lg-12 grid-margin stretch-card">
+        	<div class="card">
+  	        <div class="card-body">
+  	          <h4 class="card-title">Work Order</h4>
+  	          		
+    					<div class="row">
+    						<div class="col-md-6 col-sm-12 col-xs-12">
+    							<div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+    							    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    							    <strong>Notice!</strong> <br>
+    							    DP Paid Off
+    							    <label class="badge badge-pill badge-primary">0</label>
+    							</div>
+    						</div>
+    						<div class="col-md-6 col-sm-12 col-xs-12">
+    							<div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
+    							    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    							    <strong>Notice!</strong> <br>
+    							    DP not yet paid off
+    							    <label class="badge badge-pill badge-warning">0</label>
+    							</div>
+    						</div>
+    					</div>
+
+    					<div class="table-responsive">
+    						<table id="table_quote" class="table table-hover table-bordered " cellspacing="0">
+    							<thead class="bg-gradient-info">
+    								<tr>
+    									<th>W.O.#</th>
+    									<th>S.I.#</th>
+    									<th>Customer</th>
+    									<th>Total </th>
+    									<th>Status</th>
+    									<th>Action</th>
+                    				</tr>
+    							</thead>
+    							<tbody>
+    				               
+    				            </tbody>
+    						</table>
+    					</div>
+  	        	
+  	      	</div>
+      	</div>
+  	</div>
+  </div>
 </div>
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
+<script>
+$(document).ready(function(){
+	$('#table_quote').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+          url:'{{ route('datatable_wo') }}',
+      },
+      columnDefs: [
+              {
+                 targets: 3,
+                 className: 'right'
+              },
+              {
+                 targets: 4,
+                 className: 'center'
+              },
+              {
+                 targets: 5,
+                 className: 'center'
+              },
+            ],
+      columns: [
+        {data: 'wo_nota', name: 'wo_nota'},
+        {data: 'q_nota', name: 'q_nota'},
+        {data: 'customer', name: 'customer'},
+        {data: 'total', name: 'total'},
+        {data: 'status', name: 'status'},
+        {data: 'aksi', name: 'aksi'},
 
+      ]
+
+	});
+})
+
+function printing(id) {
+	iziToast.show({
+        overlay: true,
+        close: false,
+        timeout: 20000, 
+        color: 'dark',
+        icon: 'fas fa-question-circle',
+        title: 'Print Data!',
+        message: 'Apakah Anda Yakin ?!',
+        position: 'center',
+        progressBarColor: 'rgb(0, 255, 184)',
+        buttons: [
+          [
+            '<button style="background-color:#32CD32;">Print</button>',
+            function (instance, toast) {
+
+            $.ajax({
+    			      url:"{{ url('/order/workorder/print_workorder') }}",
+    			      data:{id},
+    			      success:function(data){
+    			      	var table = $('#table_quote').DataTable();
+        				table.ajax.reload();
+                  		var win = window.open();
+                		win.document.write(data);
+    			      },error:function(){
+    		      		iziToast.warning({
+    			            icon: 'fa fa-info',
+    			            message: 'Terjadi Kesalahan!',
+    			        });
+    			      }
+    				});
+
+            }
+          ],
+          [
+            '<button style="background-color:#44d7c9;">Cancel</button>',
+            function (instance, toast) {
+              instance.hide({
+                transitionOut: 'fadeOutUp'
+              }, toast);
+            }
+          ]
+        ]
+    });
+
+   
+}
+</script>
 @endsection
