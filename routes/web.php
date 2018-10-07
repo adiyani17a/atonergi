@@ -128,8 +128,7 @@ Route::get('/purchase/belanjalangsung/update', 'purchase\belanjalangsungControll
 Route::get('/purchase/hub_suplier/hub_suplier', 'purchase\belanjalangsungController@hub_suplier')->name('hub_suplier');
 
 // Order
-<<<<<<< HEAD
-=======
+
 Route::get('/order/s_invoice/s_invoice', 'OrderController@s_invoice');
 
 Route::get('/order/workorder/w_order', 'OrderController@w_order');
@@ -139,7 +138,6 @@ Route::get('/order/pelunasanorder/pelunasanorder', 'OrderController@pelunasanord
 Route::get('/order/f_penjualan/f_penjualan', 'OrderController@f_penjualan');
 Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
 
->>>>>>> 927633948e05271a30fb56ac1bc8c348dc74b752
     // PEMBAYARAN DEPOSIT
     Route::get('/order/pembayarandeposit/pembayarandeposit', 'OrderController@pembayarandeposit');
     Route::get('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit/{id}', 'OrderController@detail_pembayarandeposit');
@@ -152,7 +150,6 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
     Route::get('/order/salesorder/datatable_so', 'OrderController@datatable_so')->name('datatable_so');
     Route::get('/order/salesorder/s_order/detail_salesorder/{id}', 'OrderController@detail_salesorder');
     Route::get('/order/salesorder/print_salesorder/{id}', 'OrderController@print_salesorder');
-<<<<<<< HEAD
 
     // work ORDER
     Route::get('/order/workorder/w_order', 'OrderController@w_order');
@@ -170,14 +167,7 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
     Route::get('/order/proforma_invoice/detail_proforma_invoice/{id}', 'OrderController@detail_proforma_invoice');
     Route::get('/order/proforma_invoice/save_proforma_invoice', 'OrderController@save_proforma_invoice');
     Route::get('/order/proforma_invoice/hapus_proforma_invoice', 'OrderController@hapus_proforma_invoice');
-=======
-    //
-Route::get('/order/proforma/proforma', 'OrderController@proforma');
-Route::get('/order/pelunasanorder/pelunasanorder/detail_pelunasanorder', 'OrderController@detail_pelunasanorder');
-Route::get('/order/workorder/print_workorder', 'OrderController@print_workorder');
-Route::get('/order/checklistform/print_checklistform', 'OrderController@print_checklistform');
-Route::get('/order/s_invoice/print_salesinvoice', 'OrderController@print_salesinvoice');
->>>>>>> 927633948e05271a30fb56ac1bc8c348dc74b752
+
 
 // Pilih Project Manejmen Pompa | SHS
 Route::get('/project/dokumentasi/dokumentasi', 'ProjectController@dokumentasi');
