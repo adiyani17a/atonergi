@@ -39,7 +39,7 @@
                     </div>
 
                         <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+                          <button type="button" class="btn btn-info tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                         </div>
 
                     <div class="tab-content tab-content-solid">
@@ -104,6 +104,9 @@
 @section('extra_script')
 <script type="text/javascript">
   $(document).ready(function(){
+
+
+
 
      $('#table_datatable_rencana').DataTable({
             processing: true,
@@ -211,10 +214,9 @@
         table.row.add( [
             '<input type="text" id="item_kode[]"   name="ro_item_seq[]"    class="form-control input-sm min-width readonly" readonly value="'+ rp_kodeitem.val() +'">',
             '<input type="text" id="item_name[]"      class="form-control input-sm min-width readonly" value="'+ rp_kodeitem.find(':selected').data('name') +'">',
-            '<input type="text" id="item_harga[]"   name="ro_unit_price_seq[]"    class="form-control input-sm min-width right readonly " value="'+ accounting.formatMoney(rp_kodeitem.find(':selected').data('price'),"",0,'.',',') +'">',
-            '<input type="text" id="item_harga[]"   name="ro_price_seq[]"    class="form-control input-sm min-width right readonly total_price " value="'+ accounting.formatMoney(total,"",0,'.',',') +'">',
+            '<input type="text" id="item_harga[]" onkeyup="item_satuan(this)" name="ro_unit_price_seq[]"    class="form-control input-sm min-width right readonly item_satuan"  value="'+ accounting.formatMoney(rp_kodeitem.find(':selected').data('price'),"",0,'.',',') +'">',
+            '<input type="text" id="item_harga[]"   name="ro_price_seq[]"  readonly  class="form-control input-sm min-width right readonly total_price " value="'+ accounting.formatMoney(total,"",0,'.',',') +'">',
             '<input type="number" id="jumlah[]"   name="ro_qty_seq[]"    class="form-control input-sm min-width right readonly total_qty " value="'+ accounting.formatMoney(rp_qty.val(),"",0,'.',',') +'">',
-
             '<input type="text" id="unit_price[]"   name=""    class="form-control input-sm min-width right readonly" readonly  value="'+ rp_kodeitem.find(':selected').data('qty') +'">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
         ] ).draw( false );
@@ -243,6 +245,18 @@
         rp_qty.val('');
       }
     } );
+
+
+   
+
+    $('#t72a').on( 'click', function () {
+        
+
+    });
+
+    
+
+    
  
     
 
@@ -296,17 +310,16 @@
        });
   })
 
-  // $('#ro_vendor_header').change(function(){
-  //   var this_val = $(this).val();
-  //     $.ajax({
-  //        type: "get",
-  //        url: '{{ route('kode_rencanapembelian') }}',
-  //        data: {vendor:this_val},
-  //        success: function(data){
-  //           $('#ro_code').val(data);
-  //        }
-  //      });
-  // })
+  $('.tambah').click(function(){
+      $.ajax({
+         type: "get",
+         url: '{{ route('kode_rencanapembelian') }}',
+         success: function(data){
+            $('#ro_code').val(data);
+         }
+       });
+
+  })
 
   
 
@@ -400,7 +413,7 @@ function hapus(parm){
                         icon: 'fas fa-check-circle',
                         message: 'Data Telah Terhapus!',
                       });
-                     
+                     location.reload();
                      },
                      error: function(){
                       iziToast.warning({
@@ -498,6 +511,41 @@ function hapus(parm){
          }
        });
   })
+
+
+   function item_satuan(a){
+      //HITUNG QTY PADA TABLE
+      var parents = $(a).parents('tr');    
+      var satuan_harga = $(parents).find('.item_satuan').val();
+      var total_qty = $(parents).find('.total_qty').val();
+      //regex
+      satuan_harga = satuan_harga.replace(/[^0-9\-]+/g,"");
+      total_qty = total_qty.replace(/[^0-9\-]+/g,"");
+
+
+      //PERINGATAN MELEBIHI BATAS QTY
+
+      var hitung = parseInt(satuan_harga)*parseInt(total_qty);
+      $(parents).find('.total_price').val(hitung);
+
+
+      //HITUNG SUBTOTAL DAN TOTAL NET PADA TABLE
+      var total_price = 0;
+      $('.total_price').each(function(){
+        var total = $(this).val();
+        total = total.replace(/[^0-9\-]+/g,"");
+        total_price += parseInt(total);
+      });
+
+      $("#po_subtotal").val(accounting.formatMoney(total_price,"",0,'.',','));
+      
+      //PENGURANGAN TAX
+      var tax =  $('#po_tax').val();
+      tax = tax.replace(/[^0-9\-]+/g,"");
+      hitung_tax = parseInt(total_price)+parseInt(tax);
+      $('#total_net').val(accounting.formatMoney(hitung_tax,"",0,'.',','));
+
+    }
 
 </script>
 @endsection

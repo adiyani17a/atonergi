@@ -5,7 +5,7 @@
 
 <!-- partial -->
 <div class="content-wrapper">
-	<div class="col-lg-12">	
+	<div class="col-lg-12">
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb bg-info">
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -83,7 +83,12 @@
 							<div class="form-group">
 							  <input type="text" class="form-control form-control-sm" value="{{ $data->q_ship_to }}" readonly="" name="">
 							</div>
+<<<<<<< HEAD
 						</div>	
+=======
+						</div>
+
+>>>>>>> 927633948e05271a30fb56ac1bc8c348dc74b752
 					</div>
 					<div class="row">
 						<div class="col-md-2 col-sm-6 col-xs-12">
@@ -111,6 +116,7 @@
 							</div>
 						</div>
 					</div>
+<<<<<<< HEAD
 					<div class="table-responsive" style="margin-bottom: 15px;">
 						<table class="table table-hover data-table" cellspacing="0">
 						  <thead class="bg-gradient-info">
@@ -137,6 +143,35 @@
 						  </tbody>
 						</table>
 					</div>
+=======
+
+			          <div class="table-responsive" style="margin-bottom: 15px;">
+			            <table class="table table-hover data-table" cellspacing="0">
+			              <thead class="bg-gradient-info">
+			                <tr>
+			                  <th>Item#</th>
+			                  <th>Qty</th>
+			                  <th>Unit</th>
+			                  <th>Description</th>
+			                  <th>Unit Price</th>
+			                  <th>Line Total</th>
+			                </tr>
+			              </thead>
+			              <tbody>
+			              	@foreach($data_dt as $i=>$val)
+			                <tr>
+			                	<td>{{ $val->i_name }}</td>
+			                	<td>{{ $val->qd_qty }}</td>
+			                	<td>{{ $val->i_unit }}</td>
+			                	<td>{{ $val->qd_description }}</td>
+			                	<td>{{ 'Rp. '. number_format($val->qd_price, 2, ",", ".") }}</td>
+			                	<td>{{ 'Rp. '. number_format($val->qd_total, 2, ",", ".") }}</td>
+			                </tr>
+			                @endforeach
+			              </tbody>
+			            </table>
+			          </div>
+>>>>>>> 927633948e05271a30fb56ac1bc8c348dc74b752
 
 			        <div class="row">
 			          <div class="col-md-12 col-sm-12 col-xs-12">
@@ -145,7 +180,7 @@
 				              <label>Subtotal</label>
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
-				              <div class="form-group"> 
+				              <div class="form-group">
 				                <input type="text" class="form-control form-control-sm" name="subtotal" value="{{ 'Rp. '. number_format($data->q_subtotal, 2, ",", ".") }}" readonly="">
 				              </div>
 				            </div>
@@ -153,7 +188,7 @@
 				              <label>Sales Tax</label>
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
-				              <div class="form-group">  
+				              <div class="form-group">
 				                <input type="text" class="form-control form-control-sm" name="tax" value="{{ 'Rp. '. number_format($data->q_tax, 2, ",", ".") }}" readonly="">
 				              </div>
 				            </div>
@@ -161,7 +196,7 @@
 				              <label>Total</label>
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
-				              <div class="form-group">  
+				              <div class="form-group">
 				                <input type="text" class="form-control form-control-sm" name="total" value="{{ 'Rp. '. number_format($data->q_total, 2, ",", ".") }}" readonly="" id="total_harga">
 				              </div>
 				            </div>
@@ -169,9 +204,15 @@
 				              <label>DP</label>
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
+<<<<<<< HEAD
 				              <div class="form-group">  
 				              	@if($data->q_dp != null)
 				                <input type="text" class="form-control form-control-sm" name="dp" id="dp" readonly="" value="{{'Rp. '. number_format($data->q_dp, 2, ",", ".")}}">
+=======
+				              <div class="form-group">
+				              	@if($data->so_amount != null)
+				                <input type="text" class="form-control form-control-sm" name="dp" id="dp" readonly="" value="{{'Rp. '. number_format($data->so_amount, 2, ",", ".")}}">
+>>>>>>> 927633948e05271a30fb56ac1bc8c348dc74b752
 				                @else
 				                <input type="text" class="form-control form-control-sm" name="dp" id="dp" readonly="" value="0">
 				                @endif
@@ -185,14 +226,20 @@
 				              		<button type="button" class="btn btn-primary btn-sm btn-block pilihpembayaran" data-toggle="modal" data-target="#pilihpembayaran">Detail</button>
 				              	</div>
 				            </div>
-				            
+
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
 				              <label>Remaining Balance</label>
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
+<<<<<<< HEAD
 				              <div class="form-group">  
 				              	@if($data->q_remain != null)
 				                <input value="{{'Rp. '. number_format($data->q_remain, 2, ",", ".")}}" type="text" class="form-control form-control-sm" name="remain" readonly="" id="remaining_dp">
+=======
+				              <div class="form-group">
+				              	@if($data->so_remain != null)
+				                <input value="{{'Rp. '. number_format($data->so_remain, 2, ",", ".")}}" type="text" class="form-control form-control-sm" name="remain" readonly="" id="remaining_dp">
+>>>>>>> 927633948e05271a30fb56ac1bc8c348dc74b752
 				                @else
 				                <input value="0" type="text" class="form-control form-control-sm" name="remain" readonly="" id="remaining_dp">
 				                @endif
@@ -214,7 +261,7 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-	
+
 	$('#amount').maskMoney({
 	   precision : 0,
 	    thousands:'.',
@@ -230,7 +277,7 @@
 	});
 
 	function save_detail(){
-		
+
 		var amount 	= $('#amount').val();
 		amount     = amount.replace(/[^0-9\-]+/g,"");
 		var dp     	= $('#dp');
@@ -239,11 +286,11 @@
 		total_harga     = total_harga.replace(/[^0-9\-]+/g,"")/100;
 		var limit = total_harga/2;
 		if (amount < limit) {
-			iziToast.warning({
-	            icon: 'fa fa-info',
-	            message: 'Nominal Kurang Dari 50 %!',
-	        });
-	        return false;
+			// iziToast.warning({
+	    //         icon: 'fa fa-info',
+	    //         message: 'Nominal Kurang Dari 50 %!',
+	    //     });
+	    //     return false;
 		}else if(amount > total_harga){
 			iziToast.warning({
 	            icon: 'fa fa-info',
@@ -269,13 +316,13 @@
 		var status_so = '{{ $so->so_status }}';
 		var status_wo = '{{ $wo->wo_status }}';
 
-		if (amount == 0 || amount == '') {
-			iziToast.warning({
-	            icon: 'fa fa-info',
-	            message: 'DP Tidak Boleh 0',
-	        });
-	        return false;
-		}	
+		// if (amount == 0 || amount == '') {
+		// 	iziToast.warning({
+	  //           icon: 'fa fa-info',
+	  //           message: 'DP Tidak Boleh 0',
+	  //       });
+	  //       return false;
+		// }
 
 		if (status_so == 'Printed' || status_wo == 'Printed') {
 			iziToast.warning({
@@ -283,11 +330,18 @@
 	            message: 'Data Telah Di Print',
 	        });
 	        return false;
+<<<<<<< HEAD
 		}	
+=======
+		}
+
+
+
+>>>>>>> 927633948e05271a30fb56ac1bc8c348dc74b752
 		iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Simpan Data!',
@@ -318,7 +372,7 @@
 					            message: 'Data Sudah Ada!',
 					        });
 				      	}
-				      	
+
 				      },error:function(){
 			      		iziToast.warning({
 				            icon: 'fa fa-info',
@@ -341,6 +395,6 @@
 	}
 
 
-	
+
 </script>
 @endsection
