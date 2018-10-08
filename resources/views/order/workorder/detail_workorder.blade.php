@@ -7,24 +7,22 @@
 			<ol class="breadcrumb bg-info">
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
 				<li class="breadcrumb-item">Order</li>
-				<li class="breadcrumb-item">Work Order</li>
-				<li class="breadcrumb-item active" aria-current="page">Process Work Order</li>
+				<li class="breadcrumb-item">Sales Order</li>
+				<li class="breadcrumb-item active" aria-current="page">Process Sales Order</li>
 			</ol>
 		</nav>
 	</div>
 	<div class="col-lg-12 grid-margin stretch-card">
       	<div class="card">
 	        <div class="card-body">
-	          	<h4 class="card-title">Work Order</h4>
-
-	          		<div class="row">
-						
+	          	<h4 class="card-title">Sales Order</h4>
+					<div class="row">
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<label>W.O.#</label>
+							<label>S.O.#</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" readonly="" class="form-control-sm form-control" value="WO/02-03-2018/001" name="">
+								<input type="text" readonly="" class="form-control-sm form-control so_nota" value="{{ $data->so_nota }}" name="so_nota">
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
@@ -32,7 +30,7 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" readonly="" class="form-control form-control-sm" value="QO/01-03-2018/001" name="">
+								<input type="text" readonly="" class="form-control form-control-sm" value="{{ $data->q_nota }}" name="">
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
@@ -40,7 +38,7 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" readonly="" class="form-control-sm form-control" value="CUS/001" name="">
+								<input type="text" readonly="" class="form-control-sm form-control" value="{{ $data->q_customer }}" name="">
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
@@ -48,7 +46,7 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" readonly="" class="form-control form-control-sm" value="Bravo" name="">
+								<input type="text" readonly="" class="form-control form-control-sm" value="{{ $market }}" name="">
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
@@ -56,7 +54,7 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" readonly="" class="form-control-sm form-control" value="02-02-2018" name="">
+								<input type="text" readonly="" class="form-control-sm form-control" value="{{ carbon\carbon::parse($data->q_date)->format('d-m-Y') }}" name="">
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
@@ -64,7 +62,7 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-							  <input type="text" class="form-control form-control-sm" readonly="" name="">
+							  <input type="text" class="form-control form-control-sm" value="{{ $data->q_ship_to }}" readonly="" name="">
 							</div>
 						</div>
 
@@ -76,7 +74,7 @@
 						</div>
 						<div class="col-md-2 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" class="form-control-sm form-control" readonly="" value="Air Freight" name="">
+								<input type="text" class="form-control-sm form-control" readonly="" value="{{ $data->q_shipping_method }}" name="">
 							</div>
 						</div>
 						<div class="col-md-2 col-sm-6 col-xs-12">
@@ -84,7 +82,7 @@
 						</div>
 						<div class="col-md-2 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" class="form-control-sm form-control" readonly="" value="2 Minggu" name="">
+								<input type="text" class="form-control-sm form-control" readonly="" value="{{ $data->q_term }}" name="">
 							</div>
 						</div>
 						<div class="col-md-2 col-sm-6 col-xs-12">
@@ -92,12 +90,10 @@
 						</div>
 						<div class="col-md-2 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" class="form-control-sm form-control" readonly="" value="" name="">
+								<input type="text" class="form-control-sm form-control" readonly="" value="{{ carbon\carbon::parse($data->q_delivery)->format('d-m-Y') }}" name="">
 							</div>
 						</div>
 					</div>
-
-					
 			          
 			          <div class="table-responsive" style="margin-bottom: 15px;">
 			            <table class="table table-hover data-table" cellspacing="0">
@@ -112,28 +108,20 @@
 			                </tr>
 			              </thead>
 			              <tbody>
+			                @foreach($data_dt as $i=>$val)
 			                <tr>
-			                	<td>Cable</td>
-			                	<td>300</td>
-			                	<td>Meter</td>
-			                	<td></td>
-			                	<td>Rp. 10.000,-</td>
-			                	<td>Rp. 300.000,-</td>
+			                	<td>{{ $val->i_name }}</td>
+			                	<td>{{ $val->qd_qty }}</td>
+			                	<td>{{ $val->i_unit }}</td>
+			                	<td>{{ $val->qd_description }}</td>
+			                	<td>{{ 'Rp. '. number_format($val->qd_price, 2, ",", ".") }}</td>
+			                	<td>{{ 'Rp. '. number_format($val->qd_total, 2, ",", ".") }}</td>
 			                </tr>
-			                <tr>
-			                	<td>Pompa Air</td>
-			                	<td>1</td>
-			                	<td>Pcs</td>
-			                	<td></td>
-			                	<td>Rp. 300.000,-</td>
-			                	<td>Rp. 300.000,-</td>
-			                </tr>
+			                @endforeach
 			              </tbody>
 			            </table>
 			          </div>
-
 			        <div class="row">
-
 			          <div class="col-md-12 col-sm-12 col-xs-12">
 			          	<div class="row">
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -141,7 +129,7 @@
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
-				                <input type="text" class="form-control form-control-sm" name="" value="600.000" readonly="">
+				                <input value="{{ 'Rp. '. number_format($data->q_subtotal, 2, ",", ".") }}" type="text" class="form-control form-control-sm" name="" value="600000" readonly="">
 				              </div>
 				            </div>
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -149,7 +137,7 @@
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
-				                <input type="text" class="form-control form-control-sm" name="" value="100.000" readonly="">
+				                <input value="{{ 'Rp. '. number_format($data->q_tax, 2, ",", ".") }}" type="text" class="form-control form-control-sm" name="" value="100000" readonly="">
 				              </div>
 				            </div>
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -157,7 +145,7 @@
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
-				                <input type="text" class="form-control form-control-sm" name="" value="700.000" readonly="">
+				                <input value="{{ 'Rp. '. number_format($data->q_total, 2, ",", ".") }}" type="text" class="form-control form-control-sm" name="" value="700000" readonly="">
 				              </div>
 				            </div>
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -165,7 +153,7 @@
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
-				                <input type="text" class="form-control form-control-sm" name="" value="700.000" readonly="">
+				                <input value="{{ 'Rp. '. number_format($data->q_dp, 2, ",", ".") }}" type="text" class="form-control form-control-sm" name="" value="700000" readonly="">
 				              </div>
 				            </div>
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
@@ -174,45 +162,23 @@
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
 				                <select class="form-control" disabled="">
-				                  <option>Tunai</option>
-				                  <option>Transfer</option>
+				                  <option @if($data->so_method == 'tunai') selected="" @endif value="tunai">Tunai</option>
+				                  <option @if($data->so_method == 'transfer') selected="" @endif value="transfer">Transfer</option>
 				                </select>
 				              </div>
 				            </div>
 				            
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
-				              <label>Remaining DP</label>
+				              <label>Remaining Balance</label>
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
-				                <input type="text" class="form-control form-control-sm" name="" readonly="" value="0">
-				              </div>
-				            </div>
-				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
-				              <label>Type Quotation</label>
-				            </div>
-				            <div class="col-md-2 col-sm-6 col-xs-12">
-				              <div class="form-group">  
-				                <select class="form-control" disabled="">
-				                  <option>Work Order</option>
-				                  <option>Sales Order</option>
-				                </select>
-				              </div>
-				            </div>
-				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
-				              <label>Work Order</label>
-				            </div>
-				            <div class="col-md-2 col-sm-6 col-xs-12">
-				              <div class="form-group">  
-				                <select class="form-control" disabled="">
-				                  <option>Project Manajemen Pompa</option>
-				                  <option>Project Manajemen SHS</option>
-				                </select>
+				                <input value="{{ 'Rp. '. number_format($data->q_remain, 2, ",", ".") }}" type="text" class="form-control form-control-sm" name="" readonly="" value="0">
 				              </div>
 				            </div>
 				            <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-top: 15px;">
-					            <a href="#" class="btn btn-info" target="_blank"><i class="fa fa-print"></i>Print</a>
-					            <a href="{{url('order/workorder/w_order')}}" class="btn btn-secondary">Back</a>
+					            <a onclick="printing('{{$id}}')" style="color:white"  class="btn btn-info" target="_blank"><i class="fa fa-print"></i>Print</a>
+					            <a href="{{url('order/salesorder/s_order')}}" class="btn btn-secondary">Back</a>
 					        </div>
 					    </div>
 			          </div>
@@ -225,5 +191,35 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
-
+<script type="text/javascript">
+function printing(id) {
+	iziToast.show({
+        overlay: true,
+        close: false,
+        timeout: 20000, 
+        color: 'dark',
+        icon: 'fas fa-question-circle',
+        title: 'Print Data!',
+        message: 'Apakah Anda Yakin ?!',
+        position: 'center',
+        progressBarColor: 'rgb(0, 255, 184)',
+        buttons: [
+          [
+            '<button style="background-color:#32CD32;">Print</button>',
+            function (instance, toast) {
+              window.open("{{ url('/order/workorder/print_workorder') }}"+"/"+id )
+            }
+          ],
+          [
+            '<button style="background-color:#44d7c9;">Cancel</button>',
+            function (instance, toast) {
+              instance.hide({
+                transitionOut: 'fadeOutUp'
+              }, toast);
+            }
+          ]
+        ]
+    });
+}
+</script>
 @endsection

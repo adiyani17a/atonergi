@@ -275,6 +275,7 @@ class QuotationController extends Controller
                   'q_subtotal'        => filter_var($req->subtotal,FILTER_SANITIZE_NUMBER_INT),
                   'q_tax'             => filter_var($req->tax,FILTER_SANITIZE_NUMBER_INT),
                   'q_total'           => filter_var($req->total,FILTER_SANITIZE_NUMBER_INT),
+                  'q_remain'          => filter_var($req->total,FILTER_SANITIZE_NUMBER_INT),
                   'q_customer'        => $req->customer,
                   'q_address'         => $req->address,
                   'q_type'            => $req->type_qo,

@@ -16,7 +16,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input class="form-control form-control-sm" value="Down Payment" readonly="" name="payment_type">
+              <input class="form-control form-control-sm" value="Payment" readonly="" name="payment_type">
               </select>
             </div>
           </div>

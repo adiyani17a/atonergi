@@ -64,7 +64,7 @@
 											<td align="right">{{number_format($value->dbl_total_net,0,',','.')}}</td>
 											<td align="center">
 												<button type="button" onclick="detail({{$value->dbl_id}})" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button>
-												<button type="button" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
+												<button type="button" onclick="edit({{$value->dbl_id}})" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
 												<button type="button" onclick="hapus({{$value->dbl_id}})" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
 											</td>
 										</tr>
@@ -217,8 +217,8 @@
 										'<td>'+result[i].i_name+'</td>'+
 										'<td>'+result[i].dbldt_qty+'</td>'+
 										'<td>'+result[i].u_unit+'</td>'+
-										'<td>'+parseFloat(result[i].dbldt_unit_price)+'</td>'+
-										'<td>'+parseFloat(result[i].dbldt_line_total)+'</td>'+
+										'<td>'+result[i].dbldt_unit_price+'</td>'+
+										'<td>'+result[i].dbldt_line_total+'</td>'+
 										'<td>'+accounting.formatMoney(result[i].dbldt_ppn,"",0,'.',',')+'</td>'+
 										'</tr>';
 					}
@@ -235,5 +235,10 @@
 			});
 			$('#detail').modal('show');
 		}
+
+		function edit(id){
+			window.location.href = baseUrl + '/purchase/belanjalangsung/edit?id='+id;
+		}
+
 	</script>
 @endsection

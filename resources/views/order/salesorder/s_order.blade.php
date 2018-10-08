@@ -43,9 +43,7 @@
     									<th>S.O.#</th>
     									<th>S.I.#</th>
     									<th>Customer</th>
-    									<th>Total Bill</th>
-    									<th>DP</th>
-    									<th>Total Balance</th>
+    									<th>Total</th>
     									<th>Status</th>
     									<th>Action</th>
                     				</tr>
@@ -73,43 +71,24 @@ $(document).ready(function(){
           url:'{{ route('datatable_so') }}',
       },
       columnDefs: [
-
-              {
-                 targets: 0 ,
-                 className: 'center'
-              },
-              {
-                 targets: 1 ,
-                 className: 'q_nota'
-              },
               {
                  targets: 3,
                  className: 'right'
               },
               {
                  targets: 4,
-                 className: 'right'
-              },
-              {
-                 targets: 5,
-                 className: 'right'
-              },
-              {
-                 targets: 6,
                  className: 'center'
               },
               {
-                 targets: 7,
+                 targets: 5,
                  className: 'center'
               },
             ],
       columns: [
         {data: 'so_nota', name: 'so_nota'},
         {data: 'q_nota', name: 'q_nota'},
-        {data: 'q_customer', name: 'q_customer'},
+        {data: 'customer', name: 'customer'},
         {data: 'total', name: 'total'},
-        {data: 'dp', name: 'dp'},
-        {data: 'remain', name: 'remain'},
         {data: 'status', name: 'status'},
         {data: 'aksi', name: 'aksi'},
 

@@ -174,7 +174,7 @@ table, td, th {
 		<p>62-31-99682814 | www.atonergi.com | Juanda Regency F-9, Sedati - Pabean, Surabaya</p>
 	</div>
 	<div class="header-left" style="margin-bottom: 15px;">
-		<h1>QUOTATION</h1>
+		<h1>SALES ORDER</h1>
 		<table class="border-none" width="50%">
 			<tbody>
 				<tr >
@@ -202,6 +202,10 @@ table, td, th {
 				<tr>
 					<td class="text-left border-none">Rev Quote#</td>
 					<td class="text-left border-none">{{ $head->q_nota }}</td>
+				</tr>
+				<tr>
+					<td class="text-left border-none">Rev Sales Order#</td>
+					<td class="text-left border-none">{{ $head->so_nota }}</td>
 				</tr>
 				<tr>
 					<td class="text-left border-none">Customer ID</td>
@@ -249,17 +253,21 @@ table, td, th {
 				<th class="border-none" width="10%">Unit</th>
 				<th class="border-none">Description</th>
 				<th class="border-none">Unit Price</th>
-				<th class="border-none" width="30%">Line Total</th>
+				<th class="border-none">Line Total</th>
 			</tr>
 		</thead>
 		<tbody>
+			@php
+				$total_all = 0;
+			@endphp
 			@foreach($data as $i=> $b)
+
 			<tr>
 				<td>{{ $i+1 }}</td>
 				<td>{{ $b->i_name }}</td>
 				<td>{{ $b->qd_qty }}</td>
-				<td>{{ $b->i_unit }}</td>
-				<td>{{ $b->qd_description }}</td>
+				<td>{{ $b->u_unit }}</td>
+				<td class="text-left">{{ $b->qd_description }}</td>
 				<td>
 					<div class="float-left">
 						Rp.
@@ -273,6 +281,9 @@ table, td, th {
 						Rp.
 					</div>
 					<div class="float-right">
+						@php
+							$total_all += $b->qd_total;
+						@endphp
 						{{ number_format($b->qd_total, 2, ",", ".") }}
 					</div>
 				</td>
@@ -305,70 +316,19 @@ table, td, th {
 			@endforeach
 			<tr class="none-background-color">
 				<td class="border-none" colspan="5"></td>
-				<td class="border-none text-right">Subtotal</td>
-				<td>
-					<div class="float-left">
-						Rp.
-					</div>
-					<div class="float-right">
-						{{ number_format($head->q_subtotal, 2, ",", ".") }}
-					</div>
-				</td>
-			</tr>
-			<tr class="none-background-color">
-				<td class="border-none" colspan="5"></td>
-				<td class="border-none text-right">Sales Tax</td>
-				<td>
-					<div class="float-left">
-						Rp.
-					</div>
-					<div class="float-right">
-						{{ number_format($head->q_tax, 2, ",", ".") }}
-						
-					</div>
-				</td>
-			</tr>
-			<tr class="none-background-color">
-				<td class="border-none" colspan="5"></td>
 				<td class="border-none text-right">Total</td>
 				<td>
 					<div class="float-left">
 						Rp.
 					</div>
 					<div class="float-right">
-						{{ number_format($head->q_total, 2, ",", ".") }}
-					</div>
-				</td>
-			</tr>
-			<tr class="none-background-color">
-				<td class="border-none" colspan="5"></td>
-				<td class="border-none text-right">Down Payment</td>
-				<td>
-					<div class="float-left">
-						Rp.
-					</div>
-					<div class="float-right">
-						{{ number_format($head->q_dp, 2, ",", ".") }}
-						
-					</div>
-				</td>
-			</tr>
-			<tr class="none-background-color">
-				<td class="border-none" colspan="5"></td>
-				<td class="border-none text-right">Remain Balance</td>
-				<td>
-					<div class="float-left">
-						Rp.
-					</div>
-					<div class="float-right">
-						{{ number_format($head->q_remain, 2, ",", ".") }}
-						
+						{{ number_format($total_all, 2, ",", ".") }}
 					</div>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	<div class="text-left" style="margin-top: -50px;font-size: 12px;width: 40%;">
+	<div class="text-left" style="font-size: 12px;width: 40%;">
 		1. Please send two copies of your invoice.<br>
 		2. Enter this order in accordance with prices, terms, delivery method, and specification listed above.<br>
 		3. Please notify US immediately if you are unable to ship as specified.<br>

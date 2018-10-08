@@ -9,15 +9,14 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="row">
+        <form class="row log">
+
           <div class="col-md-3 col-sm-6 col-xs-12">
             <label>Payment Type</label>
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <select class="form-control form-control-sm">
-                <option>DP</option>
-                <option>Payment</option>
+              <input class="form-control form-control-sm" value="Payment" readonly="" name="payment_type">
               </select>
             </div>
           </div>
@@ -27,10 +26,14 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <select class="form-control form-control-sm">
-                <option>Cash</option>
-                <option>Deposit</option>
-              </select>
+                <select class="form-control form-control-sm" name="akun">
+                  <option @if ($data->po_type == 'Cash')
+                    selected="" 
+                  @endif value="Cash">Cash</option>
+                  <option @if ($data->po_type == 'Deposit')
+                    selected="" 
+                  @endif value="Deposit">Deposit</option>
+                </select>
             </div>
           </div>
 
@@ -39,7 +42,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control-sm form-control" id="amount" name="">
+              <input type="text" class="form-control-sm form-control" id="amount" name="amount">
             </div>
           </div>
           
@@ -48,7 +51,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control-sm form-control" id="" readonly="" value="{{date('d-m-Y')}}" name="">
+              <input type="text" class="form-control-sm form-control" id="" readonly="" value="{{date('d-m-Y')}}" name="date">
             </div>
           </div>
 
@@ -57,8 +60,13 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <select class="form-control form-control-sm">
-                <option>--Select Payment--</option>
+              <select class="form-control form-control-sm" name="pay_method">
+                <option @if ($data->po_type == 'tunai')
+                  selected="" 
+                @endif value="tunai">tunai</option>
+                <option @if ($data->po_type == 'Transfer')
+                  selected="" 
+                @endif value="Transfer">Transfer</option>
               </select>
             </div>
           </div>
@@ -68,7 +76,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control-sm form-control" name="">
+                  <input value="{{ $data->po_note2 }}" type="text" class="form-control-sm form-control" name="nota2">
             </div>
           </div>
 
@@ -77,14 +85,13 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="form-group">
-              <input type="text" class="form-control-sm form-control" name="">
+              <input value="{{ $data->po_note }}" type="text" class="form-control-sm form-control" name="nota1">
             </div>
           </div>
-
          </div>
-      </div>
+      </form>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button" id="save_detail" onclick="save_detail()" data-dismiss="modal">Save Detail</button>
+        <button class="btn btn-primary" type="button" id="save_detail" onclick="save_detail()" >Save Detail</button>
         <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>

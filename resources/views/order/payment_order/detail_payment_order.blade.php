@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('order.pembayarandeposit.pilihpembayaran')
+@include('order.payment_order.pilihpembayaran')
 
 <!-- partial -->
 <div class="content-wrapper">
@@ -10,47 +10,30 @@
 			<ol class="breadcrumb bg-info">
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
 				<li class="breadcrumb-item">Order</li>
-				<li class="breadcrumb-item">Pembayaran Deposit</li>
-				<li class="breadcrumb-item active" aria-current="page">Process Pembayaran Deposit</li>
+				<li class="breadcrumb-item">Payment Order</li>
+				<li class="breadcrumb-item active" aria-current="page">Process Payment Order</li>
 			</ol>
 		</nav>
 	</div>
 	<div class="col-lg-12 grid-margin stretch-card">
       	<div class="card">
 	        <div class="card-body">
-	          	<h4 class="card-title">Pembayaran Deposit</h4>
-					<div class="row">
-						<div class="col-md-3 col-sm-6 col-xs-12">
-							<label>S.O.#</label>
-						</div>
-						<div class="col-md-3 col-sm-6 col-xs-12">
-							<div class="form-group">
-								@if($so->so_nota != null)
-								<input type="text" readonly="" class="form-control-sm form-control so_nota" value="{{ $so->so_nota }}" name="so_nota">
-								@else
-								<input type="text" readonly="" class="form-control-sm form-control so_nota" value="{{ $nota_so }}" name="so_nota">
-								@endif
-							</div>
-						</div>
-						<div class="col-md-3 col-sm-6 col-xs-12">
-							<label>W.O.#</label>
-						</div>
-						<div class="col-md-3 col-sm-6 col-xs-12">
-							<div class="form-group">
-								@if($wo->wo_nota != null)
-								<input type="text" readonly="" class="form-control-sm form-control wo_nota" value="{{ $wo->wo_nota }}" name="wo_nota">
-								@else
-								<input type="text" readonly="" class="form-control-sm form-control wo_nota" value="{{ $nota_wo }}" name="wo_nota">
-								@endif
-							</div>
-						</div>
+	          	<h4 class="card-title">Payment Order</h4>
+
+	          		<form class="row detail_bayar">
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>Quote#</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" readonly="" class="form-control form-control-sm" value="{{ $data->q_nota }}" name="">
+								<input type="text" readonly="" class="form-control form-control-sm" value="{{ $data->q_nota }}" name="q_nota">
 							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<label>Payment Order#</label>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<input type="text" readonly="" class="form-control-sm form-control po_nota" value="{{ $nota_po }}" name="po_nota">
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>Customer ID</label>
@@ -84,7 +67,7 @@
 							  <input type="text" class="form-control form-control-sm" value="{{ $data->q_ship_to }}" readonly="" name="">
 							</div>
 						</div>	
-					</div>
+					</form>
 					<div class="row">
 						<div class="col-md-2 col-sm-6 col-xs-12">
 							<label>Shipping Method</label>
@@ -139,8 +122,9 @@
 					</div>
 
 			        <div class="row">
+
 			          <div class="col-md-12 col-sm-12 col-xs-12">
-			          	<form class="row detail_bayar">
+			          	<div class="row">
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
 				              <label>Subtotal</label>
 				            </div>
@@ -170,39 +154,51 @@
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
-				              	@if($data->q_dp != null)
+				                @if($data->q_dp != null)
 				                <input type="text" class="form-control form-control-sm" name="dp" id="dp" readonly="" value="{{'Rp. '. number_format($data->q_dp, 2, ",", ".")}}">
 				                @else
 				                <input type="text" class="form-control form-control-sm" name="dp" id="dp" readonly="" value="0">
 				                @endif
 				              </div>
 				            </div>
+				            
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
-				              <label>Log Payment</label>
+				              <label>Payment Log</label>
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				            	<div class="form-group">
-				              		<button type="button" class="btn btn-primary btn-sm btn-block pilihpembayaran" data-toggle="modal" data-target="#pilihpembayaran">Detail</button>
+				              		<button class="btn btn-primary btn-sm btn-block pilihpembayaran" data-toggle="modal" data-target="#pilihpembayaran">Detail</button>
 				              	</div>
 				            </div>
-				            
 				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
-				              <label>Remaining Balance</label>
+				              <label>Payment</label>
 				            </div>
 				            <div class="col-md-2 col-sm-6 col-xs-12">
 				              <div class="form-group">  
-				              	@if($data->q_remain != null)
-				                <input value="{{'Rp. '. number_format($data->q_remain, 2, ",", ".")}}" type="text" class="form-control form-control-sm" name="remain" readonly="" id="remaining_dp">
-				                @else
-				                <input value="0" type="text" class="form-control form-control-sm" name="remain" readonly="" id="remaining_dp">
-				                @endif
+				                <input value="0" type="text" class="form-control form-control-sm" name="payment" id="payment" readonly="">
+				              </div>
+				            </div>
+				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
+				              <label>Total Paid</label>
+				            </div>
+				            <div class="col-md-2 col-sm-6 col-xs-12">
+				              <div class="form-group">  
+				                <input value="{{ 'Rp. '. number_format($data->q_total - $data->q_remain, 2, ",", ".") }}" type="text" class="form-control form-control-sm" name="total_paid" id="total_paid" readonly="">
+				              </div>
+				            </div>
+				            <div class="offset-md-8 col-md-2 col-sm-6 col-xs-12">
+				              <label>Remaining</label>
+				            </div>
+				            <div class="col-md-2 col-sm-6 col-xs-12">
+				              <div class="form-group">  
+				                <input value="{{ 'Rp. '. number_format($data->q_remain, 2, ",", ".") }}" type="text" class="form-control form-control-sm" name="" readonly="" value="" id="remain">
 				              </div>
 				            </div>
 				            <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-top: 15px;">
-					            <a type="button" onclick="save_data()" class="btn btn-info" style="color: white">Save Data</a>
-					            <a href="{{url('order/pembayarandeposit/pembayarandeposit')}}" class="btn btn-secondary">Back</a>
+					            <a onclick="save_data()" class="btn btn-info" style="color: white">Save Data</a>
+					            <a href="{{url('order/payment_order')}}" class="btn btn-secondary" >Back</a>
 					        </div>
-					    </form>
+					    </div>
 			          </div>
 
 		          	</div>
@@ -214,7 +210,6 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-	
 	$('#amount').maskMoney({
 	   precision : 0,
 	    thousands:'.',
@@ -223,67 +218,57 @@
 	});
  
 	$('.pilihpembayaran').click(function(){
-		var dp = $('#dp').val();
+		var dp = $('#payment').val();
 		dp     = dp.replace(/[^0-9\-]+/g,"")/100;
-		console.log(dp);
 		$('#amount').maskMoney('mask',dp);
 	});
 
+
+
 	function save_detail(){
-		
-		var amount 	= $('#amount').val();
-		amount     = amount.replace(/[^0-9\-]+/g,"");
-		var dp     	= $('#dp');
-		var remaining_dp = $('#remaining_dp');
-		var total_harga = $('#total_harga').val();
-		total_harga     = total_harga.replace(/[^0-9\-]+/g,"")/100;
-		var limit = total_harga/2;
-		if (amount < limit) {
+		var amount 		 = $('#amount').val();
+		amount     		 = amount.replace(/[^0-9\-]+/g,"")*1;
+		var payment      = $('#payment');
+		var remain 		 = '{{ $data->q_remain }}'*1;
+		var paid	 	 = '{{ $data->q_total - $data->q_remain }}'*1;
+		var hasil 		 = remain - amount;
+		var total_paid 	 = amount + paid;
+		if (amount == 0) {
 			iziToast.warning({
 	            icon: 'fa fa-info',
-	            message: 'Nominal Kurang Dari 50 %!',
+	            message: 'Amount Tidak Boleh 0!',
 	        });
-	        return false;
-		}else if(amount > total_harga){
-			iziToast.warning({
-	            icon: 'fa fa-info',
-	            message: 'Nominal Melebihi Total!',
-	        });
+
 	        return false;
 		}
-		var bayar_dp	= dp.val(accounting.formatMoney(amount,"Rp .", 2, ".",','));
+		if (amount > remain) {
+			iziToast.warning({
+	            icon: 'fa fa-info',
+	            message: 'Amount Melebihi Remain!',
+	        });
 
-		var hasil = total_harga - amount;
+	        return false;
+		}
+		$('#payment').val(accounting.formatMoney(amount,"Rp. ", 2, ".",','));
+		$('#remain').val(accounting.formatMoney(hasil,"Rp. ", 2, ".",','));
+		$('#total_paid').val(accounting.formatMoney(total_paid,"Rp. ", 2, ".",','));
 
-		remaining_dp.val(accounting.formatMoney(hasil,"Rp. ", 2, ".",','));
 		$('#pilihpembayaran').modal('hide');
 	}
 
-
 	function save_data() {
-		var amount 	= $('#dp').val();
+		var amount 	= $('#payment').val();
 		amount     = amount.replace(/[^0-9\-]+/g,"");
-		var so_nota = $('.so_nota').val();
-		var wo_nota = $('.wo_nota').val();
 		var id = '{{ $id }}';
-		var status_so = '{{ $so->so_status }}';
-		var status_wo = '{{ $wo->wo_status }}';
 
 		if (amount == 0 || amount == '') {
 			iziToast.warning({
 	            icon: 'fa fa-info',
-	            message: 'DP Tidak Boleh 0',
+	            message: 'Payment Tidak Boleh 0',
 	        });
 	        return false;
 		}	
 
-		if (status_so == 'Printed' || status_wo == 'Printed') {
-			iziToast.warning({
-	            icon: 'fa fa-info',
-	            message: 'Data Telah Di Print',
-	        });
-	        return false;
-		}	
 		iziToast.show({
             overlay: true,
             close: false,
@@ -306,12 +291,12 @@
 				    });
 
                   $.ajax({
-				      url:baseUrl + '/order/pembayarandeposit/save_deposit',
-				      data:$('.detail_bayar :input').serialize()+'&'+$('.log :input').serialize()+'&so_nota='+so_nota+'&id='+id+'&wo_nota='+wo_nota,
+				      url:baseUrl + '/order/payment_order/save_payment_order',
+				      data:$('.detail_bayar :input').serialize()+'&'+$('.log :input').serialize()+'&id='+id,
 				      dataType:'json',
 				      success:function(data){
 				      	if (data.status == 1) {
-				      		location.href = "{{ url('/order/pembayarandeposit/pembayarandeposit') }}";
+				      		location.href = "{{ url('/order/payment_order') }}";
 				      	}else{
 				      		iziToast.warning({
 					            icon: 'fa fa-info',
