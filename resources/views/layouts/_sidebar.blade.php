@@ -381,29 +381,7 @@
                 </div>
             </li>
 
-            <li class="nav-item {{Request::is('aftersales') ? 'active' : '' || Request::is('aftersales/*') ? 'active' : '' }}">
-              <a class="nav-link" data-toggle="collapse" href="#aftersales" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">After Sales Service</span>
-                <span class="d-none">
-                  Tanda Terima Service
-                  Kebutuhan Biaya
-                  Repair Order
-                  Rencana Tindakan
-                  Repair Report
-                </span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-currency-usd menu-icon"></i>
-              </a>
-              <div class="collapse {{Request::is('aftersales') ? 'show' : '' || Request::is('aftersales/*') ? 'show' : '' }}" id="aftersales">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/tandaterima/tandaterima') ? 'active' : '' || Request::is('aftersales/tandaterima/*') ? 'active' : '' }}" href="{{url('aftersales/tandaterima/tandaterima')}}">Tanda Terima Service<span class="d-none">After Sales Service</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/kebutuhanbiaya/kebutuhanbiaya') ? 'active' : '' || Request::is('aftersales/kebutuhanbiaya/*') ? 'active' : '' }}" href="{{url('aftersales/kebutuhanbiaya/kebutuhanbiaya')}}">Kebutuhan Biaya<span class="d-none">After Sales Service</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/repairorder/repairorder') ? 'active' : '' || Request::is('aftersales/repairorder/*') ? 'active' : '' }}" href="{{url('aftersales/repairorder/repairorder')}}">Repair Order<span class="d-none">After Sales Service</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/rencanatindakan/rencanatindakan') ? 'active' : '' || Request::is('aftersales/rencanatindakan/*') ? 'active' : '' }}" href="{{url('aftersales/rencanatindakan/rencanatindakan')}}">Rencana Tindakan<span class="d-none">After Sales Service</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/repairreport/repairreport') ? 'active' : '' || Request::is('aftersales/repairreport/*') ? 'active' : '' }}" href="{{url('aftersales/repairreport/repairreport')}}">Repair Report<span class="d-none">After Sales Service</span></a></li>
-                </ul>
-                </div>
-            </li>
+            
             <li class="nav-item {{Request::is('inventory') ? 'active' : '' || Request::is('inventory/*') ? 'active' : '' }}">
               <a class="nav-link" data-toggle="collapse" href="#inven" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Inventory</span>
