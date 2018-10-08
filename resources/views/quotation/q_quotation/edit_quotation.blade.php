@@ -280,6 +280,7 @@
 @section('extra_script')
 <script type="text/javascript">
 var m_table = $('#apfsds').DataTable({
+  'iDisplayLength': 100,
   columnDefs: [
 
                   {
