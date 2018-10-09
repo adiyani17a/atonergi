@@ -381,7 +381,7 @@
                 </div>
             </li>
 
-            
+
             <li class="nav-item {{Request::is('inventory') ? 'active' : '' || Request::is('inventory/*') ? 'active' : '' }}">
               <a class="nav-link" data-toggle="collapse" href="#inven" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Inventory</span>
@@ -391,9 +391,6 @@
                   Stock Opname
                   Stock Gudang
                   Stock Barang
-                  Maintenance
-                  Surat Pinjam Barang
-                  Barcode Support
                 </span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-arrow-up-bold-box-outline menu-icon"></i>
@@ -404,10 +401,7 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangkeluar/barangkeluar') ? 'active' : '' || Request::is('inventory/barangkeluar/*') ? 'active' : '' }}" href="{{url('inventory/barangkeluar/barangkeluar')}}">Pengeluaran Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/opname/opname') ? 'active' : '' || Request::is('inventory/opname/*') ? 'active' : '' }}" href="{{url('inventory/opname/opname')}}">Stock Opname<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockgudang/stockgudang') ? 'active' : '' || Request::is('inventory/stockgudang/*') ? 'active' : '' }}" href="{{url('inventory/stockgudang/stockgudang')}}">Stock Gudang<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockbarang/stockbarang') ? 'active' : '' || Request::is('inventory/stockbarang/*') ? 'active' : '' }}" href="{{url('inventory/stockbarang/stockbarang')}}">Stock Barang<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/maintenance/maintenance') ? 'active' : '' || Request::is('inventory/maintenance/*') ? 'active' : '' }}" href="{{url('inventory/maintenance/maintenance')}}">Maintenance<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/suratpinjambarang/suratpinjambarang') ? 'active' : '' || Request::is('inventory/suratpinjambarang/*') ? 'active' : '' }}" href="{{url('inventory/suratpinjambarang/suratpinjambarang')}}">Surat Pinjam Barang<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barcode/barcode') ? 'active' : '' || Request::is('inventory/barcode/*') ? 'active' : '' }}" href="{{url('inventory/barcode/barcode')}}">Barcode Support<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockbarang/stockbarang') ? 'active' : '' || Request::is('inventory/stockbarang/*') ? 'active' : '' }}" href="{{url('inventory/stockbarang/stockbarang')}}">Stock Barang<span class="d-none">Inventory</span></a></li>                  
                 </ul>
                 </div>
             </li>

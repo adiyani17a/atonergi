@@ -88,6 +88,34 @@ class stockbarangController extends Controller
             'sg_insert' => Carbon::now('Asia/Jakarta')
           ]);
 
+          $id = DB::table('i_stock_mutasi')
+                ->max('sm_id');
+
+                if ($id < 0) {
+                    $id = 0;
+                }
+
+          $detailid = DB::table('i_stock_mutasi')
+                      ->where('sm_id', $id + 1)
+                      ->max('sm_iddetail');
+
+                      if ($detailid < 0) {
+                          $detailid = 0;
+                      }
+
+          DB::table('i_stock_mutasi')
+            ->insert([
+              'sm_id' => $id + 1,
+              'sm_iddetail' => $detailid + 1,
+              'sm_item' => $request->item,
+              'sm_hpp' => $request->price,
+              'sm_qty' => $request->qty,
+              'sm_use' => 0,
+              'sm_sisa' => $request->qty,
+              'sm_description' => 'INPUT STOCK MANUAL',
+              'sm_insert' => Carbon::now('Asia/Jakarta'),
+            ]);
+
         DB::commit();
         return response()->json([
           'status' => 'berhasil'
@@ -105,8 +133,18 @@ class stockbarangController extends Controller
    DB::beginTransaction();
    try {
 
+     $data = DB::table('i_stock_gudang')
+              ->where('sg_id', $request->id)
+              ->get();
+
      DB::table('i_stock_gudang')
         ->where('sg_id', $request->id)
+        ->delete();
+
+     DB::table('i_stock_mutasi')
+        ->where('sm_item', $data[0]->sg_iditem)
+        ->where('sm_qty', $data[0]->sg_qty)
+        ->where('sm_description', 'INPUT STOCK MANUAL')
         ->delete();
 
      DB::commit();
@@ -149,6 +187,11 @@ class stockbarangController extends Controller
           'status' => 'kesalahan'
         ]);
     } else {
+
+      $data = DB::table('i_stock_gudang')
+               ->where('sg_id', $request->id)
+               ->get();
+
       DB::table('i_stock_gudang')
         ->where('sg_id', $request->id)
         ->update([
@@ -157,6 +200,40 @@ class stockbarangController extends Controller
           'sg_harga' => $request->price,
           'sg_update' => Carbon::now('Asia/Jakarta')
         ]);
+
+        DB::table('i_stock_mutasi')
+           ->where('sm_item', $data[0]->sg_iditem)
+           ->where('sm_qty', $data[0]->sg_qty)
+           ->where('sm_description', 'INPUT STOCK MANUAL')
+           ->delete();
+
+           $id = DB::table('i_stock_mutasi')
+                 ->max('sm_id');
+
+                 if ($id < 0) {
+                     $id = 0;
+                 }
+
+           $detailid = DB::table('i_stock_mutasi')
+                       ->where('sm_id', $id + 1)
+                       ->max('sm_iddetail');
+
+                       if ($detailid < 0) {
+                           $detailid = 0;
+                       }
+
+           DB::table('i_stock_mutasi')
+             ->insert([
+               'sm_id' => $id + 1,
+               'sm_iddetail' => $detailid + 1,
+               'sm_item' => $request->itemedit,
+               'sm_hpp' => $request->price,
+               'sm_qty' => $request->qty,
+               'sm_use' => 0,
+               'sm_sisa' => $request->qty,
+               'sm_description' => 'INPUT STOCK MANUAL',
+               'sm_insert' => Carbon::now('Asia/Jakarta'),
+             ]);
 
       DB::commit();
       return response()->json([
