@@ -107,7 +107,7 @@ function hapus(id){
 								message: 'Berhasil Dihapus!',
 							});
 							setTimeout(function () {
-														window.location.realod();
+														window.location.reload();
 												}, 500);
 						} else if (result.status == 'gagal') {
 							iziToast.warning({
@@ -115,7 +115,7 @@ function hapus(id){
 								message: 'Gagal Dihapus!',
 							});
 							setTimeout(function () {
-														window.location.realod();
+														window.location.reload();
 												}, 500);
 						}
 					}
@@ -158,7 +158,7 @@ function hapus(id){
 						message: 'Berhasil Diproses!',
 					});
 					setTimeout(function () {
-												window.location.realod();
+												window.location.reload();
 										}, 500);
 				} else if (result.status == 'kesalahan') {
 					ziToast.warning({
@@ -166,7 +166,7 @@ function hapus(id){
 						message: 'Mohon isi semua data dengan lengkap!',
 					});
 					setTimeout(function () {
-												window.location.realod();
+												window.location.reload();
 										}, 500);
 				} else if (result.status == 'gagal') {
 					iziToast.warning({
@@ -174,7 +174,7 @@ function hapus(id){
 						message: 'Gagal Dihapus!',
 					});
 					setTimeout(function () {
-												window.location.realod();
+												window.location.reload();
 										}, 500);
 				}
 			}

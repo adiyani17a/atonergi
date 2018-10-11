@@ -181,7 +181,7 @@
           message: 'Berhasil Diproses!',
         });
         setTimeout(function () {
-                      window.location.realod();
+                      window.location.reload();
                   }, 500);
 			}
 		});
