@@ -180,7 +180,11 @@ Route::get('/project/pengirimanbarang/pengirimanbarang', 'ProjectController@peng
 Route::get('/project/salescommon/salescommon', 'ProjectController@salescommon');
 Route::get('/project/technicianfee/technicianfee', 'ProjectController@technicianfee');
 Route::get('/project/pengadaanbarang/prosespengadaanbarang', 'ProjectController@prosespengadaanbarang');
-Route::get('/project/pengirimanbarang/prosespengirimanbarang', 'ProjectController@prosespengirimanbarang');
+Route::get('/project/pengadaanbarang/proses', 'ProjectController@proses');
+Route::get('/project/pengadaanbarang/hapus', 'ProjectController@hapus');
+Route::get('/project/pengadaanbarang/edit', 'ProjectController@edit');
+Route::get('/project/pengadaanbarang/setting', 'ProjectController@setting');
+Route::get('/project/pengirimanbarang/prosespengirimanbarang/{id}', 'ProjectController@prosespengirimanbarang');
 
 // Pompa
 Route::get('/projectmp/pmp_dokumentasi/pmp_dokumentasi', 'PompaController@pmp_dokumentasi');

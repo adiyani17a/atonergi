@@ -3,7 +3,7 @@
 
 <!-- partial -->
 <div class="content-wrapper">
-	<div class="col-lg-12">	
+	<div class="col-lg-12">
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb bg-info">
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
@@ -17,7 +17,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Process Pengiriman Barang</h4>
-                  
+									<form id="data">
                 	<div class="row">
                 		<div class="col-md-6 col-sm-12 col-xs-12">
                 			<div class="row">
@@ -26,7 +26,7 @@
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
 		                			<div class="form-group">
-		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="CUS/001">
+		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="{{$data[0]->c_code}}">
 		                			</div>
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
@@ -34,7 +34,7 @@
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
 		                			<div class="form-group">
-		                				<input type="text" readonly="" class="form-control form-control-sm" value="Bravo">
+		                				<input type="text" readonly="" class="form-control form-control-sm" value="{{$data[0]->c_name}}">
 		                			</div>
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
@@ -42,18 +42,9 @@
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
 		                			<div class="form-group">
-		                				<textarea class="form-control form-control-sm" readonly="">Jl. Alpha</textarea>
+		                				<textarea class="form-control form-control-sm" readonly="">{{$data[0]->c_address}}</textarea>
 		                			</div>
 		                		</div>
-		                		<div class="col-md-6 col-sm-6 col-xs-12">
-		                			<label>Work Order</label>
-		                		</div>
-		                		<div class="col-md-6 col-sm-6 col-xs-12">
-		                			<div class="form-group">
-		                				<input type="text" readonly="" class="form-control form-control-sm" value="Project Manajemen Pompa">
-		                			</div>
-		                		</div>
-		                		
 		                	</div>
 	                	</div>
 	                	<div class="col-md-6 col-sm-12 col-xs-12">
@@ -63,15 +54,15 @@
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
 		                			<div class="form-group">
-		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="08-04-2018">
+		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="{{Carbon\Carbon::parse($data[0]->so_date)->format('d-m-Y')}}">
 		                			</div>
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
-		                			<label>W.O.#</label>
+		                			<label>S.O.#</label>
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
 		                			<div class="form-group">
-		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="B001">
+		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="{{$data[0]->so_nota}}">
 		                			</div>
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
@@ -79,12 +70,13 @@
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
 		                			<div class="form-group">
-		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="Surabaya">
+		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="{{$data[0]->q_ship_to}}">
 		                			</div>
 		                		</div>
 		                	</div>
+											<input type="hidden" name="d_so" value="{{$data[0]->so_nota}}">
 	                	</div>
-	                	
+									</form>
 			              	<div class="col-md-6 col-sm-12 col-xs-12">
 			              		<div class="row">
 					              	<div class="col-md-6 col-sm-6 col-xs-12">
@@ -93,7 +85,7 @@
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
 				            				<div class="input-group">
-						                        <input class="form-control datepicker" readonly="" type="text" style="cursor: pointer;">
+						                        <input class="form-control datepicker" readonly="" name="d_delivery_date" type="text" style="cursor: pointer;">
 						                        <span class="input-group-addon bg-info text-white">
 						                            <i class="fa fa-calendar"></i>
 						                        </span>
@@ -105,7 +97,7 @@
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
-				            				<input type="text" class="form-control form-control-sm">
+				            				<input type="number" name="d_weight" class="form-control form-control-sm">
 				            			</div>
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
@@ -113,60 +105,56 @@
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
-				            				<input type="text" class="form-control form-control-sm">
+				            				<input type="text" name="d_shipping_charges" id="d_shipping_charges" class="form-control form-control-sm rp">
 				            			</div>
 				            		</div>
 				            	</div>
 				            </div>
-	              		
+
                 	</div>
-					
+
                   <div class="table-responsive">
 	                  <table class="table data-table table-hover" cellspacing="0">
 	                  	<thead class="bg-gradient-info">
 	                  		<tr>
-	                  			<th>Item Code</th>
-	                  			<th>Item Name</th>
+	                  			<th>Item</th>
 	                  			<th>Qty</th>
 	                  			<th>Unit</th>
+													<th>Description</th>
+													<th>Unit Price</th>
+													<th>Line Total</th>
 	                  		</tr>
 	                  	</thead>
 	                  	<tbody>
-	                  		<tr>
-	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="BRG/001">
-	                  			</td>
-	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Cable">
-	                  			</td>
-	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="300">
-	                  			</td>
-	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Meter">
-	                  			</td>
-	                  		</tr>
-	                  		<tr>
-	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="BRG/002">
-	                  			</td>
-	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Pompa Air">
-	                  			</td>
-	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="1">
-	                  			</td>
-	                  			<td>
-	                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Pcs">
-	                  			</td>
-	                  		</tr>
+												@foreach ($barang as $key => $value)
+													<tr>
+		                  			<td>
+		                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="{{$value->qd_item}}">
+		                  			</td>
+		                  			<td>
+		                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="{{$value->qd_qty}}">
+		                  			</td>
+		                  			<td>
+		                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="{{$value->u_unit}}">
+		                  			</td>
+		                  			<td>
+		                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="{{$value->qd_description}}">
+		                  			</td>
+														<td>
+		                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Rp. {{number_format($value->qd_price,2,',','.')}}">
+		                  			</td>
+														<td>
+		                  				<input type="text" class="form-control form-control-sm" readonly="" name="" value="Rp. {{number_format($value->qd_total,2,',','.')}}">
+		                  			</td>
+		                  		</tr>
+												@endforeach
 	                  	</tbody>
 	                  </table>
 	              </div>
 
 	              <div class="row">
 	              	<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-top: 15px;">
-	              		<button class="btn btn-sm btn-info" type="button">Process</button>
+	              		<button class="btn btn-sm btn-info" onclick="proses()" type="button">Process</button>
 	              		<a href="{{url('project/pengirimanbarang/pengirimanbarang')}}" class="btn btn-secondary btn-sm">Back</a>
 	              	</div>
 	              </div>
@@ -178,6 +166,25 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-	
+	$('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
+
+	function proses(){
+		var d_shipping_charges = $('#d_shipping_charges').val();
+		$.ajax({
+			type: 'get',
+			data: $('#data').serialize()+'&d_shipping_charges='+d_shipping_charges,
+			dataType: 'json',
+			url: baseUrl + '/project/pengadaanbarang/proses',
+			success : function(result){
+				iziToast.success({
+          icon: 'fa fa-check',
+          message: 'Berhasil Diproses!',
+        });
+        setTimeout(function () {
+                      window.location.realod();
+                  }, 500);
+			}
+		});
+	}
 </script>
 @endsection
