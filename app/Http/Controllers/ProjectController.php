@@ -66,7 +66,7 @@ class ProjectController extends Controller
 
       for ($i=0; $i < count($barang); $i++) {
         if ($barang[$i]->qd_description == null) {
-          $barang[$i]->qd_description = '';
+          $barang[$i]->qd_description = ' ';
         }
       }
 
