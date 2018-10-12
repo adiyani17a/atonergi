@@ -125,7 +125,7 @@ class ProjectController extends Controller
             'd_status' => 'PD',
             'd_delivery_date' => Carbon::parse($request->d_delivery_date)->format('Y-m-d'),
             'd_weight' => $request->d_weight,
-            'd_shipping charges' => $d_shipping_charges,
+            'd_shipping_charges' => $d_shipping_charges,
             'd_active' => 'Y',
             'd_insert' => Carbon::now('Asia/Jakarta')
           ]);
@@ -149,6 +149,34 @@ class ProjectController extends Controller
       }
 
     }
+    public function ubah(Request $request){
+      $id = $request->id;
+
+      $data = DB::table('d_sales_order')
+          ->leftjoin('d_quotation', 'q_nota', '=', 'so_ref')
+          ->leftjoin('m_customer', 'c_code', '=', 'q_customer')
+          ->where('so_id', $id)
+          ->get();
+
+      $barang = DB::table('d_quotation_dt')
+                ->join('m_item', 'i_code', '=', 'qd_item')
+                ->join('d_unit', 'u_id', '=', 'i_unit')
+                ->where('qd_id', $data[0]->q_id)
+                ->get();
+
+      for ($i=0; $i < count($barang); $i++) {
+        if ($barang[$i]->qd_description == null) {
+          $barang[$i]->qd_description = '';
+        }
+      }
+
+      $delivery = DB::table('d_delivery')
+                  ->where('d_so', $data[0]->so_nota)
+                  ->where('d_active', 'Y')
+                  ->get();
+
+      return view('project.pengirimanbarang.editprosespengiriman', compact('data','barang','delivery'));
+    }
     public function setting(Request $request){
       DB::beginTransaction();
       try {
@@ -166,6 +194,7 @@ class ProjectController extends Controller
         } else {
           DB::table('d_delivery')
             ->where('d_so', $request->d_so)
+            ->where('d_active', 'Y')
             ->update([
               'd_delivery_date' => Carbon::parse($request->d_delivery_date)->format('Y-m-d'),
               'd_receive_date' => Carbon::parse($request->d_receive_date)->format('Y-m-d'),
@@ -230,6 +259,32 @@ class ProjectController extends Controller
       ]);
     }
 
+    }
+    public function perbarui(Request $request){
+      DB::beginTransaction();
+      try {
+        $request->d_shipping_charges = str_replace('Rp. ','',$request->d_shipping_charges);
+        $request->d_shipping_charges = str_replace('.','',$request->d_shipping_charges);
+
+        DB::table('d_delivery')
+          ->where('d_do', $request->nota)
+          ->where('d_active', 'Y')
+          ->update([
+            'd_delivery_date' => Carbon::parse($request->d_delivery_date)->format('Y-m-d'),
+            'd_weight' => $request->d_weight,
+            'd_shipping_charges' => $request->d_shipping_charges
+          ]);
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
     }
     public function salescommon()
     {

@@ -58,6 +58,7 @@
 															@elseif ($value->so_status_delivery == 'PD')
 																<td>
 				                  				<div class="btn-group">
+																		<button type="button" class="btn btn-info btn-sm" onclick="ubah({{$value->so_id}})" name="button" title="Edit"> <i class="fa fa-edit"></i> </button>
 				                  					<button data-target="#edit" data-toggle="modal" data class="btn btn-warning btn-sm" onclick="edit({{$value->so_id}})" title="Setting"><i class="fa fa-cog"></i></button>
 				                  					<button class="btn btn-danger btn-sm" type="button" onclick="hapus({{$value->so_id}})" title="Delete"><i class="fa fa-trash"></i></button>
 				                  				</div>
@@ -108,7 +109,7 @@ function hapus(id){
 							});
 							setTimeout(function () {
 														window.location.reload();
-												}, 500);
+												}, 1000);
 						} else if (result.status == 'gagal') {
 							iziToast.warning({
 								icon: 'fa fa-times',
@@ -116,7 +117,7 @@ function hapus(id){
 							});
 							setTimeout(function () {
 														window.location.reload();
-												}, 500);
+												}, 1000);
 						}
 					}
 				});
@@ -140,7 +141,7 @@ function hapus(id){
 						$('#d_delivery_date').val(result[0].d_delivery_date);
 						setTimeout(function(){
 								waitingDialog.hide();
-						}, 500)
+						}, 1000)
 				}
 			});
 	}
@@ -159,7 +160,7 @@ function hapus(id){
 					});
 					setTimeout(function () {
 												window.location.reload();
-										}, 500);
+										}, 1000);
 				} else if (result.status == 'kesalahan') {
 					ziToast.warning({
 						icon: 'fa fa-times',
@@ -167,7 +168,7 @@ function hapus(id){
 					});
 					setTimeout(function () {
 												window.location.reload();
-										}, 500);
+										}, 1000);
 				} else if (result.status == 'gagal') {
 					iziToast.warning({
 						icon: 'fa fa-times',
@@ -175,10 +176,14 @@ function hapus(id){
 					});
 					setTimeout(function () {
 												window.location.reload();
-										}, 500);
+										}, 1000);
 				}
 			}
 		});
+	}
+
+	function ubah(id){
+		window.location.href = baseUrl + '/project/pengadaanbarang/ubah?id='+id;
 	}
 </script>
 @endsection

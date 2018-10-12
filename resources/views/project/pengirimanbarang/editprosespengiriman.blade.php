@@ -9,15 +9,16 @@
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
 				<li class="breadcrumb-item">Project Manajemen Pompa | SHS</li>
 				<li class="breadcrumb-item"><a href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Process Pengiriman Barang</li>
+				<li class="breadcrumb-item active" aria-current="page">EditProcess Pengiriman Barang</li>
 			</ol>
 		</nav>
 	</div>
 	<div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Process Pengiriman Barang</h4>
-									<form id="data">
+                  <h4 class="card-title">Edit Process Pengiriman Barang</h4>
+									<form id="dataedit">
+									<input type="hidden" name="nota" value="{{$delivery[0]->d_do}}">
                 	<div class="row">
                 		<div class="col-md-6 col-sm-12 col-xs-12">
                 			<div class="row">
@@ -85,7 +86,7 @@
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
 				            				<div class="input-group">
-						                        <input class="form-control datepicker" readonly="" name="d_delivery_date" type="text" style="cursor: pointer;">
+						                        <input class="form-control datepicker" readonly="" name="d_delivery_date" type="text" value="{{Carbon\Carbon::parse($delivery[0]->d_delivery_date)->format('d-m-Y')}}" style="cursor: pointer;">
 						                        <span class="input-group-addon bg-info text-white">
 						                            <i class="fa fa-calendar"></i>
 						                        </span>
@@ -97,7 +98,7 @@
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
-				            				<input type="number" name="d_weight" class="form-control form-control-sm">
+				            				<input type="number" name="d_weight" class="form-control form-control-sm" value="{{$delivery[0]->d_weight}}">
 				            			</div>
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
@@ -105,7 +106,7 @@
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
-				            				<input type="text" name="d_shipping_charges" id="d_shipping_charges" class="form-control form-control-sm rp">
+				            				<input type="text" name="d_shipping_charges" id="d_shipping_charges" class="form-control form-control-sm rp" value="Rp. {{number_format($delivery[0]->d_shipping_charges,0,',','.')}}">
 				            			</div>
 				            		</div>
 				            	</div>
@@ -154,7 +155,7 @@
 
 	              <div class="row">
 	              	<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-top: 15px;">
-	              		<button class="btn btn-sm btn-info" onclick="proses()" type="button">Process</button>
+	              		<button class="btn btn-sm btn-info" onclick="perbarui()" type="button">Process</button>
 	              		<a href="{{url('project/pengirimanbarang/pengirimanbarang')}}" class="btn btn-secondary btn-sm">Back</a>
 	              	</div>
 	              </div>
@@ -168,13 +169,13 @@
 <script type="text/javascript">
 	$('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
 
-	function proses(){
+	function perbarui(){
 		var d_shipping_charges = $('#d_shipping_charges').val();
 		$.ajax({
 			type: 'get',
-			data: $('#data').serialize()+'&d_shipping_charges='+d_shipping_charges,
+			data: $('#dataedit').serialize(),
 			dataType: 'json',
-			url: baseUrl + '/project/pengadaanbarang/proses',
+			url: baseUrl + '/project/pengadaanbarang/perbarui',
 			success : function(result){
 				iziToast.success({
           icon: 'fa fa-check',

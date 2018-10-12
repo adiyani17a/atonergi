@@ -183,6 +183,8 @@ Route::get('/project/pengadaanbarang/prosespengadaanbarang', 'ProjectController@
 Route::get('/project/pengadaanbarang/proses', 'ProjectController@proses');
 Route::get('/project/pengadaanbarang/hapus', 'ProjectController@hapus');
 Route::get('/project/pengadaanbarang/edit', 'ProjectController@edit');
+Route::get('/project/pengadaanbarang/ubah', 'ProjectController@ubah');
+Route::get('/project/pengadaanbarang/perbarui', 'ProjectController@perbarui');
 Route::get('/project/pengadaanbarang/setting', 'ProjectController@setting');
 Route::get('/project/pengirimanbarang/prosespengirimanbarang/{id}', 'ProjectController@prosespengirimanbarang');
 
