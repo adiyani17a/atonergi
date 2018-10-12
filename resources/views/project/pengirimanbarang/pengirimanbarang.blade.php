@@ -10,7 +10,7 @@
 			<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
-					<li class="breadcrumb-item">Project Manajemen Pompa | SHS</li>
+					<li class="breadcrumb-item">After Order</li>
 					<li class="breadcrumb-item active" aria-current="page">Pengiriman Barang</li>
 				</ol>
 			</nav>
@@ -19,7 +19,32 @@
 	              <div class="card">
 	                <div class="card-body">
 	                  <h4 class="card-title">Pengiriman Barang</h4>
-
+										<div class="row">
+											<div class="col-md-4 col-sm-12 col-xs-12">
+			    							<div class="alert alert-success alert-dismissible" title="DP sudah Lunas">
+			    							    <button type="button" class="close" data-dismiss="alert">&times;</button>
+			    							    <strong>Notice!</strong> <br>
+			    							    Delivered
+			    							    <label class="badge badge-pill badge-success">{{$countd}}</label>
+			    							</div>
+			    						</div>
+											<div class="col-md-4 col-sm-12 col-xs-12">
+			    							<div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+			    							    <button type="button" class="close" data-dismiss="alert">&times;</button>
+			    							    <strong>Notice!</strong> <br>
+			    							    Process Delivery
+			    							    <label class="badge badge-pill badge-primary">{{$countpd}}</label>
+			    							</div>
+			    						</div>
+			    						<div class="col-md-4 col-sm-12 col-xs-12">
+			    							<div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
+			    							    <button type="button" class="close" data-dismiss="alert">&times;</button>
+			    							    <strong>Notice!</strong> <br>
+			    							    Sedang Process
+			    							    <label class="badge badge-pill badge-warning">{{$countp}}</label>
+			    							</div>
+			    						</div>
+										</div>
 	                  <div class="table-responsive">
 		                  <table class="table data-table table-hover" cellspacing="0">
 		                  	<thead class="bg-gradient-info">
@@ -42,7 +67,7 @@
 			                  			<td>{{$value->c_name}}</td>
 			                  			<td>{{Carbon\Carbon::parse($value->so_date)->format('d-m-Y')}}</td>
 															@if ($value->so_status_delivery == 'P')
-																<td><span class="badge badge-pill badge-warning">Process</span></td>
+																<td><span class="badge badge-pill badge-warning">Sedang Process</span></td>
 															@elseif ($value->so_status_delivery == 'PD')
 																<td><span class="badge badge-pill badge-primary">Process Delivery</span></td>
 															@elseif ($value->so_status_delivery == 'D')

@@ -48,7 +48,22 @@ class ProjectController extends Controller
               ->where('so_active', 'Y')
               ->get();
 
-    	return view('project/pengirimanbarang/pengirimanbarang', compact('data'));
+      $countd = DB::table('d_sales_order')
+                ->where('so_status_delivery', 'D')
+                ->where('so_active', 'Y')
+                ->count();
+
+      $countp = DB::table('d_sales_order')
+                ->where('so_status_delivery', 'P')
+                ->where('so_active', 'Y')
+                ->count();
+
+      $countpd = DB::table('d_sales_order')
+                ->where('so_status_delivery', 'PD')
+                ->where('so_active', 'Y')
+                ->count();
+
+    	return view('project/pengirimanbarang/pengirimanbarang', compact('data','countd','countp','countpd'));
     }
     public function prosespengirimanbarang($id)
     {
