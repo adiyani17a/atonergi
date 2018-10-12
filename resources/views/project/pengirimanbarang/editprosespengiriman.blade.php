@@ -9,7 +9,7 @@
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
 				<li class="breadcrumb-item">Project Manajemen Pompa | SHS</li>
 				<li class="breadcrumb-item"><a href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang</a></li>
-				<li class="breadcrumb-item active" aria-current="page">EditProcess Pengiriman Barang</li>
+				<li class="breadcrumb-item active" aria-current="page">Edit Process Pengiriman Barang</li>
 			</ol>
 		</nav>
 	</div>
