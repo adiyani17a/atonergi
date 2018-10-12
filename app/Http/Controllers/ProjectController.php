@@ -44,6 +44,7 @@ class ProjectController extends Controller
       $data = DB::table('d_sales_order')
               ->leftjoin('d_quotation', 'q_nota', '=', 'so_ref')
               ->leftjoin('m_customer', 'c_code', '=', 'q_customer')
+              ->leftjoin('d_delivery', 'd_so', '=', 'so_nota')
               ->where('so_active', 'Y')
               ->get();
 

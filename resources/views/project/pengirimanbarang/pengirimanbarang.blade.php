@@ -30,6 +30,7 @@
 														<th>Tanggal SO</th>
 		                  			<th>Status</th>
 														<th>Delivery Date</th>
+														<th>Receiver</th>
 		                  			<th>Action</th>
 		                  		</tr>
 		                  	</thead>
@@ -48,6 +49,7 @@
 																<td><span class="badge badge-pill badge-success">Delivered</span></td>
 															@endif
 			                  			<td>{{Carbon\Carbon::parse($value->q_delivery)->format('d-m-Y')}}</td>
+															<td>{{$value->d_receiver}}</td>
 															@if ($value->so_status_delivery == 'P')
 																<td>
 				                  				<div class="btn-group">
