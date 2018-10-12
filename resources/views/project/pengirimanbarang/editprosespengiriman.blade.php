@@ -98,7 +98,7 @@
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
-				            				<input type="number" name="d_weight" class="form-control form-control-sm" value="{{$delivery[0]->d_weight}}">
+				            				<input type="text" name="d_weight" class="form-control form-control-sm" value="{{$delivery[0]->d_weight}}">
 				            			</div>
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
@@ -111,7 +111,6 @@
 				            		</div>
 				            	</div>
 				            </div>
-
                 	</div>
 
                   <div class="table-responsive">
