@@ -7,16 +7,16 @@
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb bg-info">
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-				<li class="breadcrumb-item">After Order</li>
-				<li class="breadcrumb-item"><a href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Process Pengiriman Barang</li>
+				<li class="breadcrumb-item">Pemasangan</li>
+				<li class="breadcrumb-item"><a href="{{url('project/pemasangan/pemasangan')}}">Pengiriman Barang</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Process Pemasangan</li>
 			</ol>
 		</nav>
 	</div>
 	<div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Process Pengiriman Barang</h4>
+                  <h4 class="card-title">Process Pemasangan</h4>
 									<form id="data">
                 	<div class="row">
                 		<div class="col-md-6 col-sm-12 col-xs-12">
@@ -54,15 +54,15 @@
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
 		                			<div class="form-group">
-		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="{{Carbon\Carbon::parse($data[0]->so_date)->format('d-m-Y')}}">
+		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="{{Carbon\Carbon::parse($data[0]->wo_date)->format('d-m-Y')}}">
 		                			</div>
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
-		                			<label>S.O.#</label>
+		                			<label>W.O.#</label>
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
 		                			<div class="form-group">
-		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="{{$data[0]->so_nota}}">
+		                				<input type="text" readonly="" class="form-control form-control-sm" name="" value="{{$data[0]->wo_nota}}">
 		                			</div>
 		                		</div>
 		                		<div class="col-md-6 col-sm-6 col-xs-12">
@@ -74,18 +74,18 @@
 		                			</div>
 		                		</div>
 		                	</div>
-											<input type="hidden" name="d_so" value="{{$data[0]->so_nota}}">
+											<input type="hidden" name="d_wo" value="{{$data[0]->wo_nota}}">
 	                	</div>
 									</form>
 			              	<div class="col-md-6 col-sm-12 col-xs-12">
 			              		<div class="row">
 					              	<div class="col-md-6 col-sm-6 col-xs-12">
-				            			<label>Delivery Date</label>
+				            			<label>Instalation Date</label>
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
 				            				<div class="input-group">
-						                        <input class="form-control datepicker" readonly="" name="d_delivery_date" type="text" style="cursor: pointer;">
+						                        <input class="form-control datepicker" readonly="" name="i_instalation_date" type="text" style="cursor: pointer;">
 						                        <span class="input-group-addon bg-info text-white">
 						                            <i class="fa fa-calendar"></i>
 						                        </span>
@@ -93,19 +93,19 @@
 				            			</div>
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
-				            			<label>Weight</label>
+				            			<label>Location</label>
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
-				            				<input type="text" name="d_weight" class="form-control form-control-sm">
+				            				<input type="text" name="i_location" class="form-control form-control-sm">
 				            			</div>
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
-				            			<label>Shipping Charges</label>
+				            			<label>Installer</label>
 				            		</div>
 				            		<div class="col-md-6 col-sm-6 col-xs-12">
 				            			<div class="form-group">
-				            				<input type="text" name="d_shipping_charges" id="d_shipping_charges" class="form-control form-control-sm rp">
+				            				<input type="text" name="i_installer" id="i_installer" class="form-control form-control-sm">
 				            			</div>
 				            		</div>
 				            	</div>
@@ -155,7 +155,7 @@
 	              <div class="row">
 	              	<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-top: 15px;">
 	              		<button class="btn btn-sm btn-info" onclick="proses()" type="button">Process</button>
-	              		<a href="{{url('project/pengirimanbarang/pengirimanbarang')}}" class="btn btn-secondary btn-sm">Back</a>
+	              		<a href="{{url('project/pemasangan/pemasangan')}}" class="btn btn-secondary btn-sm">Back</a>
 	              	</div>
 	              </div>
                 </div>
@@ -169,19 +169,19 @@
 	$('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
 
 	function proses(){
-		var d_shipping_charges = $('#d_shipping_charges').val();
+		var i_installer = $('#i_installer').val();
 		$.ajax({
 			type: 'get',
-			data: $('#data').serialize()+'&d_shipping_charges='+d_shipping_charges,
+			data: $('#data').serialize()+'&i_installer='+i_installer,
 			dataType: 'json',
-			url: baseUrl + '/project/pengirimanbarang/proses',
+			url: baseUrl + '/project/pemasangan/proses',
 			success : function(result){
 				iziToast.success({
           icon: 'fa fa-check',
           message: 'Berhasil Diproses!',
         });
         setTimeout(function () {
-                      window.location.href = baseUrl + '/project/pengirimanbarang/pengirimanbarang';
+                      window.location.href = baseUrl + '/project/pemasangan/pemasangan';
                   }, 1000);
 			}
 		});

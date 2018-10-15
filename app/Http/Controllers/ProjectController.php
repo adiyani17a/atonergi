@@ -25,7 +25,254 @@ class ProjectController extends Controller
     }
     public function pemasangan()
     {
-    	return view('project/pemasangan/pemasangan');
+      $data = DB::table('d_work_order')
+              ->leftjoin('d_quotation', 'q_nota', '=', 'wo_ref')
+              ->leftjoin('m_customer', 'c_code', '=', 'q_customer')
+              ->leftjoin('d_install', 'i_io', '=', 'wo_nota')
+              ->where('wo_active', 'Y')
+              ->get();
+
+      $countd = DB::table('d_work_order')
+                ->where('wo_status_install', 'D')
+                ->where('wo_active', 'Y')
+                ->count();
+
+      $countp = DB::table('d_work_order')
+                ->where('wo_status_install', 'P')
+                ->where('wo_active', 'Y')
+                ->count();
+
+      $countpd = DB::table('d_work_order')
+                ->where('wo_status_install', 'PD')
+                ->where('wo_active', 'Y')
+                ->count();
+
+    	return view('project/pemasangan/pemasangan', compact('data','countd','countp','countpd'));
+    }
+    public function prosespemasangan($id){
+      $data = DB::table('d_work_order')
+          ->leftjoin('d_quotation', 'q_nota', '=', 'wo_ref')
+          ->leftjoin('m_customer', 'c_code', '=', 'q_customer')
+          ->where('wo_id', $id)
+          ->get();
+
+      $barang = DB::table('d_quotation_dt')
+                ->join('m_item', 'i_code', '=', 'qd_item')
+                ->join('d_unit', 'u_id', '=', 'i_unit')
+                ->where('qd_id', $data[0]->q_id)
+                ->get();
+
+      for ($i=0; $i < count($barang); $i++) {
+        if ($barang[$i]->qd_description == null) {
+          $barang[$i]->qd_description = ' ';
+        }
+      }
+
+    	return view('project/pemasangan/prosespemasangan', compact('data', 'barang'));
+    }
+    public function simpanpemasangan(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $id = DB::table('d_install')
+              ->max('i_id');
+
+              if ($id < 0) {
+                $id = 0;
+              }
+
+              $kode = "";
+
+        $querykode = DB::select(DB::raw("SELECT MAX(MID(i_io,4,3)) as counter FROM d_install"));
+
+        if (count($querykode) > 0) {
+            foreach($querykode as $k)
+              {
+                $tmp = ((int)$k->counter)+1;
+                $kode = sprintf("%02s", $tmp);
+              }
+        } else {
+          $kode = "001";
+        }
+
+
+        $finalkode = 'IO-' . $kode . '/' . date('m') . date('Y');
+
+        DB::table('d_install')
+          ->insert([
+            'i_id' => $id + 1,
+            'i_wo' => $request->d_wo,
+            'i_io' => $finalkode,
+            'i_status' => 'PD',
+            'i_instalation_date' => Carbon::parse($request->i_instalation_date)->format('Y-m-d'),
+            'i_location' => $request->i_location,
+            'i_installer' => $request->i_installer,
+            'i_active' => 'Y',
+            'i_insert' => Carbon::now('Asia/Jakarta')
+          ]);
+
+          DB::table('d_work_order')
+            ->where('wo_nota', $request->d_wo)
+            ->update([
+              'wo_status_install' => 'PD',
+              'wo_active' => 'Y'
+            ]);
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
+
+    }
+    public function editpemasangan(Request $request){
+      $wo = DB::table('d_work_order')
+              ->select('wo_nota')
+              ->Where('wo_id', $request->id)
+              ->get();
+
+      $data = DB::table('d_install')
+                ->select('i_wo')
+                ->where('i_wo', $wo[0]->wo_nota)
+                ->get();
+
+      return response()->json($data);
+    }
+    public function ubahpemasangan(Request $request){
+      $id = $request->id;
+
+      $data = DB::table('d_work_order')
+          ->leftjoin('d_quotation', 'q_nota', '=', 'wo_ref')
+          ->leftjoin('m_customer', 'c_code', '=', 'q_customer')
+          ->where('wo_id', $id)
+          ->get();
+
+      $barang = DB::table('d_quotation_dt')
+                ->join('m_item', 'i_code', '=', 'qd_item')
+                ->join('d_unit', 'u_id', '=', 'i_unit')
+                ->where('qd_id', $data[0]->q_id)
+                ->get();
+
+      for ($i=0; $i < count($barang); $i++) {
+        if ($barang[$i]->qd_description == null) {
+          $barang[$i]->qd_description = '';
+        }
+      }
+
+      $install = DB::table('d_install')
+                  ->where('i_wo', $data[0]->wo_nota)
+                  ->where('i_active', 'Y')
+                  ->get();
+
+      return view('project.pemasangan.editprosespemasangan', compact('data','barang','install'));
+    }
+    public function perbaruipemasangan(Request $request){
+      DB::beginTransaction();
+      try {
+
+        DB::table('d_install')
+          ->where('i_io', $request->i_io)
+          ->where('i_active', 'Y')
+          ->update([
+            'i_instalation_date' => Carbon::parse($request->i_instalation_date)->format('Y-m-d'),
+            'i_location' => $request->i_location,
+            'i_installer' => $request->i_installer
+          ]);
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
+    }
+    public function settingpemasangan(Request $request){
+      DB::beginTransaction();
+      try {
+        $validation = Validator::make($request->all(), [
+                 'i_wo' => 'required',
+                 'i_report_date' => 'required',
+                 'i_notes' => 'required',
+             ]);
+
+       if ($validation->fails()) {
+           return response()->json([
+             'status' => 'kesalahan'
+           ]);
+        } else {
+          DB::table('d_install')
+            ->where('i_wo', $request->i_wo)
+            ->where('i_active', 'Y')
+            ->update([
+              'i_report_date' => Carbon::parse($request->d_delivery_date)->format('Y-m-d'),
+              'i_notes' => $request->i_notes,
+              'i_status' => 'D',
+              'i_update' => Carbon::now('Asia/Jakarta')
+            ]);
+
+          DB::table('d_work_order')
+            ->where('wo_nota', $request->i_wo)
+            ->update([
+              'wo_status_install' => 'D'
+            ]);
+        }
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
+    }
+    public function hapuspemasangan(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $wo = DB::table('d_work_order')
+          ->where('wo_id', $request->id)
+          ->get();
+
+        DB::table('d_work_order')
+          ->where('wo_id', $request->id)
+          ->update([
+            'wo_active' => 'N'
+          ]);
+
+        $check = DB::table('d_install')
+                  ->where('i_wo', $wo[0]->wo_nota)
+                  ->count();
+
+        if ($check != 0) {
+          DB::table('d_install')
+              ->where('i_wo', $wo[0]->wo_nota)
+              ->update([
+                'i_active' => 'N',
+                'i_update' => Carbon::now('Asia/Jakarta')
+              ]);
+        }
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
     }
     public function pengadaanbarang()
     {
