@@ -5,6 +5,7 @@
 @yield('extra_style')
 <body>
 	@include('layouts._setting')
+	
 	<div class="container-scroller">
 		@include('layouts._sidebar')
 
