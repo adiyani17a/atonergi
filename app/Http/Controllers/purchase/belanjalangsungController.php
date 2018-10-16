@@ -73,6 +73,7 @@ class belanjalangsungController extends Controller
             }else{
                 $kode += 1;
             }
+
         $index = str_pad($kode, 3, '0', STR_PAD_LEFT);
         $date = date('my');
         $nota = 'BL-'.$index.'/'.$request->dbl_vendor.'/'.$date;
@@ -120,6 +121,35 @@ class belanjalangsungController extends Controller
                   'dbldt_line_total' => (double)$request->total[$i],
                   'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                 ]);
+
+                $id = DB::table('i_stock_mutasi')
+                      ->max('sm_Id');
+
+                  if ($id < 0) {
+                    $id = 0;
+                  }
+
+                $iddetail = DB::table('i_stock_mutasi')
+                      ->where('sm_id', $id + 1)
+                      ->max('sm_iddetail');
+
+                if ($iddetail < 0) {
+                  $iddetail = 0;
+                }
+
+                DB::table('i_stock_mutasi')
+                  ->insert([
+                    'sm_id' => $id + 1,
+                    'sm_iddetail' => $iddetail + 1,
+                    'sm_item' => $request->kode[$i],
+                    'sm_hpp' => (double)$request->price[$i],
+                    'sm_qty' => $request->qty[$i],
+                    'sm_use' => 0,
+                    'sm_sisa' => $request->qty[$i],
+                    'sm_description' => 'BELANJA LANGSUNG',
+                    'sm_ref' => $nota,
+                    'sm_insert' => Carbon::now('Asia/Jakarta')
+                  ]);
             } else {
               if ($request->tax[$i] != 'undefined') {
                 DB::table('d_belanja_langsung_dt')
@@ -133,6 +163,35 @@ class belanjalangsungController extends Controller
                     'dbldt_ppn' => (double)$request->tax[$i],
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
+
+                  $id = DB::table('i_stock_mutasi')
+                        ->max('sm_id');
+
+                    if ($id < 0) {
+                      $id = 0;
+                    }
+
+                  $iddetail = DB::table('i_stock_mutasi')
+                        ->where('sm_id', $id + 1)
+                        ->max('sm_iddetail');
+
+                  if ($iddetail < 0) {
+                    $iddetail = 0;
+                  }
+
+                  DB::table('i_stock_mutasi')
+                    ->insert([
+                      'sm_id' => $id + 1,
+                      'sm_iddetail' => $iddetail + 1,
+                      'sm_item' => $request->kode[$i],
+                      'sm_hpp' => (double)$request->price[$i],
+                      'sm_qty' => $request->qty[$i],
+                      'sm_use' => 0,
+                      'sm_sisa' => $request->qty[$i],
+                      'sm_description' => 'BELANJA LANGSUNG',
+                      'sm_ref' => $nota,
+                      'sm_insert' => Carbon::now('Asia/Jakarta')
+                    ]);
               } else {
                 DB::table('d_belanja_langsung_dt')
                   ->insert([
@@ -144,9 +203,76 @@ class belanjalangsungController extends Controller
                     'dbldt_line_total' => (double)$request->total[$i],
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
+
+                  $id = DB::table('i_stock_mutasi')
+                        ->max('sm_id');
+
+                    if ($id < 0) {
+                      $id = 0;
+                    }
+
+                  $iddetail = DB::table('i_stock_mutasi')
+                        ->where('sm_id', $id + 1)
+                        ->max('sm_iddetail');
+
+                  if ($iddetail < 0) {
+                    $iddetail = 0;
+                  }
+
+                  DB::table('i_stock_mutasi')
+                    ->insert([
+                      'sm_id' => $id + 1,
+                      'sm_iddetail' => $iddetail + 1,
+                      'sm_item' => $request->kode[$i],
+                      'sm_hpp' => (double)$request->price[$i],
+                      'sm_qty' => $request->qty[$i],
+                      'sm_use' => 0,
+                      'sm_sisa' => $request->qty[$i],
+                      'sm_description' => 'BELANJA LANGSUNG',
+                      'sm_ref' => $nota,
+                      'sm_insert' => Carbon::now('Asia/Jakarta')
+                    ]);
               }
             }
+
+            $data = DB::table('i_stock_gudang')
+                    ->Where('sg_iditem', $request->kode[$i])
+                    ->get();
+
+            $datacount = DB::table('i_stock_gudang')
+                    ->Where('sg_iditem', $request->kode[$i])
+                    ->count();
+
+            if ($datacount == 0) {
+              $id = DB::table('i_stock_gudang')
+                    ->max('sg_id');
+
+              if ($id < 0) {
+                $id = 0;
+              }
+
+              DB::table('i_stock_gudang')
+                ->insert([
+                  'sg_id' => $id + 1,
+                  'sg_iditem' => $request->kode[$i],
+                  'sg_qty' => $request->qty[$i],
+                  'sg_harga' => (double)$request->total[$i],
+                  'sg_insert' => Carbon::now('Asia/Jakarta')
+                ]);
+
+            } else {
+              DB::table('i_stock_gudang')
+                ->where('sg_iditem', $data[0]->sg_iditem)
+                ->update([
+                  'sg_qty' => $request->qty[$i] + $data[0]->sg_qty,
+                  'sg_harga' => $request->qty[$i] * (double)$request->price[$i],
+                  'sg_update' => Carbon::now('Asia/Jakarta')
+                ]);
+            }
+
           }
+
+
 
         DB::commit();
         return response()->json([
@@ -168,6 +294,10 @@ class belanjalangsungController extends Controller
                   ->where('dbl_id', $request->id)
                   ->get();
 
+        $detail = DB::table('d_belanja_langsung_dt')
+                  ->where('dbldt_ref', $data[0]->dbl_code)
+                  ->get();
+
         DB::table('d_belanja_langsung')
           ->where('dbl_id', $request->id)
           ->delete();
@@ -175,6 +305,31 @@ class belanjalangsungController extends Controller
         DB::table('d_belanja_langsung_dt')
           ->where('dbldt_ref', $data[0]->dbl_code)
           ->delete();
+
+        DB::table('i_stock_mutasi')
+          ->where('sm_description', 'BELANJA LANGSUNG')
+          ->where('sm_ref', $data[0]->dbl_code)
+          ->delete();
+
+        for ($i=0; $i < count($detail); $i++) {
+          $stock = DB::table('i_stock_gudang')
+            ->where('sg_iditem', $detail[0]->dbldt_item)
+            ->get();
+
+          if ($stock[0]->sg_qty - $detail[$i]->dbldt_qty == 0) {
+            DB::table('i_stock_gudang')
+              ->where('sg_iditem', $detail[0]->dbldt_item)
+              ->delete();
+          } else {
+            DB::table('i_stock_gudang')
+              ->where('sg_iditem', $detail[0]->dbldt_item)
+              ->update([
+                'sg_qty' => $stock[0]->sg_qty - $detail[$i]->dbldt_qty,
+                'sg_harga' => $stock[0]->sg_qty * $detail[$i]->dbldt_unit_price
+              ]);
+          }
+        }
+
 
         DB::commit();
         return response()->json([
@@ -214,6 +369,15 @@ class belanjalangsungController extends Controller
 
         DB::table('d_belanja_langsung_dt')
           ->where('dbldt_ref', $data[0]->dbl_code)
+          ->delete();
+
+        DB::table('i_stock_mutasi')
+          ->where('sm_description', 'BELANJA LANGSUNG')
+          ->where('sm_ref', $data[0]->dbl_code)
+          ->delete();
+
+        DB::table('i_stock_gudang')
+          ->where('sg_iditem', $data[0]->dbl_code)
           ->delete();
 
         $id = $request->id;
@@ -263,6 +427,35 @@ class belanjalangsungController extends Controller
                   'dbldt_line_total' => $request->total[$i],
                   'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                 ]);
+
+                $id = DB::table('i_stock_mutasi')
+                      ->max('sm_id');
+
+                  if ($id < 0) {
+                    $id = 0;
+                  }
+
+                $iddetail = DB::table('i_stock_mutasi')
+                      ->where('sm_id', $id + 1)
+                      ->max('sm_iddetail');
+
+                if ($iddetail < 0) {
+                  $iddetail = 0;
+                }
+
+                DB::table('i_stock_mutasi')
+                  ->insert([
+                    'sm_id' => $id + 1,
+                    'sm_iddetail' => $iddetail + 1,
+                    'sm_item' => $request->kode[$i],
+                    'sm_hpp' => (double)$request->price[$i],
+                    'sm_qty' => $request->qty[$i],
+                    'sm_use' => 0,
+                    'sm_sisa' => $request->qty[$i],
+                    'sm_description' => 'BELANJA LANGSUNG',
+                    'sm_ref' => $nota,
+                    'sm_insert' => Carbon::now('Asia/Jakarta')
+                  ]);
             } else {
               if ($request->tax[$i] != 'undefined') {
                 DB::table('d_belanja_langsung_dt')
@@ -276,6 +469,35 @@ class belanjalangsungController extends Controller
                     'dbldt_ppn' => $request->tax[$i],
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
+
+                  $id = DB::table('i_stock_mutasi')
+                        ->max('sm_id');
+
+                    if ($id < 0) {
+                      $id = 0;
+                    }
+
+                  $iddetail = DB::table('i_stock_mutasi')
+                        ->where('sm_id', $id + 1)
+                        ->max('sm_iddetail');
+
+                  if ($iddetail < 0) {
+                    $iddetail = 0;
+                  }
+
+                  DB::table('i_stock_mutasi')
+                    ->insert([
+                      'sm_id' => $id + 1,
+                      'sm_iddetail' => $iddetail + 1,
+                      'sm_item' => $request->kode[$i],
+                      'sm_hpp' => (double)$request->price[$i],
+                      'sm_qty' => $request->qty[$i],
+                      'sm_use' => 0,
+                      'sm_sisa' => $request->qty[$i],
+                      'sm_description' => 'BELANJA LANGSUNG',
+                      'sm_ref' => $nota,
+                      'sm_insert' => Carbon::now('Asia/Jakarta')
+                    ]);
               } else {
                 DB::table('d_belanja_langsung_dt')
                   ->insert([
@@ -287,7 +509,70 @@ class belanjalangsungController extends Controller
                     'dbldt_line_total' => $request->total[$i],
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
+
+                  $id = DB::table('i_stock_mutasi')
+                        ->max('sm_id');
+
+                    if ($id < 0) {
+                      $id = 0;
+                    }
+
+                  $iddetail = DB::table('i_stock_mutasi')
+                        ->where('sm_id', $id + 1)
+                        ->max('sm_iddetail');
+
+                  if ($iddetail < 0) {
+                    $iddetail = 0;
+                  }
+
+                  DB::table('i_stock_mutasi')
+                    ->insert([
+                      'sm_id' => $id + 1,
+                      'sm_iddetail' => $iddetail + 1,
+                      'sm_item' => $request->kode[$i],
+                      'sm_hpp' => (double)$request->price[$i],
+                      'sm_qty' => $request->qty[$i],
+                      'sm_use' => 0,
+                      'sm_sisa' => $request->qty[$i],
+                      'sm_description' => 'BELANJA LANGSUNG',
+                      'sm_ref' => $nota,
+                      'sm_insert' => Carbon::now('Asia/Jakarta')
+                    ]);
               }
+            }
+            $data = DB::table('i_stock_gudang')
+                    ->Where('sg_iditem', $request->kode[$i])
+                    ->get();
+
+            $datacount = DB::table('i_stock_gudang')
+                    ->Where('sg_iditem', $request->kode[$i])
+                    ->count();
+
+            if ($datacount == 0) {
+              $id = DB::table('i_stock_gudang')
+                    ->max('sg_id');
+
+              if ($id < 0) {
+                $id = 0;
+              }
+
+              DB::table('i_stock_gudang')
+                ->insert([
+                  'sg_id' => $id + 1,
+                  'sg_iditem' => $request->kode[$i],
+                  'sg_qty' => $request->qty[$i],
+                  'sg_harga' => (double)$request->total[$i],
+                  'sg_insert' => Carbon::now('Asia/Jakarta')
+                ]);
+
+            } else {
+              DB::table('i_stock_gudang')
+                ->where('sg_iditem', $data[0]->sg_iditem)
+                ->update([
+                  'sg_qty' => $request->qty[$i] + $data[0]->sg_qty,
+                  'sg_harga' => $request->qty[$i] * (double)$request->price[$i],
+                  'sg_update' => Carbon::now('Asia/Jakarta')
+                ]);
             }
           }
 

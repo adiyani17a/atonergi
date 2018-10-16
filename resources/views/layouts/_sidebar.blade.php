@@ -319,30 +319,9 @@
                 </ul>
                 </div>
             </li>
-            <li class="nav-item {{Request::is('purchase') ? 'active' : '' || Request::is('purchase/*') ? 'active' : '' }}">
-              <a class="nav-link" data-toggle="collapse" href="#m_penjualan" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Purchase</span>
-                <span class="d-none">
-
-                  Request Order
-                  Belanja Langsung
-                  Purchase Order
-                </span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-credit-card menu-icon"></i>
-              </a>
-              <div class="collapse {{Request::is('purchase') ? 'show' : '' || Request::is('purchase/*') ? 'show' : '' }}" id="m_penjualan">
-                <ul class="nav flex-column sub-menu">
-
-                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/rencanapembelian/rencanapembelian') ? 'active' : '' || Request::is('purchase/rencanapembelian/*') ? 'active' : '' }}" href="{{url('purchase/rencanapembelian/rencanapembelian')}}">Request Order<span class="d-none">Purchase</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/belanjalangsung/belanjalangsung') ? 'active' : '' || Request::is('purchase/belanjalangsung/*') ? 'active' : '' }}" href="{{url('purchase/belanjalangsung/belanjalangsung')}}">Belanja Langsung<span class="d-none">Purchase</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/purchaseorder/purchaseorder') ? 'active' : '' || Request::is('purchase/purchaseorder/*') ? 'active' : '' }}" href="{{url('purchase/purchaseorder/purchaseorder')}}">Purchase Order<span class="d-none">Purchase</span></a></li>
-                </ul>
-                </div>
-            </li>
             <li class="nav-item {{Request::is('project/*') ? 'active' : ''}}">
               <a class="nav-link" data-toggle="collapse" href="#pompa" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">Project Manajemen <br>Pompa / SHS</span>
+                <span class="menu-title">After Order</span>
                 <span class="d-none">
                   Pengadaan Barang
                   Pengiriman Barang
@@ -380,30 +359,30 @@
 
                 </div>
             </li>
-
-            <li class="nav-item {{Request::is('aftersales') ? 'active' : '' || Request::is('aftersales/*') ? 'active' : '' }}">
-              <a class="nav-link" data-toggle="collapse" href="#aftersales" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">After Sales Service</span>
+            <li class="nav-item {{Request::is('purchase') ? 'active' : '' || Request::is('purchase/*') ? 'active' : '' }}">
+              <a class="nav-link" data-toggle="collapse" href="#m_penjualan" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Purchase</span>
                 <span class="d-none">
-                  Tanda Terima Service
-                  Kebutuhan Biaya
-                  Repair Order
-                  Rencana Tindakan
-                  Repair Report
+
+                  Request Order
+                  Belanja Langsung
+                  Purchase Order
                 </span>
                 <i class="menu-arrow"></i>
-                <i class="mdi mdi-currency-usd menu-icon"></i>
+                <i class="mdi mdi-credit-card menu-icon"></i>
               </a>
-              <div class="collapse {{Request::is('aftersales') ? 'show' : '' || Request::is('aftersales/*') ? 'show' : '' }}" id="aftersales">
+              <div class="collapse {{Request::is('purchase') ? 'show' : '' || Request::is('purchase/*') ? 'show' : '' }}" id="m_penjualan">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/tandaterima/tandaterima') ? 'active' : '' || Request::is('aftersales/tandaterima/*') ? 'active' : '' }}" href="{{url('aftersales/tandaterima/tandaterima')}}">Tanda Terima Service<span class="d-none">After Sales Service</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/kebutuhanbiaya/kebutuhanbiaya') ? 'active' : '' || Request::is('aftersales/kebutuhanbiaya/*') ? 'active' : '' }}" href="{{url('aftersales/kebutuhanbiaya/kebutuhanbiaya')}}">Kebutuhan Biaya<span class="d-none">After Sales Service</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/repairorder/repairorder') ? 'active' : '' || Request::is('aftersales/repairorder/*') ? 'active' : '' }}" href="{{url('aftersales/repairorder/repairorder')}}">Repair Order<span class="d-none">After Sales Service</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/rencanatindakan/rencanatindakan') ? 'active' : '' || Request::is('aftersales/rencanatindakan/*') ? 'active' : '' }}" href="{{url('aftersales/rencanatindakan/rencanatindakan')}}">Rencana Tindakan<span class="d-none">After Sales Service</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('aftersales/repairreport/repairreport') ? 'active' : '' || Request::is('aftersales/repairreport/*') ? 'active' : '' }}" href="{{url('aftersales/repairreport/repairreport')}}">Repair Report<span class="d-none">After Sales Service</span></a></li>
+
+                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/rencanapembelian/rencanapembelian') ? 'active' : '' || Request::is('purchase/rencanapembelian/*') ? 'active' : '' }}" href="{{url('purchase/rencanapembelian/rencanapembelian')}}">Request Order<span class="d-none">Purchase</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/belanjalangsung/belanjalangsung') ? 'active' : '' || Request::is('purchase/belanjalangsung/*') ? 'active' : '' }}" href="{{url('purchase/belanjalangsung/belanjalangsung')}}">Belanja Langsung<span class="d-none">Purchase</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/purchaseorder/purchaseorder') ? 'active' : '' || Request::is('purchase/purchaseorder/*') ? 'active' : '' }}" href="{{url('purchase/purchaseorder/purchaseorder')}}">Purchase Order<span class="d-none">Purchase</span></a></li>
                 </ul>
                 </div>
             </li>
+
+
+
             <li class="nav-item {{Request::is('inventory') ? 'active' : '' || Request::is('inventory/*') ? 'active' : '' }}">
               <a class="nav-link" data-toggle="collapse" href="#inven" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Inventory</span>
@@ -413,9 +392,6 @@
                   Stock Opname
                   Stock Gudang
                   Stock Barang
-                  Maintenance
-                  Surat Pinjam Barang
-                  Barcode Support
                 </span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-arrow-up-bold-box-outline menu-icon"></i>
@@ -427,9 +403,6 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/opname/opname') ? 'active' : '' || Request::is('inventory/opname/*') ? 'active' : '' }}" href="{{url('inventory/opname/opname')}}">Stock Opname<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockgudang/stockgudang') ? 'active' : '' || Request::is('inventory/stockgudang/*') ? 'active' : '' }}" href="{{url('inventory/stockgudang/stockgudang')}}">Stock Gudang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockbarang/stockbarang') ? 'active' : '' || Request::is('inventory/stockbarang/*') ? 'active' : '' }}" href="{{url('inventory/stockbarang/stockbarang')}}">Stock Barang<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/maintenance/maintenance') ? 'active' : '' || Request::is('inventory/maintenance/*') ? 'active' : '' }}" href="{{url('inventory/maintenance/maintenance')}}">Maintenance<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/suratpinjambarang/suratpinjambarang') ? 'active' : '' || Request::is('inventory/suratpinjambarang/*') ? 'active' : '' }}" href="{{url('inventory/suratpinjambarang/suratpinjambarang')}}">Surat Pinjam Barang<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barcode/barcode') ? 'active' : '' || Request::is('inventory/barcode/*') ? 'active' : '' }}" href="{{url('inventory/barcode/barcode')}}">Barcode Support<span class="d-none">Inventory</span></a></li>
                 </ul>
                 </div>
             </li>

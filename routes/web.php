@@ -169,18 +169,31 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
     Route::get('/order/proforma_invoice/hapus_proforma_invoice', 'OrderController@hapus_proforma_invoice');
 
 
-// Pilih Project Manejmen Pompa | SHS
+// Pilih After Order
 Route::get('/project/dokumentasi/dokumentasi', 'ProjectController@dokumentasi');
 Route::get('/project/jadwalujicoba/jadwalujicoba', 'ProjectController@jadwalujicoba');
 Route::get('/project/jadwalujicoba/tambah_jadwal', 'ProjectController@tambah_jadwalujicoba');
 Route::get('/project/pemasangan/pemasangan', 'ProjectController@pemasangan');
+Route::get('/project/pemasangan/prosespemasangan/{id}', 'ProjectController@prosespemasangan');
+Route::get('/project/pemasangan/proses', 'ProjectController@simpanpemasangan');
+Route::get('/project/pemasangan/hapus', 'ProjectController@hapuspemasangan');
+Route::get('/project/pemasangan/edit', 'ProjectController@editpemasangan');
+Route::get('/project/pemasangan/ubah', 'ProjectController@ubahpemasangan');
+Route::get('/project/pemasangan/perbarui', 'ProjectController@perbaruipemasangan');
+Route::get('/project/pemasangan/setting', 'ProjectController@settingpemasangan');
 Route::get('/project/pengadaanbarang/pengadaanbarang', 'ProjectController@pengadaanbarang');
 Route::get('/project/pengepakanbarang/pengepakanbarang', 'ProjectController@pengepakanbarang');
 Route::get('/project/pengirimanbarang/pengirimanbarang', 'ProjectController@pengirimanbarang');
 Route::get('/project/salescommon/salescommon', 'ProjectController@salescommon');
 Route::get('/project/technicianfee/technicianfee', 'ProjectController@technicianfee');
-Route::get('/project/pengadaanbarang/prosespengadaanbarang', 'ProjectController@prosespengadaanbarang');
-Route::get('/project/pengirimanbarang/prosespengirimanbarang', 'ProjectController@prosespengirimanbarang');
+Route::get('/project/pengirimanbarang/prosespengadaanbarang', 'ProjectController@prosespengadaanbarang');
+Route::get('/project/pengirimanbarang/proses', 'ProjectController@proses');
+Route::get('/project/pengirimanbarang/hapus', 'ProjectController@hapus');
+Route::get('/project/pengirimanbarang/edit', 'ProjectController@edit');
+Route::get('/project/pengirimanbarang/ubah', 'ProjectController@ubah');
+Route::get('/project/pengirimanbarang/perbarui', 'ProjectController@perbarui');
+Route::get('/project/pengirimanbarang/setting', 'ProjectController@setting');
+Route::get('/project/pengirimanbarang/prosespengirimanbarang/{id}', 'ProjectController@prosespengirimanbarang');
 
 // Pompa
 Route::get('/projectmp/pmp_dokumentasi/pmp_dokumentasi', 'PompaController@pmp_dokumentasi');

@@ -224,7 +224,7 @@
                        <td> <input type="text" name="nama[]" id="namaitem" data="{{$value->i_name}}" class="form-control namaitem form-control-sm" value="{{$value->i_name}}" readonly> </td>
                        <td> <input type="text" name="qty[]" onkeyup="qtydinamis({{$key + 1}})" class="form-control form-control-sm" id="qty{{$key + 1}}" value="{{$value->dbldt_qty}}"> </td>
                        <td> <input type="text" name="satuan[]" class="form-control form-control-sm" value="{{$value->u_unit}}" readonly> </td>
-                       <td> <input type="text" name="price[]" onkeyup="total({{$key + 1}})" class="form-control price form-control-sm rp" id="price{{$key + 1}}" value="{{$value->dbldt_unit_price}}"> </td>
+                       <td> <input type="text" name="price[]" onkeyup="total({{$key + 1}})" class="form-control price form-control rp" id="price{{$key + 1}}" value="{{$value->dbldt_unit_price}}"> </td>
                        <td> <input type="text" name="total[]" class="form-control form-control-sm total_price" id="total{{$key + 1}}" value="{{$value->dbldt_line_total}}" readonly> </td>
                        <td> <input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)" @if ($value->dbldt_ppn != null)
                          checked
