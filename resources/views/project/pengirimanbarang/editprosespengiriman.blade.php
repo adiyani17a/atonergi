@@ -7,7 +7,7 @@
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb bg-info">
 				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="{{url('/home')}}">Home</a></li>
-				<li class="breadcrumb-item">Project Manajemen Pompa | SHS</li>
+				<li class="breadcrumb-item">After Order</li>
 				<li class="breadcrumb-item"><a href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang</a></li>
 				<li class="breadcrumb-item active" aria-current="page">Edit Process Pengiriman Barang</li>
 			</ol>
@@ -174,7 +174,7 @@
 			type: 'get',
 			data: $('#dataedit').serialize(),
 			dataType: 'json',
-			url: baseUrl + '/project/pengadaanbarang/perbarui',
+			url: baseUrl + '/project/pengirimanbarang/perbarui',
 			success : function(result){
 				iziToast.success({
           icon: 'fa fa-check',

@@ -127,7 +127,7 @@ function hapus(id){
 					type: 'get',
 					data: {id:id},
 					dataType: 'json',
-					url: baseUrl + '/project/pengadaanbarang/hapus',
+					url: baseUrl + '/project/pengirimanbarang/hapus',
 					success : function(result){
 						if (result.status == 'berhasil') {
 							iziToast.success({
@@ -162,7 +162,7 @@ function hapus(id){
 				type: 'get',
 				data: {id:id},
 				dataType: 'json',
-				url: baseUrl + '/project/pengadaanbarang/edit',
+				url: baseUrl + '/project/pengirimanbarang/edit',
 				success : function(result){
 						$('#d_so').val(result[0].d_so);
 						$('#d_delivery_date').val(result[0].d_delivery_date);
@@ -178,7 +178,7 @@ function hapus(id){
 			type: 'get',
 			data: $('#editdata').serialize(),
 			dataType: 'json',
-			url: baseUrl + '/project/pengadaanbarang/setting',
+			url: baseUrl + '/project/pengirimanbarang/setting',
 			success : function(result){
 				if (result.status == 'berhasil') {
 					iziToast.success({
@@ -210,7 +210,7 @@ function hapus(id){
 	}
 
 	function ubah(id){
-		window.location.href = baseUrl + '/project/pengadaanbarang/ubah?id='+id;
+		window.location.href = baseUrl + '/project/pengirimanbarang/ubah?id='+id;
 	}
 </script>
 @endsection
