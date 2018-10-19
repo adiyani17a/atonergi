@@ -20,11 +20,11 @@ class BarangController extends Controller
     {
 
 
-        return DB::transaction(function() use ($request) {  
+        return DB::transaction(function() use ($request) {
             $nama = Auth::user()->m_name;
             $m1 = DB::table('m_item')->where('i_jenis','ITEM')->max('i_id');
         	$index = DB::table('m_item')->max('i_id')+1;
-        	
+
 
             if($index<=9)
             {
@@ -79,7 +79,7 @@ class BarangController extends Controller
                 'i_sell_price'  =>  (float)$request->sell_price,
                 'i_lower_price' =>  (float)$request->lower_price,
                 'i_active'      =>  'Y',
-                'i_jenis'       =>  'ITEM',
+                'i_jenis'       =>  $request->category,
                 'i_type'        =>  $request->type_barang,
                 'i_minstock'    =>  $request->min_stock,
                 'i_image'       =>  $file_name,
@@ -97,7 +97,7 @@ class BarangController extends Controller
     public function baranghapus(Request $request)
     {
         $gambar = DB::table('m_item')->select('i_image')->where('i_code','=',$request->id)->first();
-        
+
             // dd(base_path('assets\barang\\'.$gambar[0]->i_image));
         if($gambar->i_image != '')
         {
@@ -137,9 +137,9 @@ class BarangController extends Controller
                 ->where('i_jenis','ITEM')
                 ->orderBy('i_insert_at','DESC')->get();
         }
-        
-        
-        
+
+
+
         // return $data;
         $barang = collect($data);
         // return $barang;
@@ -153,10 +153,10 @@ class BarangController extends Controller
                                    '<label class="fa fa-trash"></label></button>'.
                                   '</div>';
                         })
-						->addColumn('gambar', function ($barang) { 
+						->addColumn('gambar', function ($barang) {
 							if($barang->i_image!=''){
                                 $url = route('barang_thumbnail').'/'.$barang->i_image.'?'.time();
-								return '<img src="'.$url.'" border="0" width="60" class="img-rounded" align="center" />'; 
+								return '<img src="'.$url.'" border="0" width="60" class="img-rounded" align="center" />';
 							}else{
 								return '<i class="fa fa-minus-square"></i>';
 							}
@@ -187,10 +187,10 @@ class BarangController extends Controller
     }
 
     public function barang_update(Request $request)
-    {   
+    {
         // dd($request->all());
 
-        return DB::transaction(function() use ($request) {  
+        return DB::transaction(function() use ($request) {
             $nama = Auth::user()->m_name;
             $file = $request->file('files');
             if ($file  != null) {

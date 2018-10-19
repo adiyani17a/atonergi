@@ -9,7 +9,7 @@
       </div>
         <div class="modal-body">
           <form id="simpan_barang">
-            
+
             <input type="hidden" value="{{csrf_token()}}" name="_token">
             <div class="row">
               <div class="col-md-3 col-sm-4 col-xs-12">
@@ -17,8 +17,8 @@
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control form-control-sm huruf_besar" name="item_name">                               
-                    <input type="hidden"  class="form-control form-control-sm kode_barang huruf_besar" name="kode_barang">                                
+                    <input type="text"  class="form-control form-control-sm huruf_besar" name="item_name">
+                    <input type="hidden"  class="form-control form-control-sm kode_barang huruf_besar" name="kode_barang">
                 </div>
               </div>
               <div class="col-md-3 col-sm-4 col-xs-12">
@@ -29,14 +29,14 @@
                     <select class="form-control currency" name="currency">
                       @foreach($currency as $val)
                         <option @if ($val->cu_code == 'IDR')
-                          selected="" 
+                          selected=""
                         @endif value="{{$val->cu_code}}">{{$val->cu_code}} || {{$val->cu_name}}</option>
                       @endforeach
 
                     </select>
                 </div>
               </div>
-             
+
               <div class="col-md-3 col-sm-4 col-xs-12">
                   <label class="tebal">Type</label>
               </div>
@@ -54,53 +54,53 @@
 
 
 
-              
+
               <div class="col-md-3 col-sm-4 col-xs-12">
                     <label class="tebal">Sell Price</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control hanya_angka form-control-sm sell_price" name="sell_price" maxlength="20" required="">                               
+                    <input type="text"  class="form-control hanya_angka form-control-sm sell_price" name="sell_price" maxlength="20" required="">
                 </div>
               </div>
 
 
-          
 
-            
+
+
               <div class="col-md-3 col-sm-4 col-xs-12">
                     <label class="tebal">Weight</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control hanya_angka form-control-sm weight" name="weight">                               
+                    <input type="text"  class="form-control hanya_angka form-control-sm weight" name="weight">
                 </div>
               </div>
-              
-              
+
+
              <div class="col-md-3 col-sm-4 col-xs-12">
                     <label class="tebal">Lower Price</label>
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text"  class="form-control hanya_angka form-control-sm lower_price" name="lower_price" maxlength="20" required="">                               
+                    <input type="text"  class="form-control hanya_angka form-control-sm lower_price" name="lower_price" maxlength="20" required="">
                 </div>
               </div>
 
 
-              
+
               <div class="col-md-3 col-sm-4 col-xs-12">
-                
+
                     <label class="tebal">Min Stock</label>
-               
+
               </div>
               <div class="col-md-3 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <input type="text" class="form-control hanya_angka form-control-sm min_stock" name="min_stock">                               
+                    <input type="text" class="form-control hanya_angka form-control-sm min_stock" name="min_stock">
                 </div>
-              </div> 
+              </div>
 
-              
+
               <div class="col-md-3 col-sm-4 col-xs-12">
                 <label class="tebal">Price</label>
               </div>
@@ -108,8 +108,8 @@
                 <div class="form-group">
                     <input type="text"  class="form-control hanya_angka form-control-sm price" name="price" maxlength="20" required="">
                 </div>
-              </div> 
-              
+              </div>
+
              {{-- PRICE --}}
               <div class="col-md-3 col-sm-4 col-xs-12">
                   <label class="tebal">Unit#</label>
@@ -123,15 +123,30 @@
                     </select>
                 </div>
               </div>
+
+              <div class="col-md-3 col-sm-4 col-xs-12">
+                  <label class="tebal">Category</label>
+              </div>
+              <div class="col-md-3 col-sm-8 col-xs-12">
+                <div class="form-group">
+                    <select class="category" name="category">
+                      <option value="">--Select Type--</option>
+                      <option value="Barang Jual">Barang Jual</option>
+                      <option value="Barang Gudang">Barang Gudang</option>
+                      <option value="Lain - Lain">Lain - Lain</option>
+                    </select>
+                </div>
+              </div>
+
               <div class="col-md-6 col-sm-0 col-xs-0"></div>
               <div class="col-md-3 col-sm-4 col-xs-12">
-                
+
                     <label class="tebal">Description</label>
-               
+
               </div>
               <div class="col-md-9 col-sm-8 col-xs-12">
                 <div class="form-group">
-                    <textarea class="form-control form-control-sm" name="description"></textarea>                               
+                    <textarea class="form-control form-control-sm" name="description"></textarea>
                 </div>
               </div>
 
@@ -143,13 +158,13 @@
                   <div class="file-upload">
                     <div class="file-select">
                       <div class="file-select-button" id="fileName">Image</div>
-                      <div class="file-select-name" id="noFile">Choose Image...</div> 
+                      <div class="file-select-name" id="noFile">Choose Image...</div>
                       <input type="file" name="image" onchange="loadFile(event)" id="chooseFile" accept="image/*">
                     </div>
                   </div>
 
               </div>
-                
+
               <div class="col-md-3 col-sm-4 col-xs-12 122mm">
                 <label>Preview</label>
               </div>
@@ -161,11 +176,11 @@
               </div>
 
               <div class="col-12" id="check_change_image">
-                
+
               </div>
 
               <input type="hidden" name="item_codex">
-            </div> 
+            </div>
           </form>
           </div>
         <div class="modal-footer">
@@ -177,9 +192,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
