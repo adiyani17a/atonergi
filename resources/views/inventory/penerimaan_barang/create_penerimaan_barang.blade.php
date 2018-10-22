@@ -72,6 +72,18 @@
 				      </div>
 				    </div>
 
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<label>QTY Item</label>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label class="label">
+								<input type="text" id="jumlah" class="form-control jumlah" readonly name="jumlah" value="{{count($seq_cari)}}">
+							 </label>
+							</div>
+						</div>
+
+
 				    <div class="table-responsive " style="margin-top: 15px;">
 				      <table class="table table-hover data-table">
 				        <thead class="bg-gradient-info">
@@ -96,7 +108,7 @@
 				            	<input type="text" class="format_money_kosongan form-control form-control-sm qty_remain{{$key}} right readonly" value="{{ $a->podt_qty_approved }}" name="qty_remain[]"></td>
 				          </tr>
 			        	@endforeach
-								<input type="text" class="jumlah" name="jumlah" value="{{count($seq_cari)}}">
+						    </div>
 				        </tbody>
 				      </table>
 				    </div>
@@ -174,7 +186,7 @@
 function centang(){
 	var check = 0;
 		if ($('.checkbox').is(':checked')) {
-				var count = $('.jumlah').val();
+				var count = $('#jumlah').val();
 				for (var i = 0; i < count; i++) {
 					var qtyapproved = $('.qty_approved'+i).val();
 					$('.qty_received'+i).val(qtyapproved);
