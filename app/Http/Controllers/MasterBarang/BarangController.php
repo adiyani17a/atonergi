@@ -127,7 +127,7 @@ class BarangController extends Controller
                 ->leftjoin('m_currency','cu_code','=','i_currency_id')
                 ->join('d_unit','u_id','=','i_unit')
                 ->ORwhere('i_jenis','Barang Jual')
-                ->ORwhere('i_jenis','Barang Gudang')
+                ->ORwhere('i_jenis','Aksesoris instalasi')
                 ->ORwhere('i_jenis','Lain - Lain')
                 ->where('i_name','like','%'.strtoupper($req->nota).'%')
                 ->orderBy('i_insert_at','DESC')
@@ -137,7 +137,7 @@ class BarangController extends Controller
                 ->leftjoin('m_currency','cu_code','=','i_currency_id')
                 ->join('d_unit','u_id','=','i_unit')
                 ->ORwhere('i_jenis','Barang Jual')
-                ->ORwhere('i_jenis','Barang Gudang')
+                ->ORwhere('i_jenis','Aksesoris instalasi')
                 ->ORwhere('i_jenis','Lain - Lain')
                 ->orderBy('i_insert_at','DESC')->get();
         }
