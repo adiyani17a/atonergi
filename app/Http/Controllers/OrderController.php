@@ -417,8 +417,8 @@ class OrderController extends Controller
                    ->where('i_jenis','JASA')
                    ->first();
 
-        $bulan = Carbon::parse($data->q_date)->format('m');
-        $tahun = Carbon::parse($data->q_date)->format('Y');
+        $bulan = Carbon::now()->format('m');
+        $tahun = Carbon::now()->format('Y');
         // NOTA SO
         $cari_nota = DB::select("SELECT  substring(max(so_nota),4,3) as id from d_sales_order
                                         WHERE MONTH(so_date) = '$bulan'
