@@ -760,7 +760,7 @@ class OrderController extends Controller
                       'po_note2'      => $req->nota2,
                       'po_account'    => $req->akun,
                       'po_status'     => 'Released',
-                      'po_date'       => carbon::parse($req->date)->format('Y-m-d'),
+                      'po_date'       => carbon::parse($req->datepicker)->format('Y-m-d'),
                       'po_updated_at' => carbon::now(),
                       'po_created_at' => carbon::now(),
                       'po_updated_by' => Auth::user()->m_name,
