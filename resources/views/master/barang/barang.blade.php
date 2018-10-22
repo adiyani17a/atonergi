@@ -66,7 +66,7 @@
                                     <th width="15%">Item Price</th>
                                     <th width="15%">Price (Rp)</th>
                                     <th class="wd-15p" width="3%">Unit</th>
-                                    <th width="25%">Description Item</th>
+                                    <th width="25%">Category Item</th>
                                     <th>Image</th>
                                     <th width="5%">Action</th>
                                   </tr>
@@ -128,6 +128,10 @@ $(document).ready(function(){
                      className: 'center'
                   },
                   {
+                     targets: 6,
+                     className: 'center'
+                  },
+                  {
                     targets: 7,
                     className: 'center'
                   },
@@ -143,7 +147,7 @@ $(document).ready(function(){
             { "data": "harga"},
             { "data": "harga_rp"},
             { "data": "u_unit" },
-            { "data": "i_description" },
+            { "data": "i_jenis" },
             { "data": "gambar"},
             { "data": "aksi" },
 

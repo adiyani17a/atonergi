@@ -5,7 +5,7 @@
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
-		<div class="col-lg-12">	
+		<div class="col-lg-12">
 			<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -22,7 +22,7 @@
 		          		<div class="col-md-12 col-sm-12 col-xs-12" align="right">
 		          			<button class="btn btn-info btn-sm" type="button" data-target="#cari_po" id="button_add" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Add Data</button>
 		          		</div>
-		          		
+
 						<div class="table-responsive" style="margin-top: 15px;">
 							<table class="table table-hover" id="datatable" cellspacing="0">
 							  <thead class="bg-gradient-info">
@@ -47,11 +47,11 @@
 								    	</div>
 							    	</td>
 							    </tr> --}}
-							  
+
 							  </tbody>
 							</table>
 						</div>
-						
+
 		        	</div>
 		      	</div>
 	    	</div>
@@ -80,7 +80,7 @@
                   {
                      targets: 1 ,
                      className: 'center'
-                  }, 
+                  },
                   {
                      targets: 2 ,
                      className: 'right format_money'
@@ -101,13 +101,12 @@
 
 	function cari_purchaseorder() {
 		var this_val = $('#cari_purchaseorder').val();
-		console.log(this_val);
 		$.ajax({
          type: "get",
          url: '{{ route('cari_penerimaan_barang') }}',
          data: {this_val},
          success: function(data){
-          
+
          },
          complete:function(){
          	window.location.href= this.url;
@@ -119,7 +118,7 @@
           });
          },
          async: false
-       });	
+       });
 	}
 	function edit(parm){
 	    var par   = $(parm).parents('tr');
@@ -130,7 +129,7 @@
          url: baseUrl+'/inventory/penerimaan_barang/edit_penerimaan_barang',
          data: {id},
          success: function(data){
-          
+
          },
          complete:function(){
          	window.location.href= this.url;
@@ -142,16 +141,16 @@
           });
          },
          async: false
-       });	
+       });
 	}
 	function hapus(parm){
 	    var par   = $(parm).parents('tr');
 	    var id    = $(par).find('.d_id').text();
-	    
+
 	    iziToast.show({
 	            overlay: true,
 	            close: false,
-	            timeout: 20000, 
+	            timeout: 20000,
 	            color: 'dark',
 	            icon: 'fas fa-question-circle',
 	            title: 'Important!',
@@ -168,7 +167,7 @@
 					     url: baseUrl+'/inventory/penerimaan_barang/hapus_penerimaan_barang',
 					     data: {id},
 					     success: function(data){
-					      	
+
 					     },
 					     error: function(){
 					      iziToast.warning({
@@ -177,8 +176,8 @@
 					      });
 					     },
 					     async: false
-					   });	
-	                 
+					   });
+
 	                }
 	              ],
 	              [
@@ -191,7 +190,7 @@
 	              ]
 	            ]
 	      });
-	   
+
 	}
 
 </script>
