@@ -126,7 +126,9 @@ class BarangController extends Controller
            $data= DB::table('m_item')
                 ->leftjoin('m_currency','cu_code','=','i_currency_id')
                 ->join('d_unit','u_id','=','i_unit')
-                ->where('i_jenis','ITEM')
+                ->ORwhere('i_jenis','Barang Jual')
+                ->ORwhere('i_jenis','Barang Gudang')
+                ->ORwhere('i_jenis','Lain - Lain')
                 ->where('i_name','like','%'.strtoupper($req->nota).'%')
                 ->orderBy('i_insert_at','DESC')
                 ->get();
@@ -134,7 +136,9 @@ class BarangController extends Controller
             $data= DB::table('m_item')
                 ->leftjoin('m_currency','cu_code','=','i_currency_id')
                 ->join('d_unit','u_id','=','i_unit')
-                ->where('i_jenis','ITEM')
+                ->ORwhere('i_jenis','Barang Jual')
+                ->ORwhere('i_jenis','Barang Gudang')
+                ->ORwhere('i_jenis','Lain - Lain')
                 ->orderBy('i_insert_at','DESC')->get();
         }
 
@@ -230,7 +234,7 @@ class BarangController extends Controller
                 'i_sell_price'  =>  (float)$request->sell_price,
                 'i_lower_price' =>  (float)$request->lower_price,
                 'i_active'      =>  'Y',
-                'i_jenis'       =>  'ITEM',
+                'i_jenis'       =>  $request->category,
                 'i_type'        =>  $request->type_barang,
                 'i_minstock'    =>  $request->min_stock,
                 'i_weight'      =>  $request->weight,
