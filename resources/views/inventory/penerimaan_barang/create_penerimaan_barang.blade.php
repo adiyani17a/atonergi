@@ -207,10 +207,27 @@ function centang(){
 	function dinamis(id){
 		var sent = 0;
 		var received = 0;
+		var hasil = 0;
 
 		sent = $('.qty_approved'+id).val();
-		received = $('.qty_received').val();
+		received = $('.qty_received'+id).val();
+
+	if (received > sent) {
+		iziToast.warning({
+			icon: 'fa fa-times',
+			message: 'Tidak boleh melebihi amount sent!',
+		});
+		$('.qty_received'+id).val(sent);
+	} else {
+		if (received == '') {
+			$('.qty_remain'+id).val(sent);
+		} else {
+			hasil = parseInt(sent) - parseInt(received);
+
+			$('.qty_remain'+id).val(hasil);
+		}
 	}
+}
 
 
 </script>

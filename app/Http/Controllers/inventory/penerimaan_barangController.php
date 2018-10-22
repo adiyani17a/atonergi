@@ -8,7 +8,7 @@ use Yajra\Datatables\Datatables;
 use DB;
 class penerimaan_barangController extends Controller
 {
- 	
+
 	 public function penerimaan_barang()
 	 {
 	 	$po = DB::table('d_purchaseorder')->where('po_status','=','F')->get();
@@ -20,15 +20,15 @@ class penerimaan_barangController extends Controller
           // return $list;
       $data = collect($list);
 
-      for ($i=0; $i <count($data) ; $i++) { 
+      for ($i=0; $i <count($data) ; $i++) {
       	$check_data_seq = DB::table('d_penerimaan_barang_dt')->where('pbdt_code','=',$data[$i]->pb_code)->get();
       }
-      
+
       // return $check_data_seq;
       // return $data;
 
       return Datatables::of($data)
-        
+
               ->addColumn('aksi', function ($data) {
                         return  '<div class="btn-group">'.
                                  '<button type="button" onclick="edit(this)" class="btn btn-info btn-sm" title="edit">'.
@@ -36,11 +36,11 @@ class penerimaan_barangController extends Controller
                                 '</div>';
               })
               ->addColumn('detail', function ($data) {
-                            
+
                   return '<button data-toggle="modal" onclick="detail(this)"  class="btn btn-outline-primary btn-sm">Detail</button>';
               })
               ->addColumn('status', function ($data) {
-                            
+
                   return '<span class="badge badge-warning badge-pill">In Process</span>';
               })
               ->rawColumns(['aksi','detail','confirmed','status'])
@@ -52,18 +52,18 @@ class penerimaan_barangController extends Controller
 	 }
 	 public function cari_penerimaan_barang(Request $request)
 	 {
-	 	// dd($request->all());	
+	 	// dd($request->all());
 
 	 	$header_cari = DB::table('d_purchaseorder')->leftjoin('m_vendor','d_purchaseorder.po_vendor','=','m_vendor.s_kode')->where('po_code','=',$request->this_val)->where('po_status','=','F')->first();
 	 	json_encode($header_cari);
 	 	$seq_cari = DB::table('d_purchaseorder_dt')->leftjoin('m_item','m_item.i_code','=','d_purchaseorder_dt.podt_item')->where('podt_code','=',$request->this_val)->where('podt_status','=','F')->get();
-	 	
+
 	 	return view('inventory/penerimaan_barang/create_penerimaan_barang',compact("header_cari",'seq_cari'));
 	 }
 	 public function save_penerimaan_barang(Request $request)
 	 {
-	 	// dd($request->all());	
-       return DB::transaction(function() use ($request) {
+	 	// dd($request->all());
+       // return DB::transaction(function() use ($request) {
        $tanggal = date("Y-m-d h:i:s");
 
        $kode = DB::table('d_penerimaan_barang')->max('pb_id');
@@ -95,7 +95,7 @@ class penerimaan_barangController extends Controller
 
 
 	    // sequence
-	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
+	 	for ($i=0; $i <count($request->po_item) ; $i++) {
 	    	$kode_seq += 1;
 		 	$arr1[$i] =	$request->qty_remain[$i];
 		 	$arr2[$i] = $request->qty_received[$i];
@@ -122,9 +122,34 @@ class penerimaan_barangController extends Controller
 	 	//----PENERIMAAN BARANG ---//
 
 	 	//-----------STOCK---------//
-	   	$kode_id = 0;
-	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
-	   	$kode_id += 1;
+	 	for ($i=0; $i <count($request->po_item) ; $i++) {
+
+      $sm_id = DB::table('i_stock_mutasi')
+                ->where('sm_item', $request->po_item[$i])
+                ->max('sm_id');
+
+      if ($sm_id == null) {
+        $sm_id = DB::table('i_stock_mutasi')
+                  ->max('sm_id')+1;
+      } else {
+        $sm_id = DB::table('i_stock_mutasi')
+                  ->where('sm_item', $request->po_item[$i])
+                  ->max('sm_id');
+      }
+
+      $sm_iddetail = DB::table('i_stock_mutasi')
+                ->where('sm_item', $request->po_item[$i])
+                ->max('sm_iddetail');
+
+      if ($sm_iddetail == null) {
+        $sm_iddetail = DB::table('i_stock_mutasi')
+                  ->max('sm_iddetail')+1;
+      } else {
+        $sm_iddetail = DB::table('i_stock_mutasi')
+                  ->where('sm_item', $request->po_item[$i])
+                  ->max('sm_iddetail');
+      }
+
 	 	$check_stock_gudang = DB::table('i_stock_gudang')
 	 						 ->where('sg_iditem','=',$request->po_item[$i])
 	 						 ->first();
@@ -132,26 +157,27 @@ class penerimaan_barangController extends Controller
 	 	$cari = DB::table('i_stock_gudang')
     						 ->where('sg_iditem','=',$request->po_item[$i])
     						 ->first();
-    	
+
     	if ($cari == null) {
     		$cari_g = isset($cari->sg_id);
     	}else{
     		$cari_g = $cari->sg_id;
     	}
-        $kode_stockm_seq = DB::table('i_stock_mutasi')->where('sm_id','=',$cari_g)->max('sm_iddetail');	
+        $kode_stockm_seq = DB::table('i_stock_mutasi')->where('sm_id','=',$cari_g)->max('sm_iddetail');
+
         	if ($kode_stockm_seq == null) {
                 $kode_stockm_seq = 1;
             }else{
                 $kode_stockm_seq += 1;
             }
-            
+
 	 	$kode_stock_g = DB::table('i_stock_gudang')->max('sg_id');
             if ($kode_stock_g == null) {
                 $kode_stock_g = 1;
             }else{
                 $kode_stock_g += 1;
             }
-            
+
 		 	$arr_stockm1[$i] =	$request->qty_remain[$i];
 		 	$arr_stockm2[$i] = $request->qty_received[$i];
 
@@ -165,13 +191,13 @@ class penerimaan_barangController extends Controller
 	   		if ($check_gudang == null) {
 	   			$data_stock_mutasi = DB::table('i_stock_mutasi')
 						 		->insert([
-						 		'sm_id'=>$kode_id,
-						 		'sm_iddetail'=>$kode_stockm_seq,
+						 		'sm_id'=>$sm_id,
+						 		'sm_iddetail'=>$sm_iddetail,
 						 		'sm_item'=>$request->po_item[$i],
 						 		'sm_hpp'=>$request->po_harga[$i],
 						 		'sm_qty'=>$request->qty_received[$i],
 						 		'sm_use'=>0,
-					   			'sm_deliveryorder'=>$request->pb_delivery_order,
+					   		'sm_deliveryorder'=>$request->pb_delivery_order,
 						 		'sm_sisa'=>$request->qty_received[$i],
 						 		'sm_description'=>'PENERIMAAN BARANG',
 						 		'sm_mutcat'=>1,
@@ -187,7 +213,7 @@ class penerimaan_barangController extends Controller
 						 		'sm_hpp'=>$request->po_harga[$i],
 						 		'sm_qty'=>$request->qty_received[$i],
 						 		'sm_use'=>0,
-					   			'sm_deliveryorder'=>$request->pb_delivery_order,
+					   		'sm_deliveryorder'=>$request->pb_delivery_order,
 						 		'sm_sisa'=>$request->qty_received[$i],
 						 		'sm_description'=>'PENERIMAAN BARANG',
 						 		'sm_mutcat'=>1,
@@ -196,10 +222,10 @@ class penerimaan_barangController extends Controller
 						 	]);
 	   		}
 
-			
 
-		 	
-	 	
+
+
+
 	 		if (isset($check_stock_gudang->sg_iditem) != null) {
 	 			$data_stock_gudang = DB::table('i_stock_gudang')
  									->where('sg_iditem','=',$check_stock_gudang->sg_iditem)
@@ -218,8 +244,8 @@ class penerimaan_barangController extends Controller
 	 		}
 	 	}
 
-	 	return response()->json(['status'=>1]);
-	 });
+	 	// return response()->json(['status'=>1]);
+	 // });
 	 }
 
 
@@ -251,8 +277,8 @@ class penerimaan_barangController extends Controller
 
 	    // sequence
 
-	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
-		 	
+	 	for ($i=0; $i <count($request->po_item) ; $i++) {
+
 	 		$check_data_seq[$i] = DB::table('d_penerimaan_barang_dt')
 									->where('pbdt_code','=',$request->nota)
 			   						->where('pbdt_id','=',$request->po_id[$i])
@@ -286,7 +312,7 @@ class penerimaan_barangController extends Controller
 
 	 	//-----------STOCK---------//
 
-	 	for ($i=0; $i <count($request->po_item) ; $i++) { 
+	 	for ($i=0; $i <count($request->po_item) ; $i++) {
 
 	 		//id gudang
 	 		$kode_stock_g = DB::table('i_stock_gudang')->max('sg_id');
@@ -306,7 +332,7 @@ class penerimaan_barangController extends Controller
             $check_stock_gudang = DB::table('i_stock_gudang')
 	 						 ->where('sg_iditem','=',$request->po_item[$i])
 	 						 ->first();
-	 	
+
 	 		if (isset($check_stock_gudang->sg_iditem) != null) {
  			$data_stock_gudang = DB::table('i_stock_gudang')
 								->where('sg_iditem','=',$check_stock_gudang->sg_iditem)
@@ -328,20 +354,20 @@ class penerimaan_barangController extends Controller
 	    						->where('sg_iditem','=',$request->po_item[$i])
 	    						->first();
 
-        	$kode_stockm_seq = DB::table('i_stock_mutasi')->where('sm_id','=',$cari->sg_id)->max('sm_iddetail')+1;		        
+        	$kode_stockm_seq = DB::table('i_stock_mutasi')->where('sm_id','=',$cari->sg_id)->max('sm_iddetail')+1;
 
 	    	$check_gudang = DB::table('i_stock_gudang')
 	    						->where('sg_iditem','=',$request->po_item[$i])
 	    						->first();
 
-		 	
+
 
 		 	$data_stock_mutasi = DB::table('i_stock_mutasi')
 							 		->insert([
 							 		'sm_id'=>$check_gudang->sg_id,
 
 							 		'sm_iddetail'=>$kode_stockm_seq,
-							 		
+
 							 		'sm_item'=>$request->po_item[$i],
 							 		'sm_hpp'=>$request->po_harga[$i],
 							 		'sm_qty'=>$request->qty_received[$i],
@@ -355,7 +381,7 @@ class penerimaan_barangController extends Controller
 							 		'sm_update'=>$tanggal,
 							 	]);
 
-		 	
+
 
 	 	}
 	 	// return $cari;
