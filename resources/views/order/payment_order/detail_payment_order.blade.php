@@ -56,7 +56,7 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" readonly="" class="form-control-sm form-control" value="{{ carbon\carbon::parse($data->q_date)->format('d-m-Y') }}" name="">
+								<input type="text" readonly="" class="form-control-sm form-control datepicker" value="{{ carbon\carbon::parse($data->q_date)->format('d-m-Y') }}" name="datepicker">
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
