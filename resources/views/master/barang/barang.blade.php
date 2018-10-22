@@ -245,11 +245,12 @@ function simpan(){
     var unit = $('input[name="unit"]');
     var price = $('input[name="price"]');
     var weight = $('input[name="weight"]');
+    var category = $('input[name="category"]');
     var min_stock = $('input[name="min_stock"]');
     var description = $('textarea[name="description"]');
     var sell_price = $('input[name="sell_price"]');
     var lower_price = $('input[name="lower_price"]');
-    if(item.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='' || sell_price.val()=='' || lower_price.val()=='' || img.val()=='' )
+    if(item.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='' || sell_price.val()=='' || lower_price.val()=='' || img.val()=='' || category.val()=='')
     {
       if(item.val()==''){
         iziToast.error({
@@ -335,8 +336,18 @@ function simpan(){
       } else {
         lower_price.removeClass('border-danger');
       }
-      return false;
+
+    if(category.val()==''){
+      iziToast.error({
+            icon: 'fa fa-exclamation-circle ',
+            message: 'Category cannot be empty!',
+          });
+      category.addClass('border-danger');
+    } else {
+      category.removeClass('border-danger');
     }
+    return false;
+  }
 
     var formdata = new FormData();
     formdata.append( 'files', $('#chooseFile')[0].files[0]);
@@ -375,6 +386,7 @@ function edit(m1a2)
     $('input[name="unit"]').removeClass('border-danger');
     $('input[name="price"]').removeClass('border-danger');
     $('input[name="weight"]').removeClass('border-danger');
+    $('input[name="category"]').removeClass('border-danger');
     $('input[name="min_stock"]').removeClass('border-danger');
     $('input[name="sell_price"]').removeClass('border-danger');
     $('input[name="lower_price"]').removeClass('border-danger');
@@ -398,6 +410,7 @@ function edit(m1a2)
             var i_minstock      = $("input[name='min_stock']").val(data[0].i_minstock);
             var i_description      = $("textarea[name='description']").val(data[0].i_description);
             var i_type      = $("select[name='type_barang']").val(data[0].i_type).trigger('change');
+            var i_jenis      = $("select[name='category']").val(data[0].i_jenis).trigger('change');
             var i_unit      = $("input[name='unit']").val(data[0].i_unit);
             var i_sell_price      = $("input[name='sell_price']").val(data[0].i_sell_price.replace(/[^0-9\-]+/g,"")/100);
             var i_lower_price      = $("input[name='lower_price']").val(data[0].i_lower_price.replace(/[^0-9\-]+/g,"")/100);
@@ -407,7 +420,7 @@ function edit(m1a2)
 var html =  '<img style="width: 100px;height: 100px;border:1px solid pink" id="output" src="{{ route('barang_thumbnail') }}/'+data[0].i_image+'?'+Math.random()+'" >';
               $('.preview_td').html(html);
               $('.file-upload').addClass('active');
-              $("#noFile").text(data[0].i_image); 
+              $("#noFile").text(data[0].i_image);
             } else {
               $('#chooseFile').val('');
               $('#noFile').text('Choose Image...');
@@ -442,12 +455,13 @@ function update() {
   var unit = $('input[name="unit"]');
   var price = $('input[name="price"]');
   var weight = $('input[name="weight"]');
+  var category = $('input[name="category"]');
   var min_stock = $('input[name="min_stock"]');
   var description = $('textarea[name="description"]');
   var sell_price = $('input[name="sell_price"]');
   var lower_price = $('input[name="lower_price"]');
 
-    if(item.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='' || sell_price.val()=='' || lower_price.val()=='')
+    if(item.val()=='' || type_barang.val()=='' || unit.val()=='' || price.val()=='' || weight.val()=='' || min_stock.val()=='' || sell_price.val()=='' || lower_price.val()=='' || category.val()=='')
     {
       if(item.val()==''){
         iziToast.error({
