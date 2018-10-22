@@ -56,7 +56,7 @@
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<div class="form-group">
-								<input type="text" readonly="" class="form-control-sm form-control datepicker" value="{{ carbon\carbon::parse($data->q_date)->format('d-m-Y') }}" name="datepicker">
+								<input type="text" readonly="" class="form-control-sm form-control" value="{{ carbon\carbon::parse($data->q_date)->format('d-m-Y') }}" name="">
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
@@ -67,6 +67,14 @@
 							  <input type="text" class="form-control form-control-sm" value="{{ $data->q_ship_to }}" readonly="" name="">
 							</div>
 						</div>	
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<label>Date Payment</label>
+						</div>
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<input type="text" readonly="" class="form-control-sm form-control date_payment datepicker" value="{{ carbon\carbon::now()->format('d-m-Y') }}" name="dates">
+							</div>
+						</div>
 					</form>
 					<div class="row">
 						<div class="col-md-2 col-sm-6 col-xs-12">
