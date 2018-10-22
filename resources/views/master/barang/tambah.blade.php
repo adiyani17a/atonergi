@@ -132,7 +132,7 @@
                     <select class="category" name="category">
                       <option value="">--Select Type--</option>
                       <option value="Barang Jual">Barang Jual</option>
-                      <option value="Barang Gudang">Barang Gudang</option>
+                      <option value="Aksesoris instalasi">Aksesoris instalasi</option>
                       <option value="Lain - Lain">Lain - Lain</option>
                     </select>
                 </div>

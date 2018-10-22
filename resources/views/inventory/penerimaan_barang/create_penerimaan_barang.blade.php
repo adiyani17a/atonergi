@@ -103,7 +103,7 @@
 				            <td><input type="hidden" class="form-control form-control-sm po_item" value="{{ $a->i_code }}" name="po_item[]">{{ $a->i_name }}</td>
 				            <td><input type="hidden" class="form-control form-control-sm" value="{{ $a->podt_unit_price }}" name="po_harga[]">{{ $a->i_unit }}</td>
 				            <td><input type="text" class="format_money_kosongan form-control form-control-sm qty_approved{{$key}} right readonly" value="{{ $a->podt_qty_approved }}" name="qty_approved[]"></td>
-				            <td><input type="text" class="format_money_kosongan form-control form-control-sm qty_received{{$key}} right" onkeyup="qty_received(this);" name="qty_received[]"></td>
+				            <td><input type="text" class="format_money_kosongan form-control form-control-sm qty_received{{$key}} right" onkeyup="dinamis({{$key}})" onkeypress="return isNumberKey(event)" name="qty_received[]"></td>
 				            <td><input type="hidden" class="format_money_kosongan form-control form-control-sm qty_remain_temp right readonly" value="{{ $a->podt_qty_approved }}" name="">
 				            	<input type="text" class="format_money_kosongan form-control form-control-sm qty_remain{{$key}} right readonly" value="{{ $a->podt_qty_approved }}" name="qty_remain[]"></td>
 				          </tr>
@@ -193,6 +193,23 @@ function centang(){
 					$('.qty_remain'+i).val(0);
 				}
 			}
+	}
+
+	function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+
+	function dinamis(id){
+		var sent = 0;
+		var received = 0;
+
+		sent = $('.qty_approved'+id).val();
+		received = $('.qty_received').val();
 	}
 
 
