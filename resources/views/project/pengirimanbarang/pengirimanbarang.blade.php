@@ -21,7 +21,7 @@
 	                  <h4 class="card-title">Pengiriman Barang</h4>
 										<div class="row">
 											<div class="col-md-4 col-sm-12 col-xs-12">
-			    							<div class="alert alert-success alert-dismissible" title="DP sudah Lunas">
+			    							<div class="alert alert-success alert-dismissible" title="Delivered">
 			    							    <button type="button" class="close" data-dismiss="alert">&times;</button>
 			    							    <strong>Notice!</strong> <br>
 			    							    Delivered
@@ -29,7 +29,7 @@
 			    							</div>
 			    						</div>
 											<div class="col-md-4 col-sm-12 col-xs-12">
-			    							<div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
+			    							<div class="alert alert-primary alert-dismissible" title="Process Delivery">
 			    							    <button type="button" class="close" data-dismiss="alert">&times;</button>
 			    							    <strong>Notice!</strong> <br>
 			    							    Process Delivery
@@ -37,7 +37,7 @@
 			    							</div>
 			    						</div>
 			    						<div class="col-md-4 col-sm-12 col-xs-12">
-			    							<div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
+			    							<div class="alert alert-warning alert-dismissible" title="Sedang Process">
 			    							    <button type="button" class="close" data-dismiss="alert">&times;</button>
 			    							    <strong>Notice!</strong> <br>
 			    							    Sedang Process
