@@ -138,7 +138,6 @@
                 </div>
               </div>
 
-              <div class="col-md-6 col-sm-0 col-xs-0"></div>
               <div class="col-md-3 col-sm-4 col-xs-12">
 
                     <label class="tebal">Description</label>

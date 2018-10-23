@@ -47,36 +47,46 @@
                               2.  Jangan Lupa Memilih Currency nya
                           </div>
                         </div>
-                      </div>
-                      <div class="col-md-2 col-sm-4 col-xs-4" >
-                        <label>Cari Barang</label>
-                      </div>
-                      <div class="col-md-4 col-sm-8 col-xs-12">
-                        <input type="text" class="form-control cari_barang" name="cari_barang" style="margin-bottom: 20px">
-                        <button class="btn btn-primary pull-right cari"><i class="fa fa-search"> Cari</i></button>
-                      </div>
-                    </div>
-                    <div class="table-responsive">
-                            <table id="t55" class="table table-hover table-bordered" cellspacing="0">
-                              <thead class="bg-gradient-info">
-                                  <tr>
-                                    <th class="wd-15p" width="3%">No</th>
-                                    <th class="wd-15p" width="5%">Item Code</th>
-                                    <th class="wd-15p">Item Name</th>
-                                    <th width="15%">Item Price</th>
-                                    <th width="15%">Price (Rp)</th>
-                                    <th class="wd-15p" width="3%">Unit</th>
-                                    <th width="25%">Category Item</th>
-                                    <th>Image</th>
-                                    <th width="5%">Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
 
-                            </table>
+                        <div class="col-md-12 col-sm-12 col-xs-12" >
+                          <label>Cari Barang</label>
+                        </div>
+
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                          <div class="input-group">
+                            <input type="text" class="form-control cari_barang" name="cari_barang" style="margin-bottom: 20px">
+                            <span class="input-group-append">
+                              <button class="btn btn-primary pull-right cari"><i class="fa fa-search"> Cari</i></button>
+                            </span>
                           </div>
-                  </div>
+                        </div>
+
+                      </div>
+
+
+                      <div class="table-responsive">
+                        <table id="t55" class="table table-hover table-bordered" cellspacing="0">
+                          <thead class="bg-gradient-info">
+                              <tr>
+                                <th class="wd-15p" width="3%">No</th>
+                                <th class="wd-15p" width="5%">Item Code</th>
+                                <th class="wd-15p">Item Name</th>
+                                <th width="15%">Item Price</th>
+                                <th width="15%">Price (Rp)</th>
+                                <th class="wd-15p" width="3%">Unit</th>
+                                <th width="25%">Category Item</th>
+                                <th>Image</th>
+                                <th width="5%">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+
+                        </table>
+                      </div>
+
+                    </div>
+                  
               </div>
     </div>
   </div>
