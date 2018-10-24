@@ -5,7 +5,7 @@
 @include('purchase.rencanapembelian.detail')
 
 <style type="text/css">
- 
+
 </style>
 <!-- partial -->
 <div class="content-wrapper">
@@ -59,10 +59,10 @@
                               </thead>
                               <tbody>
 
-                                  
+
                               </tbody>
-                                         
-                            </table> 
+
+                            </table>
                         </div>
 
                       </div> <!-- end div daftar -->
@@ -83,18 +83,18 @@
 
                             <tbody>
                             </tbody>
-                          
-                          </table> 
+
+                          </table>
                         </div>
                       </div>
                       <div class="tab-pane fade" id="tab-ke-3" role="tabpanel" aria-labelledby="tab-6-3">
                         <!-- content -->
                       </div>
-                      
+
 
                     </div> <!-- end div tab-content -->
 
-                  </div><!-- end div card --> 
+                  </div><!-- end div card -->
                 </div>
     </div>
   </div>
@@ -120,7 +120,7 @@
                   {
                      targets: 0 ,
                      className: 'd_id center'
-                  }, 
+                  },
                   {
                      targets: 2 ,
                      className: 'right format_money'
@@ -129,7 +129,7 @@
                      targets: 5 ,
                      className: 'center format_money'
                   },
-                  
+
                 ],
             "columns": [
             { "data": "ro_code" },
@@ -153,7 +153,7 @@
                   {
                      targets: 0 ,
                      className: 'left'
-                  }, 
+                  },
                   {
                      targets: 1 ,
                      className: 'right format_money'
@@ -170,7 +170,7 @@
                      targets: 5 ,
                      className: 'center'
                   },
-                  
+
                 ],
             "columns": [
             { "data": "rodt_code" },
@@ -189,15 +189,15 @@
     var rp_kodeitem       = $("#rp_kodeitem");
 
     var x = 1;
- 
-    $('#rp_qty').attr('disabled',true); 
+
+    $('#rp_qty').attr('disabled',true);
     $('#rp_kodeitem').change(function(){
-      var this_val = $(this).find(':selected').data('price');   
+      var this_val = $(this).find(':selected').data('price');
           if($(this).val() != '') {
             $('#rp_qty').attr('disabled',false);
           }else{
-            $('#rp_qty').attr('disabled',true);          
-          }    
+            $('#rp_qty').attr('disabled',true);
+          }
       var price = $('#rp_item').val(accounting.formatMoney(this_val,"",0,'.',','));
     });
 
@@ -214,14 +214,16 @@
         table.row.add( [
             '<input type="text" id="item_kode[]"   name="ro_item_seq[]"    class="form-control input-sm min-width readonly" readonly value="'+ rp_kodeitem.val() +'">',
             '<input type="text" id="item_name[]"      class="form-control input-sm min-width readonly" value="'+ rp_kodeitem.find(':selected').data('name') +'">',
-            '<input type="text" id="item_harga[]" onkeyup="item_satuan(this)" name="ro_unit_price_seq[]"    class="form-control input-sm min-width right readonly item_satuan"  value="'+ accounting.formatMoney(rp_kodeitem.find(':selected').data('price'),"",0,'.',',') +'">',
-            '<input type="text" id="item_harga[]"   name="ro_price_seq[]"  readonly  class="form-control input-sm min-width right readonly total_price " value="'+ accounting.formatMoney(total,"",0,'.',',') +'">',
+            '<input type="text" id="item_harga[]" onkeyup="item_satuan(this)" name="ro_unit_price_seq[]"    class="form-control input-sm min-width right readonly item_satuan rp"  value="Rp. '+ accounting.formatMoney(rp_kodeitem.find(':selected').data('price'),"",0,'.',',') +'">',
+            '<input type="text" id="item_harga[]"   name="ro_price_seq[]"  readonly  class="form-control input-sm min-width right readonly total_price " value="Rp. '+ accounting.formatMoney(total,"",0,'.',',') +'">',
             '<input type="number" id="jumlah[]"   name="ro_qty_seq[]"    class="form-control input-sm min-width right readonly total_qty " value="'+ accounting.formatMoney(rp_qty.val(),"",0,'.',',') +'">',
             '<input type="text" id="unit_price[]"   name=""    class="form-control input-sm min-width right readonly" readonly  value="'+ rp_kodeitem.find(':selected').data('qty') +'">',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash-o"></i></button>',
         ] ).draw( false );
-      
+
         x++;
+
+        $('.rp').maskMoney({prefix:'Rp. ', thousands:'.', decimal:',', precision:0});
 
         var total_price = 0;
         $('.total_price').each(function(){
@@ -229,7 +231,7 @@
           total = total.replace(/[^0-9\-]+/g,"");
           total_price += parseInt(total);
         });
-        $("input[name='ro_total_header']").val(accounting.formatMoney(total_price,"",0,'.',','));
+        $("input[name='ro_total_header']").val('Rp. ' + accounting.formatMoney(total_price,"",0,'.',','));
 
         var total_qty = 0;
         $('.total_qty').each(function(){
@@ -247,18 +249,18 @@
     } );
 
 
-   
+
 
     $('#t72a').on( 'click', function () {
-        
+
 
     });
 
-    
 
-    
- 
-    
+
+
+
+
 
     $('#t72a tbody').on( 'click', '.delete', function () {
         table
@@ -321,7 +323,7 @@
 
   })
 
-  
+
 
 
   });
@@ -334,22 +336,21 @@ function detail(parm) {
          url: '{{ route('detail_rencanapembelian') }}',
          data: {id:id},
          success: function(data){
-          console.log(data);
           var array_nama='';
           $.each(data, function(i, item) {
               array_nama += '<tr>';
                 array_nama += '<td><input type="hidden" class="form-control right" value="'+data[i].rodt_id+'" name="kode_detail[]">'+data[i].rodt_barang+' - '+data[i].i_name+'</td>';
                 array_nama += '<td align="right"><input type="hidden" class="form-control right" value="'+data[i].rodt_code+'" name="kode[]">'+accounting.formatMoney(data[i].rodt_price,"",0,'.',',')+'</td>';
                 array_nama += '<td align="right" class="qty">'+data[i].rodt_qty+'</td>';
-                if (data[i].rodt_qty_approved != 0) { 
+                if (data[i].rodt_qty_approved != 0) {
                     array_nama += '<td align="right"><input type="text"  name="approved[]" onkeyup="qty(this)" readonly value="'+data[i].rodt_qty_approved+'" class="form-control right qty_approved_value hanya_angka"></td>';
                 }else{
                     array_nama += '<td align="right"><input type="text"  name="approved[]"  onkeyup="qty(this)" value="'+0+'" class="form-control right qty_approved_value hanya_angka"></td>';
                 }
-                
+
               array_nama += '</tr>';
           })
-          $('#detail_rep').html(array_nama);  
+          $('#detail_rep').html(array_nama);
 
 
          },
@@ -364,7 +365,7 @@ function detail(parm) {
   }
   function qty(a){
       //HITUNG QTY PADA TABLE
-      var parents_qty = $(a).parents('tr');    
+      var parents_qty = $(a).parents('tr');
       var qty_value = $(parents_qty).find('.qty').text();
       var qty_approved_value = $(parents_qty).find('.qty_approved_value').val();
       //regex
@@ -387,7 +388,7 @@ function hapus(parm){
     iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fa-exclamation-circle',
             title: 'Important!',
@@ -404,7 +405,6 @@ function hapus(parm){
                      url: '{{ route('hapus_rencanapembelian') }}',
                      data: {id},
                      success: function(data){
-                      console.log(data);
                       $('#tambah').modal('hide');
                       var table = $('#table-bundle').DataTable();
                       table.ajax.reload();
@@ -423,7 +423,7 @@ function hapus(parm){
                      },
                      async: false
                    });
-                 
+
                 }
               ],
               [
@@ -443,7 +443,7 @@ function hapus(parm){
     iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-exclamation-circle',
             title: 'Important!',
@@ -455,7 +455,7 @@ function hapus(parm){
                 '<button style="background-color:red;">Save</button>',
                 function (instance, toast) {
 
-                  
+
                   $.ajax({
                    type: "get",
                    url: '{{ route('approve_rencanapembelian') }}',
@@ -481,7 +481,7 @@ function hapus(parm){
                    async: false
                  });
 
-                 
+
                 }
               ],
               [
@@ -497,7 +497,7 @@ function hapus(parm){
 
 
 
-    
+
   })
 
   $('#ro_vendor_header').change(function(){
@@ -515,7 +515,7 @@ function hapus(parm){
 
    function item_satuan(a){
       //HITUNG QTY PADA TABLE
-      var parents = $(a).parents('tr');    
+      var parents = $(a).parents('tr');
       var satuan_harga = $(parents).find('.item_satuan').val();
       var total_qty = $(parents).find('.total_qty').val();
       //regex
@@ -526,7 +526,16 @@ function hapus(parm){
       //PERINGATAN MELEBIHI BATAS QTY
 
       var hitung = parseInt(satuan_harga)*parseInt(total_qty);
-      $(parents).find('.total_price').val(hitung);
+      $(parents).find('.total_price').val('Rp. ' + accounting.formatMoney(hitung,"",0,'.',','));
+
+
+      var total_price = 0;
+      $('.total_price').each(function(){
+        var total = $(this).val();
+        total = total.replace(/[^0-9\-]+/g,"");
+        total_price += parseInt(total);
+      });
+      $("input[name='ro_total_header']").val('Rp. ' + accounting.formatMoney(total_price,"",0,'.',','));
 
 
       //HITUNG SUBTOTAL DAN TOTAL NET PADA TABLE
@@ -538,7 +547,7 @@ function hapus(parm){
       });
 
       $("#po_subtotal").val(accounting.formatMoney(total_price,"",0,'.',','));
-      
+
       //PENGURANGAN TAX
       var tax =  $('#po_tax').val();
       tax = tax.replace(/[^0-9\-]+/g,"");
@@ -546,6 +555,32 @@ function hapus(parm){
       $('#total_net').val(accounting.formatMoney(hitung_tax,"",0,'.',','));
 
     }
+
+    $('#tambah').on('hidden.bs.modal', function (e) {
+        $(this)
+       .find("input,textarea,select")
+       .val('')
+       .end()
+       .find("input[type=checkbox], input[type=radio]")
+       .prop("checked", "")
+       .end();
+
+
+       window.location.reload();
+});
+
+  function close(){
+    $(this)
+   .find("input,textarea,select")
+   .val('')
+   .end()
+   .find("input[type=checkbox], input[type=radio]")
+   .prop("checked", "")
+   .end();
+
+
+   window.location.reload();
+  }
 
 </script>
 @endsection
