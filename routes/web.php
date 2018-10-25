@@ -70,6 +70,7 @@ Route::get('/master/pegawai/pegawai', 'MasterController@pegawai');
 Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
+Route::get('/master/barang/cari', 'MasterController@cari');
     // STATUS QO
     Route::get('/master/status/status', 'MasterController@status');
     Route::get('/master/status/datatable_status', 'MasterController@datatable_status')->name('datatable_status');

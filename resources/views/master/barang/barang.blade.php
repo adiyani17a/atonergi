@@ -54,7 +54,7 @@
 
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group">
-                            <input type="text" class="form-control cari_barang" name="cari_barang" style="margin-bottom: 20px">
+                            <input type="text" class="form-control cari_barang" placeholder="Berdasarkan Nama" name="cari_barang" style="margin-bottom: 20px">
                             <span class="input-group-append">
                               <button class="btn btn-primary pull-right cari"><i class="fa fa-search"> Cari</i></button>
                             </span>
@@ -86,7 +86,7 @@
                       </div>
 
                     </div>
-                  
+
               </div>
     </div>
   </div>
@@ -104,7 +104,7 @@ $(document).ready(function(){
             processing: true,
             // responsive:true,
             serverSide: true,
-            searching:false,
+            searching: true,
             ajax: {
                 url:'{{ route("datatable_barang") }}',
                 data:{nota: function() { return $('.cari_barang').val() }},
