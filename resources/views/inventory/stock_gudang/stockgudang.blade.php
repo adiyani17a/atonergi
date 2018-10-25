@@ -5,7 +5,7 @@
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
-  	<div class="col-lg-12">	
+  	<div class="col-lg-12">
   		<nav aria-label="breadcrumb" role="navigation">
   			<ol class="breadcrumb bg-info">
   				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -22,13 +22,14 @@
   	          		<div class="col-md-12 col-sm-12 col-xs-12" align="right">
   	          			{{-- <button class="btn btn-info btn-sm" type="button" data-target="#cari_po" id="button_add" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;Add Data</button> --}}
   	          		</div>
-  	          		
+
         					<div class="table-responsive" style="margin-top: 15px;">
         						<table class="table table-hover" id="datatable" cellspacing="0">
         						  <thead class="bg-gradient-info">
         						    <tr>
         						      <th>Item </th>
         						      <th>Name</th>
+                          <th>Category Item</th>
         						      <th>QTY</th>
         						      <th>Detail</th>
         						    </tr>
@@ -37,7 +38,7 @@
         						  </tbody>
         						</table>
         					</div>
-  					
+
   	        	  </div>
   	      	</div>
           </div>
@@ -66,7 +67,7 @@
                   {
                      targets: 1 ,
                      className: 'left'
-                  }, 
+                  },
                   {
                      targets: 2 ,
                      className: 'right format_money'
@@ -75,11 +76,12 @@
                      targets: 3 ,
                      className: 'center'
                   },
-                 
+
                 ],
             "columns": [
             { "data": "sg_iditem" },
             { "data": "i_name" },
+            { "data": "i_jenis" },
             { "data": "sg_qty" },
             { "data": "detail" },
             ]
@@ -94,9 +96,9 @@
          url: '{{ route('detail_stockgudang') }}',
          data: {id},
          success: function(data){
-           
 
-         
+
+
          },
          complete:function(data){
          	window.open(this.url);

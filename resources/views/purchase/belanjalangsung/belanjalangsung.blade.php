@@ -22,28 +22,11 @@
 
 						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
 							<a class="btn btn-info" href="{{url('purchase/belanjalangsung/tambah_belanjalangsung')}}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Belanja Langsung</a>
+							<a class="btn btn-info" href="{{url('purchase/belanjalangsung/custom')}}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Create Custom Belanja Langsung</a>
 						</div>
 
 
 		        	</div>
-		        	<div class="row">
-		                 	<div class="col-md-6 col-sm-12 col-xs-12">
-			                    <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
-			                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-			                        <strong>Notice!</strong> <br>
-			                        <label class="badge badge-pill badge-primary">1</label>
-			                        Inprocess
-			                    </div>
-		                  	</div>
-		                  	<div class="col-md-6 col-sm-12 col-xs-12">
-			                    <div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
-			                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-			                        <strong>Notice!</strong> <br>
-			                        <label class="badge badge-pill badge-warning">1</label>
-			                        Unprocess
-			                    </div>
-                      		</div>
-                    </div>
 						<div class="table-responsive">
 							<table class="table table-hover data-table" cellspacing="0" id="datatable">
 							  <thead class="bg-gradient-info">
