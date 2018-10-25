@@ -64,8 +64,8 @@ class MasterController extends Controller
         $data = DB::table('d_status')
                   ->orderBy('s_id','DESC')
                   ->get();
-        
-        
+
+
         // return $data;
         $data = collect($data);
         // return $data;
@@ -80,7 +80,7 @@ class MasterController extends Controller
                     }
 
                     if(Auth::user()->akses('MASTER DATA STATUS','hapus')){
-                     $d = 
+                     $d =
                          '<button type="button" onclick="hapus(\''.$data->s_id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
                          '<label class="fa fa-trash"></label></button>'.
                          '</div>';
@@ -89,7 +89,7 @@ class MasterController extends Controller
                     }
 
                     return $a . $b . $d;
-                    
+
                 })
                 ->addColumn('none', function ($data) {
                     return '-';
@@ -106,7 +106,7 @@ class MasterController extends Controller
 
     public function status()
     {
-        
+
         return view('master/status/status');
     }
 
@@ -153,7 +153,7 @@ class MasterController extends Controller
                       ]);
             return response()->json(['status'=>1]);
         }
-        
+
     }
 
     public function hapus_status(request $req)
@@ -179,7 +179,7 @@ class MasterController extends Controller
     public function ttd()
     {
         return view('master.ttd.ttd');
-    }      
+    }
     public function bank()
     {
         return view('master.bank.bank');
@@ -189,8 +189,8 @@ class MasterController extends Controller
         $data = DB::table('m_bank')
                   ->orderBy('id','DESC')
                   ->get();
-        
-        
+
+
         // return $data;
         $data = collect($data);
         // return $data;
@@ -205,7 +205,7 @@ class MasterController extends Controller
                     }
 
                     if(Auth::user()->akses('MASTER DATA BANK','hapus')){
-                     $d = 
+                     $d =
                          '<button type="button" onclick="hapus(\''.$data->id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
                          '<label class="fa fa-trash"></label></button>'.
                          '</div>';
@@ -214,12 +214,12 @@ class MasterController extends Controller
                     }
 
                     return $a . $b . $d;
-                    
+
                 })
                 ->addColumn('none', function ($data) {
                     return '-';
                 })
-                
+
                 ->rawColumns(['aksi', 'none'])
                 ->addIndexColumn()
                 ->make(true);
@@ -264,7 +264,7 @@ public function edit_bank(request $req)
                       ]);
             return response()->json(['bank'=>1]);
         }
-        
+
     }
 
     public function hapus_bank(request $req)
@@ -287,8 +287,8 @@ public function edit_bank(request $req)
                         ->where('i_jenis', 'JASA')
                         ->orderBy('i_id','DESC')
                         ->get();
-            
-            
+
+
             // return $data;
             $data = collect($data);
             // return $data;
@@ -303,7 +303,7 @@ public function edit_bank(request $req)
                         }
 
                         if(Auth::user()->akses('MASTER DATA JASA','hapus')){
-                         $d = 
+                         $d =
                              '<button type="button" onclick="hapus(\''.$data->i_id.'\')" class="btn btn-danger btn-lg" title="hapus">'.
                              '<label class="fa fa-trash"></label></button>'.
                              '</div>';
@@ -312,12 +312,12 @@ public function edit_bank(request $req)
                         }
 
                         return $a . $b . $d;
-                        
+
                     })
                     ->addColumn('none', function ($data) {
                         return '-';
                     })
-                    
+
                     ->rawColumns(['aksi', 'none'])
                     ->addIndexColumn()
                     ->make(true);
@@ -420,7 +420,7 @@ public function edit_bank(request $req)
                           ]);
                 return response()->json(['jasa'=>1]);
             }
-            
+
         }
 
         public function hapus_jasa(request $req)

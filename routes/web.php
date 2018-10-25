@@ -333,6 +333,7 @@ Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_e
 Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
 Route::get('storage/uploads/barang/thumbnail')->name('barang_thumbnail');
 Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@barang_update');
+Route::get('/master/barang/caribarang', 'MasterBarang\BarangController@caribarang');
 
 
         /* ,,,;''  :: ;,      ,,,;;;;;'''         ,;' ;;

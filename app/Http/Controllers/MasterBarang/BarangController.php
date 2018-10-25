@@ -132,7 +132,7 @@ class BarangController extends Controller
                 ->where('i_name','like','%'.strtoupper($req->nota).'%')
                 ->orderBy('i_insert_at','DESC')
                 ->get();
-        }else{
+        } else {
             $data= DB::table('m_item')
                 ->leftjoin('m_currency','cu_code','=','i_currency_id')
                 ->join('d_unit','u_id','=','i_unit')
@@ -246,5 +246,23 @@ class BarangController extends Controller
             ]);
             return Response::json(['status'=>1]);
     	});
+    }
+    public function caribarang(Request $req)
+    {
+
+          $data= DB::table('m_item')
+               ->leftjoin('m_currency','cu_code','=','i_currency_id')
+               ->join('d_unit','u_id','=','i_unit')
+               ->where('i_name', 'LIKE', '%'.$req->keyword.'%')
+               ->where('i_jenis', 'Barang Jual')
+               ->ORwhere('i_jenis', 'Aksesorit Instalasi')
+               ->ORwhere('i_jenis', 'Lain - Lain')
+               ->orderBy('i_insert_at','DESC')
+               ->get();
+
+
+
+        return response()->json($data);
+
     }
  }

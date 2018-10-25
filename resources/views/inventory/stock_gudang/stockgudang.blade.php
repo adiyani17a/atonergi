@@ -81,7 +81,7 @@
             "columns": [
             { "data": "sg_iditem" },
             { "data": "i_name" },
-            { "data": "i_jenis" },
+            { "data": "i_jenis" }.
             { "data": "sg_qty" },
             { "data": "detail" },
             ]
