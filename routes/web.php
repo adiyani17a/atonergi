@@ -229,12 +229,21 @@ Route::get('/finance/bookkeeping/bookkeeping', 'FinanceController@bookkeeping');
 Route::get('/finance/costmanajemen/costmanajemen', 'FinanceController@costmanajemen');
 
 // HRD
-Route::get('/hrd/rekruitment/rekruitment', 'HRDController@rekruitment');
+Route::get('/hrd/recruitment/recruitment', 'HRDController@recruitment');
 Route::get('/hrd/payroll/payroll', 'HRDController@payroll');
 Route::get('/hrd/payroll/tambah_payroll', 'HRDController@tambah_payroll');
 Route::get('/hrd/freelance/freelance', 'HRDController@freelance');
 Route::get('/hrd/kesejahteraan/kesejahteraan', 'HRDController@kesejahteraan');
-Route::get('/hrd/kpi/kpi', 'HRDController@kpi');
+Route::get('/hrd/data_kpi/data_kpi', 'HRDController@data_kpi');
+Route::get('/hrd/absensi/absensi', 'HRDController@absensi');
+Route::get('/hrd/data_lembur/data_lembur', 'HRDController@data_lembur');
+Route::get('/hrd/manajemen_scoreboard/manajemen_scoreboard', 'HRDController@manajemen_scoreboard');
+Route::get('/hrd/manajemen_scoreboard_kpi/manajemen_scoreboard_kpi', 'HRDController@manajemen_scoreboard_kpi');
+Route::get('/hrd/manajemen_surat/manajemen_surat', 'HRDController@manajemen_surat');
+Route::get('/hrd/payroll_manajemen/payroll_manajemen', 'HRDController@payroll_manajemen');
+Route::get('/hrd/payroll_produksi/payroll_produksi', 'HRDController@payroll_produksi');
+Route::get('/hrd/scoreboard_pegawai/scoreboard_pegawai', 'HRDController@scoreboard_pegawai');
+Route::get('/hrd/training_pegawai/training_pegawai', 'HRDController@training_pegawai');
 
 // ASS
 Route::get('aftersales/tandaterima/tandaterima', 'ASSController@tandaterima');

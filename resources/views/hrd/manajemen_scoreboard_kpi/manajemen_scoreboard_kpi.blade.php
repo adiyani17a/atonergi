@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('hrd/Rekruitment/tambah_Rekruitment')
+@include('hrd/manajemen_scoreboard_kpi/tambah_manajemen_scoreboard_kpi')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
@@ -10,14 +10,14 @@
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
 					<li class="breadcrumb-item">HRD</li>
-					<li class="breadcrumb-item active" aria-current="page">Rekruitment</li>
+					<li class="breadcrumb-item active" aria-current="page">Manajemen Scoreboard & KPI</li>
 				</ol>
 			</nav>
 		</div>
 		<div class="col-lg-12 grid-margin stretch-card">
 	      	<div class="card">
 		        <div class="card-body">
-		          <h4 class="card-title">Rekruitment</h4>
+		          <h4 class="card-title">Manajemen Scoreboard & KPI</h4>
 		          	<div class="row">
 		          		
 						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">

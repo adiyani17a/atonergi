@@ -2,6 +2,7 @@
   <script src="{{asset('assets/node_modules/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{asset('assets/js/jquerymask.min.js')}}"></script>
   {{-- <script src="{{asset('assets/node_modules/jquery-ui/jquery-ui.js')}}"></script> --}}
+  <script src="{{asset('assets/js/jquery-clockpicker.min.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
   <script src="{{asset('assets/node_modules/popper.js/dist/umd/popper.min.js')}}"></script>
   <script src="{{asset('assets/node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
   <script src="{{asset('assets/node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js')}}"></script>
@@ -34,6 +35,9 @@
   <script src="{{asset('assets/js/select2.js')}}"></script>
   <script src="{{asset('assets/js/file-upload.js')}}"></script>
   <script src="{{asset('assets/js/js.cookie.js')}}"></script>
+  <script src="{{asset('assets/js/dropify.min.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/node_modules/dropify/dist/js/dropify.min.js"></script>
+  <script src="{{asset('assets/js/dropify.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/js/dropify.js"></script>
+  <script src="{{asset('assets/js/jquery-clockpicker.min.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
 
   <!-- <script src="{{asset('assets/datepicker/js/bootstrap-datepicker.min.js')}}"></script> -->
 
@@ -304,5 +308,13 @@
     input.focus();
   }
 
+
+</script>
+
+<script type="text/javascript">
+    
+      $('.clockpicker').clockpicker({
+        donetext: 'OK'
+      });   // clockpicker js
 
 </script>

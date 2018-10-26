@@ -1,0 +1,80 @@
+/*------------------------------------------------------------------
+ [Master Stylesheet]
+
+  Project:	Alamraya - Atonergi
+  Version:	1.0
+  Developer: Front-End Division (Ari Akbar Indrawidjaja, Alif Akbar Tejamukti);
+-------------------------------------------------------------------*/
+
+.alamraya-no-padding {
+	padding: 0px;
+}
+
+.alamraya-navtab {
+	margin-bottom: -12px;
+}
+
+.alamraya-btn-add-row {
+	margin-bottom: 15px;
+}
+
+.alamraya-btn-add {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.alamraya-dwld-row {
+	padding: 0 0 0 15px;
+}
+
+.alamraya-span-addon {
+	height: 35px;
+	background: #e6ecf5; 
+    color: #c9c8c8; 
+    width: auto; 
+    padding: 8px 14px; 
+    border-color: #e6ecf5;
+    margin: 4px -5px 0px -5px;
+}
+
+.alamraya-label-padding {
+	padding-top: 5px;
+	padding-bottom: 8px;
+	padding-left: 0px;
+}
+
+.alamraya-datepick-row {
+	float: left;
+}
+
+.alamraya-opt-btn {
+	margin-top: 5px;
+}
+
+.alamraya-btn-aksi {
+	height: 25px;
+}
+
+.alamraya-input-group-addon > span {
+	color: #495057;
+}
+
+.popover.clockpicker-popover{
+    z-index: 999999;
+}
+
+@media (max-width: 767.98px) {
+	.alamraya-span-addon {
+		margin-left: 5px;
+		margin-top: 0px;
+	}
+
+	.alamraya-label-padding {
+		margin-top: 25px;
+	}
+
+	.alamraya-dwld-btn {
+		margin-bottom: 10px;
+	}
+}

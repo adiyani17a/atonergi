@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{asset('assets/node_modules/select2/dist/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/bower_components/clockpicker/dist/jquery-clockpicker.min.css')}}" tppabs="http://www.bootstrapdash.com/demo/purple/bower_components/clockpicker/dist/jquery-clockpicker.min.css" />
   <!-- End plugin css for this page -->
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{asset('assets/node_modules/icheck/skins/all.css')}}">
@@ -18,7 +19,9 @@
   <link rel="stylesheet" href="{{asset('assets/node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/jquery-toast-plugin/dist/jquery.toast.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/node_modules/dropify/dist/css/dropify.min.css')}}" tppabs="http://www.bootstrapdash.com/demo/purple/node_modules/dropify/dist/css/dropify.min.css">
   <link rel="stylesheet" href="{{asset('assets/bower_components/switchery/switchery.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/bower_components/clockpicker/dist/jquery-clockpicker.min.css')}}" tppabs="http://www.bootstrapdash.com/demo/purple/bower_components/clockpicker/dist/jquery-clockpicker.min.css" />
   <!-- endinject -->
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="{{asset('assets/node_modules/font-awesome/css/font-awesome.min.css')}}" />
@@ -35,6 +38,7 @@
 
   <!-- inject:css -->
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/alamraya-style.css')}}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{asset('assets/atonergi-mini.png')}}" />
   <!-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/data-table.min.css')}}"> -->
