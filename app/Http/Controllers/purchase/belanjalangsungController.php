@@ -606,9 +606,9 @@ class belanjalangsungController extends Controller
           $idcustom = 0;
         }
 
-        $index = str_pad($idcustom, 3, '0', STR_PAD_LEFT);
+        $index = str_pad($idcustom + 1, 3, '0', STR_PAD_LEFT);
         $date = date('my');
-        $nota = 'BL-'.$index.'/'.$date;
+        $nota = 'BLC-'.$index.'/'.$date;
 
         DB::table('d_belanja_langsung_custom')
             ->insert([
