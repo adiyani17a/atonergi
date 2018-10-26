@@ -16033,7 +16033,8 @@ table > thead.bg-gradient-danger{
   font-size: 0.875rem;
   line-height: 1;
   font-family: "pt-sans-regular", sans-serif; }
-  .btn i, .ajax-upload-dragdrop .ajax-file-upload i, .swal2-modal .swal2-buttonswrapper .swal2-styled i, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-confirm i, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-cancel i, .wizard > .actions a i {
+  /*.btn i,*/
+   .ajax-upload-dragdrop .ajax-file-upload i, .swal2-modal .swal2-buttonswrapper .swal2-styled i, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-confirm i, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-cancel i, .wizard > .actions a i {
     margin-right: .3125rem; }
   .btn .btn-label:before, .ajax-upload-dragdrop .ajax-file-upload .btn-label:before, .swal2-modal .swal2-buttonswrapper .swal2-styled .btn-label:before, .wizard > .actions a .btn-label:before {
     font-size: 1rem;

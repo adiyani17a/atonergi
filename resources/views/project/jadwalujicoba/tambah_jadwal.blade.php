@@ -1,7 +1,6 @@
 @extends('main')
 @section('content')
 
-@include('hrd/kpi/tambah_kpi')
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
@@ -20,48 +19,8 @@
             <div class="card-body">
               <h4 class="card-title">Form Schedule Jadwal Uji Coba dan Dokumentasi</h4>
                 
-                <div class="table-responsive">
-                  <table class="table table-hover" cellspacing="0" id="dm33">
-                    <thead class="bg-gradient-info">
-                      <tr>
-                        <th>No</th>
-                        <th>Preview</th>
-                        <th>Picture</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="index">1</td>
-                        <td>
-                          <div class="preview_td">
-                              <img style="width: 100px;height: 100px;border:1px solid pink" id="output" >
-                          </div>
-                        </td>
-                        <td>
-                          <div class="file-upload">
-                            <div class="file-select">
-                              <div class="file-select-button" id="fileName">Image</div>
-                              <div class="file-select-name" id="noFile">Choose Image...</div> 
-                              <input type="file" name="image" onchange="loadFile(event)" id="chooseFile" accept="image/*">
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <input type="text" class="form-control form-control-sm" name="">
-                        </td>
-                        <td>
-                          <textarea class="form-control form-control-sm"></textarea>
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-sm btn-primary addRow"><i class="fa fa-plus"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                
+                
                 <div align="right" style="margin-top: 15px;">
                 
                   <button class="btn btn-info btn-sm" type="button">Save Data</button>
@@ -77,59 +36,7 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-  
-  $(document).ready(function() {
-    var t = $('#dm33').DataTable();
-    var counter = 1;
- 
-    $('.addRow').on('click', function () {
-        t.row.add( [
-            counter,
-            '<tr>'+
-              '<td>'+
-                '<div class="preview_td">'+
-                    '<img style="width: 100px;height: 100px;border:1px solid pink" id="output" >'+
-                '</div>'+
-              '</td>',
 
-              '<td>'+
-                '<div class="file-upload">'+
-                  '<div class="file-select">'+
-                    '<div class="file-select-button" id="fileName">Image</div>'+
-                    '<div class="file-select-name" id="noFile">Choose Image...</div>'+
-                    '<input type="file" name="image" onchange="loadFile(event)" id="chooseFile" accept="image/*">'+
-                  '</div>'+
-                '</div>'+
-              '</td>',
-
-              '<td>'+
-                '<input type="text" class="form-control form-control-sm" name="">'+
-              '</td>',
-
-              '<td>'+
-                '<textarea class="form-control form-control-sm"></textarea>'+
-              '</td>',
-
-              '<td>'+
-                  '<button type="button" class="btn btn-sm btn-danger delete" title="Delete"><i class="fa fa-trash"></i></button>'+
-                '</div>'+
-              '</td>'+
-            '</tr>'
-        ] ).draw( true );
- 
-        counter++;
-    } );
-
-    $('#dm33 tbody').on( 'click', '.delete', function () {
-    t
-        .row( $(this).parents('tr') )
-        .remove()
-        .draw();
-    } );
-
-
-
-} );
 
 
 
