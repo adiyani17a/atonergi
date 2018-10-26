@@ -83,14 +83,26 @@
 												<tr>
 													<th class="wd-15p">No</th>
 													<th class="wd-15p">Shop Name</th>
-													<th class="wd-15p">Item</th>
-													<th class="wd-15p">QTY</th>
+													<th class="wd-15p">Date</th>
 													<th class="wd-10p">Total</th>
 													<th class="wd-10p">Action</th>
 												</tr>
 											</thead>
 
 											<tbody>
+												@foreach ($custom as $key => $value)
+													<tr>
+														<td>{{$key + 1}}</td>
+														<td>{{$value->blc_code}}</td>
+														<td>{{Carbon\Carbon::parse($value->blc_date)->format('d-m-Y')}}</td>
+														<td align="right">{{number_format($value->blc_totalnet,0,',','.')}}</td>
+														<td align="center">
+															<button type="button" onclick="detail({{$value->blc_id}})" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button>
+															<button type="button" onclick="edit({{$value->blc_id}})" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
+															<button type="button" onclick="hapus({{$value->blc_id}})" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
+														</td>
+													</tr>
+												@endforeach
 											</tbody>
 
 										</table>

@@ -450,7 +450,7 @@
               message: 'Berhasil Disimpan!',
             });
             setTimeout(function () {
-                          waitingDialog.hide();
+                          window.location.href = baseUrl + '/purchase/belanjalangsung/belanjalangsung';
                       }, 500);
           } else {
             iziToast.warning({

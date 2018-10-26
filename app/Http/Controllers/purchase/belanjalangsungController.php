@@ -17,7 +17,10 @@ class belanjalangsungController extends Controller
                 ->select('dbl_id', 'dbl_code', 's_company', 's_name', 'dbl_total_net')
                 ->get();
 
-        return view('purchase/belanjalangsung/belanjalangsung', compact('data'));
+        $custom = DB::table('d_belanja_langsung_custom')
+                    ->get();
+
+        return view('purchase/belanjalangsung/belanjalangsung', compact('data', 'custom'));
     }
     public function tambah_belanjalangsung(Request $request)
     {
