@@ -70,6 +70,7 @@ Route::get('/master/pegawai/pegawai', 'MasterController@pegawai');
 Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
+Route::get('/master/barang/cari', 'MasterController@cari');
     // STATUS QO
     Route::get('/master/status/status', 'MasterController@status');
     Route::get('/master/status/datatable_status', 'MasterController@datatable_status')->name('datatable_status');
@@ -125,6 +126,7 @@ Route::get('/purchase/belanjalangsung/hapus', 'purchase\belanjalangsungControlle
 Route::get('/purchase/belanjalangsung/detail', 'purchase\belanjalangsungController@detail');
 Route::get('/purchase/belanjalangsung/edit', 'purchase\belanjalangsungController@edit');
 Route::get('/purchase/belanjalangsung/update', 'purchase\belanjalangsungController@update');
+Route::get('/purchase/belanjalangsung/custom', 'purchase\belanjalangsungController@custom');
 Route::get('/purchase/hub_suplier/hub_suplier', 'purchase\belanjalangsungController@hub_suplier')->name('hub_suplier');
 
 // Order
@@ -340,6 +342,7 @@ Route::get('/master/barang/barang_edit', 'MasterBarang\BarangController@barang_e
 Route::get('/master/barang/baranghapus', 'MasterBarang\BarangController@baranghapus');
 Route::get('storage/uploads/barang/thumbnail')->name('barang_thumbnail');
 Route::post('/master/barang/barang_update', 'MasterBarang\BarangController@barang_update');
+Route::get('/master/barang/caribarang', 'MasterBarang\BarangController@caribarang');
 
 
         /* ,,,;''  :: ;,      ,,,;;;;;'''         ,;' ;;

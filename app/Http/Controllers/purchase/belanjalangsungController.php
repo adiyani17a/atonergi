@@ -587,4 +587,8 @@ class belanjalangsungController extends Controller
         ]);
       }
     }
+
+    public function custom(){
+      return view('purchase.belanjalangsung.custom');
+    }
 }

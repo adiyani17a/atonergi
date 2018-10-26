@@ -54,7 +54,7 @@
 
                         <div class="col-md-8 col-sm-8 col-xs-12">
                           <div class="input-group">
-                            <input type="text" class="form-control cari_barang" name="cari_barang" style="margin-bottom: 20px">
+                            <input type="text" class="form-control cari_barang" style="text-transform:uppercase" placeholder="Berdasarkan Nama" name="cari_barang" style="margin-bottom: 20px">
                             <span class="input-group-append">
                               <button class="btn btn-primary pull-right cari"><i class="fa fa-search"> Cari</i></button>
                             </span>
@@ -79,14 +79,15 @@
                                 <th width="5%">Action</th>
                               </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="showdata">
+
                             </tbody>
 
                         </table>
                       </div>
 
                     </div>
-                  
+
               </div>
     </div>
   </div>
@@ -104,7 +105,7 @@ $(document).ready(function(){
             processing: true,
             // responsive:true,
             serverSide: true,
-            searching:false,
+            searching: true,
             ajax: {
                 url:'{{ route("datatable_barang") }}',
                 data:{nota: function() { return $('.cari_barang').val() }},
@@ -178,8 +179,49 @@ function change_image()
 }
 
 $('.cari').click(function(){
-  var table = $('#t55').DataTable();
-  table.ajax.reload();
+  var keyword = $('.cari_barang').val();
+  var html = '';
+  $.ajax({
+    type: 'get',
+    data: {keyword:keyword},
+    dataType: 'json',
+    url: baseUrl + '/master/barang/caribarang',
+    success : function(result){
+      for (var i = 0; i < result.length; i++) {
+        var harga = result[i].i_price * result[i].cu_value;
+
+        if(result[i].i_image!=''){
+                          var url = "{{route('barang_thumbnail')}}"+'/'+result[i].i_image+'?'+{{time()}};
+          var gambar = '<img src="'+url+'" border="0" width="60" class="img-rounded" align="center" />';
+        }else{
+          var gambar = '<i class="fa fa-minus-square"></i>';
+        }
+        html += '<tr>'+
+                '<td>'+(i + 1)+'</td>'+
+                '<td>'+result[i].i_code+'</td>'+
+                '<td>'+result[i].i_name+'</td>'+
+                '<td>'+
+                '<div class="float-left">'+result[i].cu_symbol+'</div>'+
+                '<div class="float-right">'+result[i].i_price+'</div></td>'+
+                '<td><div class="float-left">Rp. </div>'+
+                '<div class="float-right">'+accounting.formatMoney(harga, "", 2, ".", ",")+'</div></td>'+
+                '<td>'+result[i].u_unit+'</td>'+
+                '<td>'+result[i].i_jenis+'</td>'+
+                '<td>'+gambar+'</td>'+
+                '<td>'+
+                '<div class="btn-group">'+
+                         '<button type="button" onclick="edit(this)" class="btn btn-info btn-lg" title="edit">'+
+                         '<label class="fa fa-pencil-alt"></label></button>'+
+                         '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-lg" title="hapus">'+
+                         '<label class="fa fa-trash"></label></button>'+
+                        '</div>'+
+                '</td>'+
+                '</tr>';
+      }
+
+      $('#showdata').html(html);
+    }
+  });
 })
 
 $('#tombol_modal_tambah').click(function(){

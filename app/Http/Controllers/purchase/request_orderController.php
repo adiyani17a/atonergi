@@ -165,8 +165,11 @@ class request_orderController extends Controller
                 }else{
                     $kode += 1;
                 }
+
             $ro_price_header = str_replace('.','',$request->ro_total_header);
+            $ro_price_header = str_replace('Rp ','',$ro_price_header);
             $ro_qty_header = str_replace('.','',$request->ro_qty_header);
+            $ro_qty_header = str_replace('Rp ','',$ro_qty_header);
             $tanggal = date("Y-m-d h:i:s");
 
             $header = DB::table('d_requestorder')
@@ -183,8 +186,11 @@ class request_orderController extends Controller
             $kode_seq = 0;
             for ($i=0; $i < count($request->ro_item_seq); $i++) {
                 $unit_price_seq[$i] = str_replace('.','',$request->ro_unit_price_seq[$i]);
+                $unit_price_seq[$i] = str_replace('Rp ','',$unit_price_seq[$i]);
                 $price_seq[$i] = str_replace('.','',$request->ro_price_seq[$i]);
+                $price_seq[$i] = str_replace('Rp ','',$price_seq[$i]);
                 $qty_seq[$i] = str_replace('.','',$request->ro_qty_seq[$i]);
+                $qty_seq[$i] = str_replace('Rp ','',$qty_seq[$i]);
 
                 $kode_seq = $kode_seq + 1;
 
