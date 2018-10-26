@@ -593,8 +593,8 @@ class belanjalangsungController extends Controller
     }
 
     public function customsimpan(Request $request){
-      // DB::beginTransaction();
-      // try {
+      DB::beginTransaction();
+      try {
 
         $idcustom = DB::table('d_belanja_langsung_custom')
                       ->max("blc_id");
@@ -626,14 +626,14 @@ class belanjalangsungController extends Controller
           if ($idcustomdt < 0) {
             $idcustomdt = 0;
           }
-          
+
 
 
           DB::table('d_belanja_langsung_custom_dt')
               ->insert([
                 'blcd_id' => $idcustomdt + 1,
                 'blcd_ref' => $nota,
-                'blcd_item' => $request->nama[$i],
+                'blcd_item' => strtoupper($request->nama[$i]),
                 'blcd_qty' => $request->qty[$i],
                 'blcd_price' => $request->price[$i],
                 'blcd_total' => $request->total[$i],
@@ -641,16 +641,16 @@ class belanjalangsungController extends Controller
               ]);
         }
 
-      //   DB::commit();
-      //   return response()->json([
-      //     'status' => 'berhasil'
-      //   ]);
-      // } catch (\Exception $e) {
-      //   DB::rollback();
-      //   return response()->json([
-      //     'status' => 'gagal'
-      //   ]);
-      // }
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
 
     }
 }
