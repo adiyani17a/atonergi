@@ -16,7 +16,7 @@
   	</div>
   	<div class="col-lg-12 grid-margin stretch-card">
         	<div class="card">
-  	        <div class="card-body">
+  	        <div class="card-body">              
   	          <h4 class="card-title">Stock Gudang</h4>
   	          	<div class="row">
   	          		<div class="col-md-12 col-sm-12 col-xs-12" align="right">
@@ -81,7 +81,7 @@
             "columns": [
             { "data": "sg_iditem" },
             { "data": "i_name" },
-            { "data": "i_jenis" }.
+            { "data": "i_jenis" },
             { "data": "sg_qty" },
             { "data": "detail" },
             ]

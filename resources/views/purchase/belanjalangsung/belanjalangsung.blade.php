@@ -18,6 +18,19 @@
 	      	<div class="card">
 		        <div class="card-body">
 		          <h4 class="card-title">Belanja Langsung</h4>
+							<div class="card-title">
+								<ul class="nav nav-tabs tab-solid  tab-solid-primary" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active" id="tab-6-1" data-toggle="tab" href="#daftar" role="tab" aria-controls="daftar" aria-selected="true"><i class="fa fa-list"></i>List Request Order</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="tab-6-2" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false"><i class="mdi mdi-history"></i>History Request Order</a>
+									</li>
+									<!-- <li class="nav-item">
+										<a class="nav-link" id="tab-6-3" data-toggle="tab" href="#tab-ke-3" role="tab" aria-controls="tab-ke-3" aria-selected="false"><i class="mdi mdi-message-text-outline"></i>Contact</a>
+									</li> -->
+								</ul>
+							</div>
 		          	<div class="row">
 
 						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
@@ -27,35 +40,63 @@
 
 
 		        	</div>
-						<div class="table-responsive">
-							<table class="table table-hover data-table" cellspacing="0" id="datatable">
-							  <thead class="bg-gradient-info">
-							    <tr>
-							      <th>No</th>
-							      <th>P.O.#</th>
-							      <th>Vendor</th>
-							      <th>Total</th>
-							      <th>Action</th>
-							    </tr>
-							  </thead>
-							  <tbody>
-									@foreach ($data as $key => $value)
-										<tr>
-											<td>{{$key + 1}}</td>
-											<td>{{$value->dbl_code}}</td>
-											<td>{{$value->s_company}} ( {{$value->s_name}} )</td>
-											<td align="right">{{number_format($value->dbl_total_net,0,',','.')}}</td>
-											<td align="center">
-												<button type="button" onclick="detail({{$value->dbl_id}})" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button>
-												<button type="button" onclick="edit({{$value->dbl_id}})" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
-												<button type="button" onclick="hapus({{$value->dbl_id}})" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
-											</td>
-										</tr>
-									@endforeach
-							  </tbody>
-							</table>
-						</div>
 
+							<div class="tab-content tab-content-solid">
+								<div class="tab-pane fade show active" id="daftar" role="tabpanel" aria-labelledby="tab-6-1">
+
+									<div class="table-responsive">
+										<table class="table table-hover data-table" cellspacing="0" id="datatable">
+											<thead class="bg-gradient-info">
+												<tr>
+													<th>No</th>
+													<th>P.O.#</th>
+													<th>Vendor</th>
+													<th>Total</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach ($data as $key => $value)
+													<tr>
+														<td>{{$key + 1}}</td>
+														<td>{{$value->dbl_code}}</td>
+														<td>{{$value->s_company}} ( {{$value->s_name}} )</td>
+														<td align="right">{{number_format($value->dbl_total_net,0,',','.')}}</td>
+														<td align="center">
+															<button type="button" onclick="detail({{$value->dbl_id}})" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button>
+															<button type="button" onclick="edit({{$value->dbl_id}})" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
+															<button type="button" onclick="hapus({{$value->dbl_id}})" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
+														</td>
+													</tr>
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+
+								</div> <!-- end div daftar -->
+
+
+								<div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="tab-6-2">
+									<div class="table-responsive">
+										<table class="table table-hover table-bordered " id="table_datatable_histori" style="width: 100%;" cellspacing="0">
+											<thead class="bg-gradient-info">
+												<tr>
+													<th class="wd-15p">No</th>
+													<th class="wd-15p">Shop Name</th>
+													<th class="wd-15p">Item</th>
+													<th class="wd-15p">QTY</th>
+													<th class="wd-10p">Total</th>
+													<th class="wd-10p">Action</th>
+												</tr>
+											</thead>
+
+											<tbody>
+											</tbody>
+
+										</table>
+									</div>
+								</div>
+							</div>
 		      	</div>
 	    	</div>
 		</div>
@@ -137,6 +178,7 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 		var table = $('#datatable').DataTable();
+		var table = $('#table_datatable_histori').DataTable();
 	});
 
 	function hapus(id){

@@ -334,7 +334,7 @@
         ] ).draw( false );
       }
 
-        $('.rp').mask('000,000,000,000,000.00', {reverse: true});
+        $('.rp').mask('000.000.000.000.000', {reverse: true});
         counter++;
         $('#dbldt_qty').val('');
         $('#dbldt_item').val('');

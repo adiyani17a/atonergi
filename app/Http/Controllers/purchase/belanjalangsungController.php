@@ -591,4 +591,66 @@ class belanjalangsungController extends Controller
     public function custom(){
       return view('purchase.belanjalangsung.custom');
     }
+
+    public function customsimpan(Request $request){
+      // DB::beginTransaction();
+      // try {
+
+        $idcustom = DB::table('d_belanja_langsung_custom')
+                      ->max("blc_id");
+
+        if ($idcustom < 0) {
+          $idcustom = 0;
+        }
+
+        $index = str_pad($idcustom, 3, '0', STR_PAD_LEFT);
+        $date = date('my');
+        $nota = 'BL-'.$index.'/'.$date;
+
+        DB::table('d_belanja_langsung_custom')
+            ->insert([
+              'blc_id' => $idcustom + 1,
+              'blc_code' => $nota,
+              'blc_shop_name' => strtoupper($request->storename),
+              'blc_date' => Carbon::parse($request->dbl_date)->format('Y-m-d'),
+              'blc_subtotal' => $request->po_subtotal,
+              'blc_tax' => $request->dbldt_tax,
+              'blc_totalnet' => $request->total_net,
+              'blc_insert' => Carbon::now('Asia/Jakarta')
+            ]);
+
+        for ($i=0; $i < count($request->nama); $i++) {
+          $idcustomdt = DB::table('d_belanja_langsung_custom_dt')
+                          ->max('blcd_id');
+
+          if ($idcustomdt < 0) {
+            $idcustomdt = 0;
+          }
+          
+
+
+          DB::table('d_belanja_langsung_custom_dt')
+              ->insert([
+                'blcd_id' => $idcustomdt + 1,
+                'blcd_ref' => $nota,
+                'blcd_item' => $request->nama[$i],
+                'blcd_qty' => $request->qty[$i],
+                'blcd_price' => $request->price[$i],
+                'blcd_total' => $request->total[$i],
+                'blcd_insert' => Carbon::now('Asia/Jakarta')
+              ]);
+        }
+
+      //   DB::commit();
+      //   return response()->json([
+      //     'status' => 'berhasil'
+      //   ]);
+      // } catch (\Exception $e) {
+      //   DB::rollback();
+      //   return response()->json([
+      //     'status' => 'gagal'
+      //   ]);
+      // }
+
+    }
 }
