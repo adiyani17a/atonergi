@@ -1,6 +1,12 @@
  <!-- plugins:js -->
   <script src="{{asset('assets/node_modules/jquery/dist/jquery.min.js')}}"></script>
+  <!-- Mainly scripts -->
+  <script type="text/javascript" src="{{ asset('assets/plugins/jquery-1.12.3.min.js') }}"></script>
+
+    <!-- jQuery UI -->
+  <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
   <script src="{{asset('assets/js/jquerymask.min.js')}}"></script>
+  <script src="{{ asset('assets/autocomplete/autocomplete.js') }}"></script>
   {{-- <script src="{{asset('assets/node_modules/jquery-ui/jquery-ui.js')}}"></script> --}}
   <script src="{{asset('assets/js/jquery-clockpicker.min.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
   <script src="{{asset('assets/node_modules/popper.js/dist/umd/popper.min.js')}}"></script>
@@ -312,7 +318,7 @@
 </script>
 
 <script type="text/javascript">
-    
+
       $('.clockpicker').clockpicker({
         donetext: 'OK'
       });   // clockpicker js

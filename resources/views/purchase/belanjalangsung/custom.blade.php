@@ -146,6 +146,14 @@
 
   $(document).ready(function() {
 
+  $("#dbldt_item").autocomplete({
+    source: baseUrl + '/purchase/belanjalangsung/autocomplete',
+    select: function(event, ui) {
+      $('#dbldt_item').val(ui.item.label);
+      $('#dbldt_price').val(accounting.formatMoney(ui.item.id,"",0,'.',','));
+    }
+  });
+
     $('.rp').mask('000.000.000.000.000', {reverse: true});
 
     var counter = 1;
@@ -185,7 +193,7 @@
           table.row.add( [
               '<input type="text" name="nama[]" id="namaitem" data="'+i_name+'" style="text-transform:uppercase;" class="form-control namaitem form-control-sm" value="'+i_name+'" readonly>',
               '<input type="text" name="qty[]" onkeyup="qtydinamis('+counter+')" class="form-control form-control-sm" id="qty'+counter+'" value="'+i_qty+'">',
-              '<input type="text" name="price[]" onkeyup="total('+counter+')" class="price form-control rp" id="price'+counter+'" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
+              '<input type="text" name="price[]" onkeyup="total('+counter+')" class="price form-control rp" id="price'+counter+'" value="'+i_price+'">',
               '<input type="text" name="total[]" class="form-control form-control-sm total_price" id="total'+counter+'" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
               '<center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center>'
 
@@ -227,7 +235,7 @@
 
         var hasiltax = parseInt(total_sub) * tax;
 
-        var hasil = parseInt(total_sub) - parseInt(hasiltax);
+        var hasil = parseInt(total_sub) + parseInt(hasiltax);
 
         $('#dbldt_tax').val(accounting.formatMoney(hasiltax,"",0,'.',','));
         $('#total_net').val(accounting.formatMoney(hasil,"",0,'.',','));
@@ -266,7 +274,7 @@
 
         var hasiltax = parseInt(total_sub) * tax;
 
-        var hasil = parseInt(total_sub) - parseInt(hasiltax);
+        var hasil = parseInt(total_sub) + parseInt(hasiltax);
 
         $('#dbldt_tax').val(accounting.formatMoney(hasiltax,"",0,'.',','));
         $('#total_net').val(accounting.formatMoney(hasil,"",0,'.',','));
@@ -342,7 +350,7 @@
 
       var hasiltax = parseInt(total_sub) * tax;
 
-      var hasil = parseInt(total_sub) - parseInt(hasiltax);
+      var hasil = parseInt(total_sub) + parseInt(hasiltax);
 
       $('#dbldt_tax').val(accounting.formatMoney(hasiltax,"",0,'.',','));
       $('#total_net').val(accounting.formatMoney(hasil,"",0,'.',','));
@@ -376,7 +384,7 @@
 
       var hasiltax = parseInt(total_sub) * tax;
 
-      var hasil = parseInt(total_sub) - parseInt(hasiltax);
+      var hasil = parseInt(total_sub) + parseInt(hasiltax);
 
       $('#dbldt_tax').val(accounting.formatMoney(hasiltax,"",0,'.',','));
       $('#total_net').val(accounting.formatMoney(hasil,"",0,'.',','));

@@ -610,6 +610,10 @@ class belanjalangsungController extends Controller
         $date = date('my');
         $nota = 'BLC-'.$index.'/'.$date;
 
+        $request->po_subtotal = str_replace('.','', $request->po_subtotal);
+        $request->dbldt_tax = str_replace('.','', $request->dbldt_tax);
+        $request->total_net = str_replace('.','', $request->total_net);
+
         DB::table('d_belanja_langsung_custom')
             ->insert([
               'blc_id' => $idcustom + 1,
@@ -631,6 +635,8 @@ class belanjalangsungController extends Controller
           }
 
 
+          $price = str_replace('.','',$request->price[$i]);
+          $total = str_replace('.','',$request->total[$i]);
 
           DB::table('d_belanja_langsung_custom_dt')
               ->insert([
@@ -638,10 +644,29 @@ class belanjalangsungController extends Controller
                 'blcd_ref' => $nota,
                 'blcd_item' => strtoupper($request->nama[$i]),
                 'blcd_qty' => $request->qty[$i],
-                'blcd_price' => $request->price[$i],
-                'blcd_total' => $request->total[$i],
+                'blcd_price' => $price,
+                'blcd_total' => $total,
                 'blcd_insert' => Carbon::now('Asia/Jakarta')
               ]);
+
+              $checkitem = DB::table('d_item_custom')
+                              ->where('ic_name', strtoupper($request->nama[$i]))
+                              ->get();
+
+              if (!empty($checkitem)) {
+                $itemid = DB::table('d_item_custom')
+                            ->max('ic_id');
+
+                $price = str_replace('.','',$request->price[$i]);
+
+                DB::table('d_item_custom')
+                  ->insert([
+                    'ic_id' => $itemid + 1,
+                    'ic_name' => strtoupper($request->nama[$i]),
+                    'ic_price' => $price,
+                    'ic_insert' => Carbon::now('Asia/Jakarta')
+                  ]);
+              }
         }
 
         DB::commit();
@@ -655,5 +680,26 @@ class belanjalangsungController extends Controller
         ]);
       }
 
+    }
+
+    public function autocomplete(Request $request){
+      $keyword = $request->term;
+
+      $data = DB::table('d_item_custom')
+                ->where('ic_name', 'LIKE', '%'.strtoupper($keyword).'%')
+                ->get();
+
+                $results = [];
+
+            if ($data == null) {
+                $results[] = ['id' => null, 'label' => 'Tidak ditemukan data terkait'];
+            } else {
+
+                foreach ($data as $query) {
+                    $results[] = ['id' => $query->ic_price, 'label' => $query->ic_name];
+                }
+            }
+
+            return response()->json($results);
     }
 }

@@ -21,10 +21,10 @@
 							<div class="card-title">
 								<ul class="nav nav-tabs tab-solid  tab-solid-primary" role="tablist">
 									<li class="nav-item">
-										<a class="nav-link active" id="tab-6-1" data-toggle="tab" href="#daftar" role="tab" aria-controls="daftar" aria-selected="true"><i class="fa fa-list"></i>List Request Order</a>
+										<a class="nav-link active" id="tab-6-1" data-toggle="tab" href="#daftar" role="tab" aria-controls="daftar" aria-selected="true"><i class="fa fa-list"></i>List Belanja Langsung</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" id="tab-6-2" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false"><i class="mdi mdi-history"></i>History Request Order</a>
+										<a class="nav-link" id="tab-6-2" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false"><i class="fa fa-list"></i>List Custom Belanja Langsung</a>
 									</li>
 									<!-- <li class="nav-item">
 										<a class="nav-link" id="tab-6-3" data-toggle="tab" href="#tab-ke-3" role="tab" aria-controls="tab-ke-3" aria-selected="false"><i class="mdi mdi-message-text-outline"></i>Contact</a>
@@ -97,14 +97,12 @@
 														<td>{{Carbon\Carbon::parse($value->blc_date)->format('d-m-Y')}}</td>
 														<td align="right">{{number_format($value->blc_totalnet,0,',','.')}}</td>
 														<td align="center">
-															<button type="button" onclick="detail({{$value->blc_id}})" class="btn btn-outline-primary icon-btn btn-sm" name="button"> <i class="fa fa-folder"></i> </button>
-															<button type="button" onclick="edit({{$value->blc_id}})" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
-															<button type="button" onclick="hapus({{$value->blc_id}})" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
+															<button type="button" onclick="editcustom({{$value->blc_id}})" class="btn btn-outline-warning icon-btn btn-sm" name="button"> <i class="fa fa-edit"></i> </button>
+															<button type="button" onclick="hapuscustom({{$value->blc_id}})" class="btn btn-outline-danger icon-btn btn-sm" name="button"> <i class="fa fa-trash"></i> </button>
 														</td>
 													</tr>
 												@endforeach
 											</tbody>
-
 										</table>
 									</div>
 								</div>
