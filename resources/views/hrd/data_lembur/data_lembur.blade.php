@@ -2,6 +2,8 @@
 @section('content')
 
 @include('hrd/data_lembur/tambah_data_lembur')
+@include('hrd/data_lembur/edit_data_lembur')
+@include('hrd/data_lembur/detail_data_lembur')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
@@ -99,9 +101,15 @@
 										    	<td>
 										    		<center>
 											    		<div class="btn-group">
-											    			<button type="button" class="btn btn-primary btn-lg alamraya-btn-aksi" title="edit"><label class="fa fa-pencil-alt"></label></button>
-											    			<button type="button" class="btn btn-danger btn-lg alamraya-btn-aksi" title="hapus"><label class="fa fa-trash"></label></button>
-											    			<button type="button" class="btn btn-warning btn-lg alamraya-btn-aksi" title="detail"><label class="fa fa-info-circle"></label></button>
+											    			<button type="button" class="btn btn-warning btn-lg alamraya-btn-aksi" title="detail" data-toggle="modal" data-target="#detail">
+											    				<label class="fa fa-info-circle"></label>
+											    			</button>
+											    			<button type="button" class="btn btn-primary btn-lg alamraya-btn-aksi" title="edit" data-toggle="modal" data-target="#edit">
+											    				<label class="fa fa-pencil-alt"></label>
+											    			</button>
+											    			<button type="button" class="btn btn-danger btn-lg alamraya-btn-aksi" title="hapus" onclick="hapus()">
+											    				<label class="fa fa-trash"></label>
+											    			</button>
 											    		</div>
 										    		</center>
 										    	</td>
@@ -122,5 +130,74 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
+
+<script type="text/javascript">
+	
+	function hapus(){
+	// function hapus(parm){
+    // var par   = $(parm).parents('tr');
+    // var id    = $(par).find('.d_id').text();
+
+    iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?',
+            position: 'center',
+            progressBarColor: 'rgb(240, 0, 0)',
+            buttons: [
+              [
+                '<button style="background: rgb(190, 0, 0); color: white;" onclick="success()">Delete</button>',
+                function (instance, toast) {
+
+                  // $.ajax({
+                  //  type: "get",
+                  //    url: baseUrl + '/hrd/data_lembur/hapus_data_lembur',
+                  //    data: {id},
+                  //    success: function(data){
+                  //     console.log(data);
+                  //     var table = $('#table-data-lembur').DataTable();
+                  //     table.ajax.reload();
+                      
+                     
+                  //    },
+                  //    error: function(){
+                  //     iziToast.warning({
+                  //       icon: 'fa fa-times',
+                  //       message: 'Terjadi Kesalahan!',
+                  //     });
+                  //    },
+                  //    async: false
+                  //  });
+                 
+                }
+              ],
+              [
+                '<button class="btn btn-info">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+
+
+  }
+
+  function success(){
+
+  	iziToast.success({
+	    title: 'OK',
+	    message: 'Successfully deleted record!',
+	});
+
+  }
+
+</script>
 
 @endsection

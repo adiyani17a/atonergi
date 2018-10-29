@@ -1,6 +1,12 @@
 @extends('main')
 @section('content')
 
+@include('hrd/payroll/tambah_payroll_manajemen')
+@include('hrd/payroll/edit_payroll_manajemen')
+@include('hrd/payroll/tambah_payroll_tunjangan')
+@include('hrd/payroll/edit_payroll_tunjangan')
+@include('hrd/payroll/tambah_payroll_produksi')
+@include('hrd/payroll/edit_payroll_produksi')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
@@ -34,10 +40,21 @@
 				      	<div class="card">
 					        <div class="card-body">
 					          <h4 class="card-title">Manajemen Payroll</h4>
+					          <div class="row alamraya-dwld-row">
+					          		<button type="button" class="btn btn-warning btn-rounded btn-fw alamraya-dwld-btn"><i class="fa fa-download"></i>&nbsp;&nbsp;Download Contoh Master</button>&nbsp;&nbsp;
+					          		<button type="button" class="btn btn-warning btn-rounded btn-fw"><i class="fa fa-download"></i>&nbsp;&nbsp;Download ID Manajemen</button>
+					          	</div><br>
+					          	<div class="row ">
+					          		<div class="col-md-12 ">
+						          		<label class="col-lg-12 col-form-label alamraya-no-padding">Upload File Payroll (Maks. 5mb)</label>
+						          		<input type="file" class="dropify" data-height="100" data-max-file-size="5000kb"/>
+						          	</div>
+				                </div><br>
+				                
 					          	<div class="row">
 					          		
 									<div class="col-md-12 col-sm-12 col-xs-12 alamraya-btn-add-row" align="right">
-										<a class="btn btn-info " href="{{url('hrd/payroll/tambah_payroll')}}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</a>
+										<button class="btn btn-info" data-toggle="modal" data-target="#tambahmanajemen"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
 									</div>
 									<div class="table-responsive">
 										<table class="table table-hover data-table" cellspacing="0">
@@ -70,8 +87,10 @@
 										    	<td>
 										    		<center>
 											    		<div class="btn-group">
-											    			<button type="button" class="btn btn-primary btn-lg alamraya-btn-aksi" title="edit"><label class="fa fa-pencil-alt"></label></button>
-											    			<button type="button" class="btn btn-danger btn-lg alamraya-btn-aksi" title="hapus"><label class="fa fa-trash"></label></button>
+											    			<button type="button" class="btn btn-primary btn-lg alamraya-btn-aksi" title="edit" data-toggle="modal" data-target="#editmanajemen"><label class="fa fa-pencil-alt"></label></button>
+											    			<button type="button" class="btn btn-danger btn-lg alamraya-btn-aksi" title="hapus" onclick="hapus()">
+											    				<label class="fa fa-trash"></label>
+											    			</button>
 											    		</div>
 										    		</center>
 										    	</td>
@@ -95,7 +114,7 @@
 					          		
 									<div class="col-md-12 col-sm-12 col-xs-12 alamraya-btn-add-row" align="right">
 										<a class="btn btn-warning " href="{{url('hrd/payroll/setting_tunjangan')}}"><i class="fa fa-cog"></i>&nbsp;&nbsp;Setting Tunjangan Pegawai</a>
-										<a class="btn btn-info " href="{{url('hrd/payroll/tambah_payroll')}}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</a>
+										<button class="btn btn-info" data-toggle="modal" data-target="#tambahtunjangan"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
 									</div>
 									<div class="table-responsive">
 										<table class="table table-hover data-table" cellspacing="0">
@@ -118,8 +137,10 @@
 										    	<td>
 										    		<center>
 											    		<div class="btn-group">
-											    			<button type="button" class="btn btn-primary btn-lg alamraya-btn-aksi" title="edit"><label class="fa fa-pencil-alt"></label></button>
-											    			<button type="button" class="btn btn-danger btn-lg alamraya-btn-aksi" title="hapus"><label class="fa fa-trash"></label></button>
+											    			<button type="button" class="btn btn-primary btn-lg alamraya-btn-aksi" title="edit" data-toggle="modal" data-target="#edittunjangan"><label class="fa fa-pencil-alt"></label></button>
+											    			<button type="button" class="btn btn-danger btn-lg alamraya-btn-aksi" title="hapus" onclick="hapus()">
+											    				<label class="fa fa-trash"></label>
+											    			</button>
 											    		</div>
 										    		</center>
 										    	</td>
@@ -138,26 +159,44 @@
 					<div class="col-lg-12 grid-margin stretch-card alamraya-no-padding">
 				      	<div class="card">
 					        <div class="card-body">
-					          <h4 class="card-title">Payroll Produksi</h4>
+					          	<h4 class="card-title">Payroll Produksi</h4>
+								
 					          	<div class="row">
 					          		
 									<div class="col-md-12 col-sm-12 col-xs-12 alamraya-btn-add-row" align="right">
-										<a class="btn btn-info " href="{{url('hrd/payroll/tambah_payroll')}}"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</a>
+										<button class="btn btn-info" data-toggle="modal" data-target="#tambahproduksi"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
 									</div>
 									<div class="table-responsive">
 										<table class="table table-hover data-table" cellspacing="0">
 										  <thead class="bg-gradient-info">
 										    <tr>
-										      <th>No</th>
-										      <th>Payday Date</th>
-										      <th>Number of Employees</th>
-										      <th>Total Employees Salary</th>
-										      <th>Status</th>
-										      <th>Action</th>
+										      <th>Nama</th>
+										      <th>Gaji</th>
+										      <th>Lembur</th>
+										      <th>Jabatan</th>
+										      <th>Aksi</th>
 										    </tr>
 										  </thead>
-										  <tbody>
-										    
+										  <tbody class="center">
+										    <tr>
+										    	<td>Nasikhatul Insaniyah</td>
+										    	<td>
+										    		<div class="pull-left">Rp.</div>
+										    		<div class="pull-right">40.000,00</div>
+										    	</td>
+										    	<td>8 jam</td>
+										    	<td>Kepala HRD</td>
+										    	<td>
+										    		<center>
+											    		<div class="btn-group">
+											    			<button type="button" class="btn btn-primary btn-lg alamraya-btn-aksi" title="edit" data-toggle="modal" data-target="#editproduksi"><label class="fa fa-pencil-alt"></label></button>
+											    			<button type="button" class="btn btn-danger btn-lg alamraya-btn-aksi" title="hapus" onclick="hapus()">
+											    				<label class="fa fa-trash"></label>
+											    			</button>
+											    		</div>
+										    		</center>
+										    	</td>
+										    </tr>
 										  </tbody>
 										</table>
 									</div>
@@ -175,5 +214,113 @@
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
+
+<script type="text/javascript">
+	
+	function hapus(){
+	// function hapus(parm){
+    // var par   = $(parm).parents('tr');
+    // var id    = $(par).find('.d_id').text();
+
+    iziToast.show({
+            overlay: true,
+            close: false,
+            timeout: 20000, 
+            color: 'dark',
+            icon: 'fas fa-question-circle',
+            title: 'Important!',
+            message: 'Apakah Anda Yakin ?',
+            position: 'center',
+            progressBarColor: 'rgb(240, 0, 0)',
+            buttons: [
+              [
+                '<button style="background: rgb(190, 0, 0); color: white;" onclick="success()">Delete</button>',
+                function (instance, toast) {
+
+                  // $.ajax({
+                  //  type: "get",
+                  //    url: baseUrl + '/hrd/data_lembur/hapus_data_lembur',
+                  //    data: {id},
+                  //    success: function(data){
+                  //     console.log(data);
+                  //     var table = $('#table-data-lembur').DataTable();
+                  //     table.ajax.reload();
+                      
+                     
+                  //    },
+                  //    error: function(){
+                  //     iziToast.warning({
+                  //       icon: 'fa fa-times',
+                  //       message: 'Terjadi Kesalahan!',
+                  //     });
+                  //    },
+                  //    async: false
+                  //  });
+                 
+                }
+              ],
+              [
+                '<button class="btn btn-info">Cancel</button>',
+                function (instance, toast) {
+                  instance.hide({
+                    transitionOut: 'fadeOutUp'
+                  }, toast);
+                }
+              ]
+            ]
+          });
+
+
+  }
+
+  function success(){
+
+  	iziToast.success({
+	    title: 'OK',
+	    message: 'Successfully deleted record!',
+	});
+
+  }
+
+</script>
+
+<script type="text/javascript">
+	
+	function samakan() {
+	  var jum = $('#jumlah').val();
+	  console.log(jum);
+	  $('#sd').val(jum);
+	  $('#smp').val(jum);
+	  $('#sma').val(jum);
+	  $('#smk').val(jum);
+	  $('#d1').val(jum);
+	  $('#d2').val(jum);
+	  $('#d3').val(jum);
+	  $('#s1').val(jum);
+	}
+            
+          
+</script>
+
+<script type="text/javascript">
+	
+  $(document).ready(function() { 
+    //mask money
+    $.fn.maskFunc = function(){
+      $('.currency').inputmask("currency", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        prefix: '', //Space after $, this will not truncate the first character.
+        rightAlign: false,
+        oncleared: function () { self.Value(''); }
+      });
+    }
+
+    $(this).maskFunc();
+  }); 
+
+</script>
 
 @endsection

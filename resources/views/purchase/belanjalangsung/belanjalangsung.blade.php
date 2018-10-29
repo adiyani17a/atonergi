@@ -275,5 +275,55 @@
 			window.location.href = baseUrl + '/purchase/belanjalangsung/edit?id='+id;
 		}
 
+		function hapuscustom(id){
+	    iziToast.show({
+	    timeout: false,
+	    theme: 'dark',
+	    icon: 'fa fa-question',
+	    title: 'Hapus?',
+	    message: 'Anda yakin ingin menhapus data?,<br>Data yang sudah dihapus tidak bisa dikembalikan!',
+	    position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
+	    progressBarColor: '#57c7d4',
+	    buttons: [
+	        ['<button>Ya</button>', function (instance, toast) {
+	          waitingDialog.show()
+	          $.ajax({
+	            type: 'get',
+	            data: {id:id},
+	            dataType: 'json',
+	            url: baseUrl + '/purchase/belanjalangsung/customhapus',
+	            success : function(result){
+	              if (result.status == 'berhasil') {
+	                iziToast.success({
+	                  icon: 'fa fa-check',
+	                  message: 'Berhasil Dihapus!',
+	                });
+									setTimeout(function () {
+	                              waitingDialog.hide();
+	                          }, 500);
+	                window.location.reload();
+	              } else if (result.status == 'gagal') {
+	                iziToast.warning({
+	                  icon: 'fa fa-times',
+	                  message: 'Gagal Dihapus!',
+	                });
+	                setTimeout(function () {
+	                              waitingDialog.hide();
+	                          }, 500);
+	              }
+	            }
+	          });
+	        }, true], // true to focus
+	        ['<button>Tidak</button>', function (instance, toast) {
+	            instance.hide();
+	        }]
+	    ],
+	});
+	}
+
+	function editcustom(id){
+		window.location.href = baseUrl + '/purchase/belanjalangsung/customedit?id='+id;
+	}
+
 	</script>
 @endsection
