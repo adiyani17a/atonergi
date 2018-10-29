@@ -128,7 +128,10 @@ Route::get('/purchase/belanjalangsung/edit', 'purchase\belanjalangsungController
 Route::get('/purchase/belanjalangsung/update', 'purchase\belanjalangsungController@update');
 Route::get('/purchase/belanjalangsung/custom', 'purchase\belanjalangsungController@custom');
 Route::get('/purchase/belanjalangsung/customsimpan', 'purchase\belanjalangsungController@customsimpan');
-Route::get('/purchase/belanjalangsung/autocomplete', 'purchase\belanjalangsungController@autocomplete');
+Route::get('/purchase/belanjalangsung/customhapus', 'purchase\belanjalangsungController@customhapus');
+Route::get('/purchase/belanjalangsung/customedit', 'purchase\belanjalangsungController@customedit');
+Route::get('/purchase/belanjalangsung/customedit', 'purchase\belanjalangsungController@customedit');
+Route::get('/purchase/belanjalangsung/customupdate', 'purchase\belanjalangsungController@customupdate');
 Route::get('/purchase/hub_suplier/hub_suplier', 'purchase\belanjalangsungController@hub_suplier')->name('hub_suplier');
 
 // Order

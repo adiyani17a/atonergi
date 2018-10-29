@@ -120,6 +120,11 @@
       autoclose:true
     }).datepicker("setDate", "0");
 
+    var datepicker_today1 = $('.datepicker_today1').datepicker({
+      format:"dd-mm-yyyy",
+      autoclose:true
+    });
+
     $('select').select2({
       width: '100%'
     });
