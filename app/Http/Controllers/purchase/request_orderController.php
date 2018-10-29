@@ -26,13 +26,17 @@ class request_orderController extends Controller
         $vendor = DB::table('m_vendor')->get();
         $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
 
-        $need = DB::table('d_requestorder')
-                  ->where('ro_status_po', 'F')
-                  ->count();
+        $list = DB::select("SELECT * from d_requestorder join m_vendor on d_requestorder.ro_vendor = m_vendor.s_kode");
 
-        $approved = DB::table('d_requestorder')
-                  ->where('ro_status_po', 'T')
-                  ->count();
+        $need = 0;
+        $approved = 0;
+        for ($i=0; $i < count($list); $i++) {
+          if ($list[$i]->ro_status_po == 'F') {
+            $need += 1;
+          } else {
+            $approved += 1;
+          }
+        }
         // return $item;
         return view('purchase/rencanapembelian/rencanapembelian',compact('vendor','item','nota', 'approved', 'need'));
     }
