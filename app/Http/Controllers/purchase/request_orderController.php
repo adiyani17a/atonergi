@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Barang;
 use Yajra\Datatables\Datatables;
 use DB;
+use Carbon\Carbon;
 
 class request_orderController extends Controller
 {
@@ -24,12 +25,24 @@ class request_orderController extends Controller
 
         $vendor = DB::table('m_vendor')->get();
         $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
+
+        $need = DB::table('d_requestorder')
+                  ->where('ro_status_po', 'F')
+                  ->count();
+
+        $approved = DB::table('d_requestorder')
+                  ->where('ro_status_po', 'T')
+                  ->count();
         // return $item;
-        return view('purchase/rencanapembelian/rencanapembelian',compact('vendor','item','nota'));
+        return view('purchase/rencanapembelian/rencanapembelian',compact('vendor','item','nota', 'approved', 'need'));
     }
     public function datatable_rencanapembelian(Request $request)
     {
         $list = DB::select("SELECT * from d_requestorder join m_vendor on d_requestorder.ro_vendor = m_vendor.s_kode");
+
+        for ($i=0; $i < count($list); $i++) {
+          $list[$i]->ro_insert = Carbon::parse($list[$i]->ro_insert)->format('d-m-Y');
+        }
 
         $data = collect($list);
 
@@ -70,7 +83,14 @@ class request_orderController extends Controller
                 ->addColumn('detail', function ($data) {
                     return '<button data-toggle="modal" onclick="detail(this)"  class="btn btn-outline-primary btn-sm">Detail</button>';
                 })
-                ->rawColumns(['aksi','detail','confirmed'])
+                ->addColumn('status', function ($data) {
+                  if ($data->ro_status_po == 'F') {
+                    return '<label class="badge badge-warning">Need Approved</label>';
+                  } else {
+                    return '<label class="badge badge-primary">Approved</label>';
+                  }
+                })
+                ->rawColumns(['aksi','detail','confirmed','status'])
                 ->make(true);
         }
 

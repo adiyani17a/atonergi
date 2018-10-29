@@ -42,6 +42,25 @@
                           <button type="button" class="btn btn-info tambah" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
                         </div>
 
+                        <div class="row">
+                          <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="alert alert-primary alert-dismissible" title="Approved">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Notice!</strong> <br>
+                                <label class="badge badge-pill badge-primary">{{$approved}}</label>
+                                Approved
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="alert alert-warning alert-dismissible" title="Need Approved">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>Notice!</strong> <br>
+                                <label class="badge badge-pill badge-warning">{{$need}}</label>
+                                Need Approved
+                            </div>
+                          </div>
+                        </div>
+
                     <div class="tab-content tab-content-solid">
                       <div class="tab-pane fade show active" id="daftar" role="tabpanel" aria-labelledby="tab-6-1">
 
@@ -50,9 +69,11 @@
                             <thead class="bg-gradient-info">
                                 <tr>
                                   <th class="wd-15p">Kode</th>
+                                  <th class="wd-15p">Tanggal</th>
                                   <th class="wd-20p">Vendor</th>
                                   <th class="wd-15p">Amount Requested</th>
                                   <th class="wd-10p">Amount Approved</th>
+                                  <th class="wd-15p">Status</th>
                                   <th class="wd-10p">Detail</th>
                                   <th class="wd-15p">Action</th>
                                 </tr>
@@ -133,9 +154,11 @@
                 ],
             "columns": [
             { "data": "ro_code" },
+            { "data": "ro_insert" },
             { "data": "s_company" },
             { "data": "ro_qty" },
             { "data": "ro_qty_approved" },
+            { "data": "status" },
             { "data": "detail" },
             { "data": "aksi" },
             ]
