@@ -1,11 +1,11 @@
 <!-- Modal -->
-<div id="tambah" class="modal fade" role="dialog">
+<div id="edit" class="modal fade" role="dialog">
   <div class="modal-dialog ">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header bg-gradient-primary">
-        <h4 class="modal-title">Tambah Data Lembur</h4>
+      <div class="modal-header bg-gradient-info">
+        <h4 class="modal-title">Edit Data Lembur</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -17,8 +17,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
                 <select class="form-control form-control-sm" id="filter">
-                  <option disabled selected>--Pilih--</option>
-                  <option value="hrd">HRD dan General Affair</option>
+                  <option disabled>--Pilih--</option>
+                  <option value="pgw" selected>Pegawai</option>
                   <option value="keu">Keuangan dan Akuntansi</option>
                   <option value="snm">Sales dan Marketing</option>
                   <option value="prd">Produksi</option>
@@ -34,7 +34,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
                 <div id="datepicker-popup" class="input-group date datepicker">
-                    <input type="text" class="form-control" placeholder="dd-mm-yyyy">
+                    <input type="text" class="form-control" value="12-12-2018">
                     <div class="input-group-addon alamraya-input-group-addon">
                       <span class="mdi mdi-calendar"></span>
                     </div>
@@ -77,8 +77,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
                 <select class="form-control form-control-sm" id="filter">
-                  <option disabled selected>--Pilih--</option>
-                  <option value="hrd">HRD dan General Affair</option>
+                  <option disabled >--Pilih--</option>
+                  <option value="hrd" selected>HRD dan General Affair</option>
                   <option value="keu">Keuangan dan Akuntansi</option>
                   <option value="snm">Sales dan Marketing</option>
                   <option value="prd">Produksi</option>
@@ -94,8 +94,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
                 <select class="form-control form-control-sm" id="filter">
-                  <option disabled selected>--Pilih--</option>
-                  <option value="hrd">HRD dan General Affair</option>
+                  <option disabled >--Pilih--</option>
+                  <option value="hrd" selected> Kepala HRD</option>
                   <option value="keu">Keuangan dan Akuntansi</option>
                   <option value="snm">Sales dan Marketing</option>
                   <option value="prd">Produksi</option>
@@ -111,8 +111,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
                 <select class="form-control form-control-sm" id="filter">
-                  <option disabled selected>--Pilih--</option>
-                  <option value="hrd">HRD dan General Affair</option>
+                  <option disabled >--Pilih--</option>
+                  <option value="hrd" selected>Nasikhatul Insaniyah</option>
                   <option value="keu">Keuangan dan Akuntansi</option>
                   <option value="snm">Sales dan Marketing</option>
                   <option value="prd">Produksi</option>
@@ -127,7 +127,7 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" rows="3">AAA</textarea>
               </div>
             </div>
           
