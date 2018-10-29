@@ -17,7 +17,10 @@ class belanjalangsungController extends Controller
                 ->select('dbl_id', 'dbl_code', 's_company', 's_name', 'dbl_total_net')
                 ->get();
 
-        return view('purchase/belanjalangsung/belanjalangsung', compact('data'));
+        $custom = DB::table('d_belanja_langsung_custom')
+                    ->get();
+
+        return view('purchase/belanjalangsung/belanjalangsung', compact('data', 'custom'));
     }
     public function tambah_belanjalangsung(Request $request)
     {
@@ -590,5 +593,247 @@ class belanjalangsungController extends Controller
 
     public function custom(){
       return view('purchase.belanjalangsung.custom');
+    }
+
+    public function customsimpan(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $idcustom = DB::table('d_belanja_langsung_custom')
+                      ->max("blc_id");
+
+        if ($idcustom < 0) {
+          $idcustom = 0;
+        }
+
+        $index = str_pad($idcustom + 1, 3, '0', STR_PAD_LEFT);
+        $date = date('my');
+        $nota = 'BLC-'.$index.'/'.$date;
+
+        $request->po_subtotal = str_replace('.','', $request->po_subtotal);
+        $request->dbldt_tax = str_replace('.','', $request->dbldt_tax);
+        $request->total_net = str_replace('.','', $request->total_net);
+
+        DB::table('d_belanja_langsung_custom')
+            ->insert([
+              'blc_id' => $idcustom + 1,
+              'blc_code' => $nota,
+              'blc_shop_name' => strtoupper($request->storename),
+              'blc_date' => Carbon::parse($request->dbl_date)->format('Y-m-d'),
+              'blc_subtotal' => $request->po_subtotal,
+              'blc_tax' => $request->dbldt_tax,
+              'blc_totalnet' => $request->total_net,
+              'blc_insert' => Carbon::now('Asia/Jakarta')
+            ]);
+
+        for ($i=0; $i < count($request->nama); $i++) {
+          $idcustomdt = DB::table('d_belanja_langsung_custom_dt')
+                          ->max('blcd_id');
+
+          if ($idcustomdt < 0) {
+            $idcustomdt = 0;
+          }
+
+
+          $price = str_replace('.','',$request->price[$i]);
+          $total = str_replace('.','',$request->total[$i]);
+
+          DB::table('d_belanja_langsung_custom_dt')
+              ->insert([
+                'blcd_id' => $idcustomdt + 1,
+                'blcd_ref' => $nota,
+                'blcd_item' => strtoupper($request->nama[$i]),
+                'blcd_qty' => $request->qty[$i],
+                'blcd_price' => $price,
+                'blcd_total' => $total,
+                'blcd_insert' => Carbon::now('Asia/Jakarta')
+              ]);
+
+              $checkitem = DB::table('d_item_custom')
+                              ->where('ic_name', strtoupper($request->nama[$i]))
+                              ->get();
+
+              if (!empty($checkitem)) {
+                $itemid = DB::table('d_item_custom')
+                            ->max('ic_id');
+
+                $price = str_replace('.','',$request->price[$i]);
+
+                DB::table('d_item_custom')
+                  ->insert([
+                    'ic_id' => $itemid + 1,
+                    'ic_name' => strtoupper($request->nama[$i]),
+                    'ic_price' => $price,
+                    'ic_insert' => Carbon::now('Asia/Jakarta')
+                  ]);
+              }
+        }
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
+
+    }
+
+    public function autocomplete(Request $request){
+      $keyword = $request->term;
+
+      $data = DB::table('d_item_custom')
+                ->where('ic_name', 'LIKE', '%'.strtoupper($keyword).'%')
+                ->get();
+
+                $results = [];
+
+            if ($data == null) {
+                $results[] = ['id' => null, 'label' => 'Tidak ditemukan data terkait'];
+            } else {
+
+                foreach ($data as $query) {
+                    $results[] = ['id' => $query->ic_price, 'label' => $query->ic_name];
+                }
+            }
+
+            return response()->json($results);
+    }
+
+    public function customhapus(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $data = DB::table('d_belanja_langsung_custom')
+                  ->where('blc_id', $request->id)
+                  ->get();
+
+        DB::table('d_belanja_langsung_custom')
+              ->where('blc_id', $request->id)
+              ->delete();
+
+        DB::table('d_belanja_langsung_custom_dt')
+              ->where('blcd_ref', $data[0]->blc_code)
+              ->delete();
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
+
+    }
+
+    public function customedit(Request $request){
+      $id = $request->id;
+
+      $custom = DB::table('d_belanja_langsung_custom')
+                ->where('blc_id', $request->id)
+                ->get();
+
+      $customdt = DB::table('d_belanja_langsung_custom_dt')
+                    ->where('blcd_ref', $custom[0]->blc_code)
+                    ->get();
+
+      return view('purchase.belanjalangsung.customedit', compact('custom', 'customdt', 'id'));
+    }
+
+    public function customupdate(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $data = DB::table('d_belanja_langsung_custom')
+                  ->where('blc_id', $request->id)
+                  ->get();
+
+        DB::table('d_belanja_langsung_custom')
+              ->where('blc_id', $request->id)
+              ->delete();
+
+        DB::table('d_belanja_langsung_custom_dt')
+              ->where('blcd_ref', $data[0]->blc_code)
+              ->delete();
+
+        $index = str_pad($request->id + 1, 3, '0', STR_PAD_LEFT);
+        $date = date('my');
+        $nota = 'BLC-'.$index.'/'.$date;
+
+        $request->po_subtotal = str_replace('.','', $request->po_subtotal);
+        $request->dbldt_tax = str_replace('.','', $request->dbldt_tax);
+        $request->total_net = str_replace('.','', $request->total_net);
+
+        DB::table('d_belanja_langsung_custom')
+            ->insert([
+              'blc_id' => $request->id,
+              'blc_code' => $nota,
+              'blc_shop_name' => strtoupper($request->storename),
+              'blc_date' => Carbon::parse($request->dbl_date)->format('Y-m-d'),
+              'blc_subtotal' => $request->po_subtotal,
+              'blc_tax' => $request->dbldt_tax,
+              'blc_totalnet' => $request->total_net,
+              'blc_insert' => Carbon::now('Asia/Jakarta')
+            ]);
+
+        for ($i=0; $i < count($request->nama); $i++) {
+          $idcustomdt = DB::table('d_belanja_langsung_custom_dt')
+                          ->max('blcd_id');
+
+          if ($idcustomdt < 0) {
+            $idcustomdt = 0;
+          }
+
+
+          $price = str_replace('.','',$request->price[$i]);
+          $total = str_replace('.','',$request->total[$i]);
+
+          DB::table('d_belanja_langsung_custom_dt')
+              ->insert([
+                'blcd_id' => $idcustomdt + 1,
+                'blcd_ref' => $nota,
+                'blcd_item' => strtoupper($request->nama[$i]),
+                'blcd_qty' => $request->qty[$i],
+                'blcd_price' => $price,
+                'blcd_total' => $total,
+                'blcd_insert' => Carbon::now('Asia/Jakarta')
+              ]);
+
+              $checkitem = DB::table('d_item_custom')
+                              ->where('ic_name', strtoupper($request->nama[$i]))
+                              ->get();
+
+              if (!empty($checkitem)) {
+                $itemid = DB::table('d_item_custom')
+                            ->max('ic_id');
+
+                $price = str_replace('.','',$request->price[$i]);
+
+                DB::table('d_item_custom')
+                  ->insert([
+                    'ic_id' => $itemid + 1,
+                    'ic_name' => strtoupper($request->nama[$i]),
+                    'ic_price' => $price,
+                    'ic_insert' => Carbon::now('Asia/Jakarta')
+                  ]);
+              }
+        }
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
     }
 }

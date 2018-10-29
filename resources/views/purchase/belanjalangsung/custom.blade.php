@@ -29,12 +29,7 @@
             <form id="form-save">
               <div class="card-body">
                 <h4 class="card-title">Custom Belanja Langsung</h4>
-
-
                 <div class="row">
-
-
-
                         <div class="col-md-12 col-sm-12 col-xs-12">
                           <div class="row">
                             <div class="col-md-2 col-sm-6 col-xs-12">
@@ -42,7 +37,7 @@
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                   <div class="form-group">
-                                    <input type="text" name="storename" class="form-control">
+                                    <input type="text" name="storename" style="text-transform:uppercase;" class="form-control">
                                   </div>
                             </div>
                             <div class="col-md-2 col-sm-6 col-xs-12">
@@ -60,7 +55,7 @@
                   </div>
                   <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                      <input type="text" name="item" class="form-control">
+                      <input type="text" name="item" style="text-transform:uppercase;" class="form-control" id="dbldt_item">
                     </div>
                   </div>
                   <div class="col-md-1 col-sm-12 col-xs-12">
@@ -68,7 +63,7 @@
                   </div>
                   <div class="col-md-2 col-sm-12 col-xs-12">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-sm" name="" id="dbldt_item">
+                      <input type="text" class="form-control form-control-sm mask" name="" id="dbldt_price">
                     </div>
                   </div>
                   <div class="col-md-1 col-sm-12 col-xs-12">
@@ -116,7 +111,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control form-control-sm right format_money dbldt_tax" name="dbldt_tax" value="0" id="dbldt_tax">
+                        <input type="text" class="form-control form-control-sm right rp format_money dbldt_tax" name="dbldt_tax" value="0" id="dbldt_tax">
                       </div>
                     </div>
                     <div class="offset-md-8 col-md-2 col-sm-12 col-xs-12">
@@ -128,7 +123,6 @@
                       </div>
                     </div>
                   </div>
-
                  </div>
                </div>
                 <div align="right" style="margin-top: 15px;">
@@ -143,6 +137,8 @@
     </div>
   </div>
 </div>
+</div>
+</div>
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
@@ -150,73 +146,70 @@
 
   $(document).ready(function() {
 
-   $('#dbl_vendor').change(function(){
+  $("#dbldt_item").autocomplete({
+    source: baseUrl + '/purchase/belanjalangsung/autocomplete',
+    select: function(event, ui) {
+      $('#dbldt_item').val(ui.item.label);
+      $('#dbldt_price').val(accounting.formatMoney(ui.item.id,"",0,'.',','));
+    }
+  });
 
-    var name = $(this).find(':selected').data('name');
-    var address = $(this).find(':selected').data('alamat');
-
-    $('#dbl_name').val(name);
-    $('#dbl_address').val(address);
-
-   });
+    $('.rp').mask('000.000.000.000.000', {reverse: true});
 
     var counter = 1;
     var table           = $("#t80b").DataTable();
     var dbldt_qty         = $("#dbldt_qty");
-    var dbldt_item          = $("#dbldt_item");
-    var dbldt_kodeitem       = $("#dbldt_kodeitem");
-
-    $('#dbldt_kodeitem').change(function(){
-      var this_val = $(this).find(':selected').data('price');
-          if($(this).val() != '') {
-            $('#dbldt_qty').attr('disabled',false);
-          }else{
-            $('#dbldt_qty').attr('disabled',true);
-          }
-      var price = dbldt_item.val(accounting.formatMoney(this_val,"",0,'.',','));
-    });
+    var dbldt_price         = $("#dbldt_price");
+    var dbldt_kodeitem       = $("#dbldt_item");
 
     $('#dbldt_qty').keypress(function(e){
       if (e.which == 13 || e.keyCode == 13) {
 
       var qty = dbldt_qty.val();
-      var harga_1 = dbldt_item.val();
+      var harga_1 = dbldt_price.val();
 
       qty = qty.replace(/[^0-9\-]+/g,"");
       harga_1 = harga_1.replace(/[^0-9\-]+/g,"");
 
       var total = parseInt(harga_1)*parseInt(qty);
 
-      var i_kode  = $('#dbldt_kodeitem').val();
-      var i_name  = $('#dbldt_kodeitem').find(':selected').data('name');
-      var i_price = $('#dbldt_kodeitem').find(':selected').data('price');
+      var i_name  = $('#dbldt_item').val();
+      var i_price = $('#dbldt_price').val();
       var i_qty   = $('#dbldt_qty').val();
-      var i_satuan = $('#dbldt_kodeitem').find(':selected').data('jenis');
 
-      var find = $('.namaitem').attr('data');
+      var find = $('.namaitem').val();
 
-      if (find == i_name) {
-        iziToast.warning({
-          icon: 'fa fa-times',
-          message: 'Sudah ada item yang sama!, coba pilih item yang berbeda :)',
-        });
-      } else {
-        table.row.add( [
-            '<input type="text" name="kode[]" class="form-control form-control-sm" value="'+i_kode+'" readonly>',
-            '<input type="text" name="nama[]" id="namaitem" data="'+i_name+'" class="form-control namaitem form-control-sm" value="'+i_name+'" readonly>',
-            '<input type="text" name="qty[]" onkeyup="qtydinamis('+counter+')" class="form-control form-control-sm" id="qty'+counter+'" value="'+i_qty+'">',
-            '<input type="text" name="satuan[]" class="form-control form-control-sm" value="'+i_satuan+'" readonly>',
-            '<input type="text" name="price[]" onkeyup="total('+counter+')" class="price form-control rp" id="price'+counter+'" value="'+accounting.formatMoney(i_price,"",0,'.',',')+'">',
-            '<input type="text" name="total[]" class="form-control form-control-sm total_price" id="total'+counter+'" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
-            '<input type="checkbox" class="form-control form-control-sm ppn" onchange="ppn_10(this)">',
-            '<center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center>'
-
-        ] ).draw( false );
+      if (find == undefined) {
+        find = '';
       }
 
-        $('.rp').mask('000,000,000,000,000.00', {reverse: true});
+      if (i_name != '' || i_price != '') {
+        if (find.toString().toUpperCase() == i_name.toString().toUpperCase()) {
+          iziToast.warning({
+            icon: 'fa fa-times',
+            message: 'Sudah ada item yang sama!, coba pilih item yang berbeda :)',
+          });
+        } else {
+          table.row.add( [
+              '<input type="text" name="nama[]" id="namaitem" data="'+i_name+'" style="text-transform:uppercase;" class="form-control namaitem form-control-sm" value="'+i_name+'" readonly>',
+              '<input type="text" name="qty[]" onkeyup="qtydinamis('+counter+')" class="form-control form-control-sm" id="qty'+counter+'" value="'+i_qty+'">',
+              '<input type="text" name="price[]" onkeyup="total('+counter+')" class="price form-control rp" id="price'+counter+'" value="'+i_price+'">',
+              '<input type="text" name="total[]" class="form-control form-control-sm total_price" id="total'+counter+'" value="'+accounting.formatMoney(total,"",0,'.',',')+'" readonly>',
+              '<center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center>'
+
+          ] ).draw( false );
+        }
+      } else {
+        iziToast.warning({
+          icon: 'fa fa-times',
+          message: 'Item, Price, Harus terisi :)',
+        });
+      }
+
+        $('.rp').mask('000.000.000.000.000', {reverse: true});
         counter++;
         $('#dbldt_qty').val('');
+        $('#dbldt_price').val('');
         $('#dbldt_item').val('');
         dbldt_kodeitem.val('').trigger('change');
 
@@ -235,6 +228,17 @@
         total_net = total_price + parseInt(tax);
 
         $("#total_net").val(accounting.formatMoney(total_net,"",0,'.',','));
+
+        var total_sub   = $('.dbldt_subtotal').val();
+        total_sub       = total_sub.replace(/[^0-9\-]+/g,"")*1;
+        var tax = 0.1;
+
+        var hasiltax = parseInt(total_sub) * tax;
+
+        var hasil = parseInt(total_sub) + parseInt(hasiltax);
+
+        $('#dbldt_tax').val(accounting.formatMoney(hasiltax,"",0,'.',','));
+        $('#total_net').val(accounting.formatMoney(hasil,"",0,'.',','));
 
       }
     });
@@ -264,7 +268,16 @@
         $("#dbldt_subtotal").val(accounting.formatMoney(kurang_total,"",0,'.',','));
         $("#total_net").val(accounting.formatMoney(total_net,"",0,'.',','));
 
+        var total_sub   = $('.dbldt_subtotal').val();
+        total_sub       = total_sub.replace(/[^0-9\-]+/g,"")*1;
+        var tax = 0.1;
 
+        var hasiltax = parseInt(total_sub) * tax;
+
+        var hasil = parseInt(total_sub) + parseInt(hasiltax);
+
+        $('#dbldt_tax').val(accounting.formatMoney(hasiltax,"",0,'.',','));
+        $('#total_net').val(accounting.formatMoney(hasil,"",0,'.',','));
 
     } );
 
@@ -285,43 +298,13 @@
 
 });
 
-    function ppn_10 (a) {
-      var total_sub   = $('.dbldt_subtotal').val();
-      total_sub       = total_sub.replace(/[^0-9\-]+/g,"")*1;
-      var tax = [];
-
-      var hitung_tax = 0;
-      var total_net_hitung = 0;
-      $('.ppn').each(function(){
-          if ($(this).is(':checked') == true) {
-            var par = $(this).parents('tr');
-            var total_price = $(par).find('.total_price').val()
-            total_price     = total_price.replace(/[^0-9\-]+/g,"")*1;
-            total_price     *= 10/100;
-            hitung_tax    += parseInt(total_price);
-          }
-          tax.push(total_price);
-      });
-      var html = '';
-      for (var i = 0; i < tax.length; i++) {
-        html += '<input type="hidden" name="tax[]" value="'+tax[i]+'">';
-      }
-
-      $('#taxshow').html(html);
-
-      $('#dbldt_tax').val(accounting.formatMoney(hitung_tax,"",0,'.',','));
-      $('#total_net').val(accounting.formatMoney(total_sub+hitung_tax,"",0,'.',','));
-
-
-    }
 
     $('#save_data').on('click', function(){
       waitingDialog.show();
-      var codevendor = $('#dbl_vendor').val();
       $.ajax({
         type: 'get',
         data: $('#form-save').serialize(),
-        url: baseUrl + '/purchase/belanjalangsung/simpan',
+        url: baseUrl + '/purchase/belanjalangsung/customsimpan',
         dataType: 'json',
         success : function(result){
           if (result.status == 'berhasil') {
@@ -330,7 +313,7 @@
               message: 'Berhasil Disimpan!',
             });
             setTimeout(function () {
-                          waitingDialog.hide();
+                          window.location.href = baseUrl + '/purchase/belanjalangsung/belanjalangsung';
                       }, 500);
           } else {
             iziToast.warning({
@@ -361,7 +344,16 @@
 
       $('#total'+counter).val(accounting.formatMoney(hasil,"",0,'.',','));
       linetotal();
-      ppn_10();
+      var total_sub   = $('.dbldt_subtotal').val();
+      total_sub       = total_sub.replace(/[^0-9\-]+/g,"")*1;
+      var tax = 0.1;
+
+      var hasiltax = parseInt(total_sub) * tax;
+
+      var hasil = parseInt(total_sub) + parseInt(hasiltax);
+
+      $('#dbldt_tax').val(accounting.formatMoney(hasiltax,"",0,'.',','));
+      $('#total_net').val(accounting.formatMoney(hasil,"",0,'.',','));
     }
 
     function linetotal(){
@@ -386,8 +378,19 @@
 
       $('#total'+counter).val(accounting.formatMoney(hasil,"",0,'.',','));
       linetotal();
-      ppn_10();
+      var total_sub   = $('.dbldt_subtotal').val();
+      total_sub       = total_sub.replace(/[^0-9\-]+/g,"")*1;
+      var tax = 0.1;
+
+      var hasiltax = parseInt(total_sub) * tax;
+
+      var hasil = parseInt(total_sub) + parseInt(hasiltax);
+
+      $('#dbldt_tax').val(accounting.formatMoney(hasiltax,"",0,'.',','));
+      $('#total_net').val(accounting.formatMoney(hasil,"",0,'.',','));
     }
+
+    $('.mask').maskMoney({thousands:'.', decimal:',', precision:0});
 
 </script>
 @endsection

@@ -15,6 +15,7 @@
   <!-- End plugin css for this page -->
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{asset('assets/node_modules/icheck/skins/all.css')}}">
+  <link href="{{ asset('assets/autocomplete/autocomplete.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('assets/node_modules/mdi/css/materialdesignicons.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
@@ -30,7 +31,7 @@
   <!-- JP-list -->
   <link rel="stylesheet" type="text/css" href="{{asset('assets/jp-list/css/jplist.core.min.css')}}">
   <link href="{{asset('assets/jp-list/css/jplist.textbox-filter.min.css')}}" rel="stylesheet" type="text/css" />
-  <link href="{{asset('assets/jp-list/css/jplist.pagination-bundle.min.css')}}" rel="stylesheet" type="text/css" /> 
+  <link href="{{asset('assets/jp-list/css/jplist.pagination-bundle.min.css')}}" rel="stylesheet" type="text/css" />
 
   <!-- demo pages styles -->
   <link rel="stylesheet" href="{{asset('assets/jp-list/css/jplist.bootstrap-demo.min.css')}}" />

@@ -5,7 +5,15 @@
   Version:	1.0
   Developer: Front-End Division (Ari Akbar Indrawidjaja, Alif Akbar Tejamukti);
 -------------------------------------------------------------------*/
-
+.text-right{
+	text-align: right;
+}
+.text-left{
+	text-align: left;
+}
+.text-center{
+	text-align: center;
+}
 .alamraya-no-padding {
 	padding: 0px;
 }

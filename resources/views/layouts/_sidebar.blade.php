@@ -336,8 +336,8 @@
               <div class="collapse {{Request::is('project/*') ? 'show' : ''}}" id="pompa">
                 <ul class="nav flex-column sub-menu">
 
-                  <li class="nav-item"> <a class="nav-link {{Request::is('project/pengadaanbarang/*') ? 'active' : ''
-                  }}" href="{{url('project/pengadaanbarang/pengadaanbarang')}}">Pengadaan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  {{-- <li class="nav-item"> <a class="nav-link {{Request::is('project/pengadaanbarang/*') ? 'active' : ''
+                  }}" href="{{url('project/pengadaanbarang/pengadaanbarang')}}">Pengadaan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li> --}}
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('project/pengirimanbarang/*') ? 'active' : ''
                   }}" href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
@@ -375,8 +375,8 @@
                 <ul class="nav flex-column sub-menu">
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('purchase/rencanapembelian/rencanapembelian') ? 'active' : '' || Request::is('purchase/rencanapembelian/*') ? 'active' : '' }}" href="{{url('purchase/rencanapembelian/rencanapembelian')}}">Request Order<span class="d-none">Purchase</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/belanjalangsung/belanjalangsung') ? 'active' : '' || Request::is('purchase/belanjalangsung/*') ? 'active' : '' }}" href="{{url('purchase/belanjalangsung/belanjalangsung')}}">Belanja Langsung<span class="d-none">Purchase</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('purchase/purchaseorder/purchaseorder') ? 'active' : '' || Request::is('purchase/purchaseorder/*') ? 'active' : '' }}" href="{{url('purchase/purchaseorder/purchaseorder')}}">Purchase Order<span class="d-none">Purchase</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('purchase/belanjalangsung/belanjalangsung') ? 'active' : '' || Request::is('purchase/belanjalangsung/*') ? 'active' : '' }}" href="{{url('purchase/belanjalangsung/belanjalangsung')}}">Belanja Langsung<span class="d-none">Purchase</span></a></li>
                 </ul>
                 </div>
             </li>
@@ -400,9 +400,9 @@
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/penerimaan_barang/penerimaan_barang') ? 'active' : '' || Request::is('inventory/penerimaan_barang/*') ? 'active' : '' }}" href="{{url('inventory/penerimaan_barang/penerimaan_barang')}}">Penerimaan Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/barangkeluar/barangkeluar') ? 'active' : '' || Request::is('inventory/barangkeluar/*') ? 'active' : '' }}" href="{{url('inventory/barangkeluar/barangkeluar')}}">Pengeluaran Barang<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/opname/opname') ? 'active' : '' || Request::is('inventory/opname/*') ? 'active' : '' }}" href="{{url('inventory/opname/opname')}}">Stock Opname<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockbarang/stockbarang') ? 'active' : '' || Request::is('inventory/stockbarang/*') ? 'active' : '' }}" href="{{url('inventory/stockbarang/stockbarang')}}">Input Stock Barang<span class="d-none">Inventory</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockgudang/stockgudang') ? 'active' : '' || Request::is('inventory/stockgudang/*') ? 'active' : '' }}" href="{{url('inventory/stockgudang/stockgudang')}}">Stock Gudang<span class="d-none">Inventory</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/stockbarang/stockbarang') ? 'active' : '' || Request::is('inventory/stockbarang/*') ? 'active' : '' }}" href="{{url('inventory/stockbarang/stockbarang')}}">Stock Barang<span class="d-none">Inventory</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('inventory/opname/opname') ? 'active' : '' || Request::is('inventory/opname/*') ? 'active' : '' }}" href="{{url('inventory/opname/opname')}}">Stock Opname<span class="d-none">Inventory</span></a></li>
                 </ul>
                 </div>
             </li>
