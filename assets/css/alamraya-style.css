@@ -64,12 +64,20 @@
 	height: 25px;
 }
 
+.alamraya-btn-aksi:focus > label {
+	color: white;
+}
+
 .alamraya-input-group-addon > span {
 	color: #495057;
 }
 
 .popover.clockpicker-popover{
     z-index: 999999;
+}
+
+.modal-content {
+	background: #dff5f6 ; 
 }
 
 @media (max-width: 767.98px) {

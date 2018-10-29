@@ -62,8 +62,8 @@ class HRDController extends Controller
     {
         return view('hrd/training_pegawai/training_pegawai');
     }
-    public function tambah_payroll()
+    public function setting_tunjangan()
     {
-        return view('hrd/payroll/tambah_payroll');
+        return view('hrd/payroll/setting_tunjangan');
     }
 }
