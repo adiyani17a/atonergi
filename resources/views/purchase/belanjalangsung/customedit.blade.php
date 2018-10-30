@@ -93,7 +93,7 @@
                        <tr>
                          <td><input type="text" name="nama[]" id="namaitem" data="{{$value->blcd_item}}" style="text-transform:uppercase;" class="form-control namaitem form-control-sm" value="{{$value->blcd_item}}" readonly></td>
                          <td><input type="text" name="qty[]" onkeyup="qtydinamis({{$key}})" class="form-control form-control-sm" id="qty{{$key}}" value="{{$value->blcd_qty}}"></td>
-                         <td><input type="text" name="price[]" onkeyup="total({{$key}})" class="price form-control rp" id="price{{$key}}" value="{{$value->blcd_price}}"></td>
+                         <td><input type="text" name="price[]" onkeyup="total({{$key}})" class="price form-control rp" id="price{{$key}}" value="{{number_format($value->blcd_price,0,',','.')}}"></td>
                          <td><input type="text" name="total[]" class="form-control form-control-sm total_price" id="total{{$key}}" value="{{number_format($value->blcd_total,0,',','.')}}" readonly></td>
                          <td><center><button type="button" class="delete btn btn-outline-danger icon-btn btn-sm"><i class="fa fa-trash"></i></button></center></td>
                        </tr>

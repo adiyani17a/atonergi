@@ -653,7 +653,7 @@ class belanjalangsungController extends Controller
                               ->where('ic_name', strtoupper($request->nama[$i]))
                               ->get();
 
-              if (!empty($checkitem)) {
+              if (empty($checkitem)) {
                 $itemid = DB::table('d_item_custom')
                             ->max('ic_id');
 
@@ -809,7 +809,7 @@ class belanjalangsungController extends Controller
                               ->where('ic_name', strtoupper($request->nama[$i]))
                               ->get();
 
-              if (!empty($checkitem)) {
+              if (empty($checkitem)) {
                 $itemid = DB::table('d_item_custom')
                             ->max('ic_id');
 

@@ -8,7 +8,7 @@
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
-    <div class="col-lg-12"> 
+    <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -31,15 +31,7 @@
 
                     <div class="row">
                       <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>Notice!</strong> <br>
-                            <label class="badge badge-pill badge-primary">1</label>
-                            Inprocess
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
+                        <div class="alert alert-warning alert-dismissible" title="Unprocess">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <strong>Notice!</strong> <br>
                             <label class="badge badge-pill badge-warning">1</label>
@@ -90,7 +82,7 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-  
+
   $('#datatable').DataTable({
             processing: true,
             // responsive:true,
@@ -107,7 +99,7 @@
                   {
                      targets: 2 ,
                      className: 'center'
-                  }, 
+                  },
                   {
                      targets: 3 ,
                      className: 'right format_money'
@@ -140,8 +132,7 @@
            url: '{{ route('cari_ro_purchaseorder') }}',
            data: $('#form_cari').serialize(),
            success: function(data){
-           console.log(data);   
-           var array_ro='';    
+           var array_ro='';
             if (data.length == 0) {
                 iziToast.warning({
                   icon: 'fa fa-times',
@@ -184,7 +175,7 @@
                 array_nama += '<td align="right">'+data[i].podt_qty_approved+'</td>';
               array_nama += '</tr>';
           })
-          $('#detail_rep').html(array_nama);  
+          $('#detail_rep').html(array_nama);
 
 
          },
@@ -203,7 +194,7 @@
       iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
@@ -222,7 +213,7 @@
                    url: '{{ route('cari_po_purchaseorder') }}',
                    data: $('#form_cari').serialize(),
                    success: function(data){
-                      
+
                    },
                     complete : function(){
                       window.location.href = this.url;
@@ -257,11 +248,11 @@
    function hapus(a) {
     var par   = $(a).parents('tr');
     var id    = $(par).find('.d_id').text();
-    
+
           iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
@@ -316,7 +307,7 @@
           iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
