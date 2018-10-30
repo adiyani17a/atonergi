@@ -13,18 +13,20 @@ class purchase_orderController extends Controller
     {
     	$vendor = DB::table('m_vendor')->get();
       $item = DB::table('m_item')->get();
-    	return view('purchase/purchaseorder/purchaseorder',compact('vendor','item'));
+      $ro = DB::table('d_requestorder')->join('m_vendor', 's_kode', '=', 'ro_vendor')->where('ro_status_po','=','F')->where('ro_status','=','T')->get();
+
+    	return view('purchase/purchaseorder/purchaseorder',compact('vendor','item', 'ro'));
     }
     public function datatable_purchaseorder()
     {
       $list = DB::select("SELECT * from d_purchaseorder left join m_vendor on m_vendor.s_kode = d_purchaseorder.po_vendor");
           // return $list;
       $data = collect($list);
-      
+
       // return $data;
 
       return Datatables::of($data)
-        
+
               ->addColumn('aksi', function ($data) {
                         if ($data->po_print == 'T' or $data->po_status == 'T') {
                             return '<span class="badge badge-pill badge-danger">Disabled</span>';
@@ -37,14 +39,14 @@ class purchase_orderController extends Controller
                                    '<button type="button" onclick="hapus(this)" class="btn btn-danger btn-sm" title="hapus">'.
                                    '<label class="fa fa-trash"></label></button>'.
                                   '</div>';
-                        } 
+                        }
               })
               ->addColumn('detail', function ($data) {
-                            
+
                   return '<button data-toggle="modal" onclick="detail(this)"  class="btn btn-outline-primary btn-sm">Detail</button>';
               })
               ->addColumn('status', function ($data) {
-                            
+
                   return '<span class="badge badge-warning badge-pill">In Process</span>';
               })
               ->rawColumns(['aksi','detail','confirmed','status'])
@@ -52,46 +54,82 @@ class purchase_orderController extends Controller
     }
    	public function cari_ro_purchaseorder(Request $request)
    	{
-   		$data = DB::table('d_requestorder')->where('ro_status_po','=','F')->where('ro_status','=','T')->where('ro_vendor','=',$request->cari_vendor)->get();	
+   		$data = DB::table('d_requestorder')->where('ro_status_po','=','F')->where('ro_status','=','T')->where('ro_vendor','=',$request->cari_vendor)->get();
 
    		return response()->json($data);
    	}
    	public function cari_po_purchaseorder(Request $request)
    	{
-   		// dd($request->all());
-      $no_ro = $request->cari_ro;
-      $no_vendor = $request->cari_vendor;
-   		$data_header = DB::table('d_requestorder')
+
+      $tmp = DB::table('d_requestorder')
+                    ->leftjoin('m_vendor','m_vendor.s_kode','=','d_requestorder.ro_vendor')
+                    ->where('ro_status_po','=','F')
+                    ->where('ro_status','=','T')
+                    ->whereIn('ro_code',$request->check)
+                    ->get();
+
+      for ($i=0; $i < count($request->check); $i++) {
+        $valid = DB::table('d_requestorder')
                       ->leftjoin('m_vendor','m_vendor.s_kode','=','d_requestorder.ro_vendor')
                       ->where('ro_status_po','=','F')
                       ->where('ro_status','=','T')
-                      ->where('ro_code','=',$request->cari_ro)
-                      ->first();
-
-   		json_encode($data_header);
-      $data_seq = DB::table('d_requestorder_dt')
-                      ->join('m_item','m_item.i_code','=','d_requestorder_dt.rodt_barang')
-                      ->where('rodt_status_po','=','F')
-                      ->where('rodt_status','=','T')
-                      ->where('rodt_code','=',$request->cari_ro)
+                      ->where('ro_code','=',$request->check[$i])
                       ->get();
 
-    	$vendor = DB::table('m_vendor')->get();
-      $item = DB::table('m_item')->get();
+        for ($z=0; $z < count($tmp); $z++) {
+          if ($tmp[$z]->ro_vendor == $valid[0]->ro_vendor) {
+            $no_ro = [];
+            $ro = $request->check;
+            for ($i=0; $i < count($request->check); $i++) {
+              $no_ro = $request->check[$i];
+              $data_header = DB::table('d_requestorder')
+                            ->leftjoin('m_vendor','m_vendor.s_kode','=','d_requestorder.ro_vendor')
+                            ->where('ro_status_po','=','F')
+                            ->where('ro_status','=','T')
+                            ->where('ro_code','=',$request->check[$i])
+                            ->first();
 
-      $kode = DB::table('d_purchaseorder')->max('po_id');
-            if ($kode == null) {
-                $kode = 1;
-            }else{
-                $kode += 1;
+              $no_vendor = $data_header->ro_vendor;
+
+            json_encode($data_header);
             }
-      $index = str_pad($kode, 3, '0', STR_PAD_LEFT);
-      $date = date('my');
-      $nota = 'PO-'.$index.'/'.$request->cari_vendor.'/'.$date;
 
-      $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
-      
-   		return view('purchase/purchaseorder/create_purchaseorder',compact('data_header','data_seq','vendor','nota','no_ro','no_vendor','item'));
+            $data_seq = DB::table('d_requestorder_dt')
+                            ->join('m_item','m_item.i_code','=','d_requestorder_dt.rodt_barang')
+                            ->where('rodt_status_po','=','F')
+                            ->where('rodt_status','=','T')
+                            ->whereIn('rodt_code',$request->check)
+                            ->orderBy('rodt_code')
+                            ->get();
+
+
+            $kode = DB::table('d_purchaseorder')->max('po_id');
+                  if ($kode == null) {
+                      $kode = 1;
+                  }else{
+                      $kode += 1;
+                  }
+
+            $index = str_pad($kode, 3, '0', STR_PAD_LEFT);
+            $date = date('my');
+            $nota = 'PO-'.$index.'/'.$request->vendor[$i].'/'.$date;
+
+            $vendor = DB::table('m_vendor')->get();
+            $item = DB::table('m_item')->get();
+
+            $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
+
+            return view('purchase/purchaseorder/create_purchaseorder',compact('ro','data_header','data_seq','vendor','nota','no_ro','no_vendor','item'));
+            return response()->json([
+              'status' => 'vendor sama'
+            ]);
+          } else {
+            return response()->json([
+              'status' => 'vendor tidak sama'
+            ]);
+          }
+        }
+      }
    	}
     public function detail_purchaseorder(Request $request)
     {
@@ -136,7 +174,7 @@ class purchase_orderController extends Controller
                         ]);
 
       $kode_seq = 0;
-      for ($i=0; $i <count($request->podt_barang) ; $i++) { 
+      for ($i=0; $i <count($request->podt_barang) ; $i++) {
         $kode_seq = $kode_seq + 1;
 
         $podt_barang[$i] = str_replace('.','',$request->podt_barang[$i]);
@@ -158,7 +196,7 @@ class purchase_orderController extends Controller
         $request_sequence = DB::table('d_requestorder_dt')
                         ->where('rodt_code','=',$request->nomor_ro)
                         ->update([
-                          'rodt_status_po'=>'T',  
+                          'rodt_status_po'=>'T',
                         ]);
 
       }
@@ -169,7 +207,7 @@ class purchase_orderController extends Controller
                           'ro_status_po'=>'T',
                         ]);
 
-      return response()->json(['status'=>1]);  
+      return response()->json(['status'=>1]);
     }
     public function hapus_purchaseorder(Request $request)
     {

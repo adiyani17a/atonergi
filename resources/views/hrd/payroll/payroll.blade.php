@@ -304,22 +304,18 @@
 
 <script type="text/javascript">
 	
-  $(document).ready(function() { 
-    //mask money
-    $.fn.maskFunc = function(){
-      $('.currency').inputmask("currency", {
-        radixPoint: ",",
-        groupSeparator: ".",
-        digits: 2,
-        autoGroup: true,
-        prefix: '', //Space after $, this will not truncate the first character.
-        rightAlign: false,
-        oncleared: function () { self.Value(''); }
-      });
-    }
-
-    $(this).maskFunc();
-  }); 
+  $(function() {
+    $('.currency').maskMoney(
+    	{
+    		prefix:'RP. ',
+    		allowZero: true,
+    		allowNegative: true, 
+    		thousands:'.', 
+    		decimal:',', 
+    		affixesStay: false
+    	}
+    );
+  })
 
 </script>
 

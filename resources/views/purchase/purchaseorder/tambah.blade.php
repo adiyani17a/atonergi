@@ -2,7 +2,7 @@
 <!-- Modal -->
 <form id="form_cari">
 <div id="cari" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg" style="width:400px">
+  <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -13,45 +13,36 @@
       <div class="modal-body">
         <div class="row">
 
-            
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="row">
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                  <label>Vendor</label>
-                </div>
-                <div class="col-md-10 col-sm-6 col-xs-12">
-                  <div class="form-group">
-                      <select class="form-control form-control-sm" name="cari_vendor" id="cari_vendor">
-                        <option selected="" value="">- Pilih -</option>
-                          @foreach ($vendor as $v)
-                              <option value="{{ $v->s_kode }}" data-name="{{ $v->s_name }}">{{ $v->s_kode }} - {{ $v->s_company }}</option>
-                          @endforeach
-                      </select>
-                  </div>
-                </div>
+          <table class="table table-bordered table-hover table-striped" id="tablecari">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>No. RO</th>
+                <th>Tanggal</th>
+                <th>Vendor</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($ro as $key => $value)
+                <tr>
+                  <td>{{$key + 1}}</td>
+                  <td>{{$value->ro_code}}</td>
+                  <td>{{Carbon\Carbon::parse($value->ro_insert)->format('d-m-Y')}}</td>
+                  <td>{{$value->s_company}}</td>
+                  <td align="center">
+                    <div class="checkbox checkbox-primary checkbox-inline col-sm-2">
+                                    <input type="checkbox" id="check{{$key}}" class="check" name="check[]" value="{{$value->ro_code}}">
+                                    <label for="check{{$key}}"></label>
+                    </div>
+                  </td>
+                  <input type="hidden" name="vendor[]" class="vendor" value="{{$value->ro_vendor}}">
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
 
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                  <label>No.ro</label>
-                </div>
-                <div class="col-md-10 col-sm-6 col-xs-12">
-                  <div class="form-group">
-                      <select class="form-control form-control-sm" name="cari_ro" id="cari_ro">
-                        <option selected="" value="">- Pilih -</option>
-                      </select>
-                  </div>
-                </div>
-
-              
-              </div>
-
-              
-           </div>
-
-        
-         
-
-         
-      </div>
+        </div>
       <div class="modal-footer">
         <button class="btn btn-primary" type="button" id="create_po" style="margin-right: 0.1px;">Process</button>
         <button type="button" class="btn btn-warning" data-dismiss="modal" style="margin-right: 50px;">Close</button>

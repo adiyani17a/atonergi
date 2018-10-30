@@ -6,6 +6,8 @@
     <!-- jQuery UI -->
   <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
   <script src="{{asset('assets/js/jquerymask.min.js')}}"></script>
+  <!-- <script src="{{asset('assets/js/iCheck.js')}}"></script> -->
+  <script src="{{asset('assets/js/icheck.min.js')}}"></script>
   <script src="{{ asset('assets/autocomplete/autocomplete.js') }}"></script>
   {{-- <script src="{{asset('assets/node_modules/jquery-ui/jquery-ui.js')}}"></script> --}}
   <script src="{{asset('assets/js/jquery-clockpicker.min.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>

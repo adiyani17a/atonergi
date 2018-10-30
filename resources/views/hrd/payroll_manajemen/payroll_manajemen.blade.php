@@ -1,6 +1,8 @@
 @extends('main')
 @section('content')
 
+@include('hrd/payroll_manajemen/tambah_payroll_manajemen')
+@include('hrd/payroll_manajemen/detail_payroll_manajemen')
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
@@ -63,7 +65,7 @@
 				                </div>
 				                <div class="row form-group">
 									<div class="col-lg-12 col-md-12 col-sm-12">
-					                	<label class="col-lg-12 col-form-label alamraya-no-padding">Tanggal</label>
+					                	<label class="col-lg-12 col-form-label alamraya-no-padding">Periode (Mulai - Selesai)</label>
 
 					                	<div class="col-lg-12 col-md-12 col-sm-12">
 					                		<div class="row">
@@ -96,7 +98,7 @@
 							                            </button>
 							                        </span>
 												</div>
-												<button class="btn btn-info alamraya-btn-add" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+												<button class="btn btn-info alamraya-btn-add" data-toggle="modal" data-target="#tambahpayman"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
 											</div>
 										</div>
 									</div>
@@ -107,19 +109,32 @@
 										<table class="table table-hover data-table" cellspacing="0">
 										  <thead class="bg-gradient-info">
 										    <tr>
-										      <th>No</th>
-										      <th>NIK</th>
+										      <th>Kode</th>
+										      <th>Tanggal</th>
+										      <th>Periode</th>
+										      <th>NIP</th>
 										      <th>Nama Pegawai</th>
-										      <th>Item Produksi</th>
+										      <th>Total Gaji</th>
+										      <th>Tanggal Cetak</th>
 										      <th>Aksi</th>
 										    </tr>
 										  </thead>
 										  <tbody class="center">
 										    <tr>
-												<td>1</td>
+												<td>#123456789</td>
+												<td>12-12-2018</td>
+												<td>
+													<div class="pull-left">12-12-2018</div><br>
+													<div class="center">s/d</div>
+										    		<div class="pull-right">12-12-2018</div>
+												</td>
 												<td>#123456789</td>
 												<td>Nasikhatul Insaniyah</td>
-												<td>Item Produksi 1</td>
+												<td>
+													<div class="pull-left">Rp.</div>
+										    		<div class="pull-right">1.430.000,00</div>
+												</td>
+												<td>12-12-2018</td>
 												<td>
 													<center>
 											    		<div class="btn-group">

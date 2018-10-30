@@ -14,7 +14,7 @@
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
-    <div class="col-lg-12"> 
+    <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -29,19 +29,19 @@
             <form id="form-save">
               <div class="card-body">
                 <h4 class="card-title">Tambah Purchase Order</h4>
-                 
+
 
                 <div class="row">
 
-                    
-                    
+
+
                         <div class="col-md-7 col-sm-12 col-xs-12">
                           <div class="row">
-                            
+
                             <div class="col-md-2 col-sm-6 col-xs-12">
                               <label>Vendor Id</label>
                             </div>
-                            
+
                             <div class="col-md-4 col-sm-6 col-xs-12">
                               <div class="form-group">
                                   <div class="form-group">
@@ -55,7 +55,7 @@
                             <div class="col-md-2 col-sm-6 col-xs-12">
                               <label>Vendor Name</label>
                             </div>
-                            
+
                             <div class="col-md-4 col-sm-6 col-xs-12">
                               <div class="form-group">
                                   <div class="form-group">
@@ -77,7 +77,7 @@
                           </div>
                        </div>
 
-                
+
                        <div class="col-md-5 col-sm-12 col-xs-12" style="height: 1%;">
 
                         <div class="row">
@@ -103,7 +103,10 @@
                           </div>
                           <div class="col-md-8 col-sm-6 col-xs-12">
                             <div class="form-group">
-                              <input type="text" class="form-control form-control-sm readonly" name="po_noro" value="{{ $no_ro }}">
+                              @foreach ($ro as $key => $value)
+                                <input type="text" class="form-control form-control-sm readonly" name="po_noro" value="{{$value}}">
+                                <br>
+                              @endforeach
                             </div>
                           </div>
                           <div class="col-md-4 col-sm-6 col-xs-12">
@@ -137,7 +140,7 @@
                         </div>
                       </div>
 
-                      
+
 
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <label>Shipping Term</label>
@@ -148,7 +151,7 @@
                         </div>
                       </div>
 
-                      
+
 
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <label>Delivery Date</label>
@@ -172,7 +175,7 @@
                       <select class="form-control form-control-sm" id="rp_kodeitem">
                         <option selected="" value="">- Pilih -</option>
                         @foreach ($item as $i)
-                          <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}" 
+                          <option value="{{ $i->i_code }}" data-name="{{ $i->i_name }}" data-price="{{ $i->i_price }}"
                             @if ($i->sg_qty != null)
                               data-qty="{{ $i->sg_qty }}"
                             @else
@@ -197,7 +200,7 @@
                     </div>
                   </div>
                 </div>
-               
+
                <div class="table-responsive" style="margin-bottom: 15px;">
                  <table class="table table-bordered table-hover" cellspacing="0" id="t72a">
                    <thead class="bg-gradient-info">
@@ -259,10 +262,10 @@
                       </div>
                     </div>
                   </div>
-                  
+
                  </div>
                </div>
-              
+
                 <div align="right" style="margin-top: 15px;">
                   <div id="change_function">
                     <button class="btn-info btn-sm btn" type="button" id="save_data">Create Po</button>
@@ -283,34 +286,36 @@
 
 
   $('#rp_kodeitem').change(function(){
-      var this_val = $(this).find(':selected').data('price');   
+      var this_val = $(this).find(':selected').data('price');
           if($(this).val() != '') {
             $('#rp_qty').attr('disabled',false);
           }else{
-            $('#rp_qty').attr('disabled',true);          
-          }    
+            $('#rp_qty').attr('disabled',true);
+          }
       var price = $('#rp_item').val(accounting.formatMoney(this_val,"",0,'.',','));
   });
-  
-
-  
 
 
-    var table           = $("#t72a").DataTable();
+
+
+
+    var table           = $("#t72a").DataTable({
+      "scrollX": true
+    });
     var rp_qty         = $("#rp_qty");
     var rp_item          = $("#rp_item");
     var rp_kodeitem       = $("#rp_kodeitem");
 
     var x = 1;
- 
-    $('#rp_qty').attr('disabled',true); 
+
+    $('#rp_qty').attr('disabled',true);
     $('#rp_kodeitem').change(function(){
-      var this_val = $(this).find(':selected').data('price');   
+      var this_val = $(this).find(':selected').data('price');
           if($(this).val() != '') {
             $('#rp_qty').attr('disabled',false);
           }else{
-            $('#rp_qty').attr('disabled',true);          
-          }    
+            $('#rp_qty').attr('disabled',true);
+          }
       var price = $('#rp_item').val(accounting.formatMoney(this_val,"",0,'.',','));
     });
 
@@ -326,7 +331,7 @@
         var total = parseInt(harga_1)*parseInt(qty);
         table.row.add( [
             '<input type="text" id="item_kode[]"    name="podt_barang[]"    class="form-control input-sm min-width readonly" readonly value="'+ rp_kodeitem.val() +'">',
-            '<input type="text" id="podt_name[]"    name="podt_name[]"   class="form-control input-sm min-width readonly" value="'+ rp_kodeitem.find(':selected').data('name') +'">',  
+            '<input type="text" id="podt_name[]"    name="podt_name[]"   class="form-control input-sm min-width readonly" value="'+ rp_kodeitem.find(':selected').data('name') +'">',
             '<input type="text" id="podt_qty_requested[]"   class="form-control input-sm min-width right readonly " value="'+rp_qty.val()+'">',
             '<input type="text" id="podt_qty[]"     name="podt_qty[]"    class="form-control input-sm min-width right readonly qty_approved_value qty" onkeyup="hitung_qty(this)" value="'+rp_qty.val()+'">',
             '<input type="number" id="jumlah[]"     name="ro_qty_seq[]"    class="form-control input-sm min-width right readonly total_qty "  value="'+ accounting.formatMoney(rp_qty.val(),"",0,'.',',') +'">',
@@ -335,7 +340,7 @@
             '<td><input type="checkbox" name="podt_ppn[]" class="ppn" onchange="ppn_10(this)">10%</td>',
             '<button type="button" class="delete btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>',
         ] ).draw( false );
-      
+
         x++;
 
         var total_price = 0;
@@ -360,8 +365,8 @@
         rp_qty.val('');
       }
     });
- 
-    
+
+
 
     $('#t72a tbody').on( 'click', '.delete', function () {
         table
@@ -388,8 +393,8 @@
     });
 
 
-    
-  
+
+
     //HITUNG SALES TAX
     $('#po_tax').keyup(function(){
       var total_net = $("#po_subtotal").val();
@@ -402,10 +407,10 @@
 
 
 
-   
+
    $('#datatable tbody').on( 'click', '.delete', function () {
-    var parents = $(this).parents('tr');  
-    
+    var parents = $(this).parents('tr');
+
     var total_price = $(parents).find('.total_price').val();
     var sub_total = $('#po_subtotal').val();
     var po_tax = $('#po_tax').val();
@@ -442,7 +447,7 @@
 
     function hitung_qty(a){
       //HITUNG QTY PADA TABLE
-      var parents_qty = $(a).parents('tr');    
+      var parents_qty = $(a).parents('tr');
       var qty_value = $(parents_qty).find('.qty').val();
       var qty_approved_value = $(parents_qty).find('.qty_approved_value').val();
       var unit_value = $(parents_qty).find('.unit_price').val();
@@ -476,7 +481,7 @@
       });
 
       $("#po_subtotal").val(accounting.formatMoney(total_price,"",0,'.',','));
-      
+
       //PENGURANGAN TAX
       var tax =  $('#po_tax').val();
       tax = tax.replace(/[^0-9\-]+/g,"");
@@ -487,7 +492,7 @@
 
 
     function ppn_10 (a) {
-      var parents_ppn = $(a).parents('tr');    
+      var parents_ppn = $(a).parents('tr');
       var ppn_value = $(parents_ppn).find('.ppn').val();
       var total_price = $(parents_ppn).find('.total_price').val();
       total_price = total_price.replace(/[^0-9\-]+/g,"");
@@ -509,16 +514,16 @@
       }
     }
 
-   
 
 
- 
+
+
   $('#change_function').on("click","#save_data",function(){
 
      iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
@@ -535,7 +540,7 @@
                    url: '{{ route('save_purchaseorder') }}',
                    data: $('#form-save').serialize(),
                    success: function(data){
-                      
+
 
                       iziToast.success({
                         icon: 'fas fa-check-circle',
@@ -555,7 +560,7 @@
                  });
 
 
-                 
+
                 }
               ],
               [
@@ -569,14 +574,10 @@
             ]
           });
 
-   
+
   })
 
 
 
 </script>
 @endsection
-
-
-
-

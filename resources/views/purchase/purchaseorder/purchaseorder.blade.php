@@ -8,7 +8,7 @@
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
-    <div class="col-lg-12"> 
+    <div class="col-lg-12">
       <nav aria-label="breadcrumb" role="navigation">
         <ol class="breadcrumb bg-info">
           <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -31,15 +31,7 @@
 
                     <div class="row">
                       <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="alert alert-primary alert-dismissible" title="DP sudah Lunas">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>Notice!</strong> <br>
-                            <label class="badge badge-pill badge-primary">1</label>
-                            Inprocess
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="alert alert-warning alert-dismissible" title="DP belum Lunas">
+                        <div class="alert alert-warning alert-dismissible" title="Unprocess">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <strong>Notice!</strong> <br>
                             <label class="badge badge-pill badge-warning">1</label>
@@ -49,7 +41,7 @@
                     </div>
 
                     <div class="table-responsive">
-                      <table class="table table-bordered table-hover " id="datatable" cellspacing="0">
+                      <table class="table table-bordered table-hover" id="datatable" cellspacing="0">
                         <thead class="bg-gradient-info">
                           <tr>
                             <th>P.O.#</th>
@@ -90,7 +82,7 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-  
+
   $('#datatable').DataTable({
             processing: true,
             // responsive:true,
@@ -107,7 +99,7 @@
                   {
                      targets: 2 ,
                      className: 'center'
-                  }, 
+                  },
                   {
                      targets: 3 ,
                      className: 'right format_money'
@@ -131,6 +123,8 @@
             ]
       });
 
+      $('#tablecari').dataTable();
+
 
   $('#cari_vendor').change(function(){
       var this_val = $(this).val();
@@ -140,8 +134,7 @@
            url: '{{ route('cari_ro_purchaseorder') }}',
            data: $('#form_cari').serialize(),
            success: function(data){
-           console.log(data);   
-           var array_ro='';    
+           var array_ro='';
             if (data.length == 0) {
                 iziToast.warning({
                   icon: 'fa fa-times',
@@ -176,7 +169,6 @@
          url: '{{ route('detail_purchaseorder') }}',
          data: {id},
          success: function(data){
-          console.log(data);
           var array_nama='';
           $.each(data, function(i, item) {
               array_nama += '<tr>';
@@ -184,7 +176,7 @@
                 array_nama += '<td align="right">'+data[i].podt_qty_approved+'</td>';
               array_nama += '</tr>';
           })
-          $('#detail_rep').html(array_nama);  
+          $('#detail_rep').html(array_nama);
 
 
          },
@@ -200,68 +192,72 @@
 
   $('#create_po').click(function(){
 
-      iziToast.show({
-            overlay: true,
-            close: false,
-            timeout: 20000, 
-            color: 'dark',
-            icon: 'fas fa-question-circle',
-            title: 'Important!',
-            message: 'Apakah Anda Yakin ?!',
-            position: 'center',
-            progressBarColor: 'rgb(0, 255, 184)',
-            buttons: [
-              [
-                '<button style="background-color:#44d7c9;">Process</button>',
-                function (instance, toast) {
+          iziToast.show({
+                overlay: true,
+                close: false,
+                timeout: 20000,
+                color: 'dark',
+                icon: 'fas fa-question-circle',
+                title: 'Important!',
+                message: 'Apakah Anda Yakin ?!',
+                position: 'center',
+                progressBarColor: 'rgb(0, 255, 184)',
+                buttons: [
+                  [
+                    '<button style="background-color:#44d7c9;">Process</button>',
+                    function (instance, toast) {
 
 
-                //ajax
-                 $.ajax({
-                   type: "get",
-                   url: '{{ route('cari_po_purchaseorder') }}',
-                   data: $('#form_cari').serialize(),
-                   success: function(data){
-                      
-                   },
-                    complete : function(){
-                      window.location.href = this.url;
-                    },
-                   error: function(){
-                    iziToast.warning({
-                      icon: 'fa fa-times',
-                      message: 'Terjadi Kesalahan!',
-                    });
-                   },
-                   async: false
-                 });
-                //end of ajax
+                    //ajax
+                     $.ajax({
+                       type: "get",
+                       url: '{{ route('cari_po_purchaseorder') }}',
+                       data: $('#form_cari').serialize(),
+                       success: function(data){
+                         if (data.status == 'vendor tidak sama') {
+                           iziToast.warning({
+                             icon: 'fa fa-times',
+                             message: 'Vendor tidak boleh sama!',
+                           });
+                         } else {
+                           window.location.href = this.url;
+                         }
+                       },
+                       error: function(){
+                        iziToast.warning({
+                          icon: 'fa fa-times',
+                          message: 'Terjadi Kesalahan!',
+                        });
+                       },
+                       async: false
+                     });
+                    //end of ajax
 
 
-                }
+                    }
 
-              ],
-              [
-                '<button style="background-color:red;">Cancel</button>',
-                function (instance, toast) {
-                  instance.hide({
-                    transitionOut: 'fadeOutUp'
-                  }, toast);
-                }
-              ]
-            ]
-          });
-    })
+                  ],
+                  [
+                    '<button style="background-color:red;">Cancel</button>',
+                    function (instance, toast) {
+                      instance.hide({
+                        transitionOut: 'fadeOutUp'
+                      }, toast);
+                    }
+                  ]
+                ]
+              });
+  });
 
 
    function hapus(a) {
     var par   = $(a).parents('tr');
     var id    = $(par).find('.d_id').text();
-    
+
           iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
@@ -316,7 +312,7 @@
           iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
@@ -368,6 +364,13 @@
           });
    }
 
+   function valid(total, num){
+     if (total != num) {
+       return false;
+     } else if (total == num) {
+       return true;
+     }
+   }
 
 
   // cari_vendor

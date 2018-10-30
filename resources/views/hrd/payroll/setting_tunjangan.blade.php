@@ -96,9 +96,17 @@
 @section('extra_script')
 
 <script type="text/javascript">
-	function() {
+
+	$('.btn-check-all').click(function() {
 	  $('.ceklis_tunjangan').iCheck('check');
-	}
+	  // alert('checked');
+	});
+
+	$('.btn-uncheck-all').click(function() {
+	  $('.ceklis_tunjangan').iCheck('uncheck');
+	  // alert('checked');
+	});
+
 </script>
 
 @endsection
