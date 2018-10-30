@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="table-responsive">
-                      <table class="table table-bordered table-hover " id="datatable" cellspacing="0">
+                      <table class="table table-bordered table-hover" id="datatable" cellspacing="0">
                         <thead class="bg-gradient-info">
                           <tr>
                             <th>P.O.#</th>
@@ -123,6 +123,8 @@
             ]
       });
 
+      $('#tablecari').dataTable();
+
 
   $('#cari_vendor').change(function(){
       var this_val = $(this).val();
@@ -167,7 +169,6 @@
          url: '{{ route('detail_purchaseorder') }}',
          data: {id},
          success: function(data){
-          console.log(data);
           var array_nama='';
           $.each(data, function(i, item) {
               array_nama += '<tr>';
@@ -191,58 +192,62 @@
 
   $('#create_po').click(function(){
 
-      iziToast.show({
-            overlay: true,
-            close: false,
-            timeout: 20000,
-            color: 'dark',
-            icon: 'fas fa-question-circle',
-            title: 'Important!',
-            message: 'Apakah Anda Yakin ?!',
-            position: 'center',
-            progressBarColor: 'rgb(0, 255, 184)',
-            buttons: [
-              [
-                '<button style="background-color:#44d7c9;">Process</button>',
-                function (instance, toast) {
+          iziToast.show({
+                overlay: true,
+                close: false,
+                timeout: 20000,
+                color: 'dark',
+                icon: 'fas fa-question-circle',
+                title: 'Important!',
+                message: 'Apakah Anda Yakin ?!',
+                position: 'center',
+                progressBarColor: 'rgb(0, 255, 184)',
+                buttons: [
+                  [
+                    '<button style="background-color:#44d7c9;">Process</button>',
+                    function (instance, toast) {
 
 
-                //ajax
-                 $.ajax({
-                   type: "get",
-                   url: '{{ route('cari_po_purchaseorder') }}',
-                   data: $('#form_cari').serialize(),
-                   success: function(data){
+                    //ajax
+                     $.ajax({
+                       type: "get",
+                       url: '{{ route('cari_po_purchaseorder') }}',
+                       data: $('#form_cari').serialize(),
+                       success: function(data){
+                         if (data.status == 'vendor tidak sama') {
+                           iziToast.warning({
+                             icon: 'fa fa-times',
+                             message: 'Vendor tidak boleh sama!',
+                           });
+                         } else {
+                           window.location.href = this.url;
+                         }
+                       },
+                       error: function(){
+                        iziToast.warning({
+                          icon: 'fa fa-times',
+                          message: 'Terjadi Kesalahan!',
+                        });
+                       },
+                       async: false
+                     });
+                    //end of ajax
 
-                   },
-                    complete : function(){
-                      window.location.href = this.url;
-                    },
-                   error: function(){
-                    iziToast.warning({
-                      icon: 'fa fa-times',
-                      message: 'Terjadi Kesalahan!',
-                    });
-                   },
-                   async: false
-                 });
-                //end of ajax
 
+                    }
 
-                }
-
-              ],
-              [
-                '<button style="background-color:red;">Cancel</button>',
-                function (instance, toast) {
-                  instance.hide({
-                    transitionOut: 'fadeOutUp'
-                  }, toast);
-                }
-              ]
-            ]
-          });
-    })
+                  ],
+                  [
+                    '<button style="background-color:red;">Cancel</button>',
+                    function (instance, toast) {
+                      instance.hide({
+                        transitionOut: 'fadeOutUp'
+                      }, toast);
+                    }
+                  ]
+                ]
+              });
+  });
 
 
    function hapus(a) {
@@ -359,6 +364,13 @@
           });
    }
 
+   function valid(total, num){
+     if (total != num) {
+       return false;
+     } else if (total == num) {
+       return true;
+     }
+   }
 
 
   // cari_vendor
