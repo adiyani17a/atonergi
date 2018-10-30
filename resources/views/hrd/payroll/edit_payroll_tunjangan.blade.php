@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control currency" min="0" value="50000">   
+                <input type="text" class="form-control currency" value="40.000,00" data-thousands="." data-decimal="," data-prefix="RP. ">   
               </div>
             </div>
           

@@ -39,6 +39,10 @@
               <label>Daftar Tunjangan (Ceklist pada tunjangan terpilih)</label>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
+              <button type="button" class="btn btn-success btn-sm btn-check-all" >Check all</button>
+              <button type="button" class="btn btn-default btn-sm btn-uncheck-all">Uncheck all</button>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-check form-check-flat">
                 <label class="form-check-label">
                   <input type="checkbox" class="form-check-input ceklis_tunjangan">
@@ -87,10 +91,6 @@
                   Lembur Mingguan (Leader) | Periode : Mingguan
                 </label>
               </div>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <button type="button" class="btn btn-success btn-sm" id="btn-check-all">Check all</button>
-              <button type="button" class="btn btn-default btn-sm" id="btn-uncheck-all">Uncheck all</button>
             </div>
 
          </div> <!-- End div row -->

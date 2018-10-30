@@ -37,7 +37,8 @@
             </div>
             <div class="col-md-9 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control" min="0" id="jumlah">   
+                <!-- <input type="number" class="form-control" min="0" id="jumlah">    -->
+                <input type="text" class="form-control currency" placeholder="RP. 0,00" data-thousands="." data-decimal="," data-prefix="RP. " id="jumlah">
               </div>
             </div>
             <div class="col-md-3 col-sm-12 alamraya-no-padding">
@@ -52,7 +53,8 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control" min="0" id="sd">   
+                <!-- <input type="number" class="form-control" min="0" id="sd">    -->
+                <input type="text" class="form-control currency" value="RP. 1.040.000,00" data-thousands="." data-decimal="," data-prefix="RP. " id="sd">
               </div>
             </div>  
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -60,7 +62,8 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control" min="0" id="smp">   
+                <!-- <input type="number" class="form-control" min="0" id="smp">    -->
+                <input type="text" class="form-control currency" value="RP. 1.040.000,00" data-thousands="." data-decimal="," data-prefix="RP. " id="smp">
               </div>
             </div>  
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -68,7 +71,8 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control" min="0" id="sma">   
+                <!-- <input type="number" class="form-control" min="0" id="sma">    -->
+                <input type="text" class="form-control currency" value="RP. 1.040.000,00" data-thousands="." data-decimal="," data-prefix="RP. " id="sma">
               </div>
             </div>  
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -76,7 +80,8 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control" min="0" id="d1">   
+                <!-- <input type="number" class="form-control" min="0" id="d1">    -->
+                <input type="text" class="form-control currency" value="RP. 1.040.000,00" data-thousands="." data-decimal="," data-prefix="RP. " id="d1">
               </div>
             </div>  
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -84,7 +89,8 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control" min="0" id="d2">   
+                <!-- <input type="number" class="form-control" min="0" id="d2">    -->
+                <input type="text" class="form-control currency" value="RP. 1.040.000,00" data-thousands="." data-decimal="," data-prefix="RP. " id="d2">
               </div>
             </div>  
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -92,7 +98,8 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control" min="0" id="d3">   
+                <!-- <input type="number" class="form-control" min="0" id="d3">    -->
+                <input type="text" class="form-control currency" value="RP. 1.430.000,00" data-thousands="." data-decimal="," data-prefix="RP. " id="d3">
               </div>
             </div>  
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -100,7 +107,8 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="form-group">
-                <input type="number" class="form-control" min="0" id="s1">   
+                <!-- <input type="number" class="form-control" min="0" id="s1">    -->
+                <input type="text" class="form-control currency" value="RP. 1.560.000,00" data-thousands="." data-decimal="," data-prefix="RP. " id="s1">
               </div>
             </div>          
 
