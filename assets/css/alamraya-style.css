@@ -5,6 +5,114 @@
   Version:	1.0
   Developer: Front-End Division (Ari Akbar Indrawidjaja, Alif Akbar Tejamukti);
 -------------------------------------------------------------------*/
+.preview-image{
+    border:1px solid #e2e2e2;
+    padding: 15px;
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
+}
+.preview-image:hover{
+    border:1px solid #50ADDC;
+    transition: .2s;
+    cursor: pointer;;
+}
+input[type="file"].form-control{
+    cursor: pointer;
+}
+.btn-scrolltop{
+    height: 45px;
+    width: 45px;
+    border:2px solid #c2c2c2;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    color: gray;
+    position: fixed;
+    bottom: 40px;
+    right: 80px;
+    z-index: 99;
+
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -ms-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 2s;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -ms-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    animation-delay: 1s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.fadeInUp, .btn-scrolltop {
+    animation-name: fadeInUp;
+}
+.btn-scrolltop:hover{
+    color:black;
+    border:2px solid #999999FF;
+    background-color: #e2e2e255;
+    transition: .2s;
+}
+.btn-scrolltop i{
+    margin-top: 15px;
+}
+.btn-scrollbottom{
+    height: 45px;
+    width: 45px;
+    border:2px solid #c2c2c2;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    color: gray;
+    position: fixed;
+    bottom: 40px;
+    right: 130px;
+    z-index: 99;
+
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -ms-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 3s;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -ms-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    animation-delay: 1s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -ms-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.fadeInUp, .btn-scrollbottom {
+    animation-name: fadeInUp;
+}
+.btn-scrollbottom:hover{
+    color:black;
+    border:2px solid #999999FF;
+    background-color: #e2e2e255;
+    transition: .2s;
+}
+.btn-scrollbottom i{
+    margin-top: 15px;
+}
+@media (max-width: 992px){
+	.btn-scrolltop{
+		right: 30px;
+	}
+}
+#settings-trigger{
+    box-shadow: none;
+}
+#settings-trigger{
+	cursor: pointer;
+}
 .text-right{
 	text-align: right;
 }
