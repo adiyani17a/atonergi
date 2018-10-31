@@ -494,6 +494,8 @@ function hapus(parm){
                         icon: 'fas fa-check-circle',
                         message: 'Data Telah Tersimpan!',
                       });
+
+                      setTimeout(function(){ location.reload(); }, 1000);
                    },
                    error: function(){
                     iziToast.warning({

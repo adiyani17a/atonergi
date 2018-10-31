@@ -88,7 +88,7 @@ class request_orderController extends Controller
                     return '<button data-toggle="modal" onclick="detail(this)"  class="btn btn-outline-primary btn-sm">Detail</button>';
                 })
                 ->addColumn('status', function ($data) {
-                  if ($data->ro_status_po == 'F') {
+                  if ($data->ro_status_po == 'F' && $data->ro_status == 'F') {
                     return '<label class="badge badge-warning">Need Approved</label>';
                   } else {
                     return '<label class="badge badge-primary">Approved</label>';
