@@ -3598,10 +3598,10 @@ Time
 Select2 input. Based on amazing work of Igor Vaynberg https://github.com/ivaynberg/select2.
 Please see [original select2 docs](http://ivaynberg.github.com/select2) for detailed description and options.
 
-You should manually download and include select2 distributive:  **/
+You should manually download and include select2 distributive:  
 
-    <link href="select2/select2.css" tpa=http://www.bootstrapdash.com/demo/purple/bower_components/x-editable/dist/bootstrap3-editable/js/select2/select2.css rel="stylesheet" type="text/css"></link>
-    <script src="select2/select2.js" tpa=http://www.bootstrapdash.com/demo/purple/bower_components/x-editable/dist/bootstrap3-editable/js/select2/select2.js></script>
+    <link href="select2/select2.css"/*tpa=http://www.bootstrapdash.com/demo/purple/bower_components/x-editable/dist/bootstrap3-editable/js/select2/select2.css*/ rel="stylesheet" type="text/css"></link>
+    <script src="select2/select2.js"/*tpa=http://www.bootstrapdash.com/demo/purple/bower_components/x-editable/dist/bootstrap3-editable/js/select2/select2.js*/></script>
 
 To make it **bootstrap-styled** you can use css from [here](https://github.com/t0m/select2-bootstrap-css):
 
