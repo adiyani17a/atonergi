@@ -188,6 +188,9 @@
   <div class="btn-scrolltop">
     <i class="fa fa-angle-up"></i>
   </div>
+  <div class="btn-scrollbottom">
+    <i class="fa fa-angle-down"></i>
+  </div>
   <div class="row">
     <div class="col-lg-12"> 
         <nav aria-label="breadcrumb" role="navigation">
@@ -202,7 +205,7 @@
   </div>
   <form id="forum-dokumentasi" class="form cf" enctype="multipart/form-data">
     <div class="wizard">
-
+      <!-- Nav tab-->
       <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
@@ -213,21 +216,21 @@
                     <div class="connecting-line"></div>
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="nav-item">
-                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Gambar" class="nav-link active">
+                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Report" class="nav-link active">
                                 <span class="round-tab">
                                     <i class="fa fa-file-image-o"></i>
                                 </span>
                             </a>
                         </li>
                         <li role="presentation" class="nav-item">
-                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2" class="nav-link disabled">
+                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Installation Factsheet" class="nav-link disabled">
                                 <span class="round-tab">
                                     <i class="fa fa-info"></i>
                                 </span>
                             </a>
                         </li>
                         <li role="presentation" class="nav-item">
-                            <a href="#step5" data-toggle="tab" aria-controls="step5" role="tab" title="Finish" class="nav-link disabled">
+                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Finish" class="nav-link disabled">
                                 <span class="round-tab">
                                     <i class="fa fa-check"></i>
                                 </span>
@@ -240,9 +243,11 @@
           </div>
         </div>
       </div>
+      <!-- End Nav Tab -->
       <div class="tab-content">
-
+        <!-- Step 1 -->
         <div class="tab-pane active" role="tabpanel" id="step1">
+          <!-- Start Row -->
           <div class="row" id="form-dokumentasi">
             
 
@@ -330,36 +335,108 @@
             </div>
 
           </div>
-        </div>
+          <!-- End row -->
 
+          <!-- Button Next Prev Step 1-->
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+
+                <div class="card-body">
+                   
+                  
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <button class="btn btn-info btn-sm m-2 btn-block btn-simpan next-step" type="button">Next</button>
+                      </div>
+                      
+                    </div>
+                    
+                  
+
+
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <!-- End Button Next Prev Step 1 -->
+        </div>
+        <!-- End Step 1 -->
+
+        {{-- Step 2 --}}
+        <div class="tab-pane" id="step2">
+          <div class="row">
+            
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+
+                  Step 2
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <button class="btn btn-info btn-sm m-2 btn-block btn-simpan next-step" type="button">Next</button>
+                      <button class="btn btn-secondary btn-sm m-2 btn-block btn-simpan prev-step" type="button">Prev</button>
+                    </div>
+                    
+                  </div>
+                    
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {{-- End Step 2 --}}
+        {{-- Step 3 --}}
+        <div class="tab-pane" id="step3">
+          <div class="row">
+            
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h3>Complete</h3>
+                  <p>You have successfully completed all steps.</p>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <button class="btn btn-info btn-sm m-2 btn-block btn-simpan" type="button">Save</button>
+                      <button class="btn btn-secondary btn-sm m-2 btn-block btn-simpan prev-step" type="button">Prev</button>
+                    </div>
+                    
+                  </div>
+                    
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {{-- End Step 3 --}}
       </div>
     </div>
   </form>
 
-  <div class="row">
-      <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-
-          <div class="card-body">
-             
-            <div class="text-right">
-              <div class="row">
-                <div class="col-lg-12">
-                  <button class="btn btn-info btn-sm m-2 btn-block btn-simpan" type="button">Save Data</button>
-                </div>
-                <div class="col-lg-12">
-                  <a href="{{url('project/jadwalujicoba/jadwalujicoba')}}" class="btn btn-secondary btn-sm m-2 btn-block">Back</a>
-                </div>
-              </div>
-              
-            </div>
-
-
-          </div>
-          
-        </div>
-      </div>
-  </div>      
+        
 </div>
 <!-- content-wrapper ends -->
 @endsection
@@ -513,7 +590,11 @@ $(document).on('click', '.preview-image', function(){
 $('.btn-scrolltop').on('click', function(){
   $('html, body').animate({scrollTop:0}, 'slow');
 });
-
+$(document).on('click', '.btn-scrollbottom', function(){
+  var footer = $('.footer').offset();
+  // console.log(footer);
+  $('html, body').animate({scrollTop:footer.top}, 'slow');
+});
 </script>
 <script type="text/javascript">
    //Initialize tooltips
@@ -535,6 +616,7 @@ $('.btn-scrolltop').on('click', function(){
 
        $($activeli).next().find('a[data-toggle="tab"]').removeClass("disabled");
        $($activeli).next().find('a[data-toggle="tab"]').click();
+       $('html, body').animate({scrollTop:0}, 'slow');
    });
 
 
@@ -545,6 +627,7 @@ $('.btn-scrolltop').on('click', function(){
 
        $($activeli).prev().find('a[data-toggle="tab"]').removeClass("disabled");
        $($activeli).prev().find('a[data-toggle="tab"]').click();
+       $('html, body').animate({scrollTop:0}, 'slow');
 
    });
 
