@@ -15,7 +15,12 @@ class purchase_orderController extends Controller
       $item = DB::table('m_item')->get();
       $ro = DB::table('d_requestorder')->join('m_vendor', 's_kode', '=', 'ro_vendor')->where('ro_status_po','=','F')->where('ro_status','=','T')->get();
 
-    	return view('purchase/purchaseorder/purchaseorder',compact('vendor','item', 'ro'));
+      $count = DB::table('d_purchaseorder')
+                ->where('po_status', 'F')
+                ->where('po_print', 'F')
+                ->count();
+
+    	return view('purchase/purchaseorder/purchaseorder',compact('vendor','item', 'ro', 'count'));
     }
     public function datatable_purchaseorder()
     {
@@ -29,9 +34,12 @@ class purchase_orderController extends Controller
 
               ->addColumn('aksi', function ($data) {
                         if ($data->po_print == 'T' or $data->po_status == 'T') {
-                            return '<span class="badge badge-pill badge-danger">Disabled</span>';
+                            return '<div class="btn-group">'.
+                                   '<button type="button" onclick="print(this)" class="btn btn-primary btn-sm" title="Print">'.
+                                   '<label class="fa fa-print"></label></button>'.
+                                  '</div>';
                         }else{
-                            return  '<div class="btn-group">'.
+                            return '<div class="btn-group">'.
                                    '<button type="button" onclick="print(this)" class="btn btn-primary btn-sm" title="Print">'.
                                    '<label class="fa fa-print"></label></button>'.
                                    '<button type="button" onclick="edit(this)" class="btn btn-info btn-sm" title="edit">'.
@@ -46,8 +54,11 @@ class purchase_orderController extends Controller
                   return '<button data-toggle="modal" onclick="detail(this)"  class="btn btn-outline-primary btn-sm">Detail</button>';
               })
               ->addColumn('status', function ($data) {
-
-                  return '<span class="badge badge-warning badge-pill">In Process</span>';
+                  if ($data->po_print == 'T' or $data->po_status == 'T') {
+                    return '<span class="badge badge-info badge-pill">Printed</span>';
+                  } else {
+                    return '<span class="badge badge-warning badge-pill">Process</span>';
+                  }
               })
               ->rawColumns(['aksi','detail','confirmed','status'])
           ->make(true);
@@ -61,23 +72,6 @@ class purchase_orderController extends Controller
    	public function cari_po_purchaseorder(Request $request)
    	{
 
-      $tmp = DB::table('d_requestorder')
-                    ->leftjoin('m_vendor','m_vendor.s_kode','=','d_requestorder.ro_vendor')
-                    ->where('ro_status_po','=','F')
-                    ->where('ro_status','=','T')
-                    ->whereIn('ro_code',$request->check)
-                    ->get();
-
-      for ($i=0; $i < count($request->check); $i++) {
-        $valid = DB::table('d_requestorder')
-                      ->leftjoin('m_vendor','m_vendor.s_kode','=','d_requestorder.ro_vendor')
-                      ->where('ro_status_po','=','F')
-                      ->where('ro_status','=','T')
-                      ->where('ro_code','=',$request->check[$i])
-                      ->get();
-
-        for ($z=0; $z < count($tmp); $z++) {
-          if ($tmp[$z]->ro_vendor == $valid[0]->ro_vendor) {
             $no_ro = [];
             $ro = $request->check;
             for ($i=0; $i < count($request->check); $i++) {
@@ -112,7 +106,7 @@ class purchase_orderController extends Controller
 
             $index = str_pad($kode, 3, '0', STR_PAD_LEFT);
             $date = date('my');
-            $nota = 'PO-'.$index.'/'.$request->vendor[$i].'/'.$date;
+            $nota = 'PO-'.$index.'/'.$request->vendor[0].'/'.$date;
 
             $vendor = DB::table('m_vendor')->get();
             $item = DB::table('m_item')->get();
@@ -120,17 +114,8 @@ class purchase_orderController extends Controller
             $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
 
             return view('purchase/purchaseorder/create_purchaseorder',compact('ro','data_header','data_seq','vendor','nota','no_ro','no_vendor','item'));
-            return response()->json([
-              'status' => 'vendor sama'
-            ]);
-          } else {
-            return response()->json([
-              'status' => 'vendor tidak sama'
-            ]);
-          }
-        }
       }
-   	}
+
     public function detail_purchaseorder(Request $request)
     {
       // dd($request->all());
@@ -231,5 +216,50 @@ class purchase_orderController extends Controller
       return view('purchase/purchaseorder/print_purchaseorder',compact('print_header','print_seq'));
     }
 
+    public function validation(Request $request){
+      $data = DB::table('d_requestorder')
+                ->whereIn('ro_code', $request->favorite)
+                ->select('ro_vendor')
+                ->get();
+
+      $tmp = [];
+      for ($i=0; $i < count($data); $i++) {
+        $tmp[] = $data[$i]->ro_vendor;
+      }
+
+      $countdata = count($data);
+
+      $counttmp = array_count_values($tmp);
+
+      for ($i=0; $i < count($request->favorite); $i++) {
+        $data1 = DB::table('d_requestorder')
+                  ->where('ro_code', $request->favorite[$i])
+                  ->select('ro_vendor')
+                  ->get();
+
+        $temp = $data1[0]->ro_vendor;
+
+        $hasil = $counttmp["".$temp.""];
+
+        if ($hasil == 0) {
+
+        } else {
+          if ($hasil == $countdata) {
+            return response()->json([
+              'status' => 'sama'
+            ]);
+          } else {
+            return response()->json([
+              'status' => 'tidak'
+            ]);
+            break;
+          }
+        }
+      }
+    }
+
+    function array_is_unique($array){
+      return array_unique($array) == $array;
+    }
 
 }
