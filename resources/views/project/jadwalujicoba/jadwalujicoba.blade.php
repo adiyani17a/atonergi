@@ -49,7 +49,8 @@
 									<td>
 										<div class="btn-group btn-group-sm">
 											<button class="btn btn-warning" type="button" title="Edit"><i class="fa fa-pencil-alt"></i></button>
-											<button class="btn btn-primary" type="button" title="Print"><i class="fa fa-print"></i></button>
+											<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}" title="Print Report"><i class="fa fa-print"></i></a>
+											<button class="btn btn-success" type="button" title="Print Installation"><i class="fa fa-print"></i></button>
 											<button class="btn btn-danger" type="button" title="Delete"><i class="fa fa-trash"></i></button>
 										</div>
 									</td>

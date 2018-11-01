@@ -181,6 +181,7 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
 Route::get('/project/dokumentasi/dokumentasi', 'ProjectController@dokumentasi');
 Route::get('/project/jadwalujicoba/jadwalujicoba', 'ProjectController@jadwalujicoba');
 Route::get('/project/jadwalujicoba/tambah_jadwal', 'ProjectController@tambah_jadwalujicoba');
+Route::get('/project/jadwalujicoba/pdf_jadwal', 'ProjectController@pdf_jadwal')->name('pdf_jadwal');
 Route::get('/project/pemasangan/pemasangan', 'ProjectController@pemasangan');
 Route::get('/project/pemasangan/prosespemasangan/{id}', 'ProjectController@prosespemasangan');
 Route::get('/project/pemasangan/proses', 'ProjectController@simpanpemasangan');
