@@ -108,9 +108,6 @@ class purchase_orderController extends Controller
             $date = date('my');
             $nota = 'PO-'.$index.'/'.$request->vendor[0].'/'.$date;
 
-            $vendor = DB::table('m_vendor')->get();
-            $item = DB::table('m_item')->get();
-
             $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
 
             return view('purchase/purchaseorder/create_purchaseorder',compact('ro','data_header','data_seq','vendor','nota','no_ro','no_vendor','item'));
@@ -122,9 +119,22 @@ class purchase_orderController extends Controller
       $data = DB::table('d_purchaseorder_dt')->where('podt_code','=',$request->id)->join('m_item','m_item.i_code','=','d_purchaseorder_dt.podt_item')->get();
       return response()->json($data);
     }
-    public function edit_purchaseorder()
+    public function edit_purchaseorder(Request $request)
     {
-      return view('purchase/purchaseorder/edit_purchaseorder');
+      $data = DB::table('d_purchaseorder')
+                ->join('d_requestorder', 'ro_code', '=', 'po_nomor_ro')
+                ->join('m_vendor', 's_kode', '=', 'ro_vendor')
+                ->where('po_code', $request->id)
+                ->get();
+
+      $item = DB::table('m_item')->leftjoin('i_stock_gudang','i_stock_gudang.sg_iditem','=','m_item.i_Code')->get();
+
+      $data_seq = DB::table('d_purchaseorder_dt')
+                    ->join('m_item','m_item.i_code','=','podt_item')
+                    ->where('podt_code', $data[0]->po_code)
+                    ->get();
+
+    return view('purchase.purchaseorder.edit_purchaseorder', compact('data', 'item', 'data_seq'));
     }
     public function save_purchaseorder(Request $request)
     {
@@ -260,6 +270,81 @@ class purchase_orderController extends Controller
 
     function array_is_unique($array){
       return array_unique($array) == $array;
+    }
+
+    public function update(Request $request){
+      DB::table('d_purchaseorder')
+            ->where('po_code', $request->po_nopo)
+            ->delete();
+
+      DB::table('d_purchaseorder_dt')
+            ->where('podt_code', $request->po_nopo)
+            ->delete();
+
+      $tanggal = date("Y-m-d h:i:s");
+      $kode = DB::table('d_purchaseorder')->max('po_id');
+            if ($kode == null) {
+                $kode = 1;
+            }else{
+                $kode += 1;
+            }
+
+        $po_subtotal = str_replace('.','',$request->po_subtotal);
+        $total_net = str_replace('.','',$request->total_net);
+        $po_tax = str_replace('.','',$request->po_tax);
+
+        $data_header = DB::table('d_purchaseorder')
+                        ->insert([
+                          'po_id'=>$kode,
+                          'po_code'=>$request->po_nopo,
+                          'po_nomor_ro'=>$request->po_noro,
+                          'po_date'=>date('Y-m-d',strtotime($request->po_date)),
+                          'po_shipping_method'=>$request->po_shipping_method,
+                          'po_shipping_term'=>$request->po_shipping_term,
+                          'po_delivery_date'=>date('Y-m-d',strtotime($request->po_shipping_date)),
+                          'po_shipping_to'=>$request->po_shipping_to,
+                          'po_subtotal'=>$po_subtotal,
+                          'po_sales_tax'=>$po_tax,
+                          'po_total_net'=>$total_net,
+                          'po_insert'=>$tanggal,
+                          'po_vendor'=>$request->vedor_ro,
+                        ]);
+
+      $kode_seq = 0;
+      for ($i=0; $i <count($request->podt_barang) ; $i++) {
+        $kode_seq = $kode_seq + 1;
+
+        $podt_barang[$i] = str_replace('.','',$request->podt_barang[$i]);
+        $podt_price[$i] = str_replace('.','',$request->podt_price[$i]);
+        $podt_unit_price[$i] = str_replace('.','',$request->podt_unit_price[$i]);
+        $podt_qty[$i] = str_replace('.','',$request->podt_qty[$i]);
+
+        $data_sequence = DB::table('d_purchaseorder_dt')
+                        ->insert([
+                          'podt_id'=>$kode_seq,
+                          'podt_code'=>$request->po_nopo,
+                          'podt_item'=>$podt_barang[$i],
+                          'podt_price'=>$podt_price[$i],
+                          'podt_unit_price'=>$podt_unit_price[$i],
+                          'podt_qty_approved'=>$podt_qty[$i],
+                          'podt_insert'=>$tanggal,
+                        ]);
+
+        $request_sequence = DB::table('d_requestorder_dt')
+                        ->where('rodt_code','=',$request->nomor_ro)
+                        ->update([
+                          'rodt_status_po'=>'T',
+                        ]);
+
+      }
+
+      $request_header = DB::table('d_requestorder')
+                        ->where('ro_code','=',$request->nomor_ro)
+                        ->update([
+                          'ro_status_po'=>'T',
+                        ]);
+
+      return response()->json(['status'=>1]);
     }
 
 }
