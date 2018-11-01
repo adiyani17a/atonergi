@@ -169,7 +169,9 @@
                 message: 'Data Telah Tersimpan!',
               });
 
-         	// window.location.href= '{{ route('penerimaan_barang') }}';
+							setTimeout(function () {
+								window.location.href= '{{ route('penerimaan_barang') }}';
+							}, 1000);
 
 
              },
