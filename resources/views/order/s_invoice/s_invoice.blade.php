@@ -1,7 +1,16 @@
 @extends('main')
-@section('content')
 
-@include('order/s_invoice/detail_salesinvoice')
+@section('extra_styles')
+<style type="text/css">
+	.float-left{
+		float: left;
+	}
+	.float-right{
+		float: right;
+	}
+</style>
+@endsection
+@section('content')
 
 <!-- partial -->
 <div class="content-wrapper">
@@ -44,9 +53,11 @@
 		          				<thead class="bg-gradient-info">
 		          					<tr>
 		          						<th>No</th>
-		          						<th>S.O.#/Q.O.#</th>
-		          						<th>Customer Item</th>
-		          						<th>Total</th>
+		          						<th>S.I.#/Q.O.#</th>
+		          						<th>Customer</th>
+		          						<th>Total Bill</th>
+		          						<th>DP</th>
+		          						<th>Payment</th>
 		          						<th>Status</th>
 		          						<th>Action</th>
 		          					</tr>
@@ -54,16 +65,78 @@
 		          				<tbody>
 		          					<tr>
 		          						<td>1</td>
-		          						<td>A002</td>
+		          						<td>SI-001/SWP/SF-PS/112018</td>
+		          						<td>Alpha</td>
 		          						<td>
-		          							<button data-toggle="modal" data-target="#detail_item" class="btn-outline-info btn btn-sm">Detail</button>
-		          						</td>
-		          						<td>Rp. 0</td>
-		          						<td>
-		          							<span class="badge badge-warning badge-pill">Not yet paid off</span>
+		          							<span class="float-left">Rp.</span>
+		          							<span class="float-right">40.000.000,00</span>
 		          						</td>
 		          						<td>
-		          							<a href="{{url('order/s_invoice/print_salesinvoice')}}" target="_blank" class="btn btn-outline-primary btn-sm" title="Print"><i class="fa fa-print"></i></a>
+		          							<span class="float-left">Rp.</span>
+		          							<span class="float-right">4.000.000,00</span>
+		          						</td>
+		          						<td>
+		          							Tunai
+		          						</td>
+		          						<td>
+		          							<span class="badge badge-success badge-pill">paid off</span>
+		          						</td>
+		          						<td>
+		          							<div class="btn-group btn-group-xs">
+		          								<a href="{{url('order/s_invoice/detail_s_invoice')}}" class="btn btn-info">Detail</a>
+			          							<a href="{{url('order/s_invoice/print_salesinvoice')}}" target="_blank" class="btn btn-primary" title="Print"><i class="fa fa-print"></i></a>
+			          						</div>
+		          						</td>
+		          					</tr>
+		          					<tr>
+		          						<td>2</td>
+		          						<td>SI-002/SWP/SF-PS/112018</td>
+		          						<td>Bravo</td>
+		          						<td>
+		          							<span class="float-left">Rp.</span>
+		          							<span class="float-right">41.000.000,00</span>
+		          						</td>
+		          						<td>
+		          							<span class="float-left">Rp.</span>
+		          							<span class="float-right">5.000.000,00</span>
+		          						</td>
+		          						<td>
+		          							Tunai
+		          						</td>
+		          						<td>
+		          							<span class="badge badge-success badge-pill">Paid off</span>
+		          							<span class="badge badge-primary badge-pill">Printed</span>
+		          						</td>
+		          						<td>
+		          							<div class="btn-group btn-group-xs">
+		          								<a href="{{url('order/s_invoice/detail_s_invoice')}}" class="btn btn-info">Detail</a>
+			          							<a href="{{url('order/s_invoice/print_salesinvoice')}}" target="_blank" class="btn btn-primary" title="Print"><i class="fa fa-print"></i></a>
+			          						</div>
+		          						</td>
+		          					</tr>
+		          					<tr>
+		          						<td>3</td>
+		          						<td>SI-003/SWP/SF-PS/112018</td>
+		          						<td>Charlie</td>
+		          						<td>
+		          							<span class="float-left">Rp.</span>
+		          							<span class="float-right">41.000.000,00</span>
+		          						</td>
+		          						<td>
+		          							<span class="float-left"></span>
+		          							<span class="float-right"></span>
+		          						</td>
+		          						<td>
+		          							Tunai
+		          						</td>
+		          						<td>
+		          							<span class="badge badge-warning badge-pill">Not Yet Paid off</span>
+		          						</td>
+		          						<td>
+		          							<div class="btn-group btn-group-xs">
+		          								<a href="{{url('order/s_invoice/detail_s_invoice')}}" class="btn btn-info">Detail</a>
+			          							<a href="{{url('order/s_invoice/print_salesinvoice')}}" target="_blank" class="btn btn-primary" title="Print"><i class="fa fa-print"></i></a>
+			          						</div>
 		          						</td>
 		          					</tr>
 		          				</tbody>
