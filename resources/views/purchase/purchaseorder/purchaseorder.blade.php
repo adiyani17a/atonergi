@@ -31,11 +31,11 @@
 
                     <div class="row">
                       <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="alert alert-warning alert-dismissible" title="Unprocess">
+                        <div class="alert alert-warning alert-dismissible" title="Process">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <strong>Notice!</strong> <br>
-                            <label class="badge badge-pill badge-warning">1</label>
-                            Unprocess
+                            <label class="badge badge-pill badge-warning">{{$count}}</label>
+                            Process
                         </div>
                       </div>
                     </div>
@@ -192,61 +192,74 @@
 
   $('#create_po').click(function(){
 
-          iziToast.show({
-                overlay: true,
-                close: false,
-                timeout: 20000,
-                color: 'dark',
-                icon: 'fas fa-question-circle',
-                title: 'Important!',
-                message: 'Apakah Anda Yakin ?!',
-                position: 'center',
-                progressBarColor: 'rgb(0, 255, 184)',
-                buttons: [
-                  [
-                    '<button style="background-color:#44d7c9;">Process</button>',
-                    function (instance, toast) {
+      var favorite = [];
+        $(".check:checked").each(function(){
+            favorite.push($(this).val());
+        });
 
-
-                    //ajax
-                     $.ajax({
-                       type: "get",
-                       url: '{{ route('cari_po_purchaseorder') }}',
-                       data: $('#form_cari').serialize(),
-                       success: function(data){
-                         if (data.status == 'vendor tidak sama') {
-                           iziToast.warning({
-                             icon: 'fa fa-times',
-                             message: 'Vendor tidak boleh sama!',
-                           });
-                         } else {
-                           window.location.href = this.url;
-                         }
-                       },
-                       error: function(){
-                        iziToast.warning({
-                          icon: 'fa fa-times',
-                          message: 'Terjadi Kesalahan!',
-                        });
-                       },
-                       async: false
-                     });
-                    //end of ajax
-
-
-                    }
-
-                  ],
-                  [
-                    '<button style="background-color:red;">Cancel</button>',
-                    function (instance, toast) {
-                      instance.hide({
-                        transitionOut: 'fadeOutUp'
-                      }, toast);
-                    }
-                  ]
-                ]
+        $.ajax({
+          type: 'get',
+          data: {favorite:favorite},
+          dataType: 'json',
+          url: baseUrl + '/purchase/purchaseorder/validation',
+          success : function(result){
+            if (result.status == 'tidak') {
+              iziToast.warning({
+                icon: 'fa fa-times',
+                message: 'Vendor tidak boleh beda!',
               });
+            } else {
+              iziToast.show({
+                    overlay: true,
+                    close: false,
+                    timeout: 20000,
+                    color: 'dark',
+                    icon: 'fas fa-question-circle',
+                    title: 'Important!',
+                    message: 'Apakah Anda Yakin ?!',
+                    position: 'center',
+                    progressBarColor: 'rgb(0, 255, 184)',
+                    buttons: [
+                      [
+                        '<button style="background-color:#44d7c9;">Process</button>',
+                        function (instance, toast) {
+
+
+                        //ajax
+                         $.ajax({
+                           type: "get",
+                           url: '{{ route('cari_po_purchaseorder') }}',
+                           data: $('#form_cari').serialize(),
+                           success: function(data){
+                              window.location.href = this.url;
+                           },
+                           error: function(){
+                            iziToast.warning({
+                              icon: 'fa fa-times',
+                              message: 'Terjadi Kesalahan!',
+                            });
+                           },
+                           async: false
+                         });
+                        //end of ajax
+
+
+                        }
+
+                      ],
+                      [
+                        '<button style="background-color:red;">Cancel</button>',
+                        function (instance, toast) {
+                          instance.hide({
+                            transitionOut: 'fadeOutUp'
+                          }, toast);
+                        }
+                      ]
+                    ]
+                  });
+            }
+          }
+        });
   });
 
 

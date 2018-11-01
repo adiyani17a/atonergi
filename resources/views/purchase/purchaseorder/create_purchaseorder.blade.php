@@ -131,11 +131,11 @@
                       </div>
                       <div class="col-md-2 col-sm-6 col-xs-12">
                         <div class="form-group" >
-                          <select name="po_shipping_method">
-                            <option selected="" value="">- Pilih -</option>
-                            <option value="DARAT">DARAT</option>
-                            <option value="LAUT">LAUT</option>
-                            <option value="UDARA">UDARA</option>
+                          <select style="width: 100%" class="form-control form-control-sm ship_method select2-hidden-accessible" name="po_shipping_method" tabindex="-1" aria-hidden="true">
+                              <option value="0">--Select Shipping Method--</option>
+                              <option value="Sea">Sea</option>
+                              <option value="Land Freight">Land Freight</option>
+                              <option value="Air Freight">Air Freight</option>
                           </select>
                         </div>
                       </div>
@@ -419,8 +419,6 @@
     po_tax = po_tax.replace(/[^0-9\-]+/g,"");
     var kurang_subtotal = parseInt(sub_total)-parseInt(total_price);
     var kurang_totalnet = parseInt(sub_total)-parseInt(total_price)+parseInt(po_tax);
-    console.log(kurang_subtotal);
-    console.log(kurang_totalnet);
     table
         .row(parents)
         .remove()

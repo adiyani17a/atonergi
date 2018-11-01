@@ -29,7 +29,7 @@
                   <td>{{$key + 1}}</td>
                   <td>{{$value->ro_code}}</td>
                   <td>{{Carbon\Carbon::parse($value->ro_insert)->format('d-m-Y')}}</td>
-                  <td>{{$value->s_company}}</td>
+                  <td id="{{$value->ro_code}}">{{$value->s_company}}</td>
                   <td align="center">
                     <div class="checkbox checkbox-primary checkbox-inline col-sm-2">
                                     <input type="checkbox" id="check{{$key}}" class="check" name="check[]" value="{{$value->ro_code}}">
