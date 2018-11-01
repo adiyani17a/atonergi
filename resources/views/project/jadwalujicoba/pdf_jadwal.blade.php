@@ -286,7 +286,7 @@ TECHNICIAN PIC	: Mr. EKO BUDIANTO
 			</div>
 			<div class="row text-center">
 				<div class="col-12 mb-2">
-					<img width="350px" height="350px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="350px" height="350px" src="{{asset('assets/images/samples/1280x768/1.jpg')}}">
 				</div>
 			</div>
 		</div>
@@ -301,10 +301,10 @@ TECHNICIAN PIC	: Mr. EKO BUDIANTO
 			</div>
 			<div class="row text-center">
 				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/2.jpg')}}">
 				</div>
 				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/3.jpg')}}">
 				</div>
 			</div>
 		</div>
@@ -319,13 +319,13 @@ TECHNICIAN PIC	: Mr. EKO BUDIANTO
 			</div>
 			<div class="row text-center">
 				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/4.jpg')}}">
 				</div>
 				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/5.jpg')}}">
 				</div>
 				<div class="col-12 mb-2">
-					<img width="350px" height="350px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="350px" height="350px" src="{{asset('assets/images/samples/1280x768/6.jpg')}}">
 				</div>
 			</div>
 		</div>
@@ -340,16 +340,16 @@ TECHNICIAN PIC	: Mr. EKO BUDIANTO
 			</div>
 			<div class="row text-center">
 				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/7.jpg')}}">
 				</div>
 				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/8.jpg')}}">
 				</div>
 				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/9.jpg')}}">
 				</div>
 				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/10.jpg')}}">
 				</div>
 			</div>
 		</div>
