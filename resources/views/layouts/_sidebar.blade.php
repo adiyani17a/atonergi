@@ -337,22 +337,22 @@
                 <ul class="nav flex-column sub-menu">
 
                   {{-- <li class="nav-item"> <a class="nav-link {{Request::is('project/pengadaanbarang/*') ? 'active' : ''
-                  }}" href="{{url('project/pengadaanbarang/pengadaanbarang')}}">Pengadaan Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li> --}}
+                  }}" href="{{url('project/pengadaanbarang/pengadaanbarang')}}">Pengadaan Barang<span class="d-none">After Order</span></a></li> --}}
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('project/pengirimanbarang/*') ? 'active' : ''
-                  }}" href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  }}" href="{{url('project/pengirimanbarang/pengirimanbarang')}}">Pengiriman Barang<span class="d-none">After Order</span></a></li>
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('project/pemasangan/*') ? 'active' : ''
-                  }}" href="{{url('project/pemasangan/pemasangan')}}">Pemasangan<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  }}" href="{{url('project/pemasangan/pemasangan')}}">Pemasangan<span class="d-none">After Order</span></a></li>
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('project/jadwalujicoba/*') ? 'active' : ''
-                 }}" href="{{url('project/jadwalujicoba/jadwalujicoba')}}">Schedule Uji Coba dan <br>Dokumentasi<span class="d-none">Project Manajemen Pompa | SHS Schedule Uji Coba dan Dokumentasi</span></a></li>
+                 }}" href="{{url('project/jadwalujicoba/jadwalujicoba')}}">Schedule Uji Coba dan <br>Dokumentasi<span class="d-none">After Order Schedule Uji Coba dan Dokumentasi</span></a></li>
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('project/salescommon/*') ? 'active' : ''
-                  }}" href="{{url('project/salescommon/salescommon')}}">Sales Common<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  }}" href="{{url('project/salescommon/salescommon')}}">Sales Common<span class="d-none">After Order</span></a></li>
 
                   <li class="nav-item"> <a class="nav-link {{Request::is('project/technicianfee/*') ? 'active' : ''
-                  }}" href="{{url('project/technicianfee/technicianfee')}}">Technician Fee<span class="d-none">Project Manajemen Pompa | SHS</span></a></li>
+                  }}" href="{{url('project/technicianfee/technicianfee')}}">Technician Fee<span class="d-none">After Order</span></a></li>
 
 
                 </ul>

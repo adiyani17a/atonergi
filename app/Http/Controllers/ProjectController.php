@@ -23,6 +23,10 @@ class ProjectController extends Controller
     {
         return view('project/jadwalujicoba/tambah_jadwal');
     }
+    public function pdf_jadwal()
+    {
+        return view('project/jadwalujicoba/pdf_jadwal');
+    }
     public function pemasangan()
     {
       $data = DB::table('d_work_order')
