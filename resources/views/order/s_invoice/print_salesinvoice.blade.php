@@ -174,21 +174,22 @@ table, td, th {
 				<table class="border-none" width="50%">
 					<tbody>
 						<tr >
-							<td class="text-left border-none">Cust :</td>
+							<td class="text-left border-none">Cust</td>
+							<td width="1" class="text-left border-none">:</td>
 							<td class="text-left border-none">Alpha</td>
 
 						</tr>
 						<tr>
 							<td class="text-left border-none"></td>
-							<td class="text-left border-none"><e class="email">alpha@alpha.com</e></td>
+							<td class="text-left border-none" colspan="2"><e class="email">alpha@alpha.com</e></td>
 						</tr>
 						<tr>
 							<td class="text-left border-none"></td>
-							<td class="text-left border-none">Jl. Alpha, Surabaya, Jawa Timur, Indonesia</td>
+							<td class="text-left border-none" colspan="2">Jl. Alpha, Surabaya, Jawa Timur, Indonesia</td>
 						</tr>
 						<tr>
 							<td class="text-left border-none"></td>
-							<td class="text-left border-none">[+ 62 853 333 3333]</td>
+							<td class="text-left border-none" colspan="2">[+ 62 853 333 3333]</td>
 						</tr>
 					</tbody>
 				</table>

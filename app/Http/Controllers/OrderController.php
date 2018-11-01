@@ -20,7 +20,9 @@ class OrderController extends Controller
     {
     	return view('order/s_invoice/s_invoice');
     }
-
+    public function print_salesinvoice(){
+      return view('order.s_invoice.print_salesinvoice');
+    }
     public function datatable_so()
     {
         $data = DB::table('d_sales_order')
