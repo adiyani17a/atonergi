@@ -385,6 +385,13 @@
      }
    }
 
+   function edit(parm){
+     var par   = $(parm).parents('tr');
+     var id    = $(par).find('.d_id').text();
+
+     window.location.href = baseUrl + '/purchase/purchaseorder/edit_purchaseorder?id='+id;
+   }
+
 
   // cari_vendor
 </script>

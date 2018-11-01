@@ -12,7 +12,7 @@ use Session;
 use App\mMember;
 use Illuminate\Support\Facades\Crypt;
 use Response;
-use PDF;    
+use PDF;
 
 class OrderController extends Controller
 {
@@ -28,8 +28,8 @@ class OrderController extends Controller
           ->where('q_status',1)
           ->orderBy('q_id','DESC')
           ->get();
-        
-        
+
+
         // return $data;
         $data = collect($data);
         // return $data;
@@ -38,7 +38,7 @@ class OrderController extends Controller
                             return '<div class="btn-group">
                                         <a href="'.url('order/salesorder/s_order/detail_salesorder'). '/' . $data->so_id.'" class="btn btn-info btn-sm">Detail</a>
                                         <a onclick="printing(\''.$data->so_id.'\')" style="color:white" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                                    </div>';                               
+                                    </div>';
                         })
                         ->addColumn('none', function ($data) {
                             return '-';
@@ -66,7 +66,7 @@ class OrderController extends Controller
                             }else{
                                 return  '<span class="badge badge-pill badge-success">Printed</span>';
                             }
-                            
+
                         })
                         ->addColumn('customer', function ($data) {
                             $cus = DB::table('m_customer')
@@ -84,13 +84,13 @@ class OrderController extends Controller
     // SALES ORDER
     public function s_order()
     {
-        
+
 
     	return view('order/salesorder/s_order');
     }
 
     public function detail_salesorder($id)
-    {   
+    {
         if (Auth::user()->akses('SALES ORDER','print')) {
             $data = DB::table('d_sales_order')
                       ->join('d_quotation','so_ref','=','q_nota')
@@ -102,7 +102,7 @@ class OrderController extends Controller
             $marketing = DB::table('d_marketing')
                         ->get();
             $market = '';
-            for ($i=0; $i < count($marketing); $i++) { 
+            for ($i=0; $i < count($marketing); $i++) {
                 if ($marketing[$i]->mk_id == $data->q_marketing) {
                     $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
                 }
@@ -121,7 +121,7 @@ class OrderController extends Controller
     }
 
     public function print_salesorder($id)
-    {   
+    {
         if (Auth::user()->akses('SALES ORDER','print')) {
 
             $head = DB::table('d_sales_order')
@@ -150,7 +150,7 @@ class OrderController extends Controller
             $array = [];
 
             if ($tes > 0) {
-              for ($i=0; $i < $tes; $i++) { 
+              for ($i=0; $i < $tes; $i++) {
                 array_push($array, 'a');
               }
             }
@@ -165,8 +165,8 @@ class OrderController extends Controller
           ->where('q_status',1)
           ->orderBy('q_id','DESC')
           ->get();
-        
-        
+
+
         // return $data;
         $data = collect($data);
         // return $data;
@@ -175,7 +175,7 @@ class OrderController extends Controller
                             return '<div class="btn-group">
                                         <a href="'.url('order/workorder/s_order/detail_workorder'). '/' . $data->wo_id.'" class="btn btn-info btn-sm">Detail</a>
                                         <a onclick="printing(\''.$data->wo_id.'\')" style="color:white" class="btn btn-primary btn-sm"><i class="fa fa-print"></i></a>
-                                    </div>';                               
+                                    </div>';
                         })
                         ->addColumn('none', function ($data) {
                             return '-';
@@ -212,7 +212,7 @@ class OrderController extends Controller
                             }else{
                                 return  '<span class="badge badge-pill badge-success">Printed</span>';
                             }
-                            
+
                         })
                         ->rawColumns(['aksi', 'detail','histori','total','status','dp','remain','customer'])
                         ->addIndexColumn()
@@ -221,13 +221,13 @@ class OrderController extends Controller
     // work ORDER
     public function w_order()
     {
-        
+
 
       return view('order/workorder/w_order');
     }
 
     public function detail_workorder($id)
-    {   
+    {
         if (Auth::user()->akses('work ORDER','print')) {
             $data = DB::table('d_work_order')
                       ->join('d_quotation','wo_ref','=','q_nota')
@@ -239,7 +239,7 @@ class OrderController extends Controller
             $marketing = DB::table('d_marketing')
                         ->get();
             $market = '';
-            for ($i=0; $i < count($marketing); $i++) { 
+            for ($i=0; $i < count($marketing); $i++) {
                 if ($marketing[$i]->mk_id == $data->q_marketing) {
                     $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
                 }
@@ -258,7 +258,7 @@ class OrderController extends Controller
     }
 
     public function print_workorder(request $req)
-    {   
+    {
         if (Auth::user()->akses('work ORDER','print')) {
 
             $head = DB::table('d_work_order')
@@ -287,7 +287,7 @@ class OrderController extends Controller
             $array = [];
 
             if ($tes > 0) {
-              for ($i=0; $i < $tes; $i++) { 
+              for ($i=0; $i < $tes; $i++) {
                 array_push($array, 'a');
               }
             }
@@ -314,17 +314,18 @@ class OrderController extends Controller
     public function datatable_deposit()
     {
         $data = DB::table('d_quotation')
+                  ->join('m_customer', 'c_code', '=', 'q_customer')
                   ->where('q_status',1)
                   ->orderBy('q_id','DESC')
                   ->get();
-        
-        
+
+
         // return $data;
         $data = collect($data);
         // return $data;
         return Datatables::of($data)
                         ->addColumn('aksi', function ($data) {
-                            return '<a href="'.url('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit').'/'.$data->q_id.'" class="btn btn-outline-info btn-sm">Process</a>';                               
+                            return '<a href="'.url('/order/pembayarandeposit/pembayarandeposit/detail_pembayarandeposit').'/'.$data->q_id.'" class="btn btn-outline-info btn-sm">Process</a>';
                         })
                         ->addColumn('none', function ($data) {
                             return '-';
@@ -359,7 +360,7 @@ class OrderController extends Controller
                             }else{
                                 return  '<span class="badge badge-pill badge-danger">Non SO</span>';
                             }
-                                
+
                         })->addColumn('status_wo', function ($data) {
                             $wo = DB::table('d_quotation')
                                       ->leftjoin('d_work_order','q_nota','=','wo_ref')
@@ -374,7 +375,7 @@ class OrderController extends Controller
                             }else{
                                 return  '<span class="badge badge-pill badge-danger">Non WO</span>';
                             }
-                                
+
                         })
                         ->rawColumns(['aksi', 'detail','histori','total','status_so','dp','remain','status_wo'])
                         ->addIndexColumn()
@@ -386,7 +387,7 @@ class OrderController extends Controller
     	return view('order/pembayarandeposit/pembayarandeposit');
     }
     public function detail_pembayarandeposit($id)
-    {   
+    {
 
         $item = DB::table('m_item')
                       ->get();
@@ -450,12 +451,12 @@ class OrderController extends Controller
         $marketing = DB::table('d_marketing')
                         ->get();
 
-        for ($i=0; $i < count($marketing); $i++) { 
+        for ($i=0; $i < count($marketing); $i++) {
             if ($marketing[$i]->mk_id == $data->q_marketing) {
                 $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
             }
         }
-      
+
         $data_dt = DB::table('d_quotation_dt')
                        ->join('m_item','i_code','=','qd_item')
                        ->where('qd_id',$id)
@@ -466,7 +467,7 @@ class OrderController extends Controller
 
     public function save_deposit(request $req)
     {
-        return DB::transaction(function() use ($req) {  
+        return DB::transaction(function() use ($req) {
 
             $data = DB::table('d_quotation')
                       ->where('q_id',$req->id)
@@ -521,7 +522,7 @@ class OrderController extends Controller
 
                 }
             }
-                
+
             // WORK ORDER
             $cari = DB::table('d_work_order')
                       ->where('wo_nota',$req->so_nota)
@@ -571,17 +572,17 @@ class OrderController extends Controller
                               ]);
                 }
             }
-                
 
 
-            $update = DB::table('d_quotation')  
+
+            $update = DB::table('d_quotation')
                         ->where('q_id',$req->id)
                         ->update([
                             'q_dp'     => filter_var($req->dp,FILTER_SANITIZE_NUMBER_INT)/100,
                             'q_remain' => filter_var($req->remain,FILTER_SANITIZE_NUMBER_INT)/100,
                         ]);
 
-            
+
             return response()->json(['status' => 1]);
         });
     }
@@ -608,28 +609,29 @@ class OrderController extends Controller
         $temp = array_merge($so,$wo);
         $merge = [];
 
-        for ($i=0; $i < count($temp); $i++) { 
+        for ($i=0; $i < count($temp); $i++) {
           $merge[$i] = $temp[$i]->nota;
         }
         $merge = array_unique($merge);
         $merge = array_values($merge);
         $data = DB::table('d_quotation')
+                  ->join('m_customer', 'c_code', '=', 'q_customer')
                   ->where('q_status',1)
                   ->whereIn('q_nota',$merge)
                   ->orderBy('q_id','DESC')
                   ->get();
-        
+
         $temp = $data;
 
 
-        
+
         // return $data;
         $data = collect($data);
         // return $data;
         return Datatables::of($data)
                         ->addColumn('aksi', function ($data) {
                           if ($data->q_remain != 0) {
-                            return '<a href="'.url('/order/payment_order/detail_payment_order').'/'.$data->q_id.'" class="btn btn-outline-info btn-sm">Process</a>';                               
+                            return '<a href="'.url('/order/payment_order/detail_payment_order').'/'.$data->q_id.'" class="btn btn-outline-info btn-sm">Process</a>';
                           }else{
                             return  '<span class="badge badge-pill badge-success">Paid Off</span>';
                           }
@@ -658,7 +660,7 @@ class OrderController extends Controller
                             }else{
                                 return  '<span class="badge badge-pill badge-warning">Not Yet</span>';
                             }
-                                
+
                         })
                         ->rawColumns(['aksi', 'detail','histori','total','status','dp','remain'])
                         ->addIndexColumn()
@@ -674,7 +676,7 @@ class OrderController extends Controller
                   ->where('q_id',$id)
                   ->first();
 
-            
+
         $so = DB::table('d_quotation')
                   ->leftjoin('d_sales_order','q_nota','=','so_ref')
                   ->where('q_id',$id)
@@ -708,18 +710,18 @@ class OrderController extends Controller
         $index = str_pad($index, 3, '0', STR_PAD_LEFT);
 
         $nota_po = 'PO-'. $index . '/' . $data->q_type . '/' . $data->q_type_product .'/'. $bulan . $tahun;
-        
+
         // END
         $market = '';
         $marketing = DB::table('d_marketing')
                         ->get();
 
-        for ($i=0; $i < count($marketing); $i++) { 
+        for ($i=0; $i < count($marketing); $i++) {
             if ($marketing[$i]->mk_id == $data->q_marketing) {
                 $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
             }
         }
-      
+
         $data_dt = DB::table('d_quotation_dt')
                        ->join('m_item','i_code','=','qd_item')
                        ->where('qd_id',$id)
@@ -739,7 +741,7 @@ class OrderController extends Controller
 
     public function save_payment_order(request $req)
     {
-        return DB::transaction(function() use ($req) {  
+        return DB::transaction(function() use ($req) {
           // dd($req->all());
           $id = DB::table('d_payment_order')
               ->max('po_id')+1;
@@ -766,18 +768,18 @@ class OrderController extends Controller
                       'po_updated_by' => Auth::user()->m_name,
                       'po_created_by' => Auth::user()->m_name,
                     ]);
-        
-          
+
+
 
           $hasil  = $data->q_remain - filter_var($req->amount,FILTER_SANITIZE_NUMBER_INT);
 
-          $update = DB::table('d_quotation')  
+          $update = DB::table('d_quotation')
                       ->where('q_id',$req->id)
                       ->update([
                           'q_remain' => $hasil
                       ]);
 
-          
+
           return response()->json(['status' => 1]);
         });
     }
@@ -790,10 +792,12 @@ class OrderController extends Controller
     public function datatable_proforma_invoice()
     {
       $data = DB::table('d_payment_order')
+                  ->leftjoin('d_quotation', 'po_ref', '=', 'q_nota')
+                  ->leftjoin('m_customer', 'c_code', '=', 'q_customer')
                   ->orderBy('po_id','DESC')
                   ->get();
-        
-        
+
+
       // return $data;
       $data = collect($data);
       // return $data;
@@ -817,7 +821,7 @@ class OrderController extends Controller
                             $d = '</div>';
                           }
 
-                          return $a . $b .  $c . $d;                               
+                          return $a . $b .  $c . $d;
                       })
                       ->addColumn('none', function ($data) {
                           return '-';
@@ -856,17 +860,17 @@ class OrderController extends Controller
       $marketing = DB::table('d_marketing')
                       ->get();
 
-      for ($i=0; $i < count($marketing); $i++) { 
+      for ($i=0; $i < count($marketing); $i++) {
           if ($marketing[$i]->mk_id == $data->q_marketing) {
               $market = $marketing[$i]->mk_code. ' - ' .$marketing[$i]->mk_name;
           }
       }
-    
+
       $data_dt = DB::table('d_quotation_dt')
                      ->join('m_item','i_code','=','qd_item')
                      ->where('qd_id',$data->q_id)
                      ->get();
- 
+
       if (Auth::user()->akses('PROFORMA INVOICE','ubah')) {
         return view('order/proforma_invoice/detail_proforma_invoice',compact('item','data','data_dt','id','market','nama_item'));
       }else{
@@ -876,7 +880,7 @@ class OrderController extends Controller
 
     public function save_proforma_invoice(request $req)
     {
-        return DB::transaction(function() use ($req) {  
+        return DB::transaction(function() use ($req) {
 
           // PENGEMBALIAN NILAI QUOTATION
 
@@ -886,7 +890,7 @@ class OrderController extends Controller
                     ->first();
           $hasil = $data->q_remain + $data->po_total;
 
-          $update = DB::table('d_quotation')  
+          $update = DB::table('d_quotation')
                       ->where('q_id',$data->q_id)
                       ->update([
                           'q_remain' => $hasil
@@ -912,7 +916,7 @@ class OrderController extends Controller
 
           $fix  = $hasil - filter_var($req->amount,FILTER_SANITIZE_NUMBER_INT);
 
-          $update = DB::table('d_quotation')  
+          $update = DB::table('d_quotation')
                       ->where('q_id',$data->q_id)
                       ->update([
                           'q_remain' => $fix
@@ -923,14 +927,14 @@ class OrderController extends Controller
 
     public function hapus_proforma_invoice(request $req)
     {
-        return DB::transaction(function() use ($req) {  
+        return DB::transaction(function() use ($req) {
           $data = DB::table('d_payment_order')
                     ->join('d_quotation','q_nota','=','po_ref')
                     ->where('po_id',$req->id)
                     ->first();
           $hasil = $data->q_remain + $data->po_total;
 
-          $update = DB::table('d_quotation')  
+          $update = DB::table('d_quotation')
                       ->where('q_id',$data->q_id)
                       ->update([
                           'q_remain' => $hasil
