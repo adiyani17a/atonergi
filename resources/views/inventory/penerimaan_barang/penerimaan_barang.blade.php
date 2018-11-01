@@ -99,8 +99,7 @@
             ]
       });
 
-	function cari_purchaseorder() {
-		var this_val = $('#cari_purchaseorder').val();
+	function cari_purchaseorder(this_val) {
 		$.ajax({
          type: "get",
          url: '{{ route('cari_penerimaan_barang') }}',

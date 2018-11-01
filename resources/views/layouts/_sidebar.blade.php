@@ -300,7 +300,6 @@
                   Check Stock
                   Work Order
                   Sales Invoice
-                  Checklist Form
                   Payment Order
                 </span>
                 <i class="menu-arrow"></i>
@@ -313,8 +312,7 @@
                   <li class="nav-item"> <a class="nav-link {{Request::is('order/salesorder/s_order') ? 'active' : '' || Request::is('order/salesorder/*') ? 'active' : '' }}" href="{{url('order/salesorder/s_order')}}"> Sales Order<span class="d-none">Order</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('order/cekbarang/cekbarang') ? 'active' : '' || Request::is('order/cekbarang/*') ? 'active' : '' }}" href="{{url('order/cekbarang/cekbarang')}}">Check Stock<span class="d-none">Order</span></a></li>
                   <li class="nav-item"> <a class="nav-link {{Request::is('order/workorder/w_order') ? 'active' : '' || Request::is('order/workorder/*') ? 'active' : '' }}" href="{{url('order/workorder/w_order')}}">Work Order<span class="d-none">Order</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('order/s_invoice/s_invoice') ? 'active' : '' || Request::is('order/s_invoice/*') ? 'active' : '' }}" href="{{url('order/s_invoice/s_invoice')}}">Sales Invoice<span class="d-none">Order</span></a></li>
-                  <li class="nav-item"> <a class="nav-link {{Request::is('order/checklistform/checklistform') ? 'active' : '' || Request::is('order/checklistform/*') ? 'active' : '' }}" href="{{url('order/checklistform/checklistform')}}">Checklist Form<span class="d-none">Order</span></a></li>
+                  <li class="nav-item"> <a class="nav-link {{Request::is('order/s_invoice/s_invoice') ? 'active' : '' || Request::is('order/s_invoice/*') ? 'active' : '' }}" href="{{url('order/s_invoice/s_invoice')}}">Sales Invoice<span class="d-none">Order</span></a></li>                  
                   <li class="nav-item"> <a class="nav-link {{Request::is('order/payment_order/') ? 'active' : '' || Request::is('order/payment_order/*') ? 'active' : '' }}" href="{{url('order/payment_order')}}">Payment Order<span class="d-none">Order</span></a></li>
                 </ul>
                 </div>

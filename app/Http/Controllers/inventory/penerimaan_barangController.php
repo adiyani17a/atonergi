@@ -11,7 +11,12 @@ class penerimaan_barangController extends Controller
 
 	 public function penerimaan_barang()
 	 {
-	 	$po = DB::table('d_purchaseorder')->where('po_status','=','F')->get();
+		 $po = DB::table('d_purchaseorder')
+							 ->join('d_requestorder', 'ro_code', '=', 'po_nomor_ro')
+							 ->join('m_vendor', 's_kode', '=', 'ro_vendor')
+							 ->where('po_status','=','F')
+							 ->get();
+
 	 	return view('inventory/penerimaan_barang/penerimaan_barang',compact("po"));
 	 }
 	 public function datatable_penerimaan_barang()

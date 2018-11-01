@@ -4,7 +4,7 @@
 <!-- partial -->
 <div class="content-wrapper">
   <div class="row">
-  	<div class="col-lg-12">	
+  	<div class="col-lg-12">
   		<nav aria-label="breadcrumb" role="navigation">
   			<ol class="breadcrumb bg-info">
   				<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -17,7 +17,7 @@
         	<div class="card">
   	        <div class="card-body">
   	          <h4 class="card-title">Pembayaran Deposit</h4>
-  	          	
+
   	          	<div class="table-responsive" style="margin-bottom: 15px;">
   		            <table id="table_quote" class="table table-hover " cellspacing="0">
   			              <thead class="bg-gradient-info">
@@ -34,7 +34,7 @@
   			                </tr>
   			              </thead>
   			              <tbody>
-  			                
+
   			              </tbody>
   		            </table>
   		         </div>
@@ -89,12 +89,12 @@ $(document).ready(function(){
                  targets: 8,
                  className: 'center'
               },
-          
+
             ],
       columns: [
         {data: 'DT_Row_Index', name: 'DT_Row_Index'},
         {data: 'q_nota', name: 'q_nota'},
-        {data: 'q_customer', name: 'q_customer'},
+        {data: 'c_name', name: 'c_name'},
         {data: 'total', name: 'total'},
         {data: 'dp', name: 'dp'},
         {data: 'remain', name: 'remain'},
