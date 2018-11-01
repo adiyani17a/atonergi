@@ -20,8 +20,8 @@
 		}
 		.div-width{
 			width: 900px;
-			margin-top:140px;
-			padding: 0 15px 15px 15px;
+			/*margin-top:160px;*/
+			padding: 160px 0 15px 0;
 			background: transparent;
 			position: absolute;
 		}
@@ -201,6 +201,42 @@
 		.w-50percent{
 			width: 50%;
 		}
+		.title-atonergi{
+			width: 75%;
+			background-color: yellow;
+			border: 1px solid black;
+			margin: auto;
+		}
+		.mb-1{
+			margin-bottom: 1rem;
+		}
+		.mb-2{
+			margin-bottom: 2rem;
+		}
+		.mb-3{
+			margin-bottom: 3rem;
+		}
+		.mb-4{
+			margin-bottom: 4rem;
+		}
+		.mb-5{
+			margin-bottom: 5rem;
+		}
+		.row{
+			display: flex;
+			flex-wrap: wrap;
+			margin: auto;
+			padding-right: 45px;
+			padding-left: 45px;
+		}
+		.col-6{
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+		.col-12{
+			flex: 0 0 99%;
+			max-width: 100%;
+		}
 	</style>
 </head>
 <body>
@@ -245,7 +281,77 @@ TECHNICIAN PIC	: Mr. EKO BUDIANTO
 	</div>
 	<div class="div-page-break-after">
 		<div class="div-width">
-			<h4>Jancoeg</h4>
+			<div class="title-atonergi text-center mb-2">
+				<h1>DOKUMENTASI LOKASI PROJECT</h1>
+			</div>
+			<div class="row text-center">
+				<div class="col-12 mb-2">
+					<img width="350px" height="350px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+			</div>
+		</div>
+		<div class="div-width-background">
+			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
+		</div>
+	</div>
+	<div class="div-page-break-after">
+		<div class="div-width">
+			<div class="title-atonergi text-center mb-2">
+				<h1>DOKUMENTASI LOKASI PROJECT</h1>
+			</div>
+			<div class="row text-center">
+				<div class="col-6 mb-2">
+					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+				<div class="col-6 mb-2">
+					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+			</div>
+		</div>
+		<div class="div-width-background">
+			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
+		</div>
+	</div>
+	<div class="div-page-break-after">
+		<div class="div-width">
+			<div class="title-atonergi text-center mb-2">
+				<h1>DOKUMENTASI LOKASI PROJECT</h1>
+			</div>
+			<div class="row text-center">
+				<div class="col-6 mb-2">
+					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+				<div class="col-6 mb-2">
+					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+				<div class="col-12 mb-2">
+					<img width="350px" height="350px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+			</div>
+		</div>
+		<div class="div-width-background">
+			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
+		</div>
+	</div>
+	<div class="div-page-break-after">
+		<div class="div-width">
+			<div class="title-atonergi text-center mb-2">
+				<h1>DOKUMENTASI LOKASI PROJECT</h1>
+			</div>
+			<div class="row text-center">
+				<div class="col-6 mb-2">
+					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+				<div class="col-6 mb-2">
+					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+				<div class="col-6 mb-2">
+					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+				<div class="col-6 mb-2">
+					<img width="300px" height="300px" src="{{asset('assets/images/add-image-icon.png')}}">
+				</div>
+			</div>
 		</div>
 		<div class="div-width-background">
 			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
