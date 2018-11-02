@@ -236,6 +236,9 @@ input[type="file"].form-control{
 	.btn-scrolltop{
 		right: 30px;
 	}
+    .btn-scrollbottom{
+        right: 80px;
+    }
 }
 #settings-trigger{
     box-shadow: none;
