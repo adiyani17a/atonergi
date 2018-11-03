@@ -138,6 +138,7 @@ Route::get('/purchase/hub_suplier/hub_suplier', 'purchase\belanjalangsungControl
 // Order
 
 Route::get('/order/s_invoice/s_invoice', 'OrderController@s_invoice');
+Route::get('/order/s_invoice/detail_s_invoice', 'OrderController@detail_s_invoice');
 Route::get('/order/s_invoice/print_salesinvoice', 'OrderController@print_salesinvoice');
 Route::get('/order/workorder/w_order', 'OrderController@w_order');
 Route::get('/order/workorder/w_order/detail_workorder', 'OrderController@detail_workorder');

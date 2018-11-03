@@ -20,6 +20,10 @@ class OrderController extends Controller
     {
     	return view('order/s_invoice/s_invoice');
     }
+    public function detail_s_invoice()
+    {
+      return view('order/s_invoice/detail_s_invoice');
+    }
     public function print_salesinvoice(){
       return view('order.s_invoice.print_salesinvoice');
     }
