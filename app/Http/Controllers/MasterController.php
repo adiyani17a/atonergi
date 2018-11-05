@@ -192,7 +192,7 @@ class MasterController extends Controller
       try {
 
         $id = DB::table('m_signature')
-                ->max('m_id');
+                ->max('s_id');
 
                 if ($id == null) {
                   $id = 1;
