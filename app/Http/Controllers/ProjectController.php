@@ -23,6 +23,40 @@ class ProjectController extends Controller
 
     	return view('project/jadwalujicoba/jadwalujicoba', compact('data'));
     }
+    public function hapus_jadwal(Request $request){
+      DB::beginTransaction();
+      try {
+
+        DB::table('d_schedule')
+            ->where('s_id', $request->id)
+            ->delete();
+
+        DB::table('d_schedule_checklist')
+            ->where('sc_schedule', $request->id)
+            ->delete();
+
+        DB::table('d_schedule_image')
+            ->where('si_schedule', $request->id)
+            ->delete();
+
+        DB::table('d_schedule_install')
+            ->where('si_schedule', $request->id)
+            ->delete();
+
+        $this->deleteDir('image/uploads/dokumentasi/'.$request->id);
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::rollbac();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
+
+    }
     public function tambah_jadwalujicoba()
     {
         $provinces = DB::table('provinces')
@@ -214,6 +248,7 @@ class ProjectController extends Controller
                          DB::table('d_schedule_checklist')
                             ->insert([
                               'sc_id' => $scid,
+                              'sc_schedule' => $idschdule,
                               'sc_quotation' => $request->si_quotation[$i],
                               'sc_quantity' => $request->sc_quantity[$i],
                               'sc_check' => $check,
@@ -771,5 +806,23 @@ class ProjectController extends Controller
     public function technicianfee()
     {
     	return view('project/technicianfee/technicianfee');
+    }
+    public function deleteDir($dirPath)
+    {
+        if (!is_dir($dirPath)) {
+            return false;
+        }
+        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+            $dirPath .= '/';
+        }
+        $files = glob($dirPath . '*', GLOB_MARK);
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                self::deleteDir($file);
+            } else {
+                unlink($file);
+            }
+        }
+        rmdir($dirPath);
     }
 }

@@ -191,6 +191,7 @@ Route::get('/project/jadwalujicoba/tambah_jadwal', 'ProjectController@tambah_jad
 Route::get('/project/jadwalujicoba/simpan_jadwal', 'ProjectController@simpan_jadwal');
 Route::get('/project/jadwalujicoba/quotation', 'ProjectController@quotation');
 Route::get('/project/jadwalujicoba/city', 'ProjectController@city');
+Route::get('/project/jadwalujicoba/hapus_jadwal', 'ProjectController@hapus_jadwal');
 Route::post('/project/jadwalujicoba/simpan_jadwal', 'ProjectController@simpan_jadwal');
 Route::get('/project/jadwalujicoba/pdf_jadwal', 'ProjectController@pdf_jadwal')->name('pdf_jadwal');
 Route::get('/project/pemasangan/pemasangan', 'ProjectController@pemasangan');

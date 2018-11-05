@@ -67,7 +67,7 @@
 												<button class="btn btn-warning" type="button" title="Edit" onclick="edit({{$value->s_id}})"><i class="fa fa-pencil-alt"></i></button>
 												<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}" title="Print Report"><i class="fa fa-print"></i></a>
 												<button class="btn btn-success" type="button" title="Print Installation" onclick="print({{$value->s_id}})"><i class="fa fa-print"></i></button>
-												<button class="btn btn-danger" type="button" title="Delete" onclick="delete({{$value->s_id}})"><i class="fa fa-trash"></i></button>
+												<button class="btn btn-danger" type="button" title="Delete" onclick="hapus({{$value->s_id}})"><i class="fa fa-trash"></i></button>
 											</div>
 										</td>
 									</tr>
@@ -89,7 +89,57 @@
 <script>
 
 
+function hapus(id) {
 
+			 iziToast.show({
+				 overlay: true,
+				 close: false,
+				 timeout: 20000,
+				 color: 'dark',
+				 icon: 'fas fa-question-circle',
+				 title: 'Important!',
+				 message: 'Apakah Anda Yakin ?!',
+				 position: 'center',
+				 progressBarColor: 'rgb(0, 255, 184)',
+				 buttons: [
+					 [
+						 '<button style="background-color:#44d7c9;">Process</button>',
+						 function (instance, toast) {
+						 //ajax
+							$.ajax({
+								type: "get",
+								url: baseUrl + '/project/jadwalujicoba/hapus_jadwal',
+								data: {id},
+								success: function(data){
+									if (data.status == 'berhasil') {
+										window.location.href = baseUrl + '/project/jadwalujicoba/jadwalujicoba';
+									}
+								},
+								error: function(){
+								 iziToast.warning({
+									 icon: 'fa fa-times',
+									 message: 'Terjadi Kesalahan!',
+								 });
+								},
+								async: false
+							});
+						 //end of ajax
+
+
+						 }
+
+					 ],
+					 [
+						 '<button style="background-color:red;">Cancel</button>',
+						 function (instance, toast) {
+							 instance.hide({
+								 transitionOut: 'fadeOutUp'
+							 }, toast);
+						 }
+					 ]
+				 ]
+			 });
+ }
 
 </script>
 
