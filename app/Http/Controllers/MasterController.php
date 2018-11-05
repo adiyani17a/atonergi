@@ -32,6 +32,10 @@ class MasterController extends Controller
     {
         return view('master/akun/keuangan');
     }
+    public function a_keuangan()
+    {
+        return view('master/akun/a_keuangan');
+    }
     public function t_keuangan()
     {
         return view('master/transaksi/keuangan');

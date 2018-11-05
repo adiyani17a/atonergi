@@ -30,6 +30,14 @@
   <script src="{{asset('assets/waitingfor/waitingfor.js')}}"></script>
 
   <!-- End plugin js for  page-->
+
+  <!-- Inputmask js -->
+  <script src="{{asset('assets/node_modules/inputmask/dist/jquery.inputmask.bundle.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/node_modules/inputmask/dist/jquery.inputmask.bundle.js"></script>
+  <script src="{{asset('assets/node_modules/inputmask/dist/inputmask/phone-codes/phone.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/node_modules/inputmask/dist/inputmask/phone-codes/phone.js"></script>
+  <script src="{{asset('assets/node_modules/inputmask/dist/inputmask/phone-codes/phone-be.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/node_modules/inputmask/dist/inputmask/phone-codes/phone-be.js"></script>
+  <script src="{{asset('assets/node_modules/inputmask/dist/inputmask/phone-codes/phone-ru.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/node_modules/inputmask/dist/inputmask/phone-codes/phone-ru.js"></script>
+  <script src="{{asset('assets/node_modules/inputmask/dist/inputmask/bindings/inputmask.binding.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/node_modules/inputmask/dist/inputmask/bindings/inputmask.binding.js"></script>
+  <!-- End Inputmask js -->
   <!-- injectjs -->
 
   <script src="{{asset('assets/js/off-canvas.js')}}"></script>
@@ -329,5 +337,22 @@
       $('.clockpicker').clockpicker({
         donetext: 'OK'
       });   // clockpicker js
+
+</script>
+
+<script type="text/javascript">
+  
+  $(function() {
+    $('.currency').maskMoney(
+      {
+        prefix:'RP. ',
+        allowZero: true,
+        allowNegative: true, 
+        thousands:'.', 
+        decimal:',', 
+        affixesStay: false
+      }
+    );
+  })
 
 </script>

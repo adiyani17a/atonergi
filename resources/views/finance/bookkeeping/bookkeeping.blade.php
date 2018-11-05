@@ -17,27 +17,33 @@
 		<div class="col-lg-12 grid-margin stretch-card">
 	      	<div class="card">
 		        <div class="card-body">
-		          <h4 class="card-title">Bookkeeping</h4>
+		          <h4 class="card-title">Pilih Transaksi</h4>
+		          <br>
 		          	<div class="row">
 		          		
-						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-							<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
+						<div class="col-lg-4 grid-margin stretch-card justify-content-center">
+							<a href="{{ url('finance/bookkeeping/transaksi_kas') }}" class="center text-success alamraya-choosing-panel">
+								<i class="fa fa-dollar icon-lg text-success"></i>
+								<div class="center">
+									<label>Transaksi Kas</label>
+								</div>
+							</a>
 						</div>
-						<div class="table-responsive">
-							<table class="table table-hover data-table" cellspacing="0">
-							  <thead class="bg-gradient-info">
-							    <tr>
-							      <th>No</th>
-							      <th>Offer Code</th>
-							      <th>Offer Classification</th>
-							      <th>Information</th>
-							      <th>Action</th>
-							    </tr>
-							  </thead>
-							  <tbody>
-							    
-							  </tbody>
-							</table>
+						<div class="col-lg-4 grid-margin stretch-card justify-content-center">
+							<a href="{{ url('finance/bookkeeping/transaksi_bank') }}" class="center text-warning alamraya-choosing-panel">
+								<i class="fa fa-bank icon-lg text-warning"></i>
+								<div class="center">
+									<label>Transaksi Bank</label>
+								</div>
+							</a>
+						</div>
+						<div class="col-lg-4 grid-margin stretch-card justify-content-center">
+							<a href="{{ url('finance/bookkeeping/transaksi_memorial') }}" class="center text-danger alamraya-choosing-panel">
+								<i class="fa fa-suitcase icon-lg text-danger"></i>
+								<div class="center">
+									<label>Transaksi Memorial</label>
+								</div>
+							</a>
 						</div>
 						
 		        	</div>

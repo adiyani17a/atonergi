@@ -67,7 +67,8 @@ Route::get('/tes', 'SettingController@tes');
 // Master
 Route::get('/master/suplier/suplier', 'MasterController@suplier');
 Route::get('/master/pegawai/pegawai', 'MasterController@pegawai');
-Route::get('/master/akun/a_keuangan', 'MasterController@keuangan');
+Route::get('/master/akun/a_keuangan', 'MasterController@a_keuangan');
+Route::get('/master/akun/keuangan', 'MasterController@keuangan');
 Route::get('/master/transaksi/t_keuangan', 'MasterController@t_keuangan');
 Route::get('/master/barang/barang', 'MasterController@barang')->name('barang');
 Route::get('/master/barang/cari', 'MasterController@cari');
@@ -143,6 +144,7 @@ Route::get('/purchase/hub_suplier/hub_suplier', 'purchase\belanjalangsungControl
 // Order
 
 Route::get('/order/s_invoice/s_invoice', 'OrderController@s_invoice');
+Route::get('/order/s_invoice/detail_s_invoice', 'OrderController@detail_s_invoice');
 Route::get('/order/s_invoice/print_salesinvoice', 'OrderController@print_salesinvoice');
 Route::get('/order/workorder/w_order', 'OrderController@w_order');
 Route::get('/order/workorder/w_order/detail_workorder', 'OrderController@detail_workorder');
@@ -244,6 +246,9 @@ Route::get('/manajemenaset/irventarisasi/irventarisasi', 'AsetController@irventa
 Route::get('/finance/reporting/reporting', 'FinanceController@reporting');
 Route::get('/finance/evaluating/evaluating', 'FinanceController@evaluating');
 Route::get('/finance/bookkeeping/bookkeeping', 'FinanceController@bookkeeping');
+Route::get('/finance/bookkeeping/transaksi_kas', 'FinanceController@transaksi_kas');
+Route::get('/finance/bookkeeping/transaksi_bank', 'FinanceController@transaksi_bank');
+Route::get('/finance/bookkeeping/transaksi_memorial', 'FinanceController@transaksi_memorial');
 Route::get('/finance/costmanajemen/costmanajemen', 'FinanceController@costmanajemen');
 
 // HRD
