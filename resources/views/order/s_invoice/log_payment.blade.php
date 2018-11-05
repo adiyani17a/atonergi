@@ -25,7 +25,8 @@
                     </div>
                     <div class="col-md-8 col-sm-6 col-xs-12">
                       <div class="form-group">
-                        <input type="text" class="form-control currency" placeholder="0" data-thousands="." data-decimal="," data-prefix="RP. ">
+                        <!-- <input type="text" class="form-control currency" placeholder="0" data-thousands="." data-decimal="," data-prefix="RP. "> -->
+                        <input class="form-control form-control-sm" data-inputmask="'alias': 'currency'">
                       </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">

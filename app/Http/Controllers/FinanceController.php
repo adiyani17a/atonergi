@@ -22,4 +22,16 @@ class FinanceController extends Controller
     {
     	return view('finance/bookkeeping/bookkeeping');
     }
+    public function transaksi_kas()
+    {
+        return view('finance/bookkeeping/transaksi_kas');
+    }
+    public function transaksi_bank()
+    {
+        return view('finance/bookkeeping/transaksi_bank');
+    }
+    public function transaksi_memorial()
+    {
+        return view('finance/bookkeeping/transaksi_memorial');
+    }
 }

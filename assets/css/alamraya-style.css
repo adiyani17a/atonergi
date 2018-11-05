@@ -131,6 +131,12 @@
 	font-size: 12px;
 }
 
+a.alamraya-choosing-panel {
+	border: 0.55px solid #cecece; 
+	border-radius: 4px; 
+	padding: 3em;
+}
+
 
 /*
  ALAMRAYA OVERRIDING STYLE STARTS
