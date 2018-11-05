@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Session;
 use DB;
 use Carbon\Carbon;
 use Validator;
+use File;
 
 class ProjectController extends Controller
 {
@@ -17,11 +18,221 @@ class ProjectController extends Controller
     }
     public function jadwalujicoba()
     {
-    	return view('project/jadwalujicoba/jadwalujicoba');
+      $data = DB::table('d_schedule')
+                ->get();
+
+    	return view('project/jadwalujicoba/jadwalujicoba', compact('data'));
     }
     public function tambah_jadwalujicoba()
     {
-        return view('project/jadwalujicoba/tambah_jadwal');
+        $provinces = DB::table('provinces')
+                        ->get();
+
+        $signature = DB::table("m_signature")
+                        ->get();
+
+        $regencies = DB::table("regencies")
+                        ->get();
+
+        $quotation = DB::select("select q_id, q_nota from d_quotation");
+
+        return view('project/jadwalujicoba/tambah_jadwal', compact('provinces', 'signature', 'quotation', 'regencies'));
+    }
+    public function quotation(Request $request){
+      $data = DB::table('d_quotation')
+                ->join('d_quotation_dt', 'qd_id', '=', 'q_id')
+                ->join('m_item', 'i_code', '=', 'qd_item')
+                ->where('q_id', $request->quotation)
+                ->get();
+
+      return response()->json($data);
+    }
+    public function city(Request $request){
+      $data = DB::table('regencies')
+                ->where('province_id', $request->hasil)
+                ->get();
+
+      return response()->json($data);
+    }
+    public function simpan_jadwal(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $idschdule = DB::table('d_schedule')
+                      ->max('s_id');
+
+        if ($idschdule == null) {
+          $idschdule = 1;
+        } else {
+          $idschdule += 1;
+        }
+
+        DB::table('d_schedule')
+          ->insert([
+            's_id' => $idschdule,
+            's_title' => $request->judul_laporan,
+            's_description' => $request->deskripsi_laporan,
+            's_insert' => Carbon::now('Asia/Jakarta')
+          ]);
+
+          for ($z=0; $z <= count((int)$request->jumlahimage); $z++) {
+            $idimage = DB::table('d_schedule_image')
+                          ->max('si_id');
+
+            if ($idimage == null) {
+              $idimage = 1;
+            } else {
+              $idimage += 1;
+            }
+
+            $imgPath = null;
+            $tgl = Carbon::now('Asia/Jakarta');
+            $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+            $dir = 'image/uploads/dokumentasi/' .$idschdule. '/' .$idimage;
+            $childPath = $dir . '/';
+            $path = $childPath;
+            $file = $request->file('image'.$z.'');
+            $name = null;
+            if ($file != null) {
+                $name = $folder . '.' . $file->getClientOriginalExtension();
+                if (!File::exists($path)) {
+                    if (File::makeDirectory($path, 0777, true)) {
+                        $file->move($path, $name);
+                        $imgPath = $childPath . $name;
+                    } else
+                        $imgPath = null;
+                } else {
+                    return 'already exist';
+                }
+            }
+
+            DB::table('d_schedule_image')
+              ->insert([
+                'si_id' => $idimage,
+                'si_schedule' => $idschdule,
+                'si_judul' => $request->title[$z],
+                'si_image' => $imgPath,
+                'si_insert' => Carbon::now('Asia/Jakarta')
+              ]);
+          }
+
+          $si_id = DB::table('d_schedule_install')
+                    ->max('si_id');
+
+          if ($si_id == null) {
+            $si_id = 1;
+          } else {
+            $si_id += 1;
+          }
+
+          DB::table('d_schedule_install')
+                ->insert([
+                  'si_id' => $si_id,
+                  'si_schedule' => $idschdule,
+                  'si_end_customer' => $request->si_end_customer,
+                  'si_installer' => $request->si_installer,
+                  'si_contact_data_of_installer' => $request->si_contact_data_of_installer,
+                  'si_country' => $request->si_country,
+                  'si_province' => $request->si_province,
+                  'si_city' => $request->si_city,
+                  'si_longitude' => $request->si_longitude,
+                  'si_latitude' => $request->si_latitude,
+                  'si_installation_date' => Carbon::parse($request->si_installation_date)->format('Y-m-d'),
+                  'si_application' => $request->si_application,
+                  'si_other_application' => $request->si_other_application,
+                  'si_many_people' => $request->si_many_people,
+                  'si_many_animal' => $request->si_many_animal,
+                  'si_type_animal' => $request->si_type_animal,
+                  'si_crop_grown' => $request->si_crop_grown,
+                  'si_area' => $request->si_area,
+                  'si_satuan_area' => $request->si_satuan_area,
+                  'si_pool_size' => $request->si_pool_size,
+                  'si_pool_type' => $request->si_pool_type,
+                  'si_satuan_pool' => $request->si_satuan_pool,
+                  'si_additional_information' => $request->si_additional_information,
+                  'si_pump_type' => $request->si_pump_type,
+                  'si_pump_pump' => $request->si_pump_pump,
+                  'si_pump_controller' => $request->si_pump_controller,
+                  'si_controller_serial_number' => $request->si_controller_serial_number,
+                  'si_motor_serial_number' => $request->si_motor_serial_number,
+                  'si_pump_end_serial_number' => $request->si_pump_end_serial_number,
+                  'si_total_dynamic_head' => $request->si_total_dynamic_head,
+                  'si_total_dinamyc_satuan' => $request->si_total_dinamyc_satuan,
+                  'si_static_head' => $request->si_static_head,
+                  'si_daily_flow_rate' => $request->si_daily_flow_rate,
+                  'si_water_source' => $request->si_water_source,
+                  'si_pipe_lenght' => $request->si_pipe_lenght,
+                  'si_pipe_diameter' => $request->si_pipe_diameter,
+                  'si_cable_lenght' => $request->si_cable_lenght,
+                  'si_type_of_water_storage' => $request->si_type_of_water_storage,
+                  'si_size_of_water_storage' => $request->si_size_of_water_storagem,
+                  'si_suction_head' => $request->si_suction_head,
+                  'si_suction_head_satuan' => $request->si_suction_head_satuan,
+                  'si_itlet_pipe_size' => $request->si_itlet_pipe_size,
+                  'si_itlet_pipe_size_satuan' => $request->si_itlet_pipe_size_satuan,
+                  'si_pv_module_manufacturer' => $request->si_pv_module_manufacturer,
+                  'si_model_generator' => $request->si_model_generator,
+                  'si_type_generator' => $request->si_type_generator,
+                  'si_quantity_generator' => $request->si_quantity_generator,
+                  'si_power_each' => $request->si_power_each,
+                  'si_power_total' => $request->si_power_total,
+                  'si_quantity_battery' => $request->si_quantity_battery,
+                  'si_capacity_battery' => $request->si_capacity_battery,
+                  'si_voltage_battery' => $request->si_voltage_battery,
+                  'si_manufaktur_system' => $request->si_manufaktur_system,
+                  'si_type_system' => $request->si_type_system,
+                  'si_model_system' => $request->si_model_system,
+                  'si_quantity_system' => $request->si_quantity_system,
+                  'si_check1' => $request->si_check1,
+                  'si_check2' => $request->si_check2,
+                  'si_your_name' => $request->si_your_name,
+                  'si_signature' => $request->si_signature,
+                  'si_email_address' => $request->si_email_address,
+                  'si_insert' => Carbon::now('Asia/Jakarta')
+                ]);
+
+              for ($i=0; $i < count($request->sc_quantity); $i++) {
+                  if ($request->sc_quantity[$i] == 0 || $request->sc_quantity[$i] == '') {
+
+                  } else {
+                     if ($request->sc_check[$i] == '' || $request->sc_check[$i] == null) {
+                       $check = 'N';
+                     } else {
+                       $check = 'Y';
+                       if ($request->sc_remarks[$i] == '' || $request->sc_remarks[$i] == null) {
+
+                       } else {
+                         $scid = DB::table('d_schedule_checklist')
+                                   ->max('sc_id');
+
+                        if ($scid == null) {
+                          $scid = 1;
+                        } else {
+                          $scid += 1;
+                        }
+
+                         DB::table('d_schedule_checklist')
+                            ->insert([
+                              'sc_id' => $scid,
+                              'sc_quotation' => $request->si_quotation[$i],
+                              'sc_quantity' => $request->sc_quantity[$i],
+                              'sc_check' => $check,
+                              'sc_remarks' => $request->sc_remarks[$i]
+                            ]);
+                       }
+                     }
+                  }
+              }
+
+        DB::commit();
+        Session::flash('sukses', 'Berhasil Disimpan!');
+        return redirect('project/jadwalujicoba/jadwalujicoba');
+    } catch (\Exception $e) {
+        DB::rollback();
+        Session::flash('gagal', 'Gagal Disimpan!');
+        return redirect('project/jadwalujicoba/jadwalujicoba');
+    }
+
     }
     public function pdf_jadwal()
     {

@@ -178,8 +178,129 @@ class MasterController extends Controller
     }
     public function ttd()
     {
-        return view('master.ttd.ttd');
+        $data = DB::table('m_signature')
+                ->get();
+
+        return view('master.ttd.ttd', compact('data'));
     }
+    public function simpanttd(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $id = DB::table('m_signature')
+                ->max('m_id');
+
+                if ($id == null) {
+                  $id = 1;
+                } else {
+                  $id += 1;
+                }
+
+            $imgPath = null;
+            $tgl = Carbon::now('Asia/Jakarta');
+            $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+            $dir = 'image/uploads/ttd/' . $id;
+            $childPath = $dir . '/';
+            $path = $childPath;
+            $file = $request->file('signatureimage');
+            $name = null;
+            if ($file != null) {
+                $name = $folder . '.' . $file->getClientOriginalExtension();
+                if (!File::exists($path)) {
+                    if (File::makeDirectory($path, 0777, true)) {
+                        $file->move($path, $name);
+                        $imgPath = $childPath . $name;
+                    } else
+                        $imgPath = null;
+                } else {
+                    return 'already exist';
+                }
+            }
+
+            DB::table('m_signature')
+                ->insert([
+                  's_id' => $id,
+                  's_name' => strtoupper($request->name),
+                  's_image' => $imgPath,
+                  's_insert' => Carbon::now('Asia/Jakarta')
+                ]);
+
+            DB::commit();
+            Session::flash('sukses', 'Berhasil Disimpan!');
+            return redirect('master/ttd/ttd');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Session::flash('gagal', 'Gagal Disimpan!');
+            return redirect('master/ttd/ttd');
+        }
+    }
+    public function hapusttd(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $dir = 'image/uploads/ttd/' . $request->id;
+        $this->deleteDir($dir);
+
+        DB::table('m_signature')
+            ->where('s_id', $request->id)
+            ->delete();
+
+        DB::commit();
+        return response()->json([
+          'status' => 'berhasil'
+        ]);
+      } catch (\Exception $e) {
+        DB::commit();
+        return response()->json([
+          'status' => 'gagal'
+        ]);
+      }
+    }
+    public function updatettd(Request $request){
+      DB::beginTransaction();
+      try {
+
+        $dir = 'image/uploads/ttd/' . $request->s_id;
+        $this->deleteDir($dir);
+
+        $imgPath = null;
+        $tgl = Carbon::now('Asia/Jakarta');
+        $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+        $dir = 'image/uploads/ttd/' . $request->s_id;
+        $childPath = $dir . '/';
+        $path = $childPath;
+        $file = $request->file('signatureimage');
+        $name = null;
+        if ($file != null) {
+            $name = $folder . '.' . $file->getClientOriginalExtension();
+            if (!File::exists($path)) {
+                if (File::makeDirectory($path, 0777, true)) {
+                    $file->move($path, $name);
+                    $imgPath = $childPath . $name;
+                } else
+                    $imgPath = null;
+            } else {
+                return 'already exist';
+            }
+        }
+
+        DB::table('m_signature')
+            ->where('s_id', $request->s_id)
+            ->update([
+              's_name' => strtoupper($request->name),
+              's_image' => $imgPath,
+              's_update' => Carbon::now('Asia/Jakarta')
+            ]);
+
+        DB::commit();
+        Session::flash('sukses', 'Berhasil Disimpan!');
+        return redirect('master/ttd/ttd');
+    } catch (\Exception $e) {
+        DB::rollback();
+        Session::flash('gagal', 'Gagal Disimpan!');
+        return redirect('master/ttd/ttd');
+    }
+  }
     public function bank()
     {
         return view('master.bank.bank');
@@ -430,6 +551,25 @@ public function edit_bank(request $req)
                         ->delete();
             return response()->json(['jasa'=>1]);
 
+        }
+
+        public function deleteDir($dirPath)
+        {
+            if (!is_dir($dirPath)) {
+                return false;
+            }
+            if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+                $dirPath .= '/';
+            }
+            $files = glob($dirPath . '*', GLOB_MARK);
+            foreach ($files as $file) {
+                if (is_dir($file)) {
+                    self::deleteDir($file);
+                } else {
+                    unlink($file);
+                }
+            }
+            rmdir($dirPath);
         }
 
 }
