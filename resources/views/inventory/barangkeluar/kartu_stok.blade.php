@@ -47,7 +47,7 @@
 
 		          		<div class="col-md-9 col-sm-6 col-xs-12">
 		          			<div class="form-group form-group-sm">
-		          				<input type="text" class="form-control" id="receive" name="">
+		          				<textarea class="form-control" id="receive" name=""></textarea>
 		          			</div>
 		          		</div>
 
@@ -94,6 +94,23 @@
 
 		          		<h4 class="ml-3 mt-2 mb-3">History Stock Opname</h4>
 
+						<div class="table-responsive mb-3">
+							<table class="table table-hover table-striped table-bordered" id="tabel_history" cellspacing="0">
+							  <thead class="bg-gradient-info">
+							    <tr>
+							    	<th>Date</th>
+							    	<th>Receive From</th>
+							    	<th>In</th>
+							    	<th>Out</th>
+							    	<th>Remain</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    
+							  </tbody>
+							</table>
+						</div>
+
 						<div class="table-responsive">
 							<table class="table table-hover table-striped table-bordered" id="tabel_kartu_stok" cellspacing="0">
 							  <thead class="bg-gradient-info">
@@ -103,6 +120,7 @@
 							    	<th>In</th>
 							    	<th>Out</th>
 							    	<th>Remain</th>
+							    	<th width="1%"></th>
 							    </tr>
 							  </thead>
 							  <tbody>
@@ -125,7 +143,15 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-	var tabel = $('#tabel_kartu_stok').DataTable({
+	// var tabel = $('#tabel_kartu_stok').DataTable({
+	// 	"pageLength": 10,
+ //        "lengthMenu": [[10, 20, 50, - 1], [10, 20, 50, "All"]],
+ //        "language": {
+ //            "searchPlaceholder": "Search",
+ //            "sSearch": '<i class="fa fa-search"></i>'
+ //           }
+	// });
+	$('#tabel_history').DataTable({
 		"pageLength": 10,
         "lengthMenu": [[10, 20, 50, - 1], [10, 20, 50, "All"]],
         "language": {
@@ -136,22 +162,44 @@
 	function tabel_append(){
 		var newDate = new Date();
 		var date = newDate.getDate();
-		var month = newDate.getMonth();
+		var month = newDate.getMonth()+1;
 		var year = newDate.getFullYear();
 		var tgl = date+'-'+month+'-'+year;
 
-		tabel.row.add([
-			$('#date').val(),
-			$('#receive').val(),
-			'',
-			$('#qty').val(),
-			''
-			]).draw(false).node();
+		// console.log(month);
+		
+		$('#tabel_kartu_stok tbody').append(
+			'<tr>'+
+				'<td><input type="hidden" value="'+$('#date').val()+'" class="date"><span>'+$('#date').val()+'</span></td>'+
+				'<td><input type="hidden" value="'+$('#receive').val()+'" class="receive"><pre>'+$('#receive').val()+'</pre></td>'+
+				'<td></td>'+
+				'<td><input type="hidden" value="'+$('#qty').val()+'" class="qty"><span>'+$('#qty').val()+'</span></td>'+
+				'<td></td>'+
+				'<td><button type="button" class="btn btn-warning btn-xs btn-edit" title="Edit"><i class="fa fa-pencil-alt"></i></button></td>'+
+			'</tr>'
+			);
 
 		$('#qty').val('');
 		$('#receive').val('');
 		$('#date').datepicker('setDate', tgl);
+		$('#qty').attr('disabled',true);
+
+
 	}
+
+	$(document).on('click', '.btn-edit', function(){
+		var qty = $(this).parents('tr').find('.qty').val();
+		var receive = $(this).parents('tr').find('.receive').val();
+		var date = $(this).parents('tr').find('.date').val();
+
+		$('#qty').attr('disabled', false);
+		$('#date').datepicker('setDate',date);
+		$('#receive').val(receive);
+		$('#qty').val(qty);
+
+		$(this).parents('tr').remove();
+		$('html, body').animate({scrollTop:0}, 'slow');
+	});
 
 	$('#qty').on('keypress', function(e){
 		if(e.which === 13 || e.keyCode === 13){
