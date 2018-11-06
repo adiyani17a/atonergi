@@ -93,6 +93,11 @@ Route::get('/master/barang/cari', 'MasterController@cari');
     //
 Route::get('/master/type/type', 'MasterController@type');
 Route::get('/master/ttd/ttd', 'MasterController@ttd');
+Route::get('/master/ttd/simpan', 'MasterController@simpanttd');
+Route::post('/master/ttd/simpan', 'MasterController@simpanttd');
+Route::get('/master/ttd/hapus', 'MasterController@hapusttd');
+Route::get('/master/ttd/update', 'MasterController@updatettd');
+Route::post('/master/ttd/update', 'MasterController@updatettd');
 // Quotation
 Route::get('/quotation/q_quotation/q_quotation', 'QuotationController@q_quotation');
 Route::get('/quotation/q_quotation/datatable', 'QuotationController@quote_datatable')->name('quote_datatable');
@@ -183,6 +188,11 @@ Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
 Route::get('/project/dokumentasi/dokumentasi', 'ProjectController@dokumentasi');
 Route::get('/project/jadwalujicoba/jadwalujicoba', 'ProjectController@jadwalujicoba');
 Route::get('/project/jadwalujicoba/tambah_jadwal', 'ProjectController@tambah_jadwalujicoba');
+Route::get('/project/jadwalujicoba/simpan_jadwal', 'ProjectController@simpan_jadwal');
+Route::get('/project/jadwalujicoba/quotation', 'ProjectController@quotation');
+Route::get('/project/jadwalujicoba/city', 'ProjectController@city');
+Route::get('/project/jadwalujicoba/hapus_jadwal', 'ProjectController@hapus_jadwal');
+Route::post('/project/jadwalujicoba/simpan_jadwal', 'ProjectController@simpan_jadwal');
 Route::get('/project/jadwalujicoba/pdf_jadwal', 'ProjectController@pdf_jadwal')->name('pdf_jadwal');
 Route::get('/project/pemasangan/pemasangan', 'ProjectController@pemasangan');
 Route::get('/project/pemasangan/prosespemasangan/{id}', 'ProjectController@prosespemasangan');

@@ -96,6 +96,7 @@
 	margin-top: -40px;
 	margin-left: -25px;
 	text-align: center;
+	visibility: hidden;
 }
 
 @media (min-width: 376px, max-width: 585px) {
