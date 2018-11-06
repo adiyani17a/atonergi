@@ -272,3 +272,14 @@ textarea{
 .modal-content {
 	background: #dff5f6 ;
 }
+.fieldset{
+    border: 1px solid #e2e2e2;
+    width: 100%;
+    padding: 13px;
+    margin: 13px;
+}
+.content-footer{
+    width: 100%;
+    text-align: right;
+    margin-top: 15px;
+}

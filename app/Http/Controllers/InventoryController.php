@@ -18,6 +18,10 @@ class InventoryController extends Controller
     {
     	return view('inventory/barangkeluar/barangkeluar');
     }
+    public function kartu_stok()
+    {
+        return view('inventory/barangkeluar/kartu_stok');
+    }
     public function barcode()
     {
     	return view('inventory/barcode/barcode');
