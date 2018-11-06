@@ -1,7 +1,7 @@
 @extends('main')
 @section('content')
 
-@include('inventory/barangkeluar/tambah_barangkeluar')
+
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
@@ -19,24 +19,34 @@
 		        <div class="card-body">
 		          <h4 class="card-title">Barang Keluar</h4>
 		          	<div class="row">
-		          		
-						<div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-							<button class="btn btn-info" data-toggle="modal" data-target="#tambah"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</button>
-						</div>
+
 						<div class="table-responsive">
-							<table class="table table-hover data-table" cellspacing="0">
+							<table class="table table-hover table-striped table-bordered data-table" cellspacing="0">
 							  <thead class="bg-gradient-info">
 							    <tr>
-							      <th>No</th>
-							      <th>Item Out Code</th>
-							      <th>Date</th>
-							      <th>Information</th>
-							      <th>Status</th>
-							      <th>Action</th>
+							    	<th width="1%">No</th>
+							    	<th>Item Code</th>
+							    	<th>Item Name</th>
+							    	<th>Unit</th>
+							    	<th>Category</th>
+							    	<th>Description</th>
+							    	<th>Action</th>
 							    </tr>
 							  </thead>
 							  <tbody>
-							    
+							    <tr>
+							    	<td align="center">1</td>
+							    	<td>BRG/0001</td>
+							    	<td>Pompa Air</td>
+							    	<td>Ls</td>
+							    	<td>ACC</td>
+							    	<td>-</td>
+							    	<td>
+							    		<div class="btn-group btn-group-sm">
+							    			<a href="{{url('inventory/barangkeluar/kartu_stok')}}" title="Kartu Stok" class="btn btn-primary"><i class="fa fa-external-link-square-alt"></i></a>
+							    		</div>
+							    	</td>
+							    </tr>
 							  </tbody>
 							</table>
 						</div>

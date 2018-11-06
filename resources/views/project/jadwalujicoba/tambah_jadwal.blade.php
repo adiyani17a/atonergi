@@ -99,7 +99,7 @@
       border: 2px solid #333;
   }
 
-  
+
 
   .wizard li a:after {
       content: " ";
@@ -197,7 +197,7 @@
     <i class="fa fa-angle-down"></i>
   </div>
   <div class="row">
-    <div class="col-lg-12"> 
+    <div class="col-lg-12">
         <nav aria-label="breadcrumb" role="navigation">
           <ol class="breadcrumb bg-info">
             <li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -208,7 +208,10 @@
         </nav>
     </div>
   </div>
-  <form id="forum-dokumentasi" class="form cf" enctype="multipart/form-data">
+  <form method="POST" class="form-horizontal form" action="{{ url('project/jadwalujicoba/simpan_jadwal') }}" accept-charset="UTF-8" id="form" enctype="multipart/form-data">
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
+    <input type="hidden" name="jumlahimage">
+    <input type="hidden" name="jumlahtab">
     <div class="wizard">
       <!-- Nav tab-->
       <div class="row">
@@ -262,13 +265,13 @@
         <div class="tab-pane active" role="tabpanel" id="step1">
           <!-- Start Row -->
           <div class="row" id="form-dokumentasi">
-            
+
 
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  
-                    
+
+
                     <div class="row">
 
                       <div class="col-md-3 col-sm-4 col-xs-12">
@@ -284,7 +287,6 @@
                       <div class="col-md-3 col-sm-4 col-xs-12">
                         <label>Report Description</label>
                       </div>
-
                       <div class="col-md-9 col-sm-8 col-xs-12">
                         <div class="form-group form-group-sm">
                           <textarea rows="3" name="deskripsi_laporan" class="form-control"></textarea>
@@ -293,7 +295,7 @@
 
 
                     </div>
-                
+
                 </div>
               </div>
             </div>
@@ -304,14 +306,14 @@
                 <div class="card-body">
 
                   <div class="row" id="form-gambar-1">
-                    
+
                     <div class="col-md-3 col-sm-4 col-xs-12">
                       <label>Title</label>
                     </div>
 
                     <div class="col-md-9 col-sm-8 col-xs-12">
                       <div class="form-group form-group-sm">
-                        <input type="text" class="form-control judul" name="judul[]">
+                        <input type="text" class="form-control jumlahjudul judul0" onkeyup="judul(0)" name="judul[]">
                       </div>
                     </div>
 
@@ -323,10 +325,11 @@
 
                         <div class="col-md-12">
                           <div class="form-group">
-                            <input type="file" class="form-control form-control-sm" name="image[]" accept="image/*">
+                            <input type="file" class="form-control form-control-sm uploadimage" name="image0" accept="image/*">
+                            <input type="hidden" class="title0" name="title[]">
                           </div>
                         </div>
-                        
+
                       </div>
                     </div>
 
@@ -337,9 +340,9 @@
                     </div>
                   </div>
 
-                  
+
                 </div>
-                
+
               </div>
             </div>
 
@@ -356,20 +359,20 @@
               <div class="card">
 
                 <div class="card-body">
-                   
-                  
+
+
                     <div class="row">
                       <div class="col-lg-12">
                         <button class="btn btn-info btn-sm m-2 btn-block btn-simpan next-step" type="button">Next</button>
                       </div>
-                      
+
                     </div>
-                    
-                  
+
+
 
 
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -380,7 +383,7 @@
         <!-- Step 2 -->
         <div class="tab-pane" id="step2">
           <div class="row">
-            
+
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -389,7 +392,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -397,7 +400,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="end_user" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_end_customer" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -406,7 +409,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="installer" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_installer" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -415,12 +418,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="contact_data" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_contact_data_of_installer" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -437,7 +440,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -445,9 +448,9 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <select class="form-control form-control-sm" id="">
+                                <select class="form-control form-control-sm select2" name="si_country">
                                   <option disabled selected>--Pilih--</option>
-                                  <option value="ina">Indonesia</option>
+                                  <option value="Indonesia">Indonesia</option>
                                 </select>
                               </div>
                             </div>
@@ -457,9 +460,11 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <select class="form-control form-control-sm" id="">
+                                <select class="form-control form-control-sm select2" id="city" onchange="filtercity()" name="si_province">
                                   <option disabled selected>--Pilih--</option>
-                                  <option value="ina">Papua</option>
+                                  @foreach ($provinces as $key => $value)
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                  @endforeach
                                 </select>
                               </div>
                             </div>
@@ -469,9 +474,8 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <select class="form-control form-control-sm" id="">
+                                <select class="form-control form-control-sm select2" id="showcity" name="si_city">
                                   <option disabled selected>--Pilih--</option>
-                                  <option value="ina">BIAK</option>
                                 </select>
                               </div>
                             </div>
@@ -482,7 +486,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="text" name="longitude" class="form-control" placeholder="type something...">
+                                  <input type="text" name="si_longitude" class="form-control" placeholder="type something...">
                                   <span class="input-group-addon bg-primary border-primary text-white">East</span>
                                 </div>
                               </div>
@@ -494,14 +498,14 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="text" name="latitude" class="form-control" placeholder="type something...">
+                                  <input type="text" name="si_latitude" class="form-control" placeholder="type something...">
                                   <span class="input-group-addon bg-primary border-primary text-white">South</span>
                                 </div>
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -518,7 +522,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -527,7 +531,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div id="datepicker-popup" class="input-group date datepicker">
-                                    <input type="text" class="form-control" placeholder="dd-mm-yyyy">
+                                    <input type="text" class="form-control .datepicker" name="si_installation_date" placeholder="dd-mm-yyyy">
                                     <div class="input-group-addon alamraya-input-group-addon">
                                       <span class="mdi mdi-calendar"></span>
                                     </div>
@@ -536,7 +540,7 @@
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -553,7 +557,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -561,7 +565,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="app" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_application" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -570,13 +574,13 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="2" name="oth_app" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="2" name="si_other_application" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -593,7 +597,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -602,7 +606,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="number" name="end_user" class="form-control" min="0" placeholder="0">
+                                  <input type="number" name="si_many_people" class="form-control" min="0" placeholder="0">
                                   <span class="input-group-addon bg-primary border-primary text-white">people</span>
                                 </div>
                               </div>
@@ -614,7 +618,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="number" name="end_user" class="form-control" min="0" placeholder="0">
+                                  <input type="number" name="si_many_animal" class="form-control" min="0" placeholder="0">
                                   <span class="input-group-addon bg-primary border-primary text-white">animals</span>
                                 </div>
                               </div>
@@ -625,12 +629,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="animals_type" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_type_animal" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -647,7 +651,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -655,7 +659,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="crop" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_crop_grown" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -664,27 +668,27 @@
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <input type="number" name="irrigated" class="form-control" placeholder="0" min="0">
+                                <input type="number" name="si_area" class="form-control" placeholder="0" min="0">
                               </div>
                             </div>
                             <div class="col-md-5 col-sm-4 col-xs-12 alamraya-no-padding">
-                              
+
                               <div class="alamraya-form-radio-group">
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_area" value="m2" checked />&nbsp;m<sup>2</sup>&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_satuan_area" value="M2" checked />&nbsp;m<sup>2</sup>&nbsp;&nbsp;
                                 </label>
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_area" value="ha"/>&nbsp;ha&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_satuan_area" value="HA"/>&nbsp;ha&nbsp;&nbsp;
                                 </label>
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_area" value="ac"/>&nbsp;ac&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_satuan_area" value="AC"/>&nbsp;ac&nbsp;&nbsp;
                                 </label>
                               </div>
 
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -701,7 +705,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -709,20 +713,20 @@
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <input type="number" name="pool" class="form-control" placeholder="0" min="0">
+                                <input type="number" name="si_pool_size" class="form-control" placeholder="0" min="0">
                               </div>
                             </div>
                             <div class="col-md-5 col-sm-4 col-xs-12 alamraya-no-padding">
-                              
+
                               <div class="alamraya-form-radio-group">
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_pool" value="m3" checked/>&nbsp;m<sup>3</sup>&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_satuan_pool" value="M3" checked/>&nbsp;m<sup>3</sup>&nbsp;&nbsp;
                                 </label>
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_pool" value="liters"/>&nbsp;liters&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_satuan_pool" value="LITERS"/>&nbsp;liters&nbsp;&nbsp;
                                 </label>
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_pool" value="usg"/>&nbsp;USG&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_satuan_pool" value="USG"/>&nbsp;USG&nbsp;&nbsp;
                                 </label>
                               </div>
 
@@ -733,7 +737,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pool_type" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_pool_type" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -742,12 +746,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="3" name="additional_info" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="3" name="si_additional_information" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -764,7 +768,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -772,7 +776,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pump_type" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_pump_type" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -781,7 +785,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pump_pump" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_pump_pump" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -790,7 +794,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pump_ctrl" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_pump_controller" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -799,7 +803,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="ctrl_sn" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_controller_serial_number" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -808,7 +812,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="motor_sn" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_motor_serial_number" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -817,12 +821,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pump_sn" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_pump_end_serial_number" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -839,7 +843,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12 alamraya-no-padding">
@@ -847,17 +851,17 @@
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <input type="number" name="total_dh" class="form-control" placeholder="0" min="0">
+                                <input type="number" name="si_total_dynamic_head" class="form-control" placeholder="0" min="0">
                               </div>
                             </div>
                             <div class="col-md-5 col-sm-4 col-xs-12 alamraya-no-padding">
-                              
+
                               <div class="alamraya-form-radio-group">
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_tdh" value="m" checked/>&nbsp;m&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_total_dinamyc_satuan" value="M" checked/>&nbsp;m&nbsp;&nbsp;
                                 </label>
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_tdh" value="ft"/>&nbsp;ft&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_total_dinamyc_satuan" value="FT"/>&nbsp;ft&nbsp;&nbsp;
                                 </label>
                               </div>
 
@@ -869,7 +873,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="number" name="static_head" class="form-control" min="0" placeholder="0">
+                                  <input type="number" name="si_static_head" class="form-control" min="0" placeholder="0">
                                   <span class="input-group-addon bg-primary border-primary text-white">m</span>
                                 </div>
                               </div>
@@ -881,7 +885,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="number" name="daily_fr" class="form-control" min="0" placeholder="0">
+                                  <input type="number" name="si_daily_flow_rate" class="form-control" min="0" placeholder="0">
                                   <span class="input-group-addon bg-primary border-primary text-white">m<sup>3</sup></span>
                                 </div>
                               </div>
@@ -892,7 +896,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="water_source" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_water_source" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -902,7 +906,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="number" name="pipe_length" class="form-control" min="0" placeholder="0">
+                                  <input type="number" name="si_pipe_lenght" class="form-control" min="0" placeholder="0">
                                   <span class="input-group-addon bg-primary border-primary text-white">m</span>
                                 </div>
                               </div>
@@ -914,7 +918,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="number" name="pipe_diameter" class="form-control" min="0" placeholder="0">
+                                  <input type="number" name="si_pipe_diameter" class="form-control" min="0" placeholder="0">
                                   <span class="input-group-addon bg-primary border-primary text-white">mm</span>
                                 </div>
                               </div>
@@ -926,7 +930,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="number" name="cable_length" class="form-control" min="0" placeholder="0">
+                                  <input type="number" name="si_cable_lenght" class="form-control" min="0" placeholder="0">
                                   <span class="input-group-addon bg-primary border-primary text-white">m</span>
                                 </div>
                               </div>
@@ -937,7 +941,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="type_ws" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_type_of_water_storage" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -947,7 +951,7 @@
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
                                 <div class="input-group">
-                                  <input type="number" name="size_ws" class="form-control" min="0" placeholder="0">
+                                  <input type="number" name="si_size_of_water_storage" class="form-control" min="0" placeholder="0">
                                   <span class="input-group-addon bg-primary border-primary text-white">m<sup>3</sup></span>
                                 </div>
                               </div>
@@ -964,17 +968,17 @@
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <input type="number" name="suction_head" class="form-control" placeholder="0" min="0">
+                                <input type="number" name="si_suction_head" class="form-control" placeholder="0" min="0">
                               </div>
                             </div>
                             <div class="col-md-5 col-sm-4 col-xs-12 alamraya-no-padding">
-                              
+
                               <div class="alamraya-form-radio-group">
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_sh" value="m" checked/>&nbsp;m&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_suction_head_satuan" value="M" checked/>&nbsp;m&nbsp;&nbsp;
                                 </label>
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_sh" value="ft"/>&nbsp;ft&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_suction_head_satuan" value="FT"/>&nbsp;ft&nbsp;&nbsp;
                                 </label>
                               </div>
 
@@ -985,24 +989,24 @@
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <input type="number" name="inlet_ps" class="form-control" placeholder="0" min="0">
+                                <input type="number" name="si_itlet_pipe_size" class="form-control" placeholder="0" min="0">
                               </div>
                             </div>
                             <div class="col-md-5 col-sm-4 col-xs-12 alamraya-no-padding">
-                              
+
                               <div class="alamraya-form-radio-group">
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_ips" value="mm" checked/>&nbsp;mm&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_itlet_pipe_size_satuan" value="mm" checked/>&nbsp;mm&nbsp;&nbsp;
                                 </label>
                                 <label>
-                                    <input type="radio" class="form_check_input" name="satuan_ips" value="inch"/>&nbsp;inch&nbsp;&nbsp;
+                                    <input type="radio" class="form_check_input" name="si_itlet_pipe_size_satuan" value="inch"/>&nbsp;inch&nbsp;&nbsp;
                                 </label>
                               </div>
 
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -1019,7 +1023,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12">
@@ -1027,7 +1031,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pv_mn" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_pv_module_manufacturer" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1036,7 +1040,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pv_model" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_model_generator" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1045,7 +1049,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pv_type" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_type_generator" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1054,7 +1058,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <input type="number" name="pv_qty" class="form-control" placeholder="0" min="0">
+                                <input type="number" name="si_quantity_generator" class="form-control" placeholder="0" min="0">
                               </div>
                             </div>
 
@@ -1063,7 +1067,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pv_pe" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_power_each" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1072,12 +1076,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="pv_pt" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_power_total" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -1094,7 +1098,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12">
@@ -1102,7 +1106,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <input type="number" name="bs_qty" class="form-control" placeholder="0" min="0">
+                                <input type="number" name="si_quantity_battery" class="form-control" placeholder="0" min="0">
                               </div>
                             </div>
 
@@ -1111,7 +1115,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="installer" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_capacity_battery" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1120,12 +1124,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="contact_data" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_voltage_battery" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -1138,11 +1142,25 @@
               <div class="card">
                 <div class="card-body">
                   <h6 class="card-title">CHECKLIST PARTS OF LORENTZ SYSTEM</h6>
+                  <div class="row">
+                    <div class="col-md-12 justify-content-center">
+
+                      <div class="form-group form-group-sm">
+                        <select class="form-control form-control-sm select2" id="quotation" onchange="tampil()" name="si_quotation">
+                          <option disabled selected>--Pilih--</option>
+                          @foreach ($quotation as $key => $value)
+                            <option value="{{$value->q_id}}">{{$value->q_nota}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+
+                    </div>
+                  </div>
 
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="table-responsive">
@@ -1156,64 +1174,14 @@
                                   <th>Remarks</th>
                                   </tr>
                                 </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>1</td>
-                                    <td>Lorentz Pump Type : surface C-SF4-6</td>
-                                    <td>
-                                      <input type="number" name="lorentz_qty" class="form-control" placeholder="0" min="0">
-                                    </td>
-                                    <td class="center">
-                                      <div class="form-check form-check-flat">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input checklist_lorentz">
-                                        </label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <textarea rows="1" name="lorentz_remarks" class="form-control" placeholder="type something..."></textarea>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>Lorentz Pump Type : surface C-SF4-6</td>
-                                    <td>
-                                      <input type="number" name="lorentz_qty" class="form-control" placeholder="0" min="0">
-                                    </td>
-                                    <td >
-                                      <div class="form-check form-check-flat">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input checklist_lorentz">
-                                        </label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <textarea rows="1" name="lorentz_remarks" class="form-control" placeholder="type something..."></textarea>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>3</td>
-                                    <td>Lorentz Pump Type : surface C-SF4-6</td>
-                                    <td>
-                                      <input type="number" name="lorentz_qty" class="form-control" placeholder="0" min="0">
-                                    </td>
-                                    <td >
-                                      <div class="form-check form-check-flat">
-                                        <label class="form-check-label">
-                                          <input type="checkbox" class="form-check-input checklist_lorentz center">
-                                        </label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <textarea rows="1" name="lorentz_remarks" class="form-control" placeholder="type something..."></textarea>
-                                    </td>
-                                  </tr>
+                                <tbody id="showquotation">
+
                                 </tbody>
                               </table>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -1230,7 +1198,7 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-3 col-sm-4 col-xs-12">
@@ -1238,7 +1206,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                 <textarea rows="1" name="manufaktur_pvms" class="form-control" placeholder="type something..."></textarea>
+                                 <textarea rows="1" name="si_manufaktur_system" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1247,7 +1215,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                 <textarea rows="1" name="type_pvms" class="form-control" placeholder="type something..."></textarea>
+                                 <textarea rows="1" name="si_type_system" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1256,7 +1224,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="model_pvms" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_model_system" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1265,12 +1233,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <input type="number" name="qty_pvms" class="form-control" placeholder="0" min="0">
+                                <input type="number" name="si_quantity_system" class="form-control" placeholder="0" min="0">
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -1287,13 +1255,13 @@
                   <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                          
+
                           <div class="row">
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                               <div class="form-check form-check-flat">
                                 <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input checklist_agreement">
+                                  <input type="checkbox" name="si_check1" value="Y" class="form-check-input checklist_agreement">
                                   I declare that I am the owner of the installation described or have been granted permission by the owner to make use of the data of the installation. I am the owner of all rights of use of the attached photographs of the installation or have been granted permission by the owner to make use of the photographs.
                                 </label>
                               </div>
@@ -1302,7 +1270,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                               <div class="form-check form-check-flat">
                                 <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input checklist_agreement">
+                                  <input type="checkbox" name="si_check2" value="Y" class="form-check-input checklist_agreement">
                                   I grant Bernt Lorentz GmbH & Co. KG the right to publish the installation data on its website or in other forms and use the photographs for illustration alongside the description of installation or in other places or to allow other customers of LORENTZ to use the data and photographs to promote LORENTZ products.
                                 </label>
                               </div>
@@ -1313,7 +1281,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="your_name" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_your_name" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
@@ -1322,9 +1290,11 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <select class="form-control form-control-sm" id="">
+                                <select class="form-control form-control-sm select2" name="si_signature">
                                   <option disabled selected>--Pilih--</option>
-                                  <option value="sg1">Signature 1</option>
+                                  @foreach ($signature as $key => $value)
+                                    <option value="{{$value->s_id}}">{{$value->s_name}}</option>
+                                  @endforeach
                                 </select>
                               </div>
                             </div>
@@ -1334,12 +1304,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12">
                               <div class="form-group form-group-sm">
-                                <textarea rows="1" name="email_address" class="form-control" placeholder="type something..."></textarea>
+                                <textarea rows="1" name="si_email_address" class="form-control" placeholder="type something..."></textarea>
                               </div>
                             </div>
 
                           </div>
-                      
+
                       </div>
                     </div>
                   </div>
@@ -1349,28 +1319,28 @@
             </div>
 
           </div>
-        
+
           <!-- Button Next Prev Step 2-->
           <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
 
                 <div class="card-body">
-                   
-                  
+
+
                     <div class="row">
                       <div class="col-lg-12">
                         <button class="btn btn-info btn-sm m-2 btn-block btn-simpan next-step" type="button">Next</button>
                         <button class="btn btn-secondary btn-sm m-2 btn-block btn-simpan prev-step" type="button">Prev</button>
                       </div>
-                      
+
                     </div>
-                    
-                  
+
+
 
 
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -1382,7 +1352,7 @@
         <!-- Step 3  -->
         <div class="tab-pane" id="step3">
           <div class="row">
-            
+
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -1399,12 +1369,12 @@
 
                   <div class="row">
                     <div class="col-lg-12">
-                      <button class="btn btn-info btn-sm m-2 btn-block btn-simpan" type="button">Save</button>
+                      <button class="btn btn-info btn-sm m-2 btn-block btn-simpan" onclick="submit()" type="button">Save</button>
                       <button class="btn btn-secondary btn-sm m-2 btn-block btn-simpan prev-step" type="button">Prev</button>
                     </div>
-                    
+
                   </div>
-                    
+
 
                 </div>
               </div>
@@ -1417,19 +1387,26 @@
     </div>
   </form>
 
-        
+
 </div>
 <!-- content-wrapper ends -->
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-var int = 2;
+var int = 1;
+var counter = 0;
+var countertab = 0;
+
+$(document).ready(function(){
+  $('.select2').select2();
+});
 
 $('div[id*=form-gambar-]').each(function(){
 
 
   $(document).on('click','.btn-tambah-gambar', function(){
   var i = $(this).parents('.card-body').find('input[type="file"]').length;
+  counter = $('.uploadimage').length;
   // console.log(i);
     if (i < 4) {
       $(this).parents('.card-body').find('div[id*="form-gambar-"]')
@@ -1448,14 +1425,18 @@ $('div[id*=form-gambar-]').each(function(){
                       '<i class="fa fa-trash"></i>'+
                     '</button>'+
                   '</div>'+
-                  '<input type="file" class="form-control form-control-sm" name="image[]" accept="image/*">'+
+                  '<input type="file" class="form-control form-control-sm uploadimage" name="image'+counter+'" accept="image/*">'+
+                  '<input type="hidden" class="title'+countertab+'" name="title[]">'+
                 '</div>'+
               '</div>'+
             '</div>'+
-            
+
           '</div>'+
         '</div>'
               );
+        judul(countertab);
+        $('input[name=jumlahimage]').val(counter);
+        $('input[name=jumlahtab]').val(countertab);
     } else {
       iziToast.error({
         message:"Maximum only 4!"
@@ -1469,7 +1450,8 @@ $('div[id*=form-gambar-]').each(function(){
 });
 
 $('.btn-tambah').on('click', function(){
-  
+counter = $('.uploadimage').length;
+countertab = $('.jumlahjudul').length;
   $('#form-dokumentasi')
                   .append(
       '<div class="col-lg-12 m4">'+
@@ -1480,14 +1462,14 @@ $('.btn-tambah').on('click', function(){
               '<div class="card-body">'+
 
                 '<div class="row" id="form-gambar-'+int+'">'+
-                  
+
                   '<div class="col-md-3 col-sm-4 col-xs-12">'+
                     '<label>Title</label>'+
                   '</div>'+
 
                   '<div class="col-md-9 col-sm-8 col-xs-12">'+
                     '<div class="form-group form-group-sm">'+
-                      '<input type="text" class="form-control judul" name="judul[]">'+
+                      '<input type="text" class="form-control jumlahjudul judul'+countertab+'" onkeyup="judul('+countertab+')" name="judul[]">'+
                     '</div>'+
                   '</div>'+
 
@@ -1499,10 +1481,11 @@ $('.btn-tambah').on('click', function(){
 
                       '<div class="col-md-12">'+
                         '<div class="form-group">'+
-                          '<input type="file" class="form-control form-control-sm" name="image[]" accept="image/*">'+
+                          '<input type="file" class="form-control form-control-sm uploadimage" name="image'+counter+'" accept="image/*">'+
+                          '<input type="hidden" class="title'+countertab+'" name="title[]">'+
                         '</div>'+
                       '</div>'+
-                      
+
                     '</div>'+
                   '</div>'+
 
@@ -1513,9 +1496,9 @@ $('.btn-tambah').on('click', function(){
                   '</div>'+
                 '</div>'+
 
-                
+
               '</div>'+
-              
+
             '</div>'+
           '</div>'+
 
@@ -1527,12 +1510,13 @@ $('.btn-tambah').on('click', function(){
         '</div>'+
       '</div>'
                   );
+                  judul(countertab);
+                  $('input[name=jumlahimage]').val(counter);
+                  $('input[name=jumlahtab]').val(countertab);
   var get_scroll = $('#form-gambar-'+int).offset();
 
   var scroll = get_scroll.top - 100;
 
-  console.log(scroll);
-  console.log(get_scroll.top);
   $('html, body').animate({scrollTop:scroll}, 'slow');
 
   int++;
@@ -1611,6 +1595,59 @@ $(document).on('click', '.btn-scrollbottom', function(){
        $('html, body').animate({scrollTop:0}, 'slow');
 
    });
+   function judul(id){
+     var hasil = $('.judul'+id).val();
+     $('.title'+id).val(hasil);
+   }
+   function submit(){
+     $('#form').submit();
+   }
 
+   function tampil(){
+     var quotation = $('#quotation').val();
+     var html = '';
+     $.ajax({
+       type: 'get',
+       data: {quotation:quotation},
+       dataType: 'json',
+       url: baseUrl + '/project/jadwalujicoba/quotation',
+       success : function(result){
+         for (var i = 0; i < result.length; i++) {
+           html += '<tr>'+
+                    '<td>'+(i + 1)+'</td>'+
+                    '<td>'+result[i].i_name+'</td>'+
+                    '<td>'+
+                    '<input type="number" name="sc_quantity[]" class="form-control" placeholder="0" min="0">'+
+                    '</td>'+
+                    '<td class="center">'+
+                      '<input type="checkbox" class="checkbox" name="sc_check[]" value="Y">'+
+                    '</td>'+
+                    '</td>'+
+                    '<td>'+
+                    '<textarea rows="1" name="sc_remarks[]" class="form-control" placeholder="type something..."></textarea>'+
+                    '</td>'+
+                    '</tr>';
+         }
+         $('#showquotation').html(html);
+       }
+     });
+   }
+
+   function filtercity(){
+     var hasil = $('#city').val();
+     var html = '<option disabled selected>--Pilih--</option>';
+     $.ajax({
+       type: 'get',
+       data: {hasil:hasil},
+       dataType : 'json',
+       url: baseUrl + '/project/jadwalujicoba/city',
+        success : function(result){
+          for (var i = 0; i < result.length; i++) {
+            html += '<option value="'+result[i].name+'">'+result[i].name+'</option>';
+          }
+          $('#showcity').html(html);
+        }
+     });
+   }
 </script>
 @endsection

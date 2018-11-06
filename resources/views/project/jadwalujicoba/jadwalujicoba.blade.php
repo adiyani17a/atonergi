@@ -14,7 +14,7 @@
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
-		<div class="col-lg-12">	
+		<div class="col-lg-12">
 			<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -27,6 +27,21 @@
 	            <div class="card">
 	                <div class="card-body">
 						<h4 class="card-title">Schedule Uji Coba dan Dokumentasi</h4>
+						@if(Session::has('sukses'))
+								<div class="alert alert-fill-primary" role="alert">
+									<i class="mdi mdi-alert-circle"></i>
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+																aria-hidden="true">&times;</span></button>
+										<strong>{{ Session::get('sukses') }}</strong>
+								</div>
+						@elseif(Session::has('gagal'))
+							<div class="alert alert-fill-danger" role="alert">
+								<i class="mdi mdi-alert-circle"></i>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+															aria-hidden="true">&times;</span></button>
+									<strong>{{ Session::get('gagal') }}</strong>
+							</div>
+						@endif
 						<div class="text-right mb-3">
 							<a href="{{url('project/jadwalujicoba/tambah_jadwal')}}" class="btn btn-info" ><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Data</a>
 						</div>
@@ -42,23 +57,25 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Friday, 6 October 2018 15:54:39</td>
-									<td>Ini Judul</td>
-									<td>
-										<div class="btn-group btn-group-sm">
-											<button class="btn btn-warning" type="button" title="Edit"><i class="fa fa-pencil-alt"></i></button>
-											<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}" title="Print Report"><i class="fa fa-print"></i></a>
-											<button class="btn btn-success" type="button" title="Print Installation"><i class="fa fa-print"></i></button>
-											<button class="btn btn-danger" type="button" title="Delete"><i class="fa fa-trash"></i></button>
-										</div>
-									</td>
-								</tr>
+								@foreach ($data as $key => $value)
+									<tr>
+										<td>{{$key + 1}}</td>
+										<td>{{Carbon\Carbon::parse($value->s_insert)->format('d-F-Y h:m:i:s')}}</td>
+										<td>{{$value->s_title}}</td>
+										<td>
+											<div class="btn-group btn-group-sm">
+												<button class="btn btn-warning" type="button" title="Edit" onclick="edit({{$value->s_id}})"><i class="fa fa-pencil-alt"></i></button>
+												<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}" title="Print Report"><i class="fa fa-print"></i></a>
+												<button class="btn btn-success" type="button" title="Print Installation" onclick="print({{$value->s_id}})"><i class="fa fa-print"></i></button>
+												<button class="btn btn-danger" type="button" title="Delete" onclick="hapus({{$value->s_id}})"><i class="fa fa-trash"></i></button>
+											</div>
+										</td>
+									</tr>
+								@endforeach
 							</tbody>
 						</table>
 					</div>
-	                  
+
 	                </div>
 	            </div>
 	    </div>
@@ -72,7 +89,57 @@
 <script>
 
 
+function hapus(id) {
 
+			 iziToast.show({
+				 overlay: true,
+				 close: false,
+				 timeout: 20000,
+				 color: 'dark',
+				 icon: 'fas fa-question-circle',
+				 title: 'Important!',
+				 message: 'Apakah Anda Yakin ?!',
+				 position: 'center',
+				 progressBarColor: 'rgb(0, 255, 184)',
+				 buttons: [
+					 [
+						 '<button style="background-color:#44d7c9;">Process</button>',
+						 function (instance, toast) {
+						 //ajax
+							$.ajax({
+								type: "get",
+								url: baseUrl + '/project/jadwalujicoba/hapus_jadwal',
+								data: {id},
+								success: function(data){
+									if (data.status == 'berhasil') {
+										window.location.href = baseUrl + '/project/jadwalujicoba/jadwalujicoba';
+									}
+								},
+								error: function(){
+								 iziToast.warning({
+									 icon: 'fa fa-times',
+									 message: 'Terjadi Kesalahan!',
+								 });
+								},
+								async: false
+							});
+						 //end of ajax
+
+
+						 }
+
+					 ],
+					 [
+						 '<button style="background-color:red;">Cancel</button>',
+						 function (instance, toast) {
+							 instance.hide({
+								 transitionOut: 'fadeOutUp'
+							 }, toast);
+						 }
+					 ]
+				 ]
+			 });
+ }
 
 </script>
 
