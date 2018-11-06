@@ -325,7 +325,7 @@
 
                         <div class="col-md-12">
                           <div class="form-group">
-                            <input type="file" class="form-control form-control-sm uploadimage" name="image1" accept="image/*">
+                            <input type="file" class="form-control form-control-sm uploadimage" name="image0" accept="image/*">
                             <input type="hidden" class="title0" name="title[]">
                           </div>
                         </div>
@@ -460,13 +460,12 @@
                             </div>
                             <div class="col-md-9 col-sm-8 col-xs-12 alamraya-no-padding">
                               <div class="form-group form-group-sm">
-                                <select class="form-control form-control-sm select2" id="city" onchange="filtercity()" name="provinces">
+                                <select class="form-control form-control-sm select2" id="city" onchange="filtercity()" name="si_province">
                                   <option disabled selected>--Pilih--</option>
                                   @foreach ($provinces as $key => $value)
-                                    <option id="{{$value->id}}" value="{{$value->id}}">{{$value->name}}</option>
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
                                   @endforeach
                                 </select>
-                                <input type="hidden" name="si_province">
                               </div>
                             </div>
 
@@ -1395,15 +1394,11 @@
 @section('extra_script')
 <script type="text/javascript">
 var int = 1;
-var counter = 1;
-var countertab = 1;
+var counter = 0;
+var countertab = 0;
 
 $(document).ready(function(){
   $('.select2').select2();
-
-  judul(countertab);
-  $('input[name=jumlahimage]').val(counter);
-  $('input[name=jumlahtab]').val(countertab);
 });
 
 $('div[id*=form-gambar-]').each(function(){
@@ -1412,7 +1407,6 @@ $('div[id*=form-gambar-]').each(function(){
   $(document).on('click','.btn-tambah-gambar', function(){
   var i = $(this).parents('.card-body').find('input[type="file"]').length;
   counter = $('.uploadimage').length;
-  counter += 1;
   // console.log(i);
     if (i < 4) {
       $(this).parents('.card-body').find('div[id*="form-gambar-"]')
@@ -1458,8 +1452,6 @@ $('div[id*=form-gambar-]').each(function(){
 $('.btn-tambah').on('click', function(){
 counter = $('.uploadimage').length;
 countertab = $('.jumlahjudul').length;
-countertab += 1;
-counter += 1;
   $('#form-dokumentasi')
                   .append(
       '<div class="col-lg-12 m4">'+
@@ -1643,8 +1635,6 @@ $(document).on('click', '.btn-scrollbottom', function(){
 
    function filtercity(){
      var hasil = $('#city').val();
-     var text = $('#'+hasil).text();
-     $('input[name=si_province]').val(text);
      var html = '<option disabled selected>--Pilih--</option>';
      $.ajax({
        type: 'get',

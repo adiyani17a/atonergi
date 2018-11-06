@@ -31,7 +31,7 @@
 			background-position: center; */
 			position: relative;
 			z-index: -1;
-			
+
 			padding: 0;
 			top: 0;
 			left: 0;
@@ -116,7 +116,7 @@
 		}
 		@media print {
 			html, body {
-		        height: auto;    
+		        height: auto;
 		    }
 			.div-width{
 				margin: auto;
@@ -145,7 +145,7 @@
 				/*background-image: url("{{asset('assets/images/atonergi-bg2.png')}}");
 				background-repeat: no-repeat;
 				background-position: center; */
-				
+
 				position: relative;
 				z-index: -1;
 				margin: auto;
@@ -246,30 +246,22 @@
 
 		setlocale(LC_ALL, "id_ID");
 
-		
+
 
 		@endphp
 
 		<div class="btn-print" align="right">
 			<button onclick="javascript:window.print();">Print</button>
 		</div>
-				
+
 		<div class="div-width">
-			<h1 class="block text-center grey">REPORT DOKUMENTASI<br>
-			INSTALATION PUMP<br>
-			LORENTZ PS2 1800 C-SJ5-12<br>
+			<h1 class="block text-center grey">
+				{{$data[0]->s_title}}
 			</h1>
 			<div class="grey m-auto w-50percent">
 <pre>
 	<h3>
-NAMA DESA		: MANUNARA – SUMBA TENGAH
-PROVINSI		: NUSA TENGGARA TIMUR
-DATE PROJECT	: 25 FEBRUARI 2018
-HEAD			: 50 METER
-DAILY OUTPUT	: 25 M3/DAY
-PIPE			: 1,5 INCH
-SOLAR PANEL		: 2100 WP ( @100WP POLY ) - ICA
-TECHNICIAN PIC	: Mr. EKO BUDIANTO
+		{{$data[0]->s_description}}
 	</h3>
 </pre>
 			</div>
@@ -277,86 +269,29 @@ TECHNICIAN PIC	: Mr. EKO BUDIANTO
 		<div class="div-width-background">
 			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
 		</div>
-			
+
 	</div>
-	<div class="div-page-break-after">
-		<div class="div-width">
-			<div class="title-atonergi text-center mb-2">
-				<h1>DOKUMENTASI LOKASI PROJECT</h1>
-			</div>
-			<div class="row text-center">
-				<div class="col-12 mb-2">
-					<img width="350px" height="350px" src="{{asset('assets/images/samples/1280x768/1.jpg')}}">
+	@foreach ($judul as $key => $x)
+		<div class="div-page-break-after">
+			<div class="div-width">
+				<div class="title-atonergi text-center mb-2">
+					<h1>{{$x->si_judul}}</h1>
+				</div>
+				<div class="row text-center">
+					@foreach ($image as $key => $z)
+						@if ($z->si_judul == $x->si_judul)
+							<div class="col-6 mb-2">
+								<img width="300px" height="300px" src="{{url('/') . '/' . $z->si_image}}">
+							</div>
+						@endif
+					@endforeach
 				</div>
 			</div>
-		</div>
-		<div class="div-width-background">
-			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
-		</div>
-	</div>
-	<div class="div-page-break-after">
-		<div class="div-width">
-			<div class="title-atonergi text-center mb-2">
-				<h1>DOKUMENTASI LOKASI PROJECT</h1>
-			</div>
-			<div class="row text-center">
-				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/2.jpg')}}">
-				</div>
-				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/3.jpg')}}">
-				</div>
+			<div class="div-width-background">
+				<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
 			</div>
 		</div>
-		<div class="div-width-background">
-			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
-		</div>
-	</div>
-	<div class="div-page-break-after">
-		<div class="div-width">
-			<div class="title-atonergi text-center mb-2">
-				<h1>DOKUMENTASI LOKASI PROJECT</h1>
-			</div>
-			<div class="row text-center">
-				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/4.jpg')}}">
-				</div>
-				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/5.jpg')}}">
-				</div>
-				<div class="col-12 mb-2">
-					<img width="350px" height="350px" src="{{asset('assets/images/samples/1280x768/6.jpg')}}">
-				</div>
-			</div>
-		</div>
-		<div class="div-width-background">
-			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
-		</div>
-	</div>
-	<div class="div-page-break-after">
-		<div class="div-width">
-			<div class="title-atonergi text-center mb-2">
-				<h1>DOKUMENTASI LOKASI PROJECT</h1>
-			</div>
-			<div class="row text-center">
-				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/7.jpg')}}">
-				</div>
-				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/8.jpg')}}">
-				</div>
-				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/9.jpg')}}">
-				</div>
-				<div class="col-6 mb-2">
-					<img width="300px" height="300px" src="{{asset('assets/images/samples/1280x768/10.jpg')}}">
-				</div>
-			</div>
-		</div>
-		<div class="div-width-background">
-			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg2.png')}}">
-		</div>
-	</div>
+	@endforeach
 	<div class="div-page-break-after">
 		<div class="div-width-background">
 			<img width="100%" height="99.6%" src="{{asset('assets/images/atonergi-bg-end.png')}}">
