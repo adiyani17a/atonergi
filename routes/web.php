@@ -280,6 +280,7 @@ Route::get('aftersales/kebutuhanbiaya/kebutuhanbiaya', 'ASSController@kebutuhanb
 // Inventory
 Route::get('inventory/barangkeluar/barangkeluar', 'InventoryController@barangkeluar')->name('barangkeluar');
 Route::get('inventory/barangkeluar/kartu_stok', 'InventoryController@kartu_stok')->name('kartu_stok');
+Route::get('inventory/barangkeluar/print_kartu_stok', 'InventoryController@print_kartu_stok')->name('print_kartu_stok');
 Route::get('inventory/barcode/barcode', 'InventoryController@barcode');
 Route::get('inventory/maintenance/maintenance', 'InventoryController@maintenance');
 Route::get('inventory/suratpinjambarang/suratpinjambarang', 'InventoryController@suratpinjambarang');

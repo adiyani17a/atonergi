@@ -43,7 +43,8 @@
 							    	<td>-</td>
 							    	<td>
 							    		<div class="btn-group btn-group-sm">
-							    			<a href="{{url('inventory/barangkeluar/kartu_stok')}}" title="Kartu Stok" class="btn btn-primary"><i class="fa fa-external-link-square-alt"></i></a>
+							    			<a href="{{url('inventory/barangkeluar/kartu_stok')}}" title="Proses Kartu Stok" class="btn btn-info"><i class="fa fa-external-link-square-alt"></i></a>
+							    			<a href="{{url('inventory/barangkeluar/print_kartu_stok')}}" class="btn btn-primary" target="_blank" title="Print Kartu Stok"><i class="fa fa-print"></i></a>
 							    		</div>
 							    	</td>
 							    </tr>
