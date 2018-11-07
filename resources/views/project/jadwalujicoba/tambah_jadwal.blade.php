@@ -1401,6 +1401,10 @@ $(document).ready(function(){
   $('.select2').select2();
 });
 
+$('.form-control.select2-hidden-accessible').select2({
+  width: '100%'
+});
+
 $('div[id*=form-gambar-]').each(function(){
 
 
