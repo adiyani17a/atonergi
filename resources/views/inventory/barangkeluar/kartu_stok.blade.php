@@ -16,6 +16,7 @@
 			</nav>
 		</div>
 		<div class="col-lg-12 grid-margin stretch-card">
+			<form id="formsimpan">
 	      	<div class="card">
 		        <div class="card-body">
 		          <h4 class="card-title">Kartu Stok</h4>
@@ -27,7 +28,7 @@
 
 		          		<div class="col-md-9 col-sm-6 col-xs-12">
 		          			<div class="form-group form-group-sm">
-		          				<input type="text" class="form-control" readonly="" name="">
+		          				<input type="text" class="form-control" readonly="" value="{{$finalkode}}" name="pb_code">
 		          			</div>
 		          		</div>
 
@@ -37,7 +38,7 @@
 
 		          		<div class="col-md-9 col-sm-6 col-xs-12">
 		          			<div class="form-group form-group-sm">
-		          				<input type="text" class="form-control datepicker" id="date" value="{{date('d-m-Y')}}" name="">
+		          				<input type="text" class="form-control datepicker" id="date" value="{{date('d-m-Y')}}" name="pb_date">
 		          			</div>
 		          		</div>
 
@@ -47,7 +48,7 @@
 
 		          		<div class="col-md-9 col-sm-6 col-xs-12">
 		          			<div class="form-group form-group-sm">
-		          				<textarea class="form-control" id="receive" name=""></textarea>
+		          				<textarea class="form-control" id="receive" name="d_receive_from"></textarea>
 		          			</div>
 		          		</div>
 
@@ -60,7 +61,7 @@
 					          			</div>
 					          			<div class="col-lg-12">
 					          				<div class="form-group form-group-sm">
-					          					<input type="text" class="form-control" readonly="" value="BRG/0001" id="item_code" name="">
+					          					<input type="text" class="form-control" readonly="" value="{{$item[0]->i_code}}" id="item_code" name="pbd_item">
 					          				</div>
 					          			</div>
 				          			</div>
@@ -72,7 +73,7 @@
 					          			</div>
 					          			<div class="col-lg-12">
 					          				<div class="form-group form-group-sm">
-					          					<input type="text" class="form-control" readonly="" value="Pompa Air" id="item_name" name="">
+					          					<input type="text" class="form-control" readonly="" value="{{$item[0]->i_name}}" id="item_name" name="itemname">
 					          				</div>
 					          			</div>
 				          			</div>
@@ -92,21 +93,31 @@
 			          		</div>
 		          		</fieldset>
 
-		          		<h4 class="ml-3 mt-2 mb-3">History Stock Opname</h4>
+		          		<h4 class="ml-3 mt-2 mb-3">History Stock Mutation</h4>
 
 						<div class="table-responsive mb-3">
 							<table class="table table-hover table-striped table-bordered" id="tabel_history" cellspacing="0">
 							  <thead class="bg-gradient-info">
 							    <tr>
 							    	<th>Date</th>
-							    	<th>Receive From</th>
+							    	<th>No Reff</th>
 							    	<th>In</th>
 							    	<th>Out</th>
 							    	<th>Remain</th>
+										<th>Description</th>
 							    </tr>
 							  </thead>
 							  <tbody>
-
+									@foreach ($mutasi as $key => $value)
+										<tr>
+											<td>{{Carbon\Carbon::parse($value->sm_insert)->format('d-m-Y')}}</td>
+											<td>{{$value->sm_ref}}</td>
+											<td>{{$value->sm_qty}}</td>
+											<td>{{$value->sm_use}}</td>
+											<td>{{$value->sm_sisa}}</td>
+											<td>{{$value->sm_description}}</td>
+										</tr>
+									@endforeach
 							  </tbody>
 							</table>
 						</div>
@@ -117,10 +128,8 @@
 							    <tr>
 							    	<th>Date</th>
 							    	<th>Receive From</th>
-							    	<th>In</th>
 							    	<th>Out</th>
-							    	<th>Remain</th>
-							    	<th width="1%"></th>
+										<th width="1%"></th>
 							    </tr>
 							  </thead>
 							  <tbody id="showkartu">
@@ -128,14 +137,14 @@
 							  </tbody>
 							</table>
 						</div>
-
 						<div class="content-footer">
-							<button class="btn btn-primary btn-simpan" type="button">Save</button>
+							<button class="btn btn-primary btn-simpan" onclick="simpan()" type="button">Save</button>
 							<a href="{{route('barangkeluar')}}" class="btn btn-secondary">Back</a>
 						</div>
 		        	</div>
 		      	</div>
 	    	</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -181,10 +190,8 @@
 		$('#tabel_kartu_stok tbody').append(
 			'<tr>'+
 				'<td><input type="hidden" value="'+$('#date').val()+'" class="date"><span>'+$('#date').val()+'</span></td>'+
-				'<td><input type="hidden" value="'+$('#receive').val()+'" class="receive"><pre>'+$('#receive').val()+'</pre></td>'+
-				'<td></td>'+
-				'<td><input type="hidden" value="'+$('#qty').val()+'" class="qty"><span>'+$('#qty').val()+'</span></td>'+
-				'<td></td>'+
+				'<td><input type="hidden" name="pbd_receive_from" value="'+$('#receive').val()+'" class="receive"><pre>'+$('#receive').val()+'</pre></td>'+
+				'<td><input type="hidden" name="pbd_qty" value="'+$('#qty').val()+'" class="qty"><span>'+$('#qty').val()+'</span></td>'+
 				'<td><button type="button" class="btn btn-warning btn-xs btn-edit" title="Edit"><i class="fa fa-pencil-alt"></i></button></td>'+
 			'</tr>'
 			);
@@ -216,5 +223,36 @@
 			tabel_append();
 		}
 	});
+
+	function simpan(){
+			$.ajax({
+				type: 'get',
+				data: $('#formsimpan').serialize(),
+				dataType: 'json',
+				url: baseUrl + '/inventory/barangkeluar/simpankartu',
+				success : function(result){
+					if (result.status == 'berhasil') {
+						iziToast.success({
+							icon: 'fas fa-check-circle',
+							message: 'Data Telah Tersimpan!',
+						});
+						setTimeout(function () {
+							window.location.reload();
+						}, 1000);
+					} else if (result.status == 'stock kurang') {
+						iziToast.warning({
+							icon: 'fa fa-times',
+							message: 'Stock Gudang Kurang!',
+						});
+					} else {
+						iziToast.warning({
+							icon: 'fa fa-times',
+							message: 'Terjadi Kesalahan!',
+						});
+					}
+			 }
+			});
+	}
+
 </script>
 @endsection

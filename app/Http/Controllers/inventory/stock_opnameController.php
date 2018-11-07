@@ -129,7 +129,7 @@ class stock_opnameController extends Controller
                      ->join('i_stock_mutasi', 'sm_id', '=', 'sg_id')
                      ->select('i_stock_gudang.*', 'i_stock_mutasi.*', DB::raw('(sm_qty - sm_use) as sm_sisa'))
                      ->where('sg_iditem', '=', $item)
-                     ->whereRaw("sm_description = 'PENERIMAAN BARANG' OR sm_description = 'BELANJA LANGSUNG' OR sm_description = 'STOCK OPNAME LEBIH'")
+                     ->whereRaw("sm_description = 'PENERIMAAN BARANG' OR sm_description = 'INPUT STOCK MANUAL' OR sm_description = 'BELANJA LANGSUNG' OR sm_description = 'STOCK OPNAME LEBIH'")
                      ->where('sm_qty', '>', 'sm_use')
                      ->get();
 
@@ -141,7 +141,8 @@ class stock_opnameController extends Controller
                                      ->where('sm_id', '=', $mutasi[$i]->sm_id)
                                      ->where('sm_iddetail', '=', $mutasi[$i]->sm_iddetail)
                                      ->update([
-                                         'sm_use' => (int)$mutasi[$i]->sm_use + (int)$sisa
+                                         'sm_use' => (int)$mutasi[$i]->sm_use + (int)$sisa,
+																				 'sm_sisa' => (int)$mutasi[$i]->sm_sisa - (int)$sisa,
                                      ]);
 
                                  $getdetailid = DB::table('i_stock_mutasi')
@@ -159,9 +160,10 @@ class stock_opnameController extends Controller
                                          'sm_description' => 'STOCK OPNAME KURANG',
                                          'sm_qty' => (int)$sisa,
                                          'sm_use' => '0',
-                                         'sm_sisa' => (int)$mutasi[$i]->sm_qty - (int)$mutasi[$i]->sm_use,
+																				 'sm_sisa' => (int)$sisa,
                                          'sm_ref' => $request->so_code,
                                          'sm_deliveryorder' => $mutasi[$i]->sm_ref,
+																				 'sm_insert' => Carbon::now('Asia/Jakarta')
                                      ]);
 
                                  DB::table('i_stock_gudang')
@@ -179,7 +181,8 @@ class stock_opnameController extends Controller
                                      ->where('sm_id', '=', $mutasi[$i]->sm_id)
                                      ->where('sm_iddetail', '=', $mutasi[$i]->sm_iddetail)
                                      ->update([
-                                         'sm_use' => (int)$mutasi[$i]->sm_qty
+                                         'sm_use' => (int)$mutasi[$i]->sm_qty,
+																				 'sm_sisa' => 0,
                                      ]);
 
                                  $getdetailid = DB::table('i_stock_mutasi')
@@ -197,9 +200,10 @@ class stock_opnameController extends Controller
                                          'sm_description' => 'STOCK OPNAME KURANG',
                                          'sm_qty' => (int)$mutasi[$i]->sm_qty,
                                          'sm_use' => '0',
-                                         'sm_sisa' => (int)$mutasi[$i]->sm_qty - (int)$mutasi[$i]->sm_use,
+																				 'sm_sisa' => (int)$mutasi[$i]->sm_qty,
                                          'sm_ref' => $request->so_code,
                                          'sm_deliveryorder' => $mutasi[$i]->sm_ref,
+																				 'sm_insert' => Carbon::now('Asia/Jakarta')
                                      ]);
 
                                  DB::table('i_stock_gudang')
@@ -232,6 +236,7 @@ class stock_opnameController extends Controller
                                  'sm_sisa' => (int)$sisa,
                                  'sm_ref' => $request->so_code,
                                  'sm_deliveryorder' => $mutasi[0]->sm_ref,
+																 'sm_insert' => Carbon::now('Asia/Jakarta')
                              ]);
 
                          DB::table('i_stock_gudang')
