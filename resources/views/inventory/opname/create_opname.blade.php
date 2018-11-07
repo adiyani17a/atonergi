@@ -2,7 +2,7 @@
 @section('content')
 
 <style type="text/css">
-	
+
 	.right-border{
 		border-right: white 1px solid;
 	}
@@ -13,7 +13,7 @@
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
-		<div class="col-lg-12">	
+		<div class="col-lg-12">
 			<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -28,7 +28,7 @@
 		        <div class="card-body">
 		          <h4 class="card-title">Process Penerimaan Barang</h4>
 					<div class="row">
-				    
+
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <label>Kode Opname</label>
 				    </div>
@@ -38,7 +38,7 @@
 				      </div>
 				    </div>
 
-				    	
+
 				    <div class="col-md-3 col-sm-6 col-xs-12">
 				      <label>Item</label>
 				    </div>
@@ -54,7 +54,7 @@
 				      				<option value="{{ $e->i_code }}">{{ $e->i_code }} - {{ $e->i_name }}</option>
 				      			@endforeach
 				      		</optgroup>
-				      		
+
 				      	</select>
 				      </div>
 				    </div>
@@ -67,7 +67,7 @@
 				        <input type="text" class="form-control form-control-sm datepicker_today" id="so_date" name="so_date">
 				      </div>
 				    </div>
-				   
+
 				    </div>
 				    <div class="table-responsive" style="margin-top: 15px;">
 				      <table class="table table-hover data-table">
@@ -87,13 +87,13 @@
 				                <th class="right-border" style="width: 60px;">Status Total</th>
 				            </tr>
 				        </thead>
-				        <tbody id="replace">	
+				        <tbody id="replace">
 			        		 @foreach ($data as $index => $a)
 							  <tr>
 						        <td>{{ $index+1 }}</td>
 						        <td><input type="hidden" name="so_item[]" value="{{ $a->i_code }}">{{ $a->i_name }}</td>
 						        <td>{{ $a->i_unit }}</td>
-		      	
+
 						        <td><input type="text" name="so_system[]" value="{{ $a->sg_qty }}" class="form-control right stock_system" readonly=""></td>
 						        <td><input type="text" name="so_real[]" class="form-control stock_real format_money_kosongan right" value="0" onkeyup="stock_real(this)"></td>
 						        <td><input type="text" name="so_status_item[]" class="form-control status_item" readonly=""></td>
@@ -105,14 +105,14 @@
 				      </table>
 				    </div>
 
-					
+
 
 		      <div class="pull-right" style="margin-top: 10px">
 				<button type="button" class="btn btn-info btn-sm" onclick="save_data()" >Save Data</button>
-				<a href="{{url('inventory/penerimaan_barang/penerimaan_barang')}}" class="btn btn-secondary btn-sm">Back</a>
+				<a href="{{url('inventory/opname/opname')}}" class="btn btn-secondary btn-sm">Back</a>
 			  </div>
 	    	</div>
-	    	
+
 		</div>
 	</div>
 </div>
@@ -122,7 +122,7 @@
 @endsection
 @section('extra_script')
 <script type="text/javascript">
-		
+
 	$('#so_item').change(function(){
 		var id = $(this).find(':selected').val();
 		 $.ajax({
@@ -169,7 +169,7 @@
 		iziToast.show({
             overlay: true,
             close: false,
-            timeout: 20000, 
+            timeout: 20000,
             color: 'dark',
             icon: 'fas fa-question-circle',
             title: 'Important!',
@@ -201,7 +201,7 @@
 			    });
 
 
-                 
+
                 }
               ],
               [
@@ -216,7 +216,7 @@
           });
 
 
-		 
+
 	}
 
 

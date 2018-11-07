@@ -5,7 +5,7 @@
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
-		<div class="col-lg-12">	
+		<div class="col-lg-12">
 			<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -34,23 +34,24 @@
 							    </tr>
 							  </thead>
 							  <tbody>
-							    <tr>
-							    	<td align="center">1</td>
-							    	<td>BRG/0001</td>
-							    	<td>Pompa Air</td>
-							    	<td>Ls</td>
-							    	<td>ACC</td>
-							    	<td>-</td>
-							    	<td>
-							    		<div class="btn-group btn-group-sm">
-							    			<a href="{{url('inventory/barangkeluar/kartu_stok')}}" title="Kartu Stok" class="btn btn-primary"><i class="fa fa-external-link-square-alt"></i></a>
-							    		</div>
-							    	</td>
-							    </tr>
+							    @foreach ($data as $key => $value)
+							    	<tr>
+							    		<td>{{$key + 1}}</td>
+											<td>{{$value->i_code}}</td>
+											<td>{{$value->i_name}}</td>
+											<td>{{$value->u_unit}}</td>
+											<td>{{$value->i_jenis}}</td>
+											<td>{{$value->i_description}}</td>
+											<td align="center">
+												<div class="btn-group btn-group-sm">
+							    			<a href="{{url('/inventory/barangkeluar/kartu_stok')}}?id={{$value->i_id}}" title="Kartu Stok" class="btn btn-primary"><i class="fa fa-external-link-square-alt"></i></a>
+							    			</div>
+											</td>
+							    	</tr>
+							    @endforeach
 							  </tbody>
 							</table>
 						</div>
-						
 		        	</div>
 		      	</div>
 	    	</div>

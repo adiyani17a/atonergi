@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 class InventoryController extends Controller
 {
     public function barangmasuk()
@@ -16,10 +18,14 @@ class InventoryController extends Controller
     }
     public function barangkeluar()
     {
-    	return view('inventory/barangkeluar/barangkeluar');
+      $data = DB::table('m_item')
+                ->join('d_unit', 'u_id', '=', 'i_unit')
+                ->get();
+
+    	return view('inventory/barangkeluar/barangkeluar', compact('data'));
     }
-    public function kartu_stok()
-    {
+    public function kartu_stok(Request $request)
+    {   
         return view('inventory/barangkeluar/kartu_stok');
     }
     public function barcode()

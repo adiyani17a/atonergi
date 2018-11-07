@@ -5,7 +5,7 @@
 <!-- partial -->
 <div class="content-wrapper">
 	<div class="row">
-		<div class="col-lg-12">	
+		<div class="col-lg-12">
 			<nav aria-label="breadcrumb" role="navigation">
 				<ol class="breadcrumb bg-info">
 					<li class="breadcrumb-item"><i class="fa fa-home"></i>&nbsp;<a href="#">Home</a></li>
@@ -106,7 +106,7 @@
 							    </tr>
 							  </thead>
 							  <tbody>
-							    
+
 							  </tbody>
 							</table>
 						</div>
@@ -123,12 +123,12 @@
 							    	<th width="1%"></th>
 							    </tr>
 							  </thead>
-							  <tbody>
-							    
+							  <tbody id="showkartu">
+
 							  </tbody>
 							</table>
 						</div>
-						
+
 						<div class="content-footer">
 							<button class="btn btn-primary btn-simpan" type="button">Save</button>
 							<a href="{{route('barangkeluar')}}" class="btn btn-secondary">Back</a>
@@ -159,6 +159,16 @@
             "sSearch": '<i class="fa fa-search"></i>'
            }
 	});
+
+	$('#tabel_kartu_stok').DataTable({
+		"pageLength": 10,
+        "lengthMenu": [[10, 20, 50, - 1], [10, 20, 50, "All"]],
+        "language": {
+            "searchPlaceholder": "Search",
+            "sSearch": '<i class="fa fa-search"></i>'
+           }
+	});
+
 	function tabel_append(){
 		var newDate = new Date();
 		var date = newDate.getDate();
@@ -167,7 +177,7 @@
 		var tgl = date+'-'+month+'-'+year;
 
 		// console.log(month);
-		
+		$('#showkartu').html('');
 		$('#tabel_kartu_stok tbody').append(
 			'<tr>'+
 				'<td><input type="hidden" value="'+$('#date').val()+'" class="date"><span>'+$('#date').val()+'</span></td>'+

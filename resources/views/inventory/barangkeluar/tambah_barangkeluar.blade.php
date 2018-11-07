@@ -10,8 +10,8 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          
-          
+
+
             <div class="col-md-3 col-sm-6 col-xs-12">
               <label>Item Out Code</label>
             </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="form-group">
-                <input type="text" class="form-control form-control-sm date-picker" name="">
+                <input type="text" class="form-control form-control-sm datepicker" readonly name="">
               </div>
             </div>
             <div class="col-md-6 col-sm-0 col-xs-0">
@@ -76,11 +76,11 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="form-group">
-                <input type="text" class="form-control form-control-sm" name="" readonly="" value="{{date('d-m-Y', strtotime('+2 week'))}}">
+                <input type="text" class="form-control form-control-sm datepicker" name="" readonly="" value="{{date('d-m-Y', strtotime('+2 week'))}}">
               </div>
             </div>
-            
-          
+
+
         </div>
         <div class="row" style="border-top:1px solid #e6ecf5; padding-top:15px;">
 

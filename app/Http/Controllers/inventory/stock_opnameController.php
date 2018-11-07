@@ -8,10 +8,10 @@ use DB;
 use Carbon\carbon;
 class stock_opnameController extends Controller
 {
- 	
+
 	 public function stockopname()
 	 {
-	 	$po = DB::table('d_purchaseorder')->where('po_status','=','F')->get();
+	 	  $po = DB::table('d_purchaseorder')->where('po_status','=','F')->get();
     	return view('inventory/opname/opname');
 	 }
 	 public function datatable_stockgudang()
@@ -21,7 +21,7 @@ class stock_opnameController extends Controller
       $data = collect($list);
 
       return Datatables::of($data)
-        
+
               ->addColumn('detail', function ($data) {
                         return '<button data-toggle="modal" onclick="detail(this)"  class="btn btn-outline-primary btn-sm">Detail</button>';
               })
@@ -59,285 +59,191 @@ class stock_opnameController extends Controller
    }
    public function save_stockopname(Request $request)
    {
-   	// dd($request->all());
-   	// count($request->so_item);
-   return DB::transaction(function() use ($request) {
+     DB::beginTransaction();
+     try {
 
-    for ($i=0; $i < 2; $i++) { 
-		$cari = DB::table('i_stock_mutasi')
-			   ->where('sm_item',$request->so_item[$i])
-			   ->orderBy('sm_insert','ASC')
-			   ->get();
-		// return $cari;
+       for ($i=0; $i < count($request->so_real); $i++) {
+          if ($request->so_real[$i] > 0) {
+            $idopname = DB::table('i_stock_opname')
+                         ->max('so_id');
 
-		if ($request->so_system[$i] < $request->so_real[$i]) {
+           if ($idopname == null) {
+             $idopname = 1;
+           } else {
+             $idopname += 1;
+           }
 
-			for ($a=0; $a < count($cari); $a++) { 
-				if ($a == 0) {
-					$temp  = $cari[$a]->sm_insert;
-				}
+          DB::table('i_stock_opname')
+             ->insert([
+               'so_id' => $idopname,
+               'so_code' => $request->so_code,
+               'so_bulan' => Carbon::parse($request->so_date)->format('Y-m-d'),
+               'so_create_at' => Carbon::now('Asia/Jakarta')
+             ]);
 
-				if ($a != 0) {
-					if ($cari[$a]->sm_insert > $temp) {
-						$temp = $cari[$a]->sm_insert;
-					}
-				}
-			}
+             $iddtopname = DB::table('i_stock_opname_dt')
+                            ->max('sodt_id');
 
-			$kode_sequence = DB::table('i_stock_mutasi')
-								->where('sm_insert',$temp)
-					   			->where('sm_item',$request->so_item[$i])
-								->max('sm_iddetail')+1;
+            if ($iddtopname == null) {
+              $iddtopname = 1;
+            } else {
+              $iddtopname += 1;
+            }
 
-			$hpp =	DB::table('i_stock_mutasi')
-					   ->where('sm_insert',$temp)
-					   ->where('sm_item',$request->so_item[$i])
-					   ->first(); 
+            DB::table('i_stock_opname_dt')
+                ->insert([
+                  'sodt_id' => $iddtopname,
+                  'sodt_code' => $request->so_code,
+                  'sodt_item' => $request->so_item[$i],
+                  'sodt_system' => $request->so_system[$i],
+                  'sodt_real' => $request->so_real[$i],
+                  'sodt_status_item' => $request->so_status_item[$i],
+                  'sodt_status_total' => $request->so_status_total[$i],
+                  'sodt_description' => $request->so_description[$i],
+                  'sodt_create_at' => Carbon::now('Asia/Jakarta')
+                 ]);
 
+                 $info = DB::table('i_stock_opname')
+                ->join('i_stock_opname_dt', 'sodt_code', '=', 'so_code')
+                ->where('so_code', '=', $request->so_code)
+                ->get();
 
-			$insert = DB::table('i_stock_mutasi')
-	    						->insert([
-	    							'sm_id'=>$hpp->sm_id,
-							 		'sm_iddetail'=>$kode_sequence,
-							 		'sm_item'=>$request->so_item[$i],
-							 		'sm_hpp'=>$hpp->sm_hpp,
-							 		'sm_qty'=>$request->so_status_total[$i],
-							 		'sm_use'=>0,
-						   			'sm_deliveryorder'=>'',
-							 		'sm_sisa'=>$request->so_status_total[$i],
-							 		'sm_description'=>'STOCK OPNAME '.$request->so_status_item[$i],
-							 		'sm_mutcat'=>3,
-							 		'sm_ref'=>$request->so_code,
-							 		'sm_insert'=>carbon::now(),
-	    						]);
+                 $item = $info[0]->sodt_item;
+                 $qty_sistem = (int)$info[0]->sodt_system;
+                 $qty_real = (int)$info[0]->sodt_real;
+                 $sisa = (int)$info[0]->sodt_system - (int)$info[0]->sodt_real;
+                 $sekarang = Carbon::now('Asia/Jakarta');
 
-	    	$check_gudang[$i] = DB::table('i_stock_gudang')
-	    						->where('sg_iditem','=',$request->so_item[$i])
-	    						->get();		
+                 $mutasi = DB::table('i_stock_gudang')
+                     ->join('i_stock_mutasi', 'sm_id', '=', 'sg_id')
+                     ->select('i_stock_gudang.*', 'i_stock_mutasi.*', DB::raw('(sm_qty - sm_use) as sm_sisa'))
+                     ->where('sg_iditem', '=', $item)
+                     ->whereRaw("sm_description = 'PENERIMAAN BARANG' OR sm_description = 'BELANJA LANGSUNG' OR sm_description = 'STOCK OPNAME LEBIH'")
+                     ->where('sm_qty', '>', 'sm_use')
+                     ->get();
 
-	    	$update_gudang = DB::table('i_stock_gudang')
-	    						->where('sg_iditem','=',$request->so_item[$i])
-	    						->update([
-	    							'sg_qty'=>$check_gudang[$i][0]->sg_qty+$request->so_status_total[$i],
-	    						]);
+                     if ((int)$sisa > 0){
+                         //========= mengurangi stock
+                         for ($i = 0; $i < count($mutasi); $i++){
+                             if ((int)$mutasi[$i]->sm_sisa >= (int)$sisa){
+                                 DB::table('i_stock_mutasi')
+                                     ->where('sm_id', '=', $mutasi[$i]->sm_id)
+                                     ->where('sm_iddetail', '=', $mutasi[$i]->sm_iddetail)
+                                     ->update([
+                                         'sm_use' => (int)$mutasi[$i]->sm_use + (int)$sisa
+                                     ]);
 
-		}else if($request->so_system[$i] > $request->so_real[$i]){
+                                 $getdetailid = DB::table('i_stock_mutasi')
+                                     ->where('sm_id', '=', $mutasi[$i]->sm_id)
+                                     ->max('sm_iddetail');
 
-			$balance = $request->so_status_total[$i];
-			for ($b=0; $b < count($cari); $b++) { 
+                                 $detailid = $getdetailid + 1;
 
-				$sisa_kurang = $cari[$b]->sm_sisa - $balance;
-				$kurang = $balance - $cari[$b]->sm_sisa;
+                                 DB::table('i_stock_mutasi')
+                                     ->insert([
+                                         'sm_id' => $mutasi[$i]->sm_id,
+                                         'sm_iddetail' => $detailid,
+                                         'sm_item' => $mutasi[$i]->sm_item,
+                                         'sm_hpp' => $mutasi[$i]->sm_hpp,
+                                         'sm_description' => 'STOCK OPNAME KURANG',
+                                         'sm_qty' => (int)$sisa,
+                                         'sm_use' => '0',
+                                         'sm_sisa' => (int)$mutasi[$i]->sm_qty - (int)$mutasi[$i]->sm_use,
+                                         'sm_ref' => $request->so_code,
+                                         'sm_deliveryorder' => $mutasi[$i]->sm_ref,
+                                     ]);
 
-				if($kurang < 0){
-					$kurang = 0;
-				}
+                                 DB::table('i_stock_gudang')
+                                     ->where('sg_id', '=', $mutasi[$i]->sg_id)
+                                     ->update([
+                                         'sg_qty' => DB::raw('sg_qty - ' . (int)$sisa)
+                                     ]);
 
-				$sm_use_new = $balance - $kurang;
+                                 $sisa = 0;
+                                 $i = count($mutasi);
+                             } elseif ((int)$mutasi[$i]->sm_sisa < (int)$sisa){
+                                 $sisa = (int)$sisa - (int)$mutasi[$i]->sm_qty;
 
-				if ($sisa_kurang < 0) {
-					$sisa_kurang = 0;
-				}
+                                 DB::table('i_stock_mutasi')
+                                     ->where('sm_id', '=', $mutasi[$i]->sm_id)
+                                     ->where('sm_iddetail', '=', $mutasi[$i]->sm_iddetail)
+                                     ->update([
+                                         'sm_use' => (int)$mutasi[$i]->sm_qty
+                                     ]);
 
-				$update = DB::table('i_stock_mutasi')
-						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
-						  ->update([
-						  	'sm_sisa' => $sisa_kurang,
-						  ]);
-				$use = DB::table('i_stock_mutasi')
-						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
-						  ->first();
+                                 $getdetailid = DB::table('i_stock_mutasi')
+                                     ->where('sm_id', '=', (int)$mutasi[$i]->sm_id)
+                                     ->max('sm_iddetail');
 
-				$use1 = $use->sm_qty - $use->sm_sisa;
+                                 $detailid = $getdetailid + 1;
 
-				$update = DB::table('i_stock_mutasi')
-						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
-						  ->orderBy('sm_insert','ASC')
-						  ->update([
-						  	'sm_use' => $use1,
-						  ]);
+                                 DB::table('i_stock_mutasi')
+                                     ->insert([
+                                         'sm_id' => $mutasi[$i]->sm_id,
+                                         'sm_iddetail' => $detailid,
+                                         'sm_item' => $mutasi[$i]->sm_item,
+                                         'sm_hpp' => $mutasi[$i]->sm_hpp,
+                                         'sm_description' => 'STOCK OPNAME KURANG',
+                                         'sm_qty' => (int)$mutasi[$i]->sm_qty,
+                                         'sm_use' => '0',
+                                         'sm_sisa' => (int)$mutasi[$i]->sm_qty - (int)$mutasi[$i]->sm_use,
+                                         'sm_ref' => $request->so_code,
+                                         'sm_deliveryorder' => $mutasi[$i]->sm_ref,
+                                     ]);
 
-				$upd = DB::table('i_stock_mutasi')
-						  ->where('sm_id',$cari[$b]->sm_id)
-						  ->where('sm_iddetail','=',$cari[$b]->sm_iddetail)
-						  ->first();
+                                 DB::table('i_stock_gudang')
+                                     ->where('sg_id', '=', $mutasi[$i]->sg_id)
+                                     ->update([
+                                         'sg_qty' => DB::raw('(sg_qty - ' . (int)$mutasi[$i]->sm_qty. ')')
+                                     ]);
+                             }
+                         }
+                     } elseif ($sisa < 0){
+                         //======== menambah stock
+                         $sisa = abs($sisa);
+                         $counter = count($mutasi) - 1;
 
-				if ($balance > 0) {
-					$kode_sequence = DB::table('i_stock_mutasi')->where('sm_id','=',$cari[$b]->sm_id)->max('sm_iddetail')+1;
+                         $getdetailid = DB::table('i_stock_mutasi')
+                             ->where('sm_id', '=', $mutasi[0]->sm_id)
+                             ->max('sm_iddetail');
 
-					$insert = DB::table('i_stock_mutasi')
-	    						->insert([
-	    							'sm_id'=>$upd->sm_id,
-							 		'sm_iddetail'=>$kode_sequence,
-							 		'sm_item'=>$request->so_item[$i],
-							 		'sm_hpp'=>$upd->sm_hpp,
-							 		'sm_qty'=>$sm_use_new,
-							 		'sm_use'=>$sm_use_new,
-						   			'sm_deliveryorder'=>'',
-							 		'sm_sisa'=>0,
-							 		'sm_description'=>'STOCK OPNAME '.$request->so_status_item[$i],
-							 		'sm_mutcat'=>3,
-							 		'sm_ref'=>$request->so_code,
-							 		'sm_insert'=>carbon::now(),
-	    						]);
-	    			$stock = DB::table('i_stock_gudang')
-	    					   ->where('sg_id',$upd->sm_id)
-	    					   ->first();
+                         $detailid = $getdetailid + 1;
 
-	    			$update = DB::table('i_stock_gudang')
-	    					   ->where('sg_id',$upd->sm_id)
-	    						->update([
-	    							'sg_qty'=>$stock->sg_qty - $sm_use_new,
-	    						]);
-				}
+                         DB::table('i_stock_mutasi')
+                             ->insert([
+                                 'sm_id' => $mutasi[0]->sm_id,
+                                 'sm_iddetail' => $detailid,
+                                 'sm_item' => $mutasi[0]->sm_item,
+                                 'sm_hpp' => $mutasi[$counter]->sm_hpp,
+                                 'sm_description' => 'STOCK OPNAME LEBIH',
+                                 'sm_qty' => (int)$sisa,
+                                 'sm_use' => '0',
+                                 'sm_sisa' => (int)$sisa,
+                                 'sm_ref' => $request->so_code,
+                                 'sm_deliveryorder' => $mutasi[0]->sm_ref,
+                             ]);
 
-				$balance = $kurang;
+                         DB::table('i_stock_gudang')
+												 	->where('sg_id', (int)$mutasi[0]->sg_id)
+                             ->update([
+                                 'sg_qty' => DB::raw('(sg_qty + ' .(int)$sisa. ')')
+                             ]);
+                     }
 
-			}
-
-			// $cari = DB::table('i_stock_mutasi')
-			// 	   ->where('sm_item',$request->so_item[$i])
-			// 	   ->get();
-			// // dd($cari);
-
-
-		}
-
-		
-	}
-
-
-	// $cari = DB::table('i_stock_mutasi')
-	// 			   ->where('sm_item',$request->so_item[0])
-	// 			   ->get();
-
-
-
-
-    //  $tanggal = date("Y-m-d h:i:s");
-
-   	//  $kode_header = DB::table('i_stock_opname')->max('so_id');
-   	//    if ($kode_header == null) {
-   	//    	$kode_header = 1;
-   	//    }else{
-   	//    	$kode_header += 1;
-   	//    }
-
-   	// $header_opname = DB::table('i_stock_opname')
-   	// 						->insert([
-   	// 							'so_id'=>$kode_header,
-   	// 							'so_code'=>$request->so_code,
-   	// 							'so_bulan'=>date('Y-m-d',strtotime($request->so_date)),
-   	// 							'so_create_at'=>$tanggal,
-   	// 						]);
- 
-    //SEQUENCE
-	
-
-   // 	$kode_detail = 0;
-  	// for ($i=0; $i <count($request->so_item) ; $i++) { 
-  	//    $kode_sequence = DB::table('i_stock_opname_dt')->max('sodt_id');
-	  //  	   if ($kode_sequence == null) {
-	  //  	   	$kode_sequence = 1;
-	  //  	   }else{
-	  //  	   	$kode_sequence += 1;
-	  //  	   }	
-   // 		$kode_detail += 1;
-
-   // 		if ($request->so_status_item[$i] != 'SAMA') {
-   // 			$sequence_opname = DB::table('i_stock_opname_dt')
-	  //   						->insert([
-	  //   							'sodt_id'=>$kode_sequence,
-	  //   							'sodt_code'=>$request->so_code,
-	  //   							'sodt_item'=>$request->so_item[$i],
-	  //   							'sodt_system'=>$request->so_system[$i],
-	  //   							'sodt_real'=>$request->so_real[$i],
-	  //   							'sodt_status_item'=>$request->so_status_item[$i],
-	  //   							'sodt_status_total'=>$request->so_status_total[$i],
-	  //   							'sodt_description'=>$request->so_description[$i],
-	  //   							'sodt_create_at'=>$tanggal,
-	  //   						]);
-   // 		}else{
-
-   // 		}
-	    
-
-	    // $check_gudang[$i] = DB::table('i_stock_gudang')
-	    // 						->where('sg_iditem','=',$request->so_item[$i])
-	    // 						->get();
-
-	    // if ($request->so_status_item[$i] == 'KURANG') {
-			
-			// $arr_checkm1[$i] =	$request->qty_remain[$i];
-		 // 	$arr_checkm2[$i] = $request->qty_received[$i];
-	  //   	$subtracted_check = array_map(function ($x, $y) { return $x-$y;} , $arr_checkm1, $arr_checkm2);
-			// $result_check = array_combine(array_keys($arr_checkm1), $subtracted_check);
-			// // return $result_check;
-			// //end
-			// $arr_checkm11[$i] = $check_hpp_kurang[$i][0]->sm_qty;
-		 // 	$arr_checkm22[$i] = $request->qty_received[$i];
-
-	  //   	$subtracted_mm = array_map(function ($xx, $yy) { return $xx+$yy;} , $arr_checkm11, $arr_checkm22);
-			// $result_checkmm = array_combine(array_keys($arr_checkm11), $subtracted_mm);
+          }
+       }
+       DB::commit();
+       return response()->json([
+         'status' => 'berhasil'
+       ]);
+     } catch (\Exception $e) {
+       DB::commit();
+       return response()->json([
+         'status' => 'gagal'
+       ]);
+     }
 
 
-			// //update mutasi dimana stock real kurang dari stock sistem
-	    	
-
-
-
-	    	
-	    	// $update_gudang = DB::table('i_stock_gudang')
-	    	// 					->where('sg_iditem','=',$request->so_item[$i])
-	    	// 					->update([
-	    	// 						'sg_qty'=>$check_gudang[$i][0]->sg_qty-$request->so_status_total[$i],
-	    	// 					]);
-	    // }
-	    // else if ($request->so_status_item[$i] == 'LEBIH') {
-	    // 	$update_gudang = DB::table('i_stock_gudang')
-	    // 						->where('sg_iditem','=',$request->so_item[$i])
-	    // 						->update([
-	    // 							'sg_qty'=>$check_gudang[$i][0]->sg_qty+$request->so_status_total[$i],
-	    // 						]);
-	    // }
-	    // else if ($request->so_status_item[$i] == 'SAMA') {
-	    // 	$update_gudang = DB::table('i_stock_gudang')
-	    // 						->where('sg_iditem','=',$request->so_item[$i])
-	    // 						->update([
-	    // 							'sg_qty'=>$check_gudang[$i][0]->sg_qty,
-	    // 						]);
-	    // }
-	    
-
-	    // $insert_mutasi = DB::table('i_stock_mutasi')
-	    // 						->insert([
-	    // 							'sm_id'=>$check_gudang[$i][0]->sg_id,
-					// 		 		'sm_iddetail'=>$kode_detail,
-					// 		 		'sm_item'=>$request->so_item[$i],
-					// 		 		'sm_hpp'=>,
-					// 		 		'sm_qty'=>$request->so_status_total[$i],
-					// 		 		'sm_use'=>0,
-					// 	   			'sm_deliveryorder'=>'',
-					// 		 		'sm_sisa'=>$request->so_status_total[$i],
-					// 		 		'sm_description'=>'STOCK OPNAME '.$request->so_status_item[$i],
-					// 		 		'sm_mutcat'=>3,
-					// 		 		'sm_ref'=>$request->so_code,
-					// 		 		'sm_insert'=>$tanggal,
-	    // 						]);
-
-  	// }
-  	// $check_gudang[$i]->sg_qty-$request->so_status_total[$i]
-  	// return $request->so_status_total;
-  	// return $request->so_item;
-  	// return $check_hpp_kurang;
-  	return response()->json(['status'=>1]);
-   });
    }
-
-
-   
 
 }
