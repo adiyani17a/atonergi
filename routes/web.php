@@ -194,6 +194,7 @@ Route::get('/project/jadwalujicoba/city', 'ProjectController@city');
 Route::get('/project/jadwalujicoba/hapus_jadwal', 'ProjectController@hapus_jadwal');
 Route::post('/project/jadwalujicoba/simpan_jadwal', 'ProjectController@simpan_jadwal');
 Route::get('/project/jadwalujicoba/pdf_jadwal', 'ProjectController@pdf_jadwal')->name('pdf_jadwal');
+Route::get('/project/jadwalujicoba/pdf_install', 'ProjectController@pdf_install')->name('pdf_install');
 Route::get('/project/pemasangan/pemasangan', 'ProjectController@pemasangan');
 Route::get('/project/pemasangan/prosespemasangan/{id}', 'ProjectController@prosespemasangan');
 Route::get('/project/pemasangan/proses', 'ProjectController@simpanpemasangan');

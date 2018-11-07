@@ -286,6 +286,10 @@ class ProjectController extends Controller
 
       return view('project/jadwalujicoba/pdf_jadwal', compact('data', 'image', 'judul'));
     }
+    public function pdf_install()
+    {
+        return view('project/jadwalujicoba/pdf_install');
+    }
     public function pemasangan()
     {
       $data = DB::table('d_work_order')
