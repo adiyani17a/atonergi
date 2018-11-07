@@ -11,8 +11,19 @@ class stock_opnameController extends Controller
 
 	 public function stockopname()
 	 {
-	 	  $po = DB::table('d_purchaseorder')->where('po_status','=','F')->get();
-    	return view('inventory/opname/opname');
+	 	 	$data = DB::table('i_stock_opname')
+								->get();
+
+    	return view('inventory/opname/opname', compact('data'));
+	 }
+	 public function detail(Request $request){
+		 $data = DB::table('i_stock_opname')
+		 					->where('so_id', $request->id)
+							->join('i_stock_opname_dt', 'sodt_code', '=', 'so_code')
+							->join('m_item', 'i_code', '=', 'sodt_item')
+							->get();
+
+		return response()->json($data);
 	 }
 	 public function datatable_stockgudang()
 	 {
