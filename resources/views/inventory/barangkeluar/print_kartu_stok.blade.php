@@ -251,12 +251,12 @@
 			<h1 class="calibri underline text-center">Item Stock Card</h1>
 			<table class="border-none mb-3" width="100%">
 				<tr>
-					<td>Item Type</td>
+					<td width="25%">Item Type</td>
 					<td width="1%">:</td>
-					<td>ACC</td>
-					<td>Card No</td>
+					<td width="25%">ACC</td>
+					<td width="25%">Card No</td>
 					<td width="1%">:</td>
-					<td>SC/20181107/001</td>
+					<td width="25%">SC/20181107/001</td>
 				</tr>
 				<tr>
 					<td>Unit</td>
