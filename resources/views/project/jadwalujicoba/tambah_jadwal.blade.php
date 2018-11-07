@@ -1406,6 +1406,10 @@ $(document).ready(function(){
   $('input[name=jumlahtab]').val(countertab);
 });
 
+$('.form-control.select2-hidden-accessible').select2({
+  width: '100%'
+});
+
 $('div[id*=form-gambar-]').each(function(){
 
 

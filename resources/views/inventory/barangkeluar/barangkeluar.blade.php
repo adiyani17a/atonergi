@@ -45,11 +45,12 @@
 											<td align="center">
 												<div class="btn-group btn-group-sm">
 							    			<a href="{{url('/inventory/barangkeluar/kartu_stok')}}?id={{$value->i_id}}" title="Kartu Stok" class="btn btn-primary"><i class="fa fa-external-link-square-alt"></i></a>
-							    			</div>
+												<a href="{{url('inventory/barangkeluar/print_kartu_stok')}}" class="btn btn-primary" target="_blank" title="Print Kartu Stok"><i class="fa fa-print"></i></a>
+												</div>
 											</td>
 							    	</tr>
 							    @endforeach
-							  </tbody>
+								</tbody>
 							</table>
 						</div>
 		        	</div>
