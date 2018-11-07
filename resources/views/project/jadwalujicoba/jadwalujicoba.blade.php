@@ -62,7 +62,7 @@
 										<td>{{$key + 1}}</td>
 										<td>{{Carbon\Carbon::parse($value->s_insert)->format('d-F-Y h:m:i:s')}}</td>
 										<td>{{$value->s_title}}</td>
-										<td>
+										<td align="center">
 											<div class="btn-group btn-group-sm">
 												<button class="btn btn-warning" type="button" title="Edit" onclick="edit({{$value->s_id}})"><i class="fa fa-pencil-alt"></i></button>
 												<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}" title="Print Report"><i class="fa fa-print"></i></a>
@@ -140,6 +140,10 @@ function hapus(id) {
 					 ]
 				 ]
 			 });
+ }
+
+ function pdf(id){
+	 window.location.href = baseUrl + '/project/jadwalujicoba/pdf_jadwal?id='+id;
  }
 
 </script>

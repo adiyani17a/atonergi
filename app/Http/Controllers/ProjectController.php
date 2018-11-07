@@ -55,7 +55,6 @@ class ProjectController extends Controller
           'status' => 'gagal'
         ]);
       }
-
     }
     public function tambah_jadwalujicoba()
     {
@@ -91,7 +90,6 @@ class ProjectController extends Controller
     public function simpan_jadwal(Request $request){
       DB::beginTransaction();
       try {
-
         $idschdule = DB::table('d_schedule')
                       ->max('s_id');
 
@@ -109,7 +107,7 @@ class ProjectController extends Controller
             's_insert' => Carbon::now('Asia/Jakarta')
           ]);
 
-          for ($z=0; $z <= count((int)$request->jumlahimage); $z++) {
+          for ($z=0; $z < count((int)$request->jumlahimage); $z++) {
             $idimage = DB::table('d_schedule_image')
                           ->max('si_id');
 
@@ -125,7 +123,7 @@ class ProjectController extends Controller
             $dir = 'image/uploads/dokumentasi/' .$idschdule. '/' .$idimage;
             $childPath = $dir . '/';
             $path = $childPath;
-            $file = $request->file('image'.$z.'');
+            $file = $request->file('image'.($z+1).'');
             $name = null;
             if ($file != null) {
                 $name = $folder . '.' . $file->getClientOriginalExtension();
@@ -252,7 +250,8 @@ class ProjectController extends Controller
                               'sc_quotation' => $request->si_quotation[$i],
                               'sc_quantity' => $request->sc_quantity[$i],
                               'sc_check' => $check,
-                              'sc_remarks' => $request->sc_remarks[$i]
+                              'sc_remarks' => $request->sc_remarks[$i],
+                              'sc_insert' => Carbon::now('Asia/Jakarta')
                             ]);
                        }
                      }
@@ -269,9 +268,23 @@ class ProjectController extends Controller
     }
 
     }
-    public function pdf_jadwal()
+    public function pdf_jadwal(Request $request)
     {
-        return view('project/jadwalujicoba/pdf_jadwal');
+      $data = DB::table('d_schedule')
+                ->where('s_id', $request->id)
+                ->get();
+
+      $image = DB::table('d_schedule_image')
+                ->where('si_schedule', $request->id)
+                ->get();
+
+      $judul = DB::table('d_schedule_image')
+                ->where('si_schedule', $request->id)
+                ->select('si_judul')
+                ->distinct('si_judul')
+                ->get();
+
+      return view('project/jadwalujicoba/pdf_jadwal', compact('data', 'image', 'judul'));
     }
     public function pdf_install()
     {
