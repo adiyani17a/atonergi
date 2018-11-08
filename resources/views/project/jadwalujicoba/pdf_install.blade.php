@@ -11,6 +11,35 @@
 			margin: 0;
 			height: 99%
 		}
+		body {
+		    position: absolute;
+		    top: 0;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+		}
+		.container-holder {
+		    width: 800px;
+		    background: pink;
+		    padding: 3px;
+		    border: 3px solid green;
+		    page-break-inside: avoid;
+		    display: block;
+		}
+		.container-row {
+		    border: 3px solid blue;
+		    margin: 3px;
+		    page-break-inside: avoid;
+		}
+		.container {
+		    border: 1px solid black;
+		    width: 44%;
+		    height: 300px;
+		    margin: 10px;
+		    padding: 10px;
+		    display : inline-block;
+		    vertical-align: bottom;
+		}
 		*:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(small):not(label){
 			font-size: 14px;
 			font-family: "arial";
@@ -33,6 +62,12 @@
 		.div-width{
 			width: 900px;
 			padding: 160px 0 15px 0;
+			background: transparent;
+			position: absolute;
+		}
+		.div-height{
+			width: 900px;
+			padding: 160px 0 160px 0;
 			background: transparent;
 			position: absolute;
 		}
@@ -121,7 +156,7 @@
 			vertical-align: top;
 		}
 		th, tr, td {
-		    padding: 20px;
+		    padding: 15px;
 		    text-align: left;
 		    color: black;
 		}
@@ -145,10 +180,24 @@
 			html, body {
 		        height: auto;    
 		    }
+		    .empty-page {
+		    	padding: 120px 15px; 
+		    }
+		    .block-header {
+		    	min-height: 100vh;
+		    	display: inline-block;
+		    }
 			.div-width{
 				margin: auto;
 				padding: 120px 15px 15px 15px;
 				width: 95vw;
+				position: absolute;
+			}
+			.div-height {
+				margin: auto;
+				padding: 120px 15px 120px 15px;
+				width: 95vw;
+				height: 80vh;
 				position: absolute;
 			}
 			.btn-print{
@@ -175,6 +224,11 @@
 				margin: auto;
 				width: 100vw;
 				height: 100vh;
+			}
+			pre, blockquote, div {
+				/*page-break-inside: avoid;*/
+				page-break-before: always;
+				page-break-after: always;
 			}
 		}
 		fieldset{
@@ -232,10 +286,16 @@
 			border-bottom: 1px dotted black !important;
 		}
 		.div-page-break-after{
-			page-break-after: always;
+			/*page-break-after: always;*/
+			page-break-before: always;
+			/*page-break-inside: avoid;*/
+			display: inline-block;
 		}
 		.div-page-break-after:last-child{
-			page-break-after: auto;
+			/*page-break-after: auto;*/
+			page-break-before: auto;
+			/*page-break-inside: avoid;*/
+			display: inline-block;
 		}
 		.block{
 			display: block;
@@ -707,51 +767,7 @@
 						</tr>
 					</tbody>
 				</table>
-			</div><br>
-		</div>
-		<div class="div-width-background">
-			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-1.png')}}">
-		</div>
-	</div>
-	<div class="div-page-break-after">
-		<div class="div-width">
-			<div class="text-center mb-2 unbold">
-				<h1>CHECKLIST PARTS OF LORENTZ SYSTEM</h1>
-			</div>
-			<div class="grey w-tab m-auto">
-				<table>
-					<thead>
-						<tr>
-							<td>No.</td>
-							<td class="tw-150">Description</td>
-							<td>Quantity</td>
-							<td>Check<br> ( ✔ / ✘ )</td>
-							<td class="tw-150">Remarks</td>
-						</tr>
-					</thead>
-					<tbody class="center">
-						<tr class="alamraya-tr-padding">
-							<td>1</td>
-							<td>Lorentz Pump Type : surface C-SF4-6</td>
-							<td>1</td>
-							<td>
-								<input type="checkbox" class="checkbox" name="" checked>
-							</td>
-							<td>
-								Tidak terpasang,kabel terlalu jauh.
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div><br>
-		</div>
-		<div class="div-width-background">
-			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-1.png')}}">
-		</div>
-	</div>
-
-	<div class="div-page-break-after">
-		<div class="div-width">
+			</div><br><br>
 			<h3 class="grey w-tab bold m-auto">
 				PV Mounting System
 			</h3><br>
@@ -776,7 +792,15 @@
 						</tr>
 					</tbody>
 				</table>
-			</div><br><br>
+			</div>
+		</div>
+		<div class="div-width-background">
+			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-1.png')}}">
+		</div>
+	</div>
+
+	<div class="div-page-break-after">
+		<div class="div-width">
 			<h3 class="grey w-tab bold m-auto">
 				Usage of Data and Illustrations
 			</h3><br>
@@ -818,14 +842,7 @@
 						</tr>
 					</tbody>
 				</table>
-			</div><br>
-		</div>
-		<div class="div-width-background">
-			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-1.png')}}">
-		</div>
-	</div>
-	<div class="div-page-break-after">
-		<div class="div-width">
+			</div><br><br>
 			<div class="float-left">
 				<div class="ttd-container">
 					<div class="ttd-date-section text-center">
@@ -855,6 +872,68 @@
 		</div>
 		<div class="div-width-background">
 			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-1.png')}}">
+		</div>
+	</div>
+	<div class="div-page-break-after">
+		<div class="div-height">
+			<div class="text-center mb-2 unbold">
+				<h1>CHECKLIST PARTS OF LORENTZ SYSTEM</h1>
+			</div>
+			<div class="grey w-tab m-auto">
+				<table>
+					<thead>
+						<tr>
+							<td>No.</td>
+							<td class="tw-150">Description</td>
+							<td>Quantity</td>
+							<td>Check<br> ( ✔ / ✘ )</td>
+							<td class="tw-150">Remarks</td>
+						</tr>
+					</thead>
+					<tbody class="center">
+						@for($i=1; $i < 50; $i++)
+						<tr class="alamraya-tr-padding">
+							<td>
+								{{ $i }}
+							</td>
+							<td>Lorentz Pump Type : surface C-SF4-6</td>
+							<td>1</td>
+							<td>
+								<input type="checkbox" class="checkbox" name="" checked>
+							</td>
+							<td>
+								Tidak terpasang,kabel terlalu jauh.
+							</td>
+						</tr>
+						@endfor
+					</tbody>
+				</table>
+			</div><br>
+		</div>
+		<div class="div-width-background ">
+			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-1.png')}}">
+		</div>
+	</div>
+	<!-- <div class="div-width empty-page">
+		<div class="block-header">
+		</div>
+	</div> -->
+	<div class="div-page-break-after">
+		<div class="div-width">
+			<div class="block-header">
+			</div>
+		</div>
+		<div class="div-width-background">
+			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-2.png')}}">
+		</div>
+	</div>
+	<div class="div-page-break-after">
+		<div class="div-width">
+			<div class="block-header">
+			</div>
+		</div>
+		<div class="div-width-background">
+			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-2.png')}}">
 		</div>
 	</div>
 	<!-- <div class="div-page-break-after"> -->
