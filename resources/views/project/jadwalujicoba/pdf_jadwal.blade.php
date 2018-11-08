@@ -256,17 +256,17 @@
 
 		<div class="div-width">
 			<h1 class="block text-center grey">
-				<?php
+				@php
 					echo $data[0]->s_title;
-				?>
+				@endphp
 			</h1>
 			<div class="grey m-auto w-50percent">
 <pre>
-	<h3>
-		<?php
-			echo $data[0]->s_description;
-		?>
-	</h3>
+<h3>
+@php
+echo $data[0]->s_description;
+@endphp
+</h3>
 </pre>
 			</div>
 		</div>
