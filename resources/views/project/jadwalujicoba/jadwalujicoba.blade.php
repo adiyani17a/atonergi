@@ -64,7 +64,6 @@
 										<td>{{$value->s_title}}</td>
 										<td align="center">
 											<div class="btn-group btn-group-sm">
-												<button class="btn btn-warning" type="button" title="Edit" onclick="edit({{$value->s_id}})"><i class="fa fa-pencil-alt"></i></button>
 												<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}" title="Print Report"><i class="fa fa-print"></i></a>
 												<!-- <button class="btn btn-success" type="button" title="Print Installation" onclick="print({{$value->s_id}})"><i class="fa fa-print"></i></button> -->
 												<a class="btn btn-success" target="_blank" href="{{route('pdf_install')}}" title="Print Installation"><i class="fa fa-print"></i></a>
