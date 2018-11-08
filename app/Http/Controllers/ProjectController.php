@@ -102,8 +102,8 @@ class ProjectController extends Controller
         DB::table('d_schedule')
           ->insert([
             's_id' => $idschdule,
-            's_title' => $request->judul_laporan,
-            's_description' => $request->deskripsi_laporan,
+            's_title' => nl2br($request->judul_laporan),
+            's_description' => nl2br($request->deskripsi_laporan),
             's_insert' => Carbon::now('Asia/Jakarta')
           ]);
 

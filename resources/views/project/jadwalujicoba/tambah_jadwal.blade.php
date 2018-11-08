@@ -280,9 +280,7 @@
 
                       <div class="col-md-9 col-sm-8 col-xs-12">
                         <div class="form-group form-group-sm">
-                          <textarea name="judul_laporan" id="tinyMceExample">
-                                             Edit your content here...
-                          </textarea>
+                          <textarea rows="3" name="judul_laporan" class="form-control"></textarea>
                         </div>
                       </div>
 
@@ -291,9 +289,7 @@
                       </div>
                       <div class="col-md-9 col-sm-8 col-xs-12">
                         <div class="form-group form-group-sm">
-                          <textarea name="deskripsi_laporan" id="tinyMceExample">
-                                                Edit your content here...
-                          </textarea>
+                          <textarea rows="3" name="deskripsi_laporan" class="form-control"></textarea>
                         </div>
                       </div>
 
