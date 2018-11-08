@@ -253,15 +253,21 @@
 				<tr>
 					<td width="25%">Item Type</td>
 					<td width="1%">:</td>
-					<td width="25%">{{$data[0]->i_type}}</td>
+					@if ($data[0]->i_type != null)
+						<td width="25%">{{$data[0]->i_type}}</td>
+					@endif
 					<td width="25%">Card No</td>
 					<td width="1%">:</td>
-					<td width="25%">{{$cardno->pbd_code}}</td>
+					@if (!empty($cardno->pbd_code))
+						<td width="25%">{{$cardno->pbd_code}}</td>
+					@endif
 				</tr>
 				<tr>
 					<td>Unit</td>
 					<td>:</td>
-					<td>{{$data[0]->u_unit}}</td>
+					@if ($data[0]->u_unit != null)
+						<td>{{$data[0]->u_unit}}</td>
+					@endif
 					<td colspan="3"><!-- Nothing here --></td>
 				</tr>
 			</table>
