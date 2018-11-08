@@ -63,10 +63,10 @@
 										<td>{{Carbon\Carbon::parse($value->s_insert)->format('d-F-Y h:m:i:s')}}</td>
 										<td>{{$value->s_title}}</td>
 										<td align="center">
-											<div class="btn-group btn-group-sm">												
+											<div class="btn-group btn-group-sm">
 												<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}?id={{encrypt($value->s_id)}}" title="Print Report"><i class="fa fa-print"></i></a>
 												<!-- <button class="btn btn-success" type="button" title="Print Installation" onclick="print({{$value->s_id}})"><i class="fa fa-print"></i></button> -->
-												<a class="btn btn-success" target="_blank" href="{{route('pdf_install')}}" title="Print Installation"><i class="fa fa-print"></i></a>
+												<a class="btn btn-success" target="_blank" href="{{route('pdf_install')}}?id={{encrypt($value->s_id)}}" title="Print Installation"><i class="fa fa-print"></i></a>
 												<button class="btn btn-danger" type="button" title="Delete" onclick="hapus({{$value->s_id}})"><i class="fa fa-trash"></i></button>
 											</div>
 										</td>
