@@ -63,8 +63,8 @@
 										<td>{{Carbon\Carbon::parse($value->s_insert)->format('d-F-Y h:m:i:s')}}</td>
 										<td>{{$value->s_title}}</td>
 										<td align="center">
-											<div class="btn-group btn-group-sm">
-												<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}" title="Print Report"><i class="fa fa-print"></i></a>
+											<div class="btn-group btn-group-sm">												
+												<a class="btn btn-primary" target="_blank" href="{{route('pdf_jadwal')}}?id={{encrypt($value->s_id)}}" title="Print Report"><i class="fa fa-print"></i></a>
 												<!-- <button class="btn btn-success" type="button" title="Print Installation" onclick="print({{$value->s_id}})"><i class="fa fa-print"></i></button> -->
 												<a class="btn btn-success" target="_blank" href="{{route('pdf_install')}}" title="Print Installation"><i class="fa fa-print"></i></a>
 												<button class="btn btn-danger" type="button" title="Delete" onclick="hapus({{$value->s_id}})"><i class="fa fa-trash"></i></button>
@@ -139,10 +139,6 @@ function hapus(id) {
 					 ]
 				 ]
 			 });
- }
-
- function pdf(id){
-	 window.location.href = baseUrl + '/project/jadwalujicoba/pdf_jadwal?id='+id;
  }
 
 </script>

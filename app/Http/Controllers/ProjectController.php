@@ -270,6 +270,7 @@ class ProjectController extends Controller
     }
     public function pdf_jadwal(Request $request)
     {
+      $request->id = decrypt($request->id);
       $data = DB::table('d_schedule')
                 ->where('s_id', $request->id)
                 ->get();
