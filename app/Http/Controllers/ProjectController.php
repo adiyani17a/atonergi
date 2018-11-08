@@ -287,8 +287,14 @@ class ProjectController extends Controller
 
       return view('project/jadwalujicoba/pdf_jadwal', compact('data', 'image', 'judul'));
     }
-    public function pdf_install()
+    public function pdf_install(Request $request)
     {
+        $request->id = decrypt($request->id);
+
+        $data = DB::table('d_schedule_install')
+                  ->where('si_schedule', $request->id)
+                  ->get();
+
         return view('project/jadwalujicoba/pdf_install');
     }
     public function pemasangan()
