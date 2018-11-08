@@ -180,7 +180,7 @@
               [
                 '<button style="background-color:#44d7c9;">Process</button>',
                 function (instance, toast) {
-
+								waitingDialog.show();
                   $.ajax({
 			         type: "get",
 			         url: '{{ route('save_stockopname') }}',
@@ -190,12 +190,18 @@
 			            icon: 'fa fa-times',
 			            message: 'Data Tersimpan!',
 			          });
+								setTimeout(function () {
+									window.location.reload();
+								}, 1000);
 			         },
 			         error: function(){
 			          iziToast.warning({
 			            icon: 'fa fa-times',
 			            message: 'Terjadi Kesalahan!',
 			          });
+								setTimeout(function () {
+									window.location.reload();
+								}, 1000);			
 			         },
 			         async: false
 			    });

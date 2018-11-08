@@ -9,6 +9,7 @@
   <!-- <script src="{{asset('assets/js/iCheck.js')}}"></script> -->
   <script src="{{asset('assets/js/icheck.min.js')}}"></script>
   <script src="{{ asset('assets/autocomplete/autocomplete.js') }}"></script>
+  <script src="{{ asset('assets/vendors/waitingfor/waitingfor.js') }}"></script>
   {{-- <script src="{{asset('assets/node_modules/jquery-ui/jquery-ui.js')}}"></script> --}}
   <script src="{{asset('assets/js/jquery-clockpicker.min.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
   <script src="{{asset('assets/node_modules/popper.js/dist/umd/popper.min.js')}}"></script>
@@ -341,15 +342,15 @@
 </script>
 
 <script type="text/javascript">
-  
+
   $(function() {
     $('.currency').maskMoney(
       {
         prefix:'RP. ',
         allowZero: true,
-        allowNegative: true, 
-        thousands:'.', 
-        decimal:',', 
+        allowNegative: true,
+        thousands:'.',
+        decimal:',',
         affixesStay: false
       }
     );

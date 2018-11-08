@@ -110,7 +110,7 @@
 							  <tbody>
 									@foreach ($mutasi as $key => $value)
 										<tr>
-											<td>{{Carbon\Carbon::parse($value->sm_insert)->format('d-m-Y')}}</td>
+											<td>{{Carbon\Carbon::parse($value->sm_insert)->format('d-m-Y h:m:i:s')}}</td>
 											<td>{{$value->sm_ref}}</td>
 											<td>{{$value->sm_qty}}</td>
 											<td>{{$value->sm_use}}</td>
@@ -225,6 +225,7 @@
 	});
 
 	function simpan(){
+		waitingDialog.show();
 			$.ajax({
 				type: 'get',
 				data: $('#formsimpan').serialize(),
@@ -244,11 +245,13 @@
 							icon: 'fa fa-times',
 							message: 'Stock Gudang Kurang!',
 						});
+						waitingDialog.hide();
 					} else {
 						iziToast.warning({
 							icon: 'fa fa-times',
 							message: 'Terjadi Kesalahan!',
 						});
+						waitingDialog.hide();
 					}
 			 }
 			});

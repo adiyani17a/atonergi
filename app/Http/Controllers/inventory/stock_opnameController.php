@@ -229,7 +229,7 @@ class stock_opnameController extends Controller
                                  'sm_id' => $mutasi[0]->sm_id,
                                  'sm_iddetail' => $detailid,
                                  'sm_item' => $mutasi[0]->sm_item,
-                                 'sm_hpp' => $mutasi[$counter]->sm_hpp,
+                                 'sm_hpp' => $mutasi[0]->sm_hpp,
                                  'sm_description' => 'STOCK OPNAME LEBIH',
                                  'sm_qty' => (int)$sisa,
                                  'sm_use' => '0',
