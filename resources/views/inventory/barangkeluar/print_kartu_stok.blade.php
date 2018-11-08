@@ -253,15 +253,15 @@
 				<tr>
 					<td width="25%">Item Type</td>
 					<td width="1%">:</td>
-					<td width="25%">ACC</td>
+					<td width="25%">{{$data[0]->i_type}}</td>
 					<td width="25%">Card No</td>
 					<td width="1%">:</td>
-					<td width="25%">SC/20181107/001</td>
+					<td width="25%">{{$cardno->pbd_code}}</td>
 				</tr>
 				<tr>
 					<td>Unit</td>
 					<td>:</td>
-					<td>Ls</td>
+					<td>{{$data[0]->u_unit}}</td>
 					<td colspan="3"><!-- Nothing here --></td>
 				</tr>
 			</table>
@@ -277,29 +277,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>07 Nov 2018</td>
-						<td>Alpha</td>
-						<td align="center" width="10%"></td>
-						<td align="center" class="red" width="10%">4</td>
-						<td align="center" width="10%"></td>
-					</tr>
-					<tr>
-						<td>06 Nov 2018</td>
-						<td>Bravo</td>
-						<td align="center" width="10%"></td>
-						<td align="center" class="red" width="10%">3</td>
-						<td align="center" width="10%"></td>
-					</tr>
-					@for($i=0;$i<22;$i++)
-					<tr>
-						<td class="empty"></td>
-						<td></td>
-						<td align="center" width="10%"></td>
-						<td align="center" class="red" width="10%"></td>
-						<td align="center" width="10%"></td>
-					</tr>
-					@endfor
+					@foreach ($data as $key => $value)
+						<tr>
+							<td>{{Carbon\Carbon::parse($value->sm_insert)->format('d-m-Y')}}</td>
+							<td>{{$value->sm_description}}</td>
+							<td align="center" width="10%">{{$value->sm_qty}}</td>
+							<td align="center" class="red" width="10%">{{$value->sm_use}}</td>
+							<td align="center" width="10%">{{$value->sm_sisa}}</td>
+						</tr>
+					@endforeach
 				</tbody>
 			</table>
 		</div>

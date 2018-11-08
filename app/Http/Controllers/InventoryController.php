@@ -205,9 +205,22 @@ class InventoryController extends Controller
       }
 
     }
-    public function print_kartu_stok()
+    public function print_kartu_stok(Request $request)
     {
-        return view('inventory/barangkeluar/print_kartu_stok');
+        $request->id = decrypt($request->id);
+        $data = DB::table('m_item')
+                  ->leftjoin('d_unit', 'u_id', '=', 'i_unit')
+                  ->leftjoin('i_stock_mutasi', 'sm_item', '=', 'i_code')
+                  ->where('i_code', $request->id)
+                  ->get();
+
+
+        $cardno = DB::table('d_pengeluaran_barang_dt')
+                    ->where('pbd_item', $request->id)
+                    ->select('pbd_code')
+                    ->first();
+
+        return view('inventory/barangkeluar/print_kartu_stok', compact('data', 'cardno'));
     }
     public function barcode()
     {
