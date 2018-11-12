@@ -152,6 +152,7 @@ Route::get('/order/checklistform/checklistform', 'OrderController@checklist');
 Route::get('/order/pelunasanorder/pelunasanorder', 'OrderController@pelunasanorder');
 Route::get('/order/f_penjualan/f_penjualan', 'OrderController@f_penjualan');
 Route::get('/order/cekbarang/cekbarang', 'OrderController@cekbarang');
+Route::get('/order/cekbarang/detail/{id}', 'OrderController@detailbarang');
 
     // PEMBAYARAN DEPOSIT
     Route::get('/order/pembayarandeposit/pembayarandeposit', 'OrderController@pembayarandeposit');

@@ -306,7 +306,32 @@ class OrderController extends Controller
     }
     public function cekbarang()
     {
-    	return view('order/cekbarang/cekbarang');
+      $data = DB::table('i_stock_gudang')
+                ->join('m_item', 'i_code', '=', 'sg_iditem')
+                ->select('sg_iditem', 'i_name', 'sg_qty', DB::raw('sg_qty as sum'), DB::raw('sg_qty as deficieny'))
+                ->get();
+
+      for ($i=0; $i < count($data); $i++) {
+          $data[$i]->sum = DB::table('d_quotation_dt')
+                              ->where('qd_item', $data[$i]->sg_iditem)
+                              ->sum('qd_qty');
+      }
+
+      for ($i=0; $i < count($data); $i++) {
+          $data[$i]->deficieny = (int)$data[$i]->sum - (int)$data[$i]->sg_qty;
+      }
+
+    	return view('order/cekbarang/cekbarang', compact('data'));
+    }
+    public function detailbarang($id){
+      $id = decrypt($id);
+
+      $data = DB::table('d_quotation_dt')
+                  ->join('m_item', 'i_code', '=', 'qd_item')
+                  ->where('qd_item', $id)
+                  ->get();
+
+      return view('order.cekbarang.detailbarang', compact('data'));
     }
     public function f_penjualan()
     {
