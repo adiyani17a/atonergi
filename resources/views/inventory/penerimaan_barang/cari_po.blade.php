@@ -21,7 +21,17 @@
                 </tr>
               </thead>
               <tbody>
-                
+                @if (empty($po))
+
+                @else
+                  @foreach ($po as $key => $value)
+                    <tr onclick="cari_purchaseorder('{{$value->po_code}}')" style="cursor:pointer;">
+                      <td>{{$key + 1}}</td>
+                      <td>{{$value->po_code}}</td>
+                      <td>{{$value->s_company}}</td>
+                    </tr>
+                  @endforeach
+                @endif
               </tbody>
             </table>
           </div>
