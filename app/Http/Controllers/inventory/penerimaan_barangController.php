@@ -14,7 +14,7 @@ class penerimaan_barangController extends Controller
 	 {
 		 $po = DB::table('d_purchaseorder')
 							 ->leftjoin('d_requestorder', 'ro_code', '=', 'po_nomor_ro')
-							 ->leftjoin('m_vendor', 's_kode', '=', 'ro_vendor')
+							 ->leftjoin('m_vendor', 's_kode', '=', 'po_vendor')
 							 ->where('po_status','=','F')
 							 ->get();
 
