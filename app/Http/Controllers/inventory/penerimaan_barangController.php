@@ -13,8 +13,8 @@ class penerimaan_barangController extends Controller
 	 public function penerimaan_barang()
 	 {
 		 $po = DB::table('d_purchaseorder')
-							 ->join('d_requestorder', 'ro_code', '=', 'po_nomor_ro')
-							 ->join('m_vendor', 's_kode', '=', 'ro_vendor')
+							 ->leftjoin('d_requestorder', 'ro_code', '=', 'po_nomor_ro')
+							 ->leftjoin('m_vendor', 's_kode', '=', 'ro_vendor')
 							 ->where('po_status','=','F')
 							 ->get();
 
