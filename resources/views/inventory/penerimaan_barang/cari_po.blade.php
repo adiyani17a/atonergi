@@ -25,11 +25,7 @@
                     <tr onclick="cari_purchaseorder('{{$value->po_code}}')" style="cursor:pointer;">
                       <td>{{$key + 1}}</td>
                       <td>{{$value->po_code}}</td>
-                      @if ($value->s_company == null || empty($value->s_company))
                       <td></td>
-                      @else
-                      <td>{{$value->s_company}}</td>
-                      @endif
                     </tr>
                   @endforeach
               </tbody>
