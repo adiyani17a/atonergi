@@ -74,7 +74,7 @@
 		.div-width-background{
 			position: relative;
 			z-index: -1;
-			
+
 			padding: 0;
 			top: 0;
 			left: 0;
@@ -178,10 +178,10 @@
 		}
 		@media print {
 			html, body {
-		        height: auto;    
+		        height: auto;
 		    }
 		    .empty-page {
-		    	padding: 120px 15px; 
+		    	padding: 120px 15px;
 		    }
 		    .block-header {
 		    	min-height: 100vh;
@@ -218,7 +218,7 @@
 				width: 100%;
 			}
 			.div-width-background{
-				
+
 				position: relative;
 				z-index: -1;
 				margin: auto;
@@ -349,7 +349,7 @@
 			margin-left: 80px;
 		}
 		.ttd-container {
-			padding:10px; 
+			padding:10px;
 			width: 350px;
 		}
 		.ttd-date-section {
@@ -370,7 +370,7 @@
 
 		setlocale(LC_ALL, "id_ID");
 
-		
+
 
 		@endphp
 
@@ -379,7 +379,7 @@
 				<i class="fa fa-print"></i>&nbsp;&nbsp;Print
 			</button>
 		</div>
-				
+
 		<div class="div-width">
 			<h1 class="grey w-tab unbold">
 				Installation Factsheet
@@ -392,15 +392,15 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">End Customer</td>
-							<td class="tw-350">Alfrida Tumanan</td>	
+							<td class="tw-350">{{$data[0]->si_end_customer}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Installer</td>
-							<td class="tw-350">PT.REJA ATON ENERGI (Eko Budiyanto)</td>	
+							<td class="tw-350">{{$data[0]->si_installer}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Contact data of Installer</td>
-							<td class="tw-350">081218044394 /ekobudiyanto@atonergi.com</td>	
+							<td class="tw-350">{{$data[0]->si_contact_data_of_installer}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -413,29 +413,29 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">Country</td>
-							<td class="tw-350">Indonesia</td>	
+							<td class="tw-350">{{$data[0]->si_country}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Province, state</td>
-							<td class="tw-350">PT.REJA ATON ENERGI (Eko Budiyanto)</td>	
+							<td class="tw-350">{{$data[0]->si_province}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">City, village, town</td>
-							<td class="tw-350">BIAK</td>	
+							<td class="tw-350">{{$data[0]->si_city}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Longitude</td>
 							<td class="tw-350">
-								<div class="float-left">1233486749867390485731</div>
+								<div class="float-left">{{$data[0]->si_longitude}}</div>
 								<div class="float-right">East</div>
-							</td>	
+							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Latitude</td>
 							<td class="tw-350">
-								<div class="float-left">1233486749867390485731</div>
+								<div class="float-left">{{$data[0]->si_latitude}}</div>
 								<div class="float-right">South</div>
-							</td>	
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -448,7 +448,7 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">Date</td>
-							<td class="tw-350">3 oktober 2018</td>	
+							<td class="tw-350">{{Carbon\Carbon::parse($data[0]->si_installation_date)->format('d F Y')}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -457,7 +457,7 @@
 		<div class="div-width-background">
 			<img width="100%" height="99.6%" src="{{asset('assets/images/Installation_Factsheet-1.png')}}">
 		</div>
-			
+
 	</div>
 	<div class="div-page-break-after">
 		<div class="div-width">
@@ -469,11 +469,11 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">Application</td>
-							<td class="tw-350">Air bersih</td>	
+							<td class="tw-350">{{$data[0]->si_application}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Other applications</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->si_other_application}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -486,15 +486,15 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">How many people are supplied from the system?</td>
-							<td class="tw-350">300 orang</td>	
+							<td class="tw-350">{{$data[0]->si_many_people}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">How many animals are supplied by the system?</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->si_many_animal}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">What type of animals does the system supply?</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->si_type_animal}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -507,14 +507,20 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">What crop is grown?</td>
-							<td class="tw-350">-</td>	
+							<td class="tw-350">-{{$data[0]->si_crop_grown}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">What area of land is irrigated?</td>
 							<td class="tw-350">
-								<div class="float-left">-</div>
-								<div class="float-right">m<sup>2</sup> /  ha /  ac</div>
-							</td>	
+								<div class="float-left">{{$data[0]->si_area}}</div>
+								@if ($data[0]->si_satuan_area == 'M2')
+										<div class="float-right">m<sup>2</sup></div>
+								@elseif ($data[0]->si_satuan_area == 'HA')
+										<div class="float-right">ha</div>
+								@elseif ($data[0]->si_satuan_area == 'AC')
+										<div class="float-right">ac</div>
+								@endif
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -528,13 +534,19 @@
 						<tr>
 							<td class="tw-150">Pool size</td>
 							<td class="tw-350">
-								<div class="float-left">-</div>
-								<div class="float-right">m<sup>3</sup>   litres   USG</div>
-							</td>	
+								<div class="float-left">{{$data[0]->si_pool_size}}</div>
+								@if ($data[0]->si_satuan_pool == 'M3')
+										<div class="float-right">m<sup>3</sup></div>
+								@elseif ($data[0]->si_satuan_pool == 'LITERS')
+										<div class="float-right">litres</div>
+								@elseif ($data[0]->si_satuan_pool == 'USG')
+										<div class="float-right">USG</div>
+								@endif
+							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Pool type</td>
-							<td class="tw-350">Freshwater Salt</td>	
+							<td class="tw-350">{{$data[0]->si_pool_type}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -551,7 +563,7 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">Additional Information</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->si_additional_information}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -566,13 +578,13 @@
 							<td class="tw-125"></td>
 							<td class="tw-125 bold">Type</td>
 							<td class="tw-125 bold">Pump</td>
-							<td class="tw-125 bold">Controller</td>	
+							<td class="tw-125 bold">Controller</td>
 						</tr>
 						<tr>
 							<td class="tw-125">Pump System(s)</td>
-							<td class="tw-125">Surface</td>
-							<td class="tw-125">C-SF4-6-</td>
-							<td class="tw-125">PS2-1800 -1,8  kvA</td>
+							<td class="tw-125">{{$data[0]->si_pump_type}}</td>
+							<td class="tw-125">{{$data[0]->si_pump_pump}}</td>
+							<td class="tw-125">{{$data[0]->si_pump_controller}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -582,19 +594,19 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150 bold">Item</td>
-							<td class="tw-350 bold">Serial Number</td>	
+							<td class="tw-350 bold">Serial Number</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Controller</td>
-							<td class="tw-350"></td>
+							<td class="tw-350">{{$data[0]->si_controller_serial_number}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Motor / EC Drive</td>
-							<td class="tw-350"></td>
+							<td class="tw-350">{{$data[0]->si_motor_serial_number}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Pump End</td>
-							<td class="tw-350"></td>
+							<td class="tw-350">{{$data[0]->si_pump_end_serial_number}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -608,23 +620,27 @@
 						<tr>
 							<td class="tw-150">Total dynamic head</td>
 							<td class="tw-350">
-								<div class="float-left">30</div>
-								<div class="float-right">m ft</div>
-							</td>	
+								<div class="float-left">{{$data[0]->si_total_dynamic_head}}</div>
+								@if ($data[0]->si_total_dinamyc_satuan == 'M')
+									<div class="float-right">m</div>
+								@elseif ($data[0]->si_total_dinamyc_satuan == 'FT')
+									<div class="float-right">ft</div>
+								@endif
+							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Static head</td>
 							<td class="tw-350">
-								<div class="float-left"> </div>
+								<div class="float-left">{{$data[0]->si_static_head}}</div>
 								<div class="float-right">m</div>
-							</td>	
+							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Daily flow rate</td>
 							<td class="tw-350">
-								<div class="float-left">37</div>
+								<div class="float-left">{{$data[0]->si_daily_flow_rate}}</div>
 								<div class="float-right">m<sup>3</sup></div>
-							</td>	
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -641,39 +657,39 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">Water source</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->si_water_source}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Pipe length</td>
 							<td class="tw-350">
-								<div class="float-left"></div>
+								<div class="float-left">{{$data[0]->si_pipe_lenght}}</div>
 								<div class="float-right">m</div>
-							</td>	
+							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Pipe diameter</td>
 							<td class="tw-350">
-								<div class="float-left"></div>
+								<div class="float-left">{{$data[0]->si_pipe_diameter}}</div>
 								<div class="float-right">mm</div>
 							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Cable length</td>
 							<td class="tw-350">
-								<div class="float-left"></div>
+								<div class="float-left">{{$data[0]->si_cable_lenght}}</div>
 								<div class="float-right">m</div>
-							</td>	
+							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Type of water storage</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->si_type_of_water_storage}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Size of water storage</td>
 							<td class="tw-350">
-								<div class="float-left"></div>
+								<div class="float-left">{{$data[0]->si_size_of_water_storage}}</div>
 								<div class="float-right">m<sup>3</sup></div>
-							</td>	
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -687,16 +703,24 @@
 						<tr>
 							<td class="tw-150">Suction head</td>
 							<td class="tw-350">
-								<div class="float-left"></div>
-								<div class="float-right">m&nbsp; ft</div>
-							</td>	
+								<div class="float-left">{{$data[0]->si_suction_head}}</div>
+								@if ($data[0]->si_suction_head == 'M')
+									<div class="float-right">m</div>
+								@elseif ($data[0]->si_suction_head == 'FT')
+									<div class="float-right">ft</div>
+								@endif
+							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Inlet pipe size</td>
 							<td class="tw-350">
-								<div class="float-left"></div>
-								<div class="float-right">mm&nbsp; inch</div>
-							</td>	
+								<div class="float-left">{{$data[0]->si_itlet_pipe_size}}</div>
+								@if ($data[0]->si_itlet_pipe_size_satuan == 'MM')
+									<div class="float-right">mm</div>
+								@elseif ($data[0]->si_itlet_pipe_size_satuan == 'INCH')
+									<div class="float-right">inch</div>
+								@endif
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -709,19 +733,19 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">PV module manufacturer</td>
-							<td class="tw-350">Seraphim</td>	
+							<td class="tw-350">{{$data[0]->si_pv_module_manufacturer}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Model</td>
-							<td class="tw-350">SRP-280-BPB</td>	
+							<td class="tw-350">{{$data[0]->si_model_generator}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Type</td>
-							<td class="tw-350">Polycristallene</td>	
+							<td class="tw-350">{{$data[0]->si_type_generator}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Quantity</td>
-							<td class="tw-350"></td>
+							<td class="tw-350">{{$data[0]->si_quantity_generator}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -738,11 +762,11 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">Power (each)</td>
-							<td class="tw-350">280 wp</td>	
+							<td class="tw-350">{{$data[0]->si_power_each}} wp</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Power (total)</td>
-							<td class="tw-350">3360 wp</td>	
+							<td class="tw-350">{{$data[0]->si_power_total}} wp</td>
 						</tr>
 					</tbody>
 				</table>
@@ -755,15 +779,15 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">Quantity</td>
-							<td class="tw-350">-</td>	
+							<td class="tw-350">{{$data[0]->si_quantity_battery}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Capacity</td>
-							<td class="tw-350">-</td>	
+							<td class="tw-350">{{$data[0]->si_capacity_battery}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Voltage</td>
-							<td class="tw-350">-</td>	
+							<td class="tw-350">{{$data[0]->si_voltage_battery}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -776,19 +800,19 @@
 					<tbody class="center">
 						<tr>
 							<td class="tw-150">Manufacturer</td>
-							<td class="tw-350">custom</td>	
+							<td class="tw-350">{{$data[0]->si_manufaktur_system}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Type</td>
-							<td class="tw-350">-</td>	
+							<td class="tw-350">{{$data[0]->si_type_system}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Model</td>
-							<td class="tw-350">For tracked enter tracking system model</td>	
+							<td class="tw-350">{{$data[0]->si_model_system}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Quantity</td>
-							<td class="tw-350">1</td>	
+							<td class="tw-350">{{$data[0]->si_quantity_system}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -809,36 +833,41 @@
 					<tbody class="center">
 						<tr class="alamraya-tr-padding">
 							<td class="tw-150 text-center">
-								<!-- <input type="checkbox" class="checkbox" name="" checked> -->
-								✔
+								@if ($data[0]->si_check1 == 'Y')
+									✔
+								@else
+								@endif
 							</td>
 							<td class="tw-350">
 								<p>
 									I declare that I am the owner of the installation described or have been granted permission by the owner to make use of the data of the installation. I am the owner of all rights of use of the attached photographs of the installation or have been granted permission by the owner to make use of the photographs.
 								</p>
-							</td>	
+							</td>
 						</tr>
 						<tr class="alamraya-tr-padding">
 							<td class="tw-150 text-center">
-								✔
+								@if ($data[0]->si_check2 == 'Y')
+									✔
+								@else
+								@endif
 							</td>
 							<td class="tw-350">
 								<p>
 									I grant Bernt Lorentz GmbH & Co. KG the right to publish the installation data on its website or in other forms and use the photographs for illustration alongside the description of installation or in other places or to allow other customers of LORENTZ to use the data and photographs to promote LORENTZ products.
 								</p>
-							</td>	
+							</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Your Name</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->si_your_name}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">Signature</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->s_name}}</td>
 						</tr>
 						<tr>
 							<td class="tw-150">E-mail address</td>
-							<td class="tw-350"></td>	
+							<td class="tw-350">{{$data[0]->si_email_address}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -846,10 +875,13 @@
 			<div class="float-left">
 				<div class="ttd-container">
 					<div class="ttd-date-section text-center">
-						BIAK, 12 Desember 2018
+						BIAK, {{Carbon\Carbon::now('Asia/Jakarta')->format('d F Y')}}
 					</div>
 					<div class="ttd-title-section text-center">
-						Jabatan Penandatangan
+						{{Auth::user()->m_jabatan}}
+					</div>
+					<div class="ttd-signature-name text-center">
+						<img src="{{url('/') . '/' . $data[0]->s_image}}" border="0" width="150" class="img-rounded" align="center">
 					</div>
 					<div class="ttd-signature-name text-center">
 						(____________________)
@@ -859,10 +891,10 @@
 			<div class="float-right">
 				<div class="ttd-container">
 					<div class="ttd-date-section text-center">
-						BIAK, 12 Desember 2018
+						BIAK, {{Carbon\Carbon::now('Asia/Jakarta')->format('d F Y')}}
 					</div>
 					<div class="ttd-title-section text-center">
-						Jabatan Penandatangan
+						{{Auth::user()->m_jabatan}}
 					</div>
 					<div class="ttd-signature-name text-center">
 						(____________________)
@@ -891,21 +923,25 @@
 						</tr>
 					</thead>
 					<tbody class="center">
-						@for($i=1; $i < 50; $i++)
-						<tr class="alamraya-tr-padding">
-							<td>
-								{{ $i }}
-							</td>
-							<td>Lorentz Pump Type : surface C-SF4-6</td>
-							<td>1</td>
-							<td>
-								<input type="checkbox" class="checkbox" name="" checked>
-							</td>
-							<td>
-								Tidak terpasang,kabel terlalu jauh.
-							</td>
-						</tr>
-						@endfor
+						@foreach ($quotation as $key => $value)
+							<tr class="alamraya-tr-padding">
+								<td>
+									{{ $key + 1 }}
+								</td>
+								<td>{{$value->sc_item}}</td>
+								<td>{{$value->sc_quantity}}</td>
+								<td>
+									@if ($value->sc_check == 'Y')
+										<input type="checkbox" class="checkbox" checked>
+									@else
+										<input type="checkbox" class="checkbox">
+									@endif
+								</td>
+								<td>
+									{{$value->sc_remarks}}
+								</td>
+							</tr>
+						@endforeach						
 					</tbody>
 				</table>
 			</div><br>

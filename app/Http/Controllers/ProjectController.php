@@ -223,7 +223,7 @@ class ProjectController extends Controller
                   'si_insert' => Carbon::now('Asia/Jakarta')
                 ]);
 
-              for ($i=0; $i < count($request->sc_quantity); $i++) {
+              for ($i=0; $i < count($request->sc_check); $i++) {
                   if ($request->sc_quantity[$i] == 0 || $request->sc_quantity[$i] == '') {
 
                   } else {
@@ -247,7 +247,8 @@ class ProjectController extends Controller
                             ->insert([
                               'sc_id' => $scid,
                               'sc_schedule' => $idschdule,
-                              'sc_quotation' => $request->si_quotation[$i],
+                              'sc_quotation' => $request->si_quotation,
+                              'sc_item' => $request->sc_item[$i],
                               'sc_quantity' => $request->sc_quantity[$i],
                               'sc_check' => $check,
                               'sc_remarks' => $request->sc_remarks[$i],
@@ -293,9 +294,14 @@ class ProjectController extends Controller
 
         $data = DB::table('d_schedule_install')
                   ->where('si_schedule', $request->id)
+                  ->join('m_signature', 's_id', '=', 'si_signature')
                   ->get();
 
-        return view('project/jadwalujicoba/pdf_install');
+        $quotation = DB::table('d_schedule_checklist')
+                      ->where('sc_schedule', $request->id)
+                      ->get();
+
+        return view('project/jadwalujicoba/pdf_install', compact('data', 'quotation'));
     }
     public function pemasangan()
     {
