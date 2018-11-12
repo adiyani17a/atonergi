@@ -14,11 +14,10 @@ class penerimaan_barangController extends Controller
 	 {
 		 $po = DB::table('d_purchaseorder')
 							 ->leftjoin('d_requestorder', 'ro_code', '=', 'po_nomor_ro')
-							 ->leftjoin('m_vendor', 's_kode', '=', 'po_vendor')
 							 ->where('po_status','=','F')
 							 ->get();
 
-	 	return view('inventory/penerimaan_barang/penerimaan_barang',compact("po"));
+	 	return view('inventory/penerimaan_barang/penerimaan_barang',compact("po", "vendor"));
 	 }
 	 public function datatable_penerimaan_barang()
 	 {
