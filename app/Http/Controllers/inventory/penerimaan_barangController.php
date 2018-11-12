@@ -18,8 +18,6 @@ class penerimaan_barangController extends Controller
 							 ->where('po_status','=','F')
 							 ->get();
 
-							 dd($po);
-
 	 	return view('inventory/penerimaan_barang/penerimaan_barang',compact("po"));
 	 }
 	 public function datatable_penerimaan_barang()
