@@ -133,14 +133,19 @@ class ProjectController extends Controller
                     $imgPath = null;
                 }
 
-            DB::table('d_schedule_image')
-              ->insert([
-                'si_id' => $idimage,
-                'si_schedule' => $idschdule,
-                'si_judul' => $request->title[($z - 1)],
-                'si_image' => $imgPath,
-                'si_insert' => Carbon::now('Asia/Jakarta')
-              ]);
+            if ($imgPath == null) {
+
+            } else {
+              DB::table('d_schedule_image')
+                ->insert([
+                  'si_id' => $idimage,
+                  'si_schedule' => $idschdule,
+                  'si_judul' => $request->title[($z - 1)],
+                  'si_image' => $imgPath,
+                  'si_insert' => Carbon::now('Asia/Jakarta')
+                ]);
+            }
+            
             }
 
           $si_id = DB::table('d_schedule_install')
