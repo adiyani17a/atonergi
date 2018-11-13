@@ -61,8 +61,8 @@ class InventoryController extends Controller
         return view('inventory/barangkeluar/kartu_stok', compact('finalkode', 'item', 'mutasi'));
     }
     public function simpankartu(Request $request){
-      DB::beginTransaction();
-      try {
+      // DB::beginTransaction();
+      // try {
 
       $checkstock = DB::table('i_stock_gudang')
                       ->where('sg_iditem', $request->pbd_item)
@@ -114,10 +114,10 @@ class InventoryController extends Controller
           $stock = DB::table('i_stock_gudang')
                 ->join('i_stock_mutasi', 'sm_id', '=', 'sg_id')
                 ->select('i_stock_gudang.*', 'i_stock_mutasi.*', DB::raw('(sm_qty - sm_use) as sm_sisa'))
-                ->where('sg_iditem', $request->pbd_item)
+                ->where('i_stock_gudang.sg_iditem','=', $request->pbd_item)
                 ->where(DB::raw('(sm_qty - sm_use)'), '>', 0)
                 ->get();
-
+                
             $permintaan = $request->pbd_qty;
 
             DB::table('i_stock_gudang')
@@ -193,16 +193,16 @@ class InventoryController extends Controller
         }
       }
 
-        DB::commit();
-        return response()->json([
-          'status' => 'berhasil'
-        ]);
-      } catch (\Exception $e) {
-        DB::rollback();
-        return response()->json([
-          'status' => 'gagal'
-        ]);
-      }
+      //   DB::commit();
+      //   return response()->json([
+      //     'status' => 'berhasil'
+      //   ]);
+      // } catch (\Exception $e) {
+      //   DB::rollback();
+      //   return response()->json([
+      //     'status' => 'gagal'
+      //   ]);
+      // }
 
     }
     public function print_kartu_stok(Request $request)

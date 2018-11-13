@@ -79,21 +79,20 @@ class stockbarangController extends Controller
       $id = DB::table('i_stock_gudang')
             ->max('sg_id');
 
+        if ($id == null) {
+          $id = 1;
+        } else {
+          $id += 1;
+        }
+
         DB::table('i_stock_gudang')
           ->insert([
-            'sg_id' => $id + 1,
+            'sg_id' => $id,
             'sg_iditem' => $request->item,
             'sg_qty' => $request->qty,
             'sg_harga' => $request->price,
             'sg_insert' => Carbon::now('Asia/Jakarta')
           ]);
-
-          $id = DB::table('i_stock_mutasi')
-                ->max('sm_id');
-
-                if ($id < 0) {
-                    $id = 0;
-                }
 
           $detailid = DB::table('i_stock_mutasi')
                       ->where('sm_id', $id + 1)
@@ -105,7 +104,7 @@ class stockbarangController extends Controller
 
           DB::table('i_stock_mutasi')
             ->insert([
-              'sm_id' => $id + 1,
+              'sm_id' => $id,
               'sm_iddetail' => $detailid + 1,
               'sm_item' => $request->item,
               'sm_hpp' => $request->price,
