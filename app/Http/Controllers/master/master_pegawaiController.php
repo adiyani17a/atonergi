@@ -9,11 +9,11 @@ use DB;
 
 class master_pegawaiController extends Controller
 {
-   
+
     public function pegawai()
     {
         $kode = DB::table('m_pegawai')->max('mp_id');
-    
+
             if ($kode == null) {
                 $kode = 1;
             }else{
@@ -22,12 +22,15 @@ class master_pegawaiController extends Controller
         $index = str_pad($kode, 5, '0', STR_PAD_LEFT);
         $nota = 'PGW/'.$index;
 
-        return view('master/pegawai/pegawai',compact('nota'));
+        $jabatan = DB::table('m_jabatan')
+                    ->get();
+
+        return view('master/pegawai/pegawai',compact('nota', 'jabatan'));
     }
     public function kode_pegawai()
     {
         $kode = DB::table('m_pegawai')->max('mp_id');
-    
+
             if ($kode == null) {
                 $kode = 1;
             }else{
@@ -63,7 +66,7 @@ class master_pegawaiController extends Controller
     {
         // dd($request->all());
         $kode = DB::table('m_pegawai')->max('mp_id');
-    
+
             if ($kode == null) {
                 $kode = 1;
             }else{
@@ -109,7 +112,7 @@ class master_pegawaiController extends Controller
                 ]);
 
         return response()->json(['status'=>1]);
-        
+
     }
     public function hapus_pegawai(Request $request)
     {
@@ -118,5 +121,5 @@ class master_pegawaiController extends Controller
         return response()->json($data);
     }
 
-       
+
 }
