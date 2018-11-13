@@ -107,7 +107,7 @@ class ProjectController extends Controller
             's_insert' => Carbon::now('Asia/Jakarta')
           ]);
 
-          for ($z=0; $z < count((int)$request->jumlahimage); $z++) {
+          for ($z=1; $z <= (int)$request->jumlahimage; $z++) {
             $idimage = DB::table('d_schedule_image')
                           ->max('si_id');
 
@@ -123,30 +123,25 @@ class ProjectController extends Controller
             $dir = 'image/uploads/dokumentasi/' .$idschdule. '/' .$idimage;
             $childPath = $dir . '/';
             $path = $childPath;
-            $file = $request->file('image'.($z+1).'');
+            $file = $request->file('image'.($z).'');
             $name = null;
             if ($file != null) {
-                $name = $folder . '.' . $file->getClientOriginalExtension();
-                if (!File::exists($path)) {
-                    if (File::makeDirectory($path, 0777, true)) {
+                $name = $folder . '-' .$idimage. '.' . $file->getClientOriginalExtension();
                         $file->move($path, $name);
                         $imgPath = $childPath . $name;
-                    } else
-                        $imgPath = null;
                 } else {
-                    return 'already exist';
+                    $imgPath = null;
                 }
-            }
 
             DB::table('d_schedule_image')
               ->insert([
                 'si_id' => $idimage,
                 'si_schedule' => $idschdule,
-                'si_judul' => $request->title[$z],
+                'si_judul' => $request->title[($z - 1)],
                 'si_image' => $imgPath,
                 'si_insert' => Carbon::now('Asia/Jakarta')
               ]);
-          }
+            }
 
           $si_id = DB::table('d_schedule_install')
                     ->max('si_id');
