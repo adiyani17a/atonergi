@@ -125,12 +125,40 @@ class belanjalangsungController extends Controller
                   'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                 ]);
 
-                $id = DB::table('i_stock_mutasi')
-                      ->max('sm_Id');
+                $data = DB::table('i_stock_gudang')
+                        ->Where('sg_iditem', $request->kode[$i])
+                        ->get();
+
+                $datacount = DB::table('i_stock_gudang')
+                        ->Where('sg_iditem', $request->kode[$i])
+                        ->count();
+
+                if ($datacount == 0) {
+                  $id = DB::table('i_stock_gudang')
+                        ->max('sg_id');
 
                   if ($id < 0) {
                     $id = 0;
                   }
+
+                  DB::table('i_stock_gudang')
+                    ->insert([
+                      'sg_id' => $id + 1,
+                      'sg_iditem' => $request->kode[$i],
+                      'sg_qty' => $request->qty[$i],
+                      'sg_harga' => (double)$request->total[$i],
+                      'sg_insert' => Carbon::now('Asia/Jakarta')
+                    ]);
+
+                } else {
+                  DB::table('i_stock_gudang')
+                    ->where('sg_iditem', $data[0]->sg_iditem)
+                    ->update([
+                      'sg_qty' => $request->qty[$i] + $data[0]->sg_qty,
+                      'sg_harga' => $request->qty[$i] * (double)$request->price[$i],
+                      'sg_update' => Carbon::now('Asia/Jakarta')
+                    ]);
+                }
 
                 $iddetail = DB::table('i_stock_mutasi')
                       ->where('sm_id', $id + 1)
@@ -167,12 +195,40 @@ class belanjalangsungController extends Controller
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
 
-                  $id = DB::table('i_stock_mutasi')
-                        ->max('sm_id');
+                  $data = DB::table('i_stock_gudang')
+                          ->Where('sg_iditem', $request->kode[$i])
+                          ->get();
+
+                  $datacount = DB::table('i_stock_gudang')
+                          ->Where('sg_iditem', $request->kode[$i])
+                          ->count();
+
+                  if ($datacount == 0) {
+                    $id = DB::table('i_stock_gudang')
+                          ->max('sg_id');
 
                     if ($id < 0) {
                       $id = 0;
                     }
+
+                    DB::table('i_stock_gudang')
+                      ->insert([
+                        'sg_id' => $id + 1,
+                        'sg_iditem' => $request->kode[$i],
+                        'sg_qty' => $request->qty[$i],
+                        'sg_harga' => (double)$request->total[$i],
+                        'sg_insert' => Carbon::now('Asia/Jakarta')
+                      ]);
+
+                  } else {
+                    DB::table('i_stock_gudang')
+                      ->where('sg_iditem', $data[0]->sg_iditem)
+                      ->update([
+                        'sg_qty' => $request->qty[$i] + $data[0]->sg_qty,
+                        'sg_harga' => $request->qty[$i] * (double)$request->price[$i],
+                        'sg_update' => Carbon::now('Asia/Jakarta')
+                      ]);
+                  }
 
                   $iddetail = DB::table('i_stock_mutasi')
                         ->where('sm_id', $id + 1)
@@ -196,6 +252,7 @@ class belanjalangsungController extends Controller
                       'sm_insert' => Carbon::now('Asia/Jakarta')
                     ]);
               } else {
+
                 DB::table('d_belanja_langsung_dt')
                   ->insert([
                     'dbldt_id' => $iddt + 1,
@@ -207,12 +264,40 @@ class belanjalangsungController extends Controller
                     'dbldt_created_at' => Carbon::now('Asia/Jakarta'),
                   ]);
 
-                  $id = DB::table('i_stock_mutasi')
-                        ->max('sm_id');
+                  $data = DB::table('i_stock_gudang')
+                          ->Where('sg_iditem', $request->kode[$i])
+                          ->get();
+
+                  $datacount = DB::table('i_stock_gudang')
+                          ->Where('sg_iditem', $request->kode[$i])
+                          ->count();
+
+                  if ($datacount == 0) {
+                    $id = DB::table('i_stock_gudang')
+                          ->max('sg_id');
 
                     if ($id < 0) {
                       $id = 0;
                     }
+
+                    DB::table('i_stock_gudang')
+                      ->insert([
+                        'sg_id' => $id + 1,
+                        'sg_iditem' => $request->kode[$i],
+                        'sg_qty' => $request->qty[$i],
+                        'sg_harga' => (double)$request->total[$i],
+                        'sg_insert' => Carbon::now('Asia/Jakarta')
+                      ]);
+
+                  } else {
+                    DB::table('i_stock_gudang')
+                      ->where('sg_iditem', $data[0]->sg_iditem)
+                      ->update([
+                        'sg_qty' => $request->qty[$i] + $data[0]->sg_qty,
+                        'sg_harga' => $request->qty[$i] * (double)$request->price[$i],
+                        'sg_update' => Carbon::now('Asia/Jakarta')
+                      ]);
+                  }
 
                   $iddetail = DB::table('i_stock_mutasi')
                         ->where('sm_id', $id + 1)
@@ -236,41 +321,6 @@ class belanjalangsungController extends Controller
                       'sm_insert' => Carbon::now('Asia/Jakarta')
                     ]);
               }
-            }
-
-            $data = DB::table('i_stock_gudang')
-                    ->Where('sg_iditem', $request->kode[$i])
-                    ->get();
-
-            $datacount = DB::table('i_stock_gudang')
-                    ->Where('sg_iditem', $request->kode[$i])
-                    ->count();
-
-            if ($datacount == 0) {
-              $id = DB::table('i_stock_gudang')
-                    ->max('sg_id');
-
-              if ($id < 0) {
-                $id = 0;
-              }
-
-              DB::table('i_stock_gudang')
-                ->insert([
-                  'sg_id' => $id + 1,
-                  'sg_iditem' => $request->kode[$i],
-                  'sg_qty' => $request->qty[$i],
-                  'sg_harga' => (double)$request->total[$i],
-                  'sg_insert' => Carbon::now('Asia/Jakarta')
-                ]);
-
-            } else {
-              DB::table('i_stock_gudang')
-                ->where('sg_iditem', $data[0]->sg_iditem)
-                ->update([
-                  'sg_qty' => $request->qty[$i] + $data[0]->sg_qty,
-                  'sg_harga' => $request->qty[$i] * (double)$request->price[$i],
-                  'sg_update' => Carbon::now('Asia/Jakarta')
-                ]);
             }
 
           }
