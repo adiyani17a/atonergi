@@ -307,7 +307,7 @@ class OrderController extends Controller
     public function cekbarang()
     {
       $data = DB::table('i_stock_gudang')
-                ->join('m_item', 'i_code', '=', 'sg_iditem')
+                ->leftjoin('m_item', 'i_code', '=', 'sg_iditem')
                 ->select('sg_iditem', 'i_name', 'sg_qty', DB::raw('sg_qty as sum'), DB::raw('sg_qty as deficieny'))
                 ->get();
 
@@ -327,7 +327,7 @@ class OrderController extends Controller
       $id = decrypt($id);
 
       $data = DB::table('d_quotation_dt')
-                  ->join('m_item', 'i_code', '=', 'qd_item')
+                  ->join('m_item', 'i_code', '=', 'qd_item')                  
                   ->where('qd_item', $id)
                   ->get();
 
