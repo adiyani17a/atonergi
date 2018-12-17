@@ -14,7 +14,7 @@
   <script src="{{asset('assets/js/jquery-clockpicker.min.js')}}" tppabs="http://www.bootstrapdash.com/demo/purple/bower_components/clockpicker/dist/jquery-clockpicker.min.js"></script>
   <script src="{{asset('assets/node_modules/popper.js/dist/umd/popper.min.js')}}"></script>
   <script src="{{asset('assets/node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-  <script src="{{asset('assets/node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js')}}"></script>
+  {{-- <script src="{{asset('assets/node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js')}}"></script> --}}
   <script src="{{asset('assets/node_modules/select2/dist/js/select2.min.js')}}"></script>
   <script src="{{asset('assets/node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
   <script src="{{asset('assets/node_modules/jquery-toast-plugin/dist/jquery.toast.min.js')}}"></script>
